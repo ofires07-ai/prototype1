@@ -15,12 +15,16 @@ public class PickUnit : MonoBehaviour
     private bool isMoving = true;
     private Vector3 _targetPosition;
     private Coroutine miningCoroutine;
+    private Animator animator;
+    private Rigidbody2D rb;
 
     void Start()
     {
         _targetPosition = transform.position;
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
-
+    
     void Update()
     {
         HandleRightClick();
@@ -28,6 +32,8 @@ public class PickUnit : MonoBehaviour
         {
             MoveToTarget();
         }
+        
+        animator.SetBool("isMoving", isMoving);
     }
 
     void HandleRightClick()
