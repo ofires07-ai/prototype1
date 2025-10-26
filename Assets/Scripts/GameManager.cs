@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro; // UI 연결을 위해 필요
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
@@ -16,7 +17,9 @@ public class GameManager : MonoBehaviour
     [Header("Unity UI 연결")]
     public TextMeshProUGUI hpText; 
     public TextMeshProUGUI resourceText;
-
+    public Slider baseHPSlider;
+    
+    
     // 4. 시스템 참조 (다른 매니저들과의 연결)
     [HideInInspector] public List<Enemy> activeEnemies = new List<Enemy>(); 
     public SpawnManager spawnManager; 
@@ -91,6 +94,13 @@ public class GameManager : MonoBehaviour
         if (hpText != null)
         {
             hpText.text = "HP : " + _currentBaseHealth + " / " + maxBaseHealth;
+        }
+        if (baseHPSlider != null)
+        {
+            // 슬라이더의 최대값을 기지 최대 HP로 설정
+            baseHPSlider.maxValue = maxBaseHealth;
+            // 슬라이더의 현재 값을 현재 HP로 설정 (그래픽이 채워지는 부분)
+            baseHPSlider.value = _currentBaseHealth; 
         }
     }
 }
