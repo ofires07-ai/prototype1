@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public int resourceTier2 = 50;
     public int resourceTier3 = 50;
     public int resourceTier4 = 50;
+    public int resourceTier5 = 10; // T5 (특수 자원) 추가
 
     // 3. UI 연결 (기존 필드 유지)
     [Header("Unity UI 연결")]
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI resource2Text; 
     public TextMeshProUGUI resource3Text; 
     public TextMeshProUGUI resource4Text; 
+    public TextMeshProUGUI resource5Text; 
     
     // 4. 게임 상태 정의
     public enum GameState
@@ -236,6 +238,7 @@ public class GameManager : MonoBehaviour
             case 2: resourceTier2 += amount; break;
             case 3: resourceTier3 += amount; break;
             case 4: resourceTier4 += amount; break;
+            case 5: resourceTier5 += amount; break; // T5 자원 획득 로직 추가
             default: Debug.LogWarning("잘못된 자원 등급(" + tier + ")입니다."); break;
         }
         UpdateResourceUI();
@@ -245,7 +248,8 @@ public class GameManager : MonoBehaviour
     {
         // 1. 자원 부족 검사
         if (resourceTier1 < costs[0] || resourceTier2 < costs[1] || 
-            resourceTier3 < costs[2] || resourceTier4 < costs[3])
+            resourceTier3 < costs[2] || resourceTier4 < costs[3] ||
+            resourceTier5 < costs[4])
         {
             Debug.Log("자원이 부족하여 유닛을 생성할 수 없습니다.");
             return false;
@@ -256,6 +260,7 @@ public class GameManager : MonoBehaviour
         resourceTier2 -= costs[1];
         resourceTier3 -= costs[2];
         resourceTier4 -= costs[3];
+        resourceTier5 -= costs[4]; // T5 자원 소모 추가
         
         UpdateResourceUI();
         return true;
@@ -282,6 +287,7 @@ public class GameManager : MonoBehaviour
         if (resource2Text != null) resource2Text.text = "X " + resourceTier2;
         if (resource3Text != null) resource3Text.text = "X " + resourceTier3;
         if (resource4Text != null) resource4Text.text = "X " + resourceTier4;
+        if (resource5Text != null) resource5Text.text = "X " + resourceTier5; // T5 UI 업데이트 추가
     }
 
     private void UpdateHPUI()
