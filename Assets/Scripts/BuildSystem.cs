@@ -8,12 +8,16 @@ public class BuildSystem : MonoBehaviour
     public class UnitData
     {
         public GameObject prefab;
-        public int cost;
-        public string unitType; // "타워", "생산", "공격" 등
+        
+        // Gold cost 대신 4가지 자원 비용 배열을 사용합니다.
+        [Tooltip("Resource Costs: [T1, T2, T3, T4]")]
+        public int[] costs = new int[4]; 
+        
+        public string unitType; // "TOWER", "SOLDIER" 등
     }
 
     [Header("소환 지점")]
-    // TODO: 인스펙터에서 플레이어 유닛이 생성될 오브젝트를 여기에 연결해주세요.
+    // 인스펙터에서 플레이어 유닛이 생성될 오브젝트를 여기에 연결해주세요.
     public Transform playerSpawnPoint; 
     
     [Header("구매 가능 유닛 목록")]
@@ -21,7 +25,9 @@ public class BuildSystem : MonoBehaviour
 
     // 현재 플레이어가 선택한 유닛 프리팹 (배치 준비 상태)
     private GameObject _unitToBuild; 
-    private int _unitCost;
+    
+    // 4가지 자원 비용을 저장할 배열
+    private int[] _unitCosts = new int[4]; 
 
     private string _selectedUnitType;
     
@@ -31,33 +37,31 @@ public class BuildSystem : MonoBehaviour
         if (unitIndex >= 0 && unitIndex < availableUnits.Length)
         {
             _unitToBuild = availableUnits[unitIndex].prefab;
-            _unitCost = availableUnits[unitIndex].cost;
+            // 비용 배열을 저장합니다.
+            _unitCosts = availableUnits[unitIndex].costs;
         
-            // 💡 1. 여기서 타입을 저장해야 합니다! (수정 필요)
             _selectedUnitType = availableUnits[unitIndex].unitType; 
         
-            Debug.Log(_unitToBuild.name + " 선택됨. 타입: " + _selectedUnitType);
+            Debug.Log(_unitToBuild.name + " selected. Type: " + _selectedUnitType);
 
             // TODO: 커서에 유닛 미리보기 이미지/프리팹을 보여주는 시각적 피드백 구현 (배치형 유닛만)
         }
     
-        // 💡 2. 타입이 저장된 후, 소환형 유닛인지 확인 (로직 위치 수정)
+        // 소환형 유닛("SOLDIER")은 즉시 소환 지점에 생성 시도
         if (_selectedUnitType == "SOLDIER")
         {
-            // 소환형 유닛이므로 즉시 소환 지점에 생성
             TrySpawnUnit(playerSpawnPoint.position);
             _unitToBuild = null;
             _selectedUnitType = null;
         } 
-        // TOWER 타입은 여기서 함수가 종료되고, Update()에서 마우스 클릭을 기다리게 됩니다.
+        // TOWER 타입은 Update()에서 마우스 클릭을 기다립니다.
     }
 
 
     // --- 맵 클릭 처리 (타워/생산 유닛 배치) ---
     void Update()
     {
-        // 💡 배치형 유닛("TOWER")만 마우스 클릭을 대기해야 합니다.
-        // 소환형 유닛("SOLDIER")은 SelectUnitToBuild 함수에서 즉시 생성됩니다.
+        // 배치형 유닛("TOWER")만 마우스 클릭을 대기해야 합니다.
         if (Input.GetMouseButtonDown(0) && _unitToBuild != null && _selectedUnitType == "TOWER")
         {
             // 1. Raycast를 쏴서 맵 클릭 지점을 가져옵니다.
@@ -68,13 +72,12 @@ public class BuildSystem : MonoBehaviour
             {
                 Vector3 positionToBuild = hit.point;
             
-                // 💡 2. 그리드 정렬 로직 (보완)
-                // 맵의 격자(Grid)에 정확히 맞도록 좌표를 정수(Integer) 단위로 처리합니다.
+                // 2. 그리드 정렬 로직
                 positionToBuild.x = Mathf.Round(positionToBuild.x);
-                positionToBuild.y = Mathf.Round(positionToBuild.y);
-                // Z축은 그대로 둡니다.
+                // Y축은 그대로 둡니다.
+                positionToBuild.z = Mathf.Round(positionToBuild.z); 
 
-                // 3. 해당 위치에 배치가 가능한지 확인 (길 위인지, 이미 타워가 있는지 등)
+                // 3. 해당 위치에 배치가 가능한지 확인 
                 if (IsPlacementValid(positionToBuild))
                 {
                     // 4. 통합된 생성 함수 호출 (내부에서 자원 체크 및 생성 처리)
@@ -87,7 +90,7 @@ public class BuildSystem : MonoBehaviour
                 else
                 {
                     // TODO: 배치 불가능 시 플레이어에게 시각적/청각적 피드백 제공
-                    Debug.Log("이 위치(" + positionToBuild + ")에는 배치할 수 없습니다.");
+                    Debug.Log("Placement is invalid at this position (" + positionToBuild + ").");
                 }
             }
         }
@@ -104,16 +107,10 @@ public class BuildSystem : MonoBehaviour
 
         foreach (var hitCollider in hitColliders)
         {
-            // "Path" 태그를 가진 콜라이더가 발견되면 배치 불가능
-            if (hitCollider.CompareTag("Path"))
+            // "Path" 태그나 "Tower" 태그가 발견되면 배치 불가능
+            if (hitCollider.CompareTag("Path") || hitCollider.CompareTag("Tower"))
             {
-                return false; // 배치 불가능
-            }
-        
-            // "Tower" 태그를 가진 콜라이더가 발견되면 (이미 타워가 있다면) 배치 불가능
-            if (hitCollider.CompareTag("Tower"))
-            {
-                return false; // 배치 불가능
+                return false; 
             }
         }
         
@@ -122,11 +119,14 @@ public class BuildSystem : MonoBehaviour
     
     private void TrySpawnUnit(Vector3 position)
     {
-        if (GameManager.Instance.TrySpendGold(_unitCost))
+        // 복합 자원 소모 시도 (GameManager의 새로운 함수 호출)
+        // 기존의 TrySpendGold 대신 TrySpendMultipleResources를 사용합니다.
+        if (GameManager.Instance.TrySpendMultipleResources(_unitCosts))
         {
             Instantiate(_unitToBuild, position, Quaternion.identity);
-            Debug.Log("유닛 생성 완료: " + _unitToBuild.name);
+            Debug.Log("Unit spawned successfully: " + _unitToBuild.name);
         }
+        // 자원 부족 시 GameManager 내부에서 Debug.Log 메시지를 출력합니다.
     }
     
 }

@@ -1,141 +1,177 @@
 using UnityEngine;
-using System.Collections;
-using TMPro;
+using System.Collections.Generic;
+using System.Linq; // Dictionary의 Key를 사용하기 위해 추가
+
+// Wave 클래스: 각 웨이브의 구성 정보를 담습니다.
+[System.Serializable]
+public class Wave
+{
+    public string waveName = "Wave 1";
+    public List<EnemySpawn> enemySpawns = new List<EnemySpawn>();
+    [HideInInspector] public int totalMonsterCount; // 이 웨이브의 총 몬스터 수
+}
+
+// EnemySpawn 클래스: 웨이브 내에서 스폰될 특정 몬스터의 타입 및 수량을 정의합니다.
+[System.Serializable]
+public class EnemySpawn
+{
+    public string enemyID; // GameManager에서 카운트를 추적하는 고유 ID (예: "Boss", "Normal")
+    public GameObject enemyPrefab; // 스폰할 몬스터 프리팹
+    public int count; // 스폰할 개수
+    public float spawnInterval = 1.0f; // 몬스터가 스폰될 간격
+    public Sprite uiIcon; // GameManager의 몬스터 카운트 UI에 표시할 아이콘
+}
 
 public class SpawnManager : MonoBehaviour
 {
-    // --- 웨이브 상태를 정의하는 Enum ---
-    public enum WaveState
+    public static SpawnManager Instance;
+
+    [Header("Wave 설정")]
+    public List<Wave> waves = new List<Wave>();
+    public Transform[] spawnPoints; // 몬스터가 스폰될 위치 배열 (Inspector에서 연결)
+
+    // 현재 웨이브 진행 상태 추적
+    private Wave _currentWave;
+    private int _currentWaveIndex = -1;
+    private Dictionary<string, int> _remainingMonsterCounts = new Dictionary<string, int>();
+
+    private float _spawnTimer = 0f;
+    private int _spawnedCountInCurrentWave = 0;
+    private bool _isSpawning = false;
+    private int _currentEnemySpawnIndex = 0; // 현재 스폰 중인 몬스터 타입의 인덱스
+
+    void Awake()
     {
-        BUILD_PHASE,    // 건설 단계 (2분 카운트다운)
-        WARNING_PHASE,  // 경고 단계 (짧은 카운트다운)
-        FIGHT_PHASE     // 전투 단계 (적 스폰 및 웨이브 진행)
+        if (Instance == null)
+        {
+            Instance = this;
+            // 모든 웨이브의 총 몬스터 수를 미리 계산
+            CalculateTotalMonsterCounts();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // 웨이브 데이터를 Scriptable Object로 만들어 여기에 연결합니다.
-    [Header("웨이브 설정")]
-    public WaveData currentWaveData; // Scriptable Object로 정의될 데이터
-    public Transform spawnPoint; // 적이 생성될 시작 지점
-    
-    // TODO: 인스펙터에서 UI Text 컴포넌트를 여기에 연결하세요.
-    public TextMeshProUGUI timerText; // 타이머 UI 연결
-
-    // 상태 관리 변수
-    private WaveState _currentState = WaveState.BUILD_PHASE;
-    private float _waveTimer = 120f; // 초기 건설 시간 2분 (120초)
-    private readonly float _warningTime = 10f; // Warning 단계 시간 (10초)
-    private bool _isGameRunning = true; // 게임 실행 상태 관리
-
-    // 스폰 및 전투 관련 변수
-    private int _enemiesRemainingToSpawn;
-    private float _timeBetweenSpawns;
-    private Coroutine _spawnCoroutine;
-
-    void Start()
+    private void CalculateTotalMonsterCounts()
     {
-        // 첫 시작을 건설 단계로 설정
-        _currentState = WaveState.BUILD_PHASE;
-        _waveTimer = 120f; 
-        
-        // GameManager에서 이 스크립트의 참조를 설정해야 함 (이미 하셨을 것으로 가정)
+        foreach (var wave in waves)
+        {
+            wave.totalMonsterCount = wave.enemySpawns.Sum(e => e.count);
+        }
     }
 
     void Update()
     {
-        if (!_isGameRunning) return; 
-
-        switch (_currentState)
+        if (_isSpawning)
         {
-            case WaveState.BUILD_PHASE:
-                // 1. 타이머 감소
-                _waveTimer -= Time.deltaTime;
-                
-                // 2. UI 업데이트
-                int minutes = Mathf.FloorToInt(_waveTimer / 60F);
-                int seconds = Mathf.FloorToInt(_waveTimer % 60F);
-                timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            // 현재 스폰할 몬스터 타입이 남아 있는지 확인
+            if (_currentEnemySpawnIndex >= _currentWave.enemySpawns.Count)
+            {
+                // 현재 웨이브의 모든 타입 스폰이 완료됨
+                _isSpawning = false;
+                return;
+            }
 
-                // 3. 시간 종료 시 상태 전환
-                if (_waveTimer <= 0)
+            EnemySpawn currentSpawnConfig = _currentWave.enemySpawns[_currentEnemySpawnIndex];
+
+            _spawnTimer -= Time.deltaTime;
+
+            if (_spawnTimer <= 0)
+            {
+                // 현재 타입의 몬스터를 모두 스폰했는지 확인
+                if (currentSpawnConfig.count > 0)
                 {
-                    _currentState = WaveState.WARNING_PHASE;
-                    _waveTimer = _warningTime; // 경고 타이머 시간 설정
-                    timerText.text = "WARNING"; // UI 텍스트 전환
-                }
-                break;
-
-            case WaveState.WARNING_PHASE:
-                _waveTimer -= Time.deltaTime;
-                
-                // 텍스트는 "WARNING"으로 유지
-
-                if (_waveTimer <= 0)
-                {
-                    // 전투 단계로 전환 및 웨이브 시작
-                    _currentState = WaveState.FIGHT_PHASE;
-                    timerText.text = "전투 시작"; 
+                    // 몬스터 스폰
+                    SpawnEnemy(currentSpawnConfig.enemyPrefab, currentSpawnConfig.enemyID);
                     
-                    // 실제 웨이브 시작 함수 호출
-                    StartWave(); 
+                    currentSpawnConfig.count--; // 스폰 카운트 감소
+                    _spawnedCountInCurrentWave++;
+                    
+                    // 다음 스폰까지의 대기 시간 설정
+                    _spawnTimer = currentSpawnConfig.spawnInterval;
                 }
-                break;
-
-            case WaveState.FIGHT_PHASE:
-                // 몬스터가 모두 죽을 때까지 "전투 시작" 상태를 유지하거나,
-                // 필요하다면 "전투 중" 텍스트로 전환할 수 있습니다.
-                // timerText.text = "전투 중";
-                break;
+                else
+                {
+                    // 현재 타입 스폰 완료 -> 다음 타입으로 이동
+                    _currentEnemySpawnIndex++;
+                    _spawnTimer = 0f; // 즉시 다음 타입 스폰을 시작하도록 타이머 초기화
+                }
+            }
         }
-    }
-
-    public void StartWave()
-    {
-        // TODO: 실제로는 Scriptable Object에서 로드
-        _enemiesRemainingToSpawn = 10; 
-        _timeBetweenSpawns = 1.0f;
-
-        if (_spawnCoroutine != null)
-        {
-            StopCoroutine(_spawnCoroutine);
-        }
-        _spawnCoroutine = StartCoroutine(SpawnEnemiesRoutine());
-    }
-
-    IEnumerator SpawnEnemiesRoutine()
-    {
-        // TODO: GameManager 상태를 'Playing'으로 변경하는 로직 추가
-
-        while (_enemiesRemainingToSpawn > 0)
-        {
-            SpawnEnemy();
-            _enemiesRemainingToSpawn--;
-            yield return new WaitForSeconds(_timeBetweenSpawns);
-        }
-        // 이 시점에서 스폰은 끝났지만, 모든 적이 죽을 때까지 기다려야 합니다.
-    }
-
-    void SpawnEnemy()
-    {
-        // **팀원이 구현할 Enemy 프리팹을 인스턴스화하는 부분입니다.**
-        // GameObject newEnemy = Instantiate(currentWaveData.enemyPrefab, spawnPoint.position, Quaternion.identity);
-        // newEnemy.GetComponent<Enemy>().Initialize(/* ...필요한 데이터... */); 
-        Debug.Log("적 스폰 요청됨. (프리팹 연결 필요)");
-    }
-
-    public void EnemyDied(Enemy enemy)
-    {
-        // 적이 죽었을 때 GameManager의 activeEnemies 목록에서 제거하고 웨이브 종료 체크
-        GameManager.Instance.activeEnemies.Remove(enemy);
         
-        // 스폰이 완료되었고, 맵에 남은 적이 0마리일 때 웨이브 종료
-        if (_enemiesRemainingToSpawn <= 0 && GameManager.Instance.activeEnemies.Count == 0)
+        // 웨이브 종료 조건 검사 (모든 몬스터가 스폰되었고, 남은 몬스터가 0일 때)
+        if (!_isSpawning && _spawnedCountInCurrentWave >= _currentWave.totalMonsterCount && _remainingMonsterCounts.Values.All(count => count <= 0))
         {
-            // TODO: 웨이브 종료 보상 지급 및 다음 건설 단계(BUILD_PHASE)로 전환하는 로직 호출
-            Debug.Log("웨이브 완료!");
+            // 웨이브 클리어
+            GameManager.Instance.OnWaveCleared();
+        }
+    }
+
+    // --- GameManager가 호출하는 메인 시작 함수 ---
+    public void StartWave(int waveIndex)
+    {
+        if (waveIndex >= waves.Count)
+        {
+            GameManager.Instance.UpdateWaveStatus("Game Won!");
+            return;
+        }
+
+        _currentWave = waves[waveIndex];
+        _currentWaveIndex = waveIndex;
+        _currentEnemySpawnIndex = 0;
+        _spawnedCountInCurrentWave = 0;
+        _isSpawning = true;
+        _spawnTimer = 0f; // 즉시 스폰 시작
+
+        // 1. UI 상태 업데이트
+        GameManager.Instance.UpdateWaveStatus(_currentWave.waveName);
+        GameManager.Instance.UpdateMonsterTypesUI(_currentWave.enemySpawns);
+
+        // 2. 남은 몬스터 수 초기화 (딕셔너리 생성)
+        _remainingMonsterCounts.Clear();
+        foreach (var spawn in _currentWave.enemySpawns)
+        {
+            _remainingMonsterCounts.Add(spawn.enemyID, spawn.count);
+        }
+    }
+
+
+    // --- 몬스터 스폰 로직 ---
+    private void SpawnEnemy(GameObject enemyPrefab, string enemyID)
+    {
+        if (spawnPoints.Length == 0)
+        {
+            Debug.LogError("Spawn Points not set in Spawn Manager!");
+            return;
+        }
+
+        // 1. 랜덤 스폰 지점 선택
+        Transform randomPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+
+        // 2. 몬스터 생성
+        GameObject enemyObject = Instantiate(enemyPrefab, randomPoint.position, randomPoint.rotation);
+
+        // 3. 몬스터 스크립트에 타입 ID 할당 (가장 중요한 부분: Enemy_Y로 타입 변경!)
+        Enemy_Y enemyScript = enemyObject.GetComponent<Enemy_Y>();
+        if (enemyScript != null)
+        {
+            enemyScript.enemyID = enemyID;
+        }
+    }
+
+    // --- 몬스터 사망 시 호출 (Enemy_Y 스크립트에서 호출됨) ---
+    public void OnMonsterDied(string enemyID)
+    {
+        if (_remainingMonsterCounts.ContainsKey(enemyID))
+        {
+            _remainingMonsterCounts[enemyID]--;
+
+            // 1. GameManager UI 업데이트
+            GameManager.Instance.UpdateSingleMonsterCount(enemyID, _remainingMonsterCounts[enemyID]);
             
-            // 다음 건설 단계로 전환 예시:
-            // _currentState = WaveState.BUILD_PHASE;
-            // _waveTimer = 120f;
+            // 2. 웨이브 종료 검사는 Update()에서 처리
         }
     }
 }
