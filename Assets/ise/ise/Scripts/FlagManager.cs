@@ -24,8 +24,13 @@ public class FlagManager : MonoBehaviour
     // [인스펙터 연결 필요] (유니티 에디터에서 끌어다 넣어야 함)
     [Header("프리팹")]
     // 씬(Scene)에 '복제'해서 생성할 깃발의 '원본' 프리팹입니다.
-    public GameObject flagPrefab; 
+    public GameObject flagPrefab;
 
+    // ✨ [1. 변수 추가] ✨
+    // 생성된 스폰 깃발의 Transform을 저장할 공용 변수입니다.
+    [Header("현재 상태 (외부 참조용)")]
+    public Transform currentSpawnFlag;
+    
     // [인스펙터 연결 필요] (유니티 에디터에서 끌어다 넣어야 함)
     [Header("기존 오브젝트")]
     // 깃발을 설치할 수 있는 범위를 시각적으로 보여주는 '동그란 원' 스프라이트 오브젝트입니다.
@@ -170,6 +175,11 @@ public class FlagManager : MonoBehaviour
         var sr = newFlag.GetComponent<SpriteRenderer>();
         if (sr != null) sr.color = Color.white;
 
+        // ✨ [2. 핵심 코드 추가] ✨
+        // 생성된 깃발의 Transform을 공용 변수(currentSpawnFlag)에 저장합니다.
+        // 이제 다른 모든 스크립트가 FlagManager.Instance.currentSpawnFlag로 깃발에 접근할 수 있습니다.
+        currentSpawnFlag = newFlag.transform;
+        
         // --- [핵심 로직] 깃발에 클릭 핸들러(담당자) 붙이기 ---
         
         // 4. 방금 생성한 '진짜 깃발(newFlag)'에
