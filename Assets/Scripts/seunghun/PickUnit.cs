@@ -87,8 +87,36 @@ public class PickUnit : MonoBehaviour
                 break;
         }
         
+        HandleSpriteFlip();
         // [수정] 애니메이션을 AIPath 속도 기반으로 업데이트
         UpdateAnimation();
+    }
+    
+    private void HandleSpriteFlip()
+    {
+        // AIPath의 수평 속도를 가져옵니다.
+        float horizontalVelocity = aiPath.velocity.x;
+
+        // 0.1f보다 작으면 (거의 멈췄으면) 방향을 바꾸지 않습니다 (깜빡임 방지).
+        if (Mathf.Abs(horizontalVelocity) > 0.1f)
+        {
+            // 현재 스케일 값을 가져옵니다.
+            Vector3 newScale = transform.localScale;
+
+            if (horizontalVelocity > 0.1f)
+            {
+                // 오른쪽으로 이동: X 스케일을 1로 (양수)
+                newScale.x = 1f;
+            }
+            else if (horizontalVelocity < -0.1f)
+            {
+                // 왼쪽으로 이동: X 스케일을 -1로 (음수)
+                newScale.x = -1f;
+            }
+
+            // 변경된 스케일 값을 적용합니다.
+            transform.localScale = newScale;
+        }
     }
     
     // [새로 추가] 애니메이션을 실제 이동 상태에 따라 업데이트
