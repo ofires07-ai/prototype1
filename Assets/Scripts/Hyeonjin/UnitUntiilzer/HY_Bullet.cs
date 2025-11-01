@@ -3,6 +3,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public GameObject firePrefab;
+    public float rotationSpeed = 10f;  // 회전 속도
+
+    void Update()
+    {
+        // 2D 게임에서 Z축을 기준으로 회전
+        transform.Rotate(0, 0, rotationSpeed * Time.deltaTime * 360f);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,5 +23,11 @@ public class Bullet : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
+    }
+
+    void OnBecameInvisible()
+    {
+        // 화면 밖으로 나가면 총알 제거
+        Destroy(gameObject);
     }
 }
