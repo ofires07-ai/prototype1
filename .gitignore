@@ -98,3 +98,11 @@ InitTestScene*.unity*
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 .DS_Store
+
+Astar Pathfinding Project
+
+Assets/AstarPathfindingProject/
+
+Optional: 라이브러리 파일도 제외할 수 있습니다.
+
+Assets/ExternalAssets/AstarPathfindingProject/

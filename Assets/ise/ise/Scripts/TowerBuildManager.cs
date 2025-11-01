@@ -133,12 +133,12 @@ public class TowerBuildManager : MonoBehaviour
             if (canBuildHere)
                 // 설치 가능: 불투명 (흰색)
                 sr.color = new Color(1f, 1f, 1f, 1f);
-            
+
             // (2) 'Buildable' 위에는 있지만(onBuildableArea=true), '타워가 이미 있어서' 불가능
             else if (onBuildableArea) // (이 경우, hasTower가 true라는 의미)
                 // 설치 영역이지만 불가: 붉은 반투명 (경고색)
                 sr.color = new Color(1f, 0.5f, 0.5f, 0.4f);
-            
+
             // (3) 'Buildable' 영역이 아예 아님 (onBuildableArea=false)
             else
                 // 설치 불가 영역: 기본 반투명 (회색빛)
@@ -159,7 +159,7 @@ public class TowerBuildManager : MonoBehaviour
             {
                 // (만약 true라면, 즉 UI 위에 있다면)
                 // 타워를 건설하지 않고 즉시 종료합니다. (땅을 클릭한 게 아니라 UI를 클릭한 것이므로)
-                return; 
+                return;
             }
 
             // 위 모든 조건을 통과했으면, 실제 타워 건설 함수 호출!
@@ -194,7 +194,7 @@ public class TowerBuildManager : MonoBehaviour
             Debug.LogWarning("[TowerBuildManager] 이미 건설 중(isBuilding=true)이라서 무시합니다.");
             return;
         }
-        if(prefab == null)
+        if (prefab == null)
         {
             Debug.LogWarning("[TowerBuildManager] 프리팹이 null이라서 무시합니다.");
             return;
@@ -206,7 +206,7 @@ public class TowerBuildManager : MonoBehaviour
 
         // 4. '고스트' 타워(미리보기)를 생성합니다.
         towerGhost = Instantiate(towerPrefab);
-        
+
         // 5. 고스트 타워의 초기 색상을 반투명하게 설정합니다.
         var sr = towerGhost.GetComponent<SpriteRenderer>();
         if (sr != null) sr.color = new Color(1f, 1f, 1f, 0.5f);
@@ -237,28 +237,44 @@ public class TowerBuildManager : MonoBehaviour
     /// <param name="position">설치할 위치 (마우스 클릭 위치)</param>
     private void BuildTower(Vector3 position)
     {
-        // 1. '진짜' 타워 오브젝트를 'towerPrefab' 원본을 바탕으로
-        //    클릭한 'position' 위치에 생성합니다.
-        GameObject newTower = Instantiate(towerPrefab, position, Quaternion.identity);
+        // ✨ [수정 시작] ✨
+        // try...finally 구문을 사용하여,
+        // 4번(onBuildComplete)에서 오류가 발생하더라도
+        // 5번(ExitBuildMode)이 '반드시' 실행되도록 보장합니다.
+        try
+        {
+            // 1. '진짜' 타워 오브젝트를 'towerPrefab' 원본을 바탕으로
+            //   클릭한 'position' 위치에 생성합니다.
+            GameObject newTower = Instantiate(towerPrefab, position, Quaternion.identity);
 
-        // 2. [중요] 생성된 '진짜' 타워의 레이어를 'Tower'로 설정합니다.
-        //    (이 코드가 없으면, 방금 지은 타워 위에 또 타워를 지을 수 있게 됩니다!)
-        newTower.layer = LayerMask.NameToLayer("Tower");
+            // 2. [중요] 생성된 '진짜' 타워의 레이어를 'Tower'로 설정합니다.
+            //    (이 코드가 없으면, 방금 지은 타워 위에 또 타워를 지을 수 있게 됩니다!)
+            newTower.layer = LayerMask.NameToLayer("Tower");
 
-        // 3. [중요] 타워가 반투명하게 생성되는 것을 방지합니다.
-        //    (고스트는 반투명했지만, '진짜' 타워는 불투명해야 함)
-        //    '진짜' 타워의 색상을 '완전한 불투명'(흰색)으로 강제 리셋합니다.
-        var sr = newTower.GetComponent<SpriteRenderer>();
-        if (sr != null) sr.color = Color.white;
+            // 3. [중요] 타워가 반투명하게 생성되는 것을 방지합니다.
+            //    (고스트는 반투명했지만, '진짜' 타워는 불투명해야 함)
+            //    '진짜' 타워의 색상을 '완전한 불투명'(흰색)으로 강제 리셋합니다.
+            var sr = newTower.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.color = Color.white;
 
-        Debug.Log($"[TowerBuildManager] {newTower.name} 건설 완료! 위치: {position}");
+            Debug.Log($"[TowerBuildManager] {newTower.name} built at {position}");
 
-        // 4. [핵심] EnterBuildMode에서 저장해뒀던 '예약 함수(onBuildComplete)'를 실행합니다.
-        //    (만약 onBuildComplete가 null이 아니면(?.) -> Invoke(실행)해라)
-        //    (만약 스폰 타워였다면, 이 순간 FlagManager의 StartFlagPlacement가 호출됩니다)
-        onBuildComplete?.Invoke(position); // (position: 깃발 매니저에게 타워 위치를 알려주기 위함)
-
-        // 5. 건설이 완료되었으므로, 건설 모드를 종료(뒷정리)합니다.
-        ExitBuildMode();
+            // 4. [핵심] EnterBuildMode에서 저장해뒀던 '예약 함수(onBuildComplete)'를 실행합니다.
+            //    (만약 onBuildComplete가 null이 아니면(?.) -> Invoke(실행)해라)
+            //    (만약 스폰 타워였다면, 이 순간 FlagManager의 StartFlagPlacement가 호출됩니다)
+            onBuildComplete?.Invoke(position); // (position: 깃발 매니저에게 타워 위치를 알려주기 위함)
+        }
+        catch (System.Exception ex)
+        {
+            // 4-1. (선택 사항) 콜백에서 오류가 발생했음을 로그로 남깁니다.
+            Debug.LogError($"[TowerBuildManager] onBuildComplete 콜백 실행 중 오류 발생: {ex.Message}");
+        }
+        finally
+        {
+            // 5. 건설이 완료되었으므로, 건설 모드를 종료(뒷정리)합니다.
+            ExitBuildMode();
+        }
+        
     }
 }
+   

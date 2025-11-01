@@ -86,13 +86,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -163822004, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -3748109714909747094, guid: f17a66f500b5a69478637fee08f5b85f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.11, y: 1.57}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -204,7 +204,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   walkParameterName: isWalking
   idleParameterName: isIdle
-  scanner: {fileID: 0}
+  scanner: {fileID: 2624876932380424909}
 --- !u!114 &8012085637815812056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,7 +290,7 @@ MonoBehaviour:
   scanRage: 10
   targetLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   nearestTarget: {fileID: 0}
 --- !u!114 &-7166788701959011018
 MonoBehaviour:
@@ -333,7 +333,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destination: {fileID: 0}
   bulletObj: {fileID: 8247499230207821644, guid: 3e6bf7393fb9bc34d9688b8da983bed7, type: 3}
+  meleeAttackObj: {fileID: 0}
+  isMeleeAttacker: 0
   fireCooldown: 0.5
+  meleeAttackRange: 1.5
 --- !u!1 &8246431875696926894
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +421,6 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 1.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
