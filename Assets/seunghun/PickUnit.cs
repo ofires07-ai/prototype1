@@ -75,14 +75,12 @@ public class PickUnit : MonoBehaviour
                 break;
 
             case UnitState.Mining:
-                // 현재 유닛과 타겟 광물 사이의 실제 거리를 계산합니다.
                 float distanceToTarget = Vector3.Distance(transform.position, targetSource.transform.position);
 
-                // [핵심] '도착 판정 거리' (1.0)보다 멀어지면 채굴 중지
-                // (살짝 밀리는 건 괜찮도록 1.5배 정도의 여유 버퍼를 줍니다)
-                if (distanceToTarget > aiPath.endReachedDistance * 1.5f) 
+                if (distanceToTarget > aiPath.endReachedDistance * 1.5f || !targetSource.CanStartMining())
                 {
-                    Debug.Log("광물에서 너무 멀어져 채굴을 중지합니다!");
+                    // (선택) 통합된 로그 메시지
+                    Debug.Log("조건 미달(거리 이탈 또는 부모 중지)로 채굴을 중지합니다.");
                     StopMining();
                     currentState = UnitState.Idle; // 대기 상태로 전환
                 }
