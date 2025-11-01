@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 6970258084560141748}
   - component: {fileID: 3165397417315474620}
   - component: {fileID: 2495053863041438329}
-  m_Layer: 8
+  - component: {fileID: -3673149374367849200}
+  - component: {fileID: 1118935596361407257}
+  m_Layer: 10
   m_Name: crimerTowr
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -31,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.38, y: 0.05, z: 0}
-  m_LocalScale: {x: 1.9583135, y: 1.9583672, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,13 +81,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: -2092964637, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 8326994182919136177, guid: ce8257eec008a4d0f83a8b51bc8990e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -175,7 +177,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.7, y: 0.9}
+  m_Size: {x: 0.3, y: 0.3}
   m_Direction: 0
 --- !u!114 &2495053863041438329
 MonoBehaviour:
@@ -192,7 +194,46 @@ MonoBehaviour:
   rigid: {fileID: 0}
   anim: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  Target: {fileID: 477581126892082299, guid: 087072ec09915da45bbb102d1a705af5, type: 3}
+  Target: {fileID: 0}
   stoppingDistance: 0.5
   maxHp: 10
   currentHp: 0
+--- !u!114 &-3673149374367849200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253044694582849939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ce1f45c3c9dcc4c9f76bc7dd4be941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scanRage: 0
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  nearestTarget: {fileID: 0}
+--- !u!114 &1118935596361407257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253044694582849939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a798acfa3c5eb4154966423f4d74a8bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 4
+  stoppingDistance: 0.5
+  rotationSpeed: 0
+  autoFindCircles: 1
+  manualWaypoints:
+  - {fileID: 0}
+  animator: {fileID: 0}
+  walkParameterName: isWalking
+  idleParameterName: isIdle
+  scanner: {fileID: 0}

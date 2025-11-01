@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7777052764815961832}
   - component: {fileID: 1164865493043063186}
   - component: {fileID: -699873414924813531}
+  - component: {fileID: -7665973803204838430}
+  - component: {fileID: -7446908085930449243}
   m_Layer: 0
   m_Name: GunTower
   m_TagString: Untagged
@@ -134,3 +136,36 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.76, y: 2.05}
   m_EdgeRadius: 0
+--- !u!114 &-7665973803204838430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886632982214295028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc2b0ab9c44fae40a89ebabd83bc764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletObj: {fileID: 8247499230207821644, guid: 3e6bf7393fb9bc34d9688b8da983bed7, type: 3}
+  fireCooldown: 0.1
+  bulletForce: 100
+  rotationSpeed: 0
+--- !u!114 &-7446908085930449243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886632982214295028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ce1f45c3c9dcc4c9f76bc7dd4be941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scanRage: 10
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  nearestTarget: {fileID: 0}

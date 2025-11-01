@@ -23,9 +23,9 @@ public class HY_Tower : MonoBehaviour
         if (scanner != null && scanner.nearestTarget != null)
         {
             // 적이 감지되면 해당 방향으로 회전
-            Vector2 direction = scanner.nearestTarget.position - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            //Vector2 direction = scanner.nearestTarget.position - transform.position;
+            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
             // 쿨타임 내에만 발사
             if (Time.time - lastFireTime > fireCooldown)
