@@ -201,35 +201,126 @@ public class BuildSystem : MonoBehaviour
     }
 
 
-    // --- UI 버튼 클릭 이벤트에 연결될 함수 ---
+   // --- UI 버튼 클릭 이벤트에 연결될 함수 ---
+    /// <summary>
+    /// [✨ 이 함수 전체를 교체하세요]
+    /// UI 버튼 클릭 시 호출됩니다. 
+    /// TOWER 타입은 TowerBuildManager에게 배치를 위임하고,
+    /// SOLDIER 타입은 즉시 소환합니다.
+    /// </summary>
+    /// <param name="unitIndex">클릭된 버튼에 해당하는 availableUnits의 인덱스</param>
     public void SelectUnitToBuild(int unitIndex)
     {
-        if (unitIndex >= 0 && unitIndex < availableUnits.Length)
+        // 0. 유효성 검사: 인덱스가 배열 범위를 벗어나지 않았는지 확인
+        if (unitIndex < 0 || unitIndex >= availableUnits.Length)
         {
-            _unitToBuild = availableUnits[unitIndex].prefab;
-            
-            // ✅ 배열 크기 5로 변경되었으므로 복사해야 합니다.
-            // 비용 배열 저장 (깊은 복사)
-            _unitCosts = new int[availableUnits[unitIndex].costs.Length];
-            System.Array.Copy(availableUnits[unitIndex].costs, _unitCosts, availableUnits[unitIndex].costs.Length);
-        
-            _selectedUnitType = availableUnits[unitIndex].unitType; 
-        
-            Debug.Log(_unitToBuild.name + " selected. Type: " + _selectedUnitType);
-
-            // TODO: 커서에 유닛 미리보기 이미지/프리팹을 보여주는 시각적 피드백 구현 (배치형 유닛만)
+            Debug.LogError($"[BuildSystem] 잘못된 UnitIndex({unitIndex})가 요청되었습니다.");
+            return;
         }
-    
-        // 소환형 유닛("SOLDIER")은 즉시 소환 지점에 생성 시도
-        if (_selectedUnitType == "SOLDIER")
+
+        // 1. 선택한 유닛의 원본 데이터(ScriptableObject 등)를 가져옵니다.
+        UnitData selectedData = availableUnits[unitIndex];
+        
+        // 2. 이 함수에서 사용할 핵심 정보들을 임시 변수에 저장합니다.
+        //    (콜백 함수가 이 변수들을 '캡처'하여 사용합니다)
+        GameObject prefabToBuild = selectedData.prefab;
+        string unitType = selectedData.unitType;
+        
+        // 3. 비용 배열을 '깊은 복사'하여 저장합니다. (매우 중요)
+        //    (자원 체크는 나중에 '콜백'에서 하므로, 지금 시점의 비용을 '복사본'으로 저장해야 함)
+        int[] costsToSpend = new int[selectedData.costs.Length];
+        System.Array.Copy(selectedData.costs, costsToSpend, selectedData.costs.Length);
+        
+        Debug.Log($"[BuildSystem] {prefabToBuild.name} 선택됨. 타입: {unitType}");
+
+        
+        // 4. 유닛 타입에 따라 분기합니다.
+        
+        // [기존 로직: SOLDIER]
+        // "SOLDIER" 타입은 즉시 소환을 시도합니다.
+        if (unitType == "SOLDIER")
         {
+            // TrySpawnUnit 함수는 _unitToBuild와 _unitCosts 변수를 사용하므로,
+            // 이 변수들에 임시로 값을 할당합니다.
+            _unitToBuild = prefabToBuild;
+            _unitCosts = costsToSpend; 
+            
+            // 소환 시도
             TrySpawnUnit(playerSpawnPoint.position);
+            
+            // 사용 후 즉시 초기화 (다른 로직과 꼬이지 않도록)
+            _unitToBuild = null;
+            _unitCosts = new int[5]; // 배열 초기화
+        } 
+        
+        // [✨ 수정된 연동 로직: TOWER]
+        // "TOWER" 타입은 TowerBuildManager의 건설 모드를 시작시킵니다.
+        // (참고: 스폰 타워의 unitType도 "TOWER"로 설정해야 합니다.)
+        else if (unitType == "TOWER")
+        {
+            // [핵심 1] TowerBuildManager가 건설을 완료했을 때 실행할 '콜백 함수'를 즉석에서(람다식으로) 만듭니다.
+            // 이 콜백 함수는 'buildPosition'을 인자로 받습니다.
+            System.Action<Vector3> onBuildCallback = (buildPosition) =>
+            {
+                // 이 코드는 TowerBuildManager가 '이미' 타워를 씬에 생성한 직후에 호출됩니다.
+                
+                // 1. 자원 소모를 시도합니다. (저장해둔 costsToSpend 사용)
+                if (GameManager.Instance.TrySpendMultipleResources(costsToSpend))
+                {
+                    // 2. [자원 소모 성공]
+                    Debug.Log($"[BuildSystem] {prefabToBuild.name} 건설 완료 및 자원 소모 성공.");
+                    
+                    // 3. [연동] 만약 이 타워가 '스폰 타워'라면 FlagManager를 호출합니다.
+                    //    (여기서는 unitIndex == 0 인 경우를 스폰 타워로 '가정'합니다.)
+                    //    (만약 스폰 타워가 0번이 아니면, 이 '0'을 실제 인덱스로 수정해야 합니다.)
+                    if (unitIndex == 0 && FlagManager.Instance != null) 
+                    {
+                        Debug.Log("[BuildSystem] 스폰 타워로 확인됨. FlagManager 호출.");
+                        FlagManager.Instance.StartFlagPlacement(buildPosition);
+                    }
+                }
+                else
+                {
+                    // 4. [자원 소모 실패] (롤백 처리)
+                    // TowerBuildManager가 이미 타워를 지었으므로, 다시 '파괴'해야 합니다.
+                    Debug.LogWarning($"[BuildSystem] 자원 부족! 방금 생성된 {prefabToBuild.name}을(를) 파괴합니다.");
+                    
+                    // 2D 물리 시스템(TowerBuildManager 기준)으로 방금 생성된 타워를 찾습니다.
+                    // (레이어 마스크를 사용하여 "Tower" 레이어만 검색)
+                    int towerLayerMask = 1 << LayerMask.NameToLayer("Tower");
+                    Collider2D[] hits = Physics2D.OverlapPointAll(buildPosition, towerLayerMask);
+                    
+                    foreach (var hit in hits)
+                    {
+                        // 프리팹 이름이 같은지 확인하여 정확한 타워만 파괴
+                        // (Instantiate하면 이름 뒤에 (Clone)이 붙으므로 StartsWith 사용)
+                        if (hit.gameObject.name.StartsWith(prefabToBuild.name))
+                        {
+                            Destroy(hit.gameObject); // 찾은 타워를 파괴
+                            break;
+                        }
+                    }
+                }
+            }; // --- 콜백 함수 정의 끝 ---
+
+            // [핵심 2] TowerBuildManager의 건설 모드를 시작시킵니다.
+            //    프리팹과 방금 만든 '콜백 함수'를 전달합니다.
+            TowerBuildManager.Instance.EnterBuildMode(prefabToBuild, onBuildCallback);
+
+            // 6. [중요] BuildSystem의 Update()가 이 타워를 다시 배치하지 않도록 
+            //    _unitToBuild를 null로 설정합니다.
+            //    (이미 TowerBuildManager에게 작업을 위임했으므로)
+            _unitToBuild = null; 
+            _selectedUnitType = null;
+        }
+        else
+        {
+            // "SOLDIER"도 "TOWER"도 아닌, 알 수 없는 unitType일 경우
+            Debug.LogWarning($"[BuildSystem] {prefabToBuild.name}의 unitType('{unitType}')을 처리할 수 없습니다.");
             _unitToBuild = null;
             _selectedUnitType = null;
-        } 
-        // TOWER 타입은 Update()에서 마우스 클릭을 기다립니다.
+        }
     }
-
 
     // --- 맵 클릭 처리 (타워/생산 유닛 배치) ---
     void Update()
