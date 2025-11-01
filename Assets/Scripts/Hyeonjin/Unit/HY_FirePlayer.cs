@@ -1,14 +1,14 @@
 using UnityEngine;
 
 // FirePlayer 클래스는 Enemy가 감지되면 플레이어 위치에 불(Fire) 오브젝트를 생성하고, Enemy가 불에 닿으면 사라지게 하는 플레이어 캐릭터입니다.
-public class FirePlayer : MonoBehaviour
+public class HY_FirePlayer : MonoBehaviour
 {
     // Rigidbody2D: 2D 물리 엔진에서 속도, 힘 등을 제어하는 컴포넌트
     Rigidbody2D rigid;
     // Animator: 애니메이션 상태를 제어하는 컴포넌트
     Animator anim;
     // Scanner: 주변 Enemy를 감지하는 사용자 정의 컴포넌트
-    Scanner scanner;
+    HY_Scanner scanner;
 
     // firePrefab: 생성할 Fire(불) 프리팹 오브젝트를 Inspector에서 할당
     public GameObject firePrefab;
@@ -22,7 +22,7 @@ public class FirePlayer : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>(); // Rigidbody2D 컴포넌트 가져오기
         anim = GetComponent<Animator>();      // Animator 컴포넌트 가져오기
-        scanner = GetComponent<Scanner>();    // Scanner 컴포넌트 가져오기
+        scanner = GetComponent<HY_Scanner>();    // Scanner 컴포넌트 가져오기
     }
 
     // FixedUpdate: 물리 연산이 일정한 시간 간격으로 실행됨 (이동, 감지, 발사 등)

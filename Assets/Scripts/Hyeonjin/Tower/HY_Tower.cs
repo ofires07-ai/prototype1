@@ -8,13 +8,13 @@ public class HY_Tower : MonoBehaviour
     public float bulletForce = 10f;        // 총알 발사 힘
     public float rotationSpeed = 10f;      // 총알 회전 속도
 
-    private Scanner scanner;               // 적 감지용 스캐너
+    private HY_Scanner scanner;               // 적 감지용 스캐너
     private float lastFireTime;            // 마지막 발사 시간
     private Animator anim;                 // 애니메이터 컴포넌트
 
     void Awake()
     {
-        scanner = GetComponent<Scanner>();
+        scanner = GetComponent<HY_Scanner>();
         anim = GetComponent<Animator>();
     }
 
@@ -68,10 +68,11 @@ public class HY_Tower : MonoBehaviour
     private void StartBulletRotation(GameObject bullet)
     {
         // Bullet 스크립트가 없다면 추가
-        Bullet bulletComponent = bullet.GetComponent<Bullet>();
+  
+      HY_Bullet bulletComponent = bullet.GetComponent<HY_Bullet>();
         if (bulletComponent == null)
         {
-            bulletComponent = bullet.AddComponent<Bullet>();
+            bulletComponent = bullet.AddComponent<HY_Bullet>();
         }
         
         // 회전 속도 설정

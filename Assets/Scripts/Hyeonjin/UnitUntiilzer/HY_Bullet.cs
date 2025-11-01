@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class HY_Bullet : MonoBehaviour
 {
     public GameObject firePrefab;
     public float rotationSpeed = 10f;  // 회전 속도
+    public int damage = 1; // 총알의 데미지
 
     void Update()
     {
@@ -15,13 +16,18 @@ public class Bullet : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            HY_Enemy enemy = collision.GetComponent<HY_Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+
             // Fire 프리팹 생성 및 y축 -90도 회전
             if (firePrefab != null)
             {
                 GameObject fire = Instantiate(firePrefab, collision.transform.position, Quaternion.Euler(0, -90, 0));
             }
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
+            Destroy(gameObject); // 총알 자신은 파괴
         }
     }
 

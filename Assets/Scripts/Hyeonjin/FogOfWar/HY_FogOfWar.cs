@@ -1,10 +1,9 @@
 using UnityEngine;
-
 /// <summary>
 /// 스타크래프트 스타일의 Fog of War 시스템
 /// 유닛 주변만 밝게 보이고 나머지는 어둡게 표현
 /// </summary>
-public class FogOfWar : MonoBehaviour
+public class HY_FogOfWar : MonoBehaviour
 {
     [Header("Fog of War 설정")]
     [Tooltip("어둠(Fog) 레이어 (SpriteRenderer 또는 UI Image)")]

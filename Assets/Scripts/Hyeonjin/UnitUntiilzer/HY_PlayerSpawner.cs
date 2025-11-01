@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerSpawner : MonoBehaviour
+public class HY_PlayerSpawner : MonoBehaviour
 {
     public GameObject playerPrefab1;
     public GameObject playerPrefab2;

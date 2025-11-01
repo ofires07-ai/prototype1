@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// 유닛의 시야 범위를 관리하고 Fog of War를 업데이트합니다.
 /// </summary>
-public class UnitVision : MonoBehaviour
+public class HY_UnitVision : MonoBehaviour
 {
     [Header("시야 설정")]
     [Tooltip("유닛의 시야 반경")]
@@ -16,13 +16,13 @@ public class UnitVision : MonoBehaviour
     [Tooltip("Scene 뷰에서 시야 범위 표시")]
     [SerializeField] private bool showVisionRange = true;
 
-    private FogOfWar fogOfWar;
+    private HY_FogOfWar fogOfWar;
     private float nextUpdateTime = 0f;
 
     void Start()
     {
         // FogOfWar 찾기
-        fogOfWar = FindObjectOfType<FogOfWar>();
+        fogOfWar = FindObjectOfType<HY_FogOfWar>();
         
         if (fogOfWar == null)
         {

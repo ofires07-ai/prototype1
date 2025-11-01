@@ -29,7 +29,7 @@ public class HY_UnitMovement : MonoBehaviour
 
     [Header("컴포넌트")]
     [Tooltip("Scanner 컴포넌트 (자동으로 찾습니다)")]
-    public Scanner scanner;
+    public HY_Scanner scanner;
 
     private List<Transform> waypoints = new List<Transform>();
     private int currentWaypointIndex = 0;
@@ -45,7 +45,7 @@ public class HY_UnitMovement : MonoBehaviour
         }
         if (scanner == null)
         {
-            scanner = GetComponent<Scanner>();
+            scanner = GetComponent<HY_Scanner>();
         }
 
         // 웨이포인트 설정

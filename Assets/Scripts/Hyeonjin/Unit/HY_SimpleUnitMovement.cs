@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// A* 없이 간단한 직선 이동으로 circle을 향해 이동합니다.
 /// </summary>
-public class SimpleUnitMovement : MonoBehaviour
+public class HY_SimpleUnitMovement : MonoBehaviour
 {
     [Header("이동 설정")]
     [SerializeField] private float moveSpeed = 3f;

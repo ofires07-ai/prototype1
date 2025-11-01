@@ -2,7 +2,7 @@ using UnityEngine;
 
 // Fire 프리팹의 메인 스크립트
 // Enemy를 감지하고 제거하는 역할
-public class Fire : MonoBehaviour
+public class HY_Fire : MonoBehaviour
 {
     public float lifetime = 3f; // 불의 지속 시간
     public float checkInterval = 0.1f; // 감지 주기(초)
@@ -34,7 +34,7 @@ public class Fire : MonoBehaviour
         {
             if (hit.CompareTag("Enemy"))
             {
-                Enemy enemyScript = hit.GetComponent<Enemy>();
+                HY_Enemy enemyScript = hit.GetComponent<HY_Enemy>();
                 if (enemyScript != null)
                     enemyScript.Die();
                 Destroy(hit.gameObject);

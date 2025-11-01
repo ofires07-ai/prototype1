@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SimpleUnitMovement1 : MonoBehaviour
+public class HY_SimpleUnitMovement1 : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

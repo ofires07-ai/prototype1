@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Scanner : MonoBehaviour
+public class HY_Scanner : MonoBehaviour
 {
    public float scanRage;
    public LayerMask targetLayer;

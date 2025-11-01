@@ -83,6 +83,7 @@ public class ProductionTower : MonoBehaviour
         // 생성된 유닛을 리스트에 추가
         producedUnits.Add(newUnitGO);
 
+        // ✅ (FR-RU-007) 생성된 유닛에게 '깃발' 위치 전달
         // UnitMovement 스크립트가 있는지 확인
         HY_UnitMovement unitMovement = newUnitGO.GetComponent<HY_UnitMovement>();
         if (unitMovement != null && rallyPoint != null)
@@ -93,7 +94,7 @@ public class ProductionTower : MonoBehaviour
         }
         else if (unitMovement == null)
         {
-            Debug.LogWarning($"[ProductionTower] 생성된 유닛 {newUnitGO.name}에 HY_UnitMovement 스크립트가 없습니다. 유닛이 이동하지 않을 수 있습니다.");
+            Debug.LogWarning($"[ProductionTower] 생성된 유닛 {newUnitGO.name}에 UnitMovement 스크립트가 없습니다. 유닛이 이동하지 않을 수 있습니다.");
         }
     }
 
