@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
             if (text != null)
             {
                 // 초기 수량 표시: (X [Count])
-                text.text = $"X {spawn.count}";
+                text.text = $"{spawn.count}";
                 _monsterCountUIs.Add(spawn.enemyID, text); // 딕셔너리에 저장
             }
         }
@@ -330,15 +330,15 @@ public class GameManager : MonoBehaviour
 
         // InventoryManager의 GetTotalAmount 함수를 호출하여 화면을 갱신합니다.
         if (resource1Text != null) 
-            resource1Text.text = "X " + inventoryManager.GetTotalAmount(ResourceType.Tier1);
+            resource1Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier1);
         if (resource2Text != null) 
-            resource2Text.text = "X " + inventoryManager.GetTotalAmount(ResourceType.Tier2);
+            resource2Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier2);
         if (resource3Text != null) 
-            resource3Text.text = "X " + inventoryManager.GetTotalAmount(ResourceType.Tier3);
+            resource3Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier3);
         if (resource4Text != null) 
-            resource4Text.text = "X " + inventoryManager.GetTotalAmount(ResourceType.Tier4);
+            resource4Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier4);
         if (resource5Text != null) 
-            resource5Text.text = "X " + inventoryManager.GetTotalAmount(ResourceType.Tier5);
+            resource5Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier5);
     }
 
     private void UpdateHPUI()
