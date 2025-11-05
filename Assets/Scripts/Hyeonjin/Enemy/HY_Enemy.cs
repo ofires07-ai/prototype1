@@ -8,12 +8,17 @@ public class HY_Enemy : MonoBehaviour
     public Animator anim;
     public SpriteRenderer spriteRenderer;
     public Rigidbody2D Target;
+
+    // 🔹 SpawnManager에 보고할 적 타입 ID (Wave의 enemyID와 동일해야 함)
+    public string enemyID;
+
     public float stoppingDistance = 0.5f; // 멈추는 거리
     public int maxHp = 10; // 최대 체력
     public int currentHp; // 현재 체력
 
     bool isLive = true; // 생존 상태
-    
+    bool deathReported = false; // 🔹 중복 보고 방지
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -24,40 +29,34 @@ public class HY_Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isLive) return; // 죽었으면 더 이상 움직이지 않음
-        
-        if (Target == null) return; // Target이 없으면 실행 안 함
+        if (!isLive) return;        
+        if (Target == null) return;
 
-        // 목표까지의 거리 계산
         float distanceToTarget = Vector2.Distance(Target.position, rigid.position);
 
-        // 목표에 충분히 가까워지면 움직임을 멈춤
         if (distanceToTarget <= stoppingDistance)
         {
             rigid.linearVelocity = Vector2.zero;
-            anim.SetFloat("Speed", 0); // 애니메이션 속도 0으로 설정
+            anim.SetFloat("Speed", 0);
             return;
         }
         
         Vector2 dirVec = Target.position - rigid.position;
-        float speed = 2f; // 이동 속도 조절
+        float speed = 2f;
         Vector2 moveVec = dirVec.normalized * speed;
         rigid.linearVelocity = moveVec;
-        anim.speed = 10f; // 애니메이션 속도 조절
-        // 애니메이터에 속도 전달
+        anim.speed = 10f;
         anim.SetFloat("Speed", rigid.linearVelocity.magnitude);
         
-        // 플레이어 방향을 바라보도록 스프라이트 반전
         if (dirVec.x != 0)
         {
             spriteRenderer.flipX = dirVec.x < 0;    
         }
     }
 
-    // Enemy가 피해를 입을 때 호출되는 메서드
     public void TakeDamage(int damage)
     {
-        if (!isLive) return; // 이미 죽었으면 피해를 받지 않음
+        if (!isLive) return;
 
         currentHp -= damage;
 
@@ -67,39 +66,37 @@ public class HY_Enemy : MonoBehaviour
         }
     }
 
-    // Enemy가 죽을 때 호출되는 메서드
     public void Die()
     {
+        if (deathReported) return;       // 🔹 혹시 여러 번 호출돼도 한 번만 처리
+        deathReported = true;
+
+        // 🔹 SpawnManager에 사망 보고(타입별 카운트 감소)
+        if (SpawnManager.Instance != null)
+            SpawnManager.Instance.OnMonsterDied(enemyID);
+
         isLive = false;
         rigid.linearVelocity = Vector2.zero;
-        
-        // 죽음 애니메이션이 있다면 트리거
-        // anim.SetTrigger("Die");
-        
-        // 콜라이더 비활성화 (선택사항)
+
+        // 콜라이더 비활성화 (선택)
         Collider2D col = GetComponent<Collider2D>();
-        if (col != null)
-        {
-            col.enabled = false;
-        }
-        
-        // 오브젝트 파괴 (선택사항)
-        Destroy(gameObject, 1f); // 1초 후 파괴
+        if (col != null) col.enabled = false;
+
+        // 오브젝트 파괴
+        Destroy(gameObject, 1f);
     }
 
-    void LateUpdate()
-    {
-        // 필요한 후처리 코드 추가
-    }
+    void LateUpdate() { }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // 충돌한 오브젝트가 Bullet 스크립트를 가지고 있는지 확인
         HY_Bullet bullet = collision.GetComponent<HY_Bullet>();
         if (bullet != null)
         {
-            // Bullet과 충돌했으므로 Enemy는 피해를 입고 Bullet은 파괴
-            TakeDamage(bullet.damage); // 총알의 데미지를 받아옴
+            TakeDamage(bullet.damage);
+
+            // 🔹 총알이 여러 프레임 동안 계속 맞추지 않도록 즉시 파괴 권장
+            Destroy(bullet.gameObject);
         }
     }
 }

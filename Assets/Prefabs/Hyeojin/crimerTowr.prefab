@@ -177,7 +177,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.3, y: 0.3}
+  m_Size: {x: 0.05, y: 0.05}
   m_Direction: 0
 --- !u!114 &2495053863041438329
 MonoBehaviour:
@@ -195,6 +195,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   spriteRenderer: {fileID: 0}
   Target: {fileID: 0}
+  enemyID: 
   stoppingDistance: 0.5
   maxHp: 10
   currentHp: 0

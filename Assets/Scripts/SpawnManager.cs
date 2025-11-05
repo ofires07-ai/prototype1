@@ -1,51 +1,68 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq; // Dictionary의 Key를 사용하기 위해 추가
+using System.Linq;
 
-// Wave 클래스: 각 웨이브의 구성 정보를 담습니다.
-[System.Serializable]
-public class Wave
-{
-    public string waveName = "Wave 1";
-    public List<EnemySpawn> enemySpawns = new List<EnemySpawn>();
-    [HideInInspector] public int totalMonsterCount; // 이 웨이브의 총 몬스터 수
-}
-
-// EnemySpawn 클래스: 웨이브 내에서 스폰될 특정 몬스터의 타입 및 수량을 정의합니다.
-[System.Serializable]
-public class EnemySpawn
-{
-    public string enemyID; // GameManager에서 카운트를 추적하는 고유 ID (예: "Boss", "Normal")
-    public GameObject enemyPrefab; // 스폰할 몬스터 프리팹
-    public int count; // 스폰할 개수
-    public float spawnInterval = 1.0f; // 몬스터가 스폰될 간격
-    public Sprite uiIcon; // GameManager의 몬스터 카운트 UI에 표시할 아이콘
-}
-
+[DefaultExecutionOrder(-100)]  // ProductionTower.Start()보다 먼저 실행되도록
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance;
 
     [Header("Wave 설정")]
     public List<Wave> waves = new List<Wave>();
-    public Transform[] spawnPoints; // 몬스터가 스폰될 위치 배열 (Inspector에서 연결)
 
-    // 현재 웨이브 진행 상태 추적
+    [Header("스폰 포인트")]
+    public Transform[] spawnPoints; 
+    [Tooltip("씬의 ProductionTower들을 적 스폰 포인트로 자동 사용")]
+    public bool useProductionTowersAsSpawnPoints = true;
+    [Tooltip("적 스폰을 SpawnManager가 전담하도록, ProductionTower를 자동 비활성화")]
+    public bool takeoverProductionTowers = true;
+
+    // 진행 상태
     private Wave _currentWave;
     private int _currentWaveIndex = -1;
-    private Dictionary<string, int> _remainingMonsterCounts = new Dictionary<string, int>();
+
+    private int _spawnPointCursor = 0;
+
+    // 🔹 웨이브 원본을 건드리지 않기 위한 작업용 카운트
+    private Dictionary<string, int> _remainingMonsterCounts = new Dictionary<string, int>(); // 남은 처치 수
+    private List<int> _remainingToSpawnPerType = new List<int>(); // 각 타입별 남은 스폰 수
 
     private float _spawnTimer = 0f;
     private int _spawnedCountInCurrentWave = 0;
     private bool _isSpawning = false;
-    private int _currentEnemySpawnIndex = 0; // 현재 스폰 중인 몬스터 타입의 인덱스
+    private int _currentEnemySpawnIndex = 0;
 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            // 모든 웨이브의 총 몬스터 수를 미리 계산
+
+            // 1) 필요 시 ProductionTower를 스폰 포인트로 수집
+            if (useProductionTowersAsSpawnPoints)
+            {
+                var towers = FindObjectsOfType<ProductionTower>();
+                var points = new List<Transform>();
+                foreach (var t in towers)
+                {
+                    // 타워가 지정한 spawnPoint가 있으면 그 위치, 없으면 타워 위치 사용
+                    var p = (t.spawnPoint != null) ? t.spawnPoint : t.transform;
+                    points.Add(p);
+                }
+                if (points.Count > 0)
+                    spawnPoints = points.ToArray();
+            }
+
+            // 2) 필요 시 ProductionTower 생산 비활성화 (코루틴 시작 전에 막음)
+            if (takeoverProductionTowers)
+            {
+                foreach (var t in FindObjectsOfType<ProductionTower>())
+                {
+                    t.enabled = false; // Start()의 생산 코루틴 시작 차단
+                }
+            }
+
+            // 총 몬스터 수 미리 계산(표시용)
             CalculateTotalMonsterCounts();
         }
         else
@@ -56,60 +73,52 @@ public class SpawnManager : MonoBehaviour
 
     private void CalculateTotalMonsterCounts()
     {
-        foreach (var wave in waves)
-        {
-            wave.totalMonsterCount = wave.enemySpawns.Sum(e => e.count);
-        }
+        foreach (var w in waves)
+            w.totalMonsterCount = w.enemySpawns.Sum(e => e.count);
     }
 
     void Update()
     {
         if (_isSpawning)
         {
-            // 현재 스폰할 몬스터 타입이 남아 있는지 확인
             if (_currentEnemySpawnIndex >= _currentWave.enemySpawns.Count)
             {
-                // 현재 웨이브의 모든 타입 스폰이 완료됨
                 _isSpawning = false;
-                return;
             }
-
-            EnemySpawn currentSpawnConfig = _currentWave.enemySpawns[_currentEnemySpawnIndex];
-
-            _spawnTimer -= Time.deltaTime;
-
-            if (_spawnTimer <= 0)
+            else
             {
-                // 현재 타입의 몬스터를 모두 스폰했는지 확인
-                if (currentSpawnConfig.count > 0)
+                var cfg = _currentWave.enemySpawns[_currentEnemySpawnIndex];
+
+                _spawnTimer -= Time.deltaTime;
+                if (_spawnTimer <= 0f)
                 {
-                    // 몬스터 스폰
-                    SpawnEnemy(currentSpawnConfig.enemyPrefab, currentSpawnConfig.enemyID);
-                    
-                    currentSpawnConfig.count--; // 스폰 카운트 감소
-                    _spawnedCountInCurrentWave++;
-                    
-                    // 다음 스폰까지의 대기 시간 설정
-                    _spawnTimer = currentSpawnConfig.spawnInterval;
-                }
-                else
-                {
-                    // 현재 타입 스폰 완료 -> 다음 타입으로 이동
-                    _currentEnemySpawnIndex++;
-                    _spawnTimer = 0f; // 즉시 다음 타입 스폰을 시작하도록 타이머 초기화
+                    // 🔹 원본 count 대신 _remainingToSpawnPerType 사용
+                    if (_remainingToSpawnPerType[_currentEnemySpawnIndex] > 0)
+                    {
+                        SpawnEnemy(cfg.enemyPrefab, cfg.enemyID);
+                        _remainingToSpawnPerType[_currentEnemySpawnIndex]--;
+                        _spawnedCountInCurrentWave++;
+                        _spawnTimer = cfg.spawnInterval;
+                    }
+                    else
+                    {
+                        _currentEnemySpawnIndex++;
+                        _spawnTimer = 0f;
+                    }
                 }
             }
         }
-        
-        // 웨이브 종료 조건 검사 (모든 몬스터가 스폰되었고, 남은 몬스터가 0일 때)
-        if (!_isSpawning && _spawnedCountInCurrentWave >= _currentWave.totalMonsterCount && _remainingMonsterCounts.Values.All(count => count <= 0))
+
+        // 웨이브 종료: 모두 스폰되었고, 남은 처치 수가 0
+        if (!_isSpawning
+            && _spawnedCountInCurrentWave >= _currentWave.totalMonsterCount
+            && _remainingMonsterCounts.Values.All(v => v <= 0))
         {
-            // 웨이브 클리어
-            GameManager.Instance.OnWaveCleared();
+            GameManager.Instance.OnWaveCleared(); // 다음 웨이브로 넘어감
         }
     }
 
-    // --- GameManager가 호출하는 메인 시작 함수 ---
+    // --- GameManager가 호출 ---
     public void StartWave(int waveIndex)
     {
         if (waveIndex >= waves.Count)
@@ -120,58 +129,55 @@ public class SpawnManager : MonoBehaviour
 
         _currentWave = waves[waveIndex];
         _currentWaveIndex = waveIndex;
+
         _currentEnemySpawnIndex = 0;
         _spawnedCountInCurrentWave = 0;
         _isSpawning = true;
-        _spawnTimer = 0f; // 즉시 스폰 시작
+        _spawnTimer = 0f;
 
-        // 1. UI 상태 업데이트
+        // UI
         GameManager.Instance.UpdateWaveStatus(_currentWave.waveName);
         GameManager.Instance.UpdateMonsterTypesUI(_currentWave.enemySpawns);
 
-        // 2. 남은 몬스터 수 초기화 (딕셔너리 생성)
+        // 🔹 남은 처치 수(= 원본 count)를 복사해서 초기화
         _remainingMonsterCounts.Clear();
-        foreach (var spawn in _currentWave.enemySpawns)
-        {
-            _remainingMonsterCounts.Add(spawn.enemyID, spawn.count);
-        }
+        foreach (var s in _currentWave.enemySpawns)
+            _remainingMonsterCounts[s.enemyID] = s.count;
+
+        // 🔹 스폰 잔량도 별도 복사(원본 불변)
+        _remainingToSpawnPerType = _currentWave.enemySpawns.Select(s => s.count).ToList();
     }
 
-
-    // --- 몬스터 스폰 로직 ---
+    // --- 스폰 ---
     private void SpawnEnemy(GameObject enemyPrefab, string enemyID)
     {
-        if (spawnPoints.Length == 0)
+        if (spawnPoints == null || spawnPoints.Length == 0)
         {
             Debug.LogError("Spawn Points not set in Spawn Manager!");
             return;
         }
 
-        // 1. 랜덤 스폰 지점 선택
-        Transform randomPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        Transform point = spawnPoints[_spawnPointCursor % spawnPoints.Length];
+        _spawnPointCursor++;
+        GameObject enemyObject = Instantiate(enemyPrefab, point.position, point.rotation);
 
-        // 2. 몬스터 생성
-        GameObject enemyObject = Instantiate(enemyPrefab, randomPoint.position, randomPoint.rotation);
-
-        // 3. 몬스터 스크립트에 타입 ID 할당 (가장 중요한 부분: Enemy_Y로 타입 변경!)
+        // 타입 ID 전달
         Enemy_Y enemyScript = enemyObject.GetComponent<Enemy_Y>();
         if (enemyScript != null)
-        {
             enemyScript.enemyID = enemyID;
-        }
+
+        HY_Enemy hyEnemy = enemyObject.GetComponent<HY_Enemy>();
+        if (hyEnemy != null)
+            hyEnemy.enemyID = enemyID;
     }
 
-    // --- 몬스터 사망 시 호출 (Enemy_Y 스크립트에서 호출됨) ---
+    // --- 몬스터 사망 콜백 ---
     public void OnMonsterDied(string enemyID)
     {
         if (_remainingMonsterCounts.ContainsKey(enemyID))
         {
             _remainingMonsterCounts[enemyID]--;
-
-            // 1. GameManager UI 업데이트
             GameManager.Instance.UpdateSingleMonsterCount(enemyID, _remainingMonsterCounts[enemyID]);
-            
-            // 2. 웨이브 종료 검사는 Update()에서 처리
         }
     }
 }
