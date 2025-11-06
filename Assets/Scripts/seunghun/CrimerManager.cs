@@ -59,33 +59,40 @@ public class CrimerManager : MonoBehaviour
     // 우클릭 처리
     private void HandleCommand()
     {
-        // [핵심] "선택된 유닛"이 있을 때만 명령을 처리
-        if (selectedUnit == null)
-        {
-            return; // 선택된 유닛이 없으면 아무것도 안 함
-        }
-
-        // --- (이 로직은 PickUnit의 HandleRightClick과 동일합니다) ---
+        if (selectedUnit == null) return;
 
         Vector2 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
 
         if (hit.collider != null)
         {
-            // 1. 광물을 우클릭했다면?
-            if (hit.collider.TryGetComponent<Source>(out Source source))
+            // 1. 클릭한 것이 'SpecialSource'인지 먼저 확인
+            if (hit.collider.TryGetComponent<SpecialSource>(out SpecialSource specialSource))
             {
-                // "선택된 유닛"에게 광물 채굴 명령
-                selectedUnit.SetTargetSource(source);
+                // 특수 자원을 클릭 -> 특수 자원 채굴 명령
+                selectedUnit.SetTargetSource(specialSource);
             }
-            // 2. 땅을 우클릭했다면?
+            // 2. 클릭한 것이 'Source' (일반 자원)인지 확인
+            else if (hit.collider.TryGetComponent<Source>(out Source normalSource))
+            {
+                // [규칙 1] 일반 자원을 클릭했는데, "안 캔 특수 자원"이 붙어있다면
+                if (normalSource.attachedSpecialSource != null && !normalSource.attachedSpecialSource.IsMining())
+                {
+                    // 일반 자원 대신 "붙어있는 특수 자원"을 채굴하도록 타겟 변경
+                    selectedUnit.SetTargetSource(normalSource.attachedSpecialSource);
+                }
+                else
+                {
+                    // 특수 자원이 없거나 이미 캐고 있다면 -> 일반 자원 채굴
+                    selectedUnit.SetTargetSource(normalSource);
+                }
+            }
+            // 3. 땅을 클릭했다면
             else
             {
-                // "선택된 유닛"에게 위치 이동 명령
                 selectedUnit.MoveToPosition(mouseWorldPos);
             }
         }
-        // 3. 허공을 우클릭했다면?
         else
         {
             selectedUnit.MoveToPosition(mouseWorldPos);

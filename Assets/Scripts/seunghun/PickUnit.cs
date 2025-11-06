@@ -22,7 +22,7 @@ public class PickUnit : MonoBehaviour
     // 2. 참조 변수
     private AIPath aiPath;        // 길찾기 및 이동 담당 (A* 버전)
     private Seeker seeker;          // [추가] 경로 계산을 "요청"하는 컴포넌트
-    private Source targetSource;    // [중요] 내가 목표로 삼은 '특정' 광물
+    private MineableResource targetSource;    // [중요] 내가 목표로 삼은 '특정' 광물
     public SourceManager sourceManager;
     private Animator animator;
     
@@ -32,7 +32,7 @@ public class PickUnit : MonoBehaviour
     void Start()
     {
         aiPath = GetComponent<AIPath>();
-        seeker = GetComponent<Seeker>(); // [추가]
+        seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
         
         // (선택) SourceManager를 자동으로 찾아 연결
@@ -75,6 +75,14 @@ public class PickUnit : MonoBehaviour
                 break;
 
             case UnitState.Mining:
+                // ✅ FIX: null check 추가
+                if (targetSource == null)
+                {
+                    Debug.LogWarning("[PickUnit] targetSource가 null입니다. Idle로 전환합니다.");
+                    currentState = UnitState.Idle;
+                    break;
+                }
+                
                 float distanceToTarget = Vector3.Distance(transform.position, targetSource.transform.position);
 
                 if (distanceToTarget > aiPath.endReachedDistance * 2f || !targetSource.CanStartMining())
@@ -122,6 +130,9 @@ public class PickUnit : MonoBehaviour
     // [새로 추가] 애니메이션을 실제 이동 상태에 따라 업데이트
     private void UpdateAnimation()
     {
+        // ✅ FIX: animator null check 추가
+        if (animator == null) return;
+        
         // AIPath의 실제 속도를 기반으로 걷기 여부 판단
         bool isMoving = aiPath.velocity.magnitude > 0.1f && !aiPath.isStopped;
         bool isMining = currentState == UnitState.Mining;
@@ -138,56 +149,117 @@ public class PickUnit : MonoBehaviour
         
     }
     
-    // (행동 1) 특정 광물을 목표로 설정하고 이동
-    public void SetTargetSource(Source source)
+    // (행동 1) 특정 광물을 목표로 설정하고 이동 (방탄 버전)
+    public void SetTargetSource(MineableResource resource)
     {
-        Debug.Log("[PickUnit] SetTargetSource 호출: " + source.name);
-        StopMining();
-        targetSource = source; // 나의 목표 광물로 저장
+        // [핵심] 'null'이 들어오면 크래시를 내기 전에 즉시 함수를 중단!
+        if (resource == null)
+        {
+            Debug.LogError("[PickUnit] SetTargetSource가 'null' 리소스를 받았습니다! 이동을 취소합니다.");
+            // (이 경우, 유닛은 StopMining만 실행되고 Idle 상태로 돌아가게 됩니다)
+            StopMining(); 
+            currentState = UnitState.Idle;
+            return;
+        }
+
+        Debug.Log("[PickUnit] SetTargetSource 호출: " + resource.name);
         
-        aiPath.destination = targetSource.transform.position; // 목표 광물 위치로 이동
+        try
+        {
+            StopMining();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[PickUnit] StopMining 중 에러 발생: {e.Message}");
+        }
+        
+        targetSource = resource; 
         aiPath.isStopped = false;
-        // [핵심 수정] 수동으로 경로 계산을 "시작"시킵니다.
-        seeker.StartPath(transform.position, targetSource.transform.position);
         
-        currentState = UnitState.MovingToSource; // 상태 변경
-        Debug.Log("[PickUnit] 상태 변경: MovingToSource");
+        // 'resource'가 null이 아님이 보장된 상태에서 호출
+        seeker.StartPath(transform.position, targetSource.transform.position, OnPathComplete);
+        
+        currentState = UnitState.MovingToSource; 
     }
     
     // (행동 2) 특정 위치로 이동
     public void MoveToPosition(Vector3 position)
     {
         Debug.Log("[PickUnit] MoveToPosition 호출: " + position);
-        StopMining();
+        
+        // ✅ FIX: 안전하게 채굴 중지
+        try
+        {
+            StopMining();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[PickUnit] StopMining 중 에러 발생: {e.Message}");
+        }
+        
         targetSource = null; // 광물 목표 해제 (그냥 땅으로 가는 것이므로)
         
-        aiPath.destination = position; // 클릭한 '땅' 좌표로 이동
+        // ✅ FIX: AIPath 설정 순서 수정
         aiPath.isStopped = false;
-        // [핵심 수정] 수동으로 경로 계산을 "시작"시킵니다.
-        seeker.StartPath(transform.position, position);
+        
+        // [핵심 수정] Seeker를 먼저 호출 - AIPath가 자동으로 경로를 따라감
+        seeker.StartPath(transform.position, position, OnPathComplete);
         
         currentState = UnitState.MovingToPosition; // 상태 변경
+    }
+    
+    // ✅ NEW: 경로 계산 완료 콜백 (크래시 방지)
+    private void OnPathComplete(Path p)
+    {
+        if (p.error)
+        {
+            Debug.LogError($"[PickUnit] 경로 계산 실패: {p.errorLog}");
+            currentState = UnitState.Idle;
+            aiPath.isStopped = true;
+            return;
+        }
+        
+        Debug.Log("[PickUnit] 경로 계산 완료!");
+        // AIPath가 자동으로 경로를 따라가므로 추가 작업 불필요
     }
     
     // (행동 3) 채굴 시작 (목표 광물에 도착했을 때)
     public void StartMining()
     {
-        Debug.Log("[PickUnit] StartMining 실행!");
+        Debug.Log("[PickUnit] StartMining 실행! SourceManager에 활성화 요청...");
         aiPath.isStopped = true;  // 이동 정지
         aiPath.SetPath(null);     // 현재 경로 초기화
-        if (!targetSource.CanStartMining()) return;
         
-        currentState = UnitState.Mining; // 상태 변경
-
-        // [중요] 이전 대화의 SourceManager에게 이 광물을 활성화하라고 요청
-        if (targetSource != null && sourceManager != null)
+        // ✅ FIX: null check 강화
+        if (targetSource == null)
         {
-            Debug.Log(targetSource.name + "에서 채굴을 시작합니다!");
-            sourceManager.TryActivateSource(targetSource); 
+            Debug.LogError("[PickUnit] targetSource가 null입니다!");
+            currentState = UnitState.Idle;
+            return;
+        }
+         
+        // [수정] CanStartMining() 체크를 여기서 삭제합니다!
+        
+        currentState = UnitState.Mining; // 상태 변경 (일단 '채굴 중'으로)
+
+        // SourceManager에게 활성화를 요청
+        if (sourceManager != null)
+        {
+            try
+            {
+                // SourceManager가 규칙을 체크하고 활성화할 것입니다.
+                sourceManager.TryActivateSource(targetSource); 
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[PickUnit] TryActivateSource 중 에러 발생: {e.Message}");
+                currentState = UnitState.Idle;
+            }
         }
         else
         {
-            Debug.LogError("[PickUnit] targetSource 또는 sourceManager가 null입니다!");
+            Debug.LogError("[PickUnit] sourceManager가 null입니다!");
+            currentState = UnitState.Idle;
         }
     }
     
@@ -203,10 +275,17 @@ public class PickUnit : MonoBehaviour
             // 이렇게 하면 StopMining에서 에러가 나도 이동은 가능해집니다.
             aiPath.isStopped = false;
 
-            // SourceManager에게 이 광물을 비활성화하라고 요청
+            // ✅ FIX: 안전하게 DeactivateSource 호출
             if (targetSource != null && sourceManager != null)
             {
-                sourceManager.DeactivateSource(targetSource);
+                try
+                {
+                    sourceManager.DeactivateSource(targetSource);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"[PickUnit] DeactivateSource 중 에러 발생: {e.Message}");
+                }
             }
             // 에러가 나도 이미 isStopped = false가 되었으므로
             // 다음 목적지가 설정되면 이동합니다.
@@ -216,23 +295,9 @@ public class PickUnit : MonoBehaviour
     // AIPath가 목적지에 도착했는지 확인하는 헬퍼 함수
     private bool HasArrivedAtDestination()
     {
-        // [디버그] 도착 체크 상태를 로그로 출력
-        bool arrived = aiPath.reachedEndOfPath;
-        
-        // [추가] 거리 기반 체크도 함께 사용 (더 안정적)
-        if (!arrived && targetSource != null)
-        {
-            float distance = Vector3.Distance(transform.position, aiPath.destination);
-            // aiPath의 endReachedDistance 값 사용 (기본값 보통 0.2~1.0)
-            arrived = distance < aiPath.endReachedDistance + 0.5f;
-            
-            if (arrived)
-            {
-                Debug.Log($"[PickUnit] 거리 기반 도착 감지: {distance}");
-            }
-        }
-        
-        return arrived;
+        // "Recalculate Path Automatically"를 껐으므로,
+        // 이 플래그는 도착 시 true가 되고 리셋되지 않아 가장 신뢰할 수 있습니다.
+        return aiPath.reachedEndOfPath;
     }
     
     // 매니저가 이 유닛을 "선택"했을 때 호출할 함수
