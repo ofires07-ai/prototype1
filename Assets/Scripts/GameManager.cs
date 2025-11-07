@@ -10,7 +10,8 @@ public enum ResourceType
     Tier2, // 인덱스 1
     Tier3, // 인덱스 2
     Tier4, // 인덱스 3
-    Tier5  // 인덱스 4
+    Tier5, // 인덱스 4
+    Special
 }
 
 // EnemySpawn 클래스는 SpawnManager.cs 파일에 정의되어 있으므로, 
