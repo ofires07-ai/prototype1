@@ -33,34 +33,34 @@ public class SourceManager : MonoBehaviour
         for (int i = activeSources.Count - 1; i >= 0; i--)
         {
             MineableResource resource = activeSources[i];
-            int amountToMine; // 이번 틱에 실제 채굴할 양
+            float amountToMine; // 이번 틱에 실제 채굴할 양
 
             // 1. [핵심] 이 자원이 'SpecialSource' 타입인지 확인합니다.
             if (resource is SpecialSource specialSource)
             {
                 // [수정] (남은 용량)과 (틱당 채굴량) 중 더 작은 값을 선택
-                amountToMine = Mathf.Min(specialSource.amountPerTick, specialSource.capacity);
+                amountToMine = Mathf.Min(specialSource.amountPerTick, (float) specialSource.capacity);
 
                 // 2. 실제 채굴한 만큼만 용량 감소
-                specialSource.capacity -= amountToMine;
+                specialSource.remaining -= amountToMine;
 
                 // 3. 용량이 0 이하가 되었는지 확인
-                if (specialSource.capacity <= 0)
+                if (specialSource.remaining <= 0)
                 {
-                    Debug.Log(specialSource.name + " (특수 자원)이 고갈되었습니다.");
+                    Debug.Log(specialSource.name + " (특수 자원)이 고갈되었습니다. specialSource.capacity: " + specialSource.capacity);
                     specialSource.StopMining();
                     activeSources.RemoveAt(i);
                     Destroy(specialSource.gameObject);
+                    inventoryManager.AddResource(resource.resourceType, (int) specialSource.capacity);
                 }
             }
             else // 'resource'가 'Source' (일반 자원) 타입일 경우
             {
+                Source s = resource as Source;
                 // 일반 자원은 용량이 무한하므로, 틱당 채굴량만큼 캡니다.
-                amountToMine = resource.amountPerTick;
+                amountToMine = s.amountPerTick;
+                inventoryManager.AddResource(resource.resourceType, (int) amountToMine);
             }
-
-            // 4. [공통] 'amountToMine' (실제 채굴한 양) 만큼만 인벤토리에 추가
-            inventoryManager.AddResource(resource.resourceType, amountToMine);
         }
     }
     

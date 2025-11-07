@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 // [수정] MonoBehaviour -> MineableResource 상속
@@ -6,7 +7,10 @@ public class SpecialSource : MineableResource
     [Header("특수 자원 종속성")]
     public Source attachedNormalSource; // 내가 붙어있는 일반 자원
     [Header("해당 특수자원 총량")]
-    public int capacity;
+    public float capacity = 1f;
+    public float remaining;
+    
+    public float amountPerTick = 0.1f;
     
     // [핵심] 부모의 'abstract' 메서드를 'override'로 구현
     public override bool CanStartMining()
@@ -18,5 +22,11 @@ public class SpecialSource : MineableResource
         if (attachedNormalSource == null) return false;
         
         return attachedNormalSource.CanStartMining();
+    }
+
+    public void Start()
+    {
+        base.Start();
+        remaining = capacity;
     }
 }

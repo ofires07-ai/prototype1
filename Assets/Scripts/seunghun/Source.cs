@@ -11,6 +11,8 @@ public class Source : MineableResource
     
     [Header("특수 자원")]
     public SpecialSource attachedSpecialSource; // 붙어있는 특수 자원
+
+    public float amountPerTick = 1f;
     
 // [핵심] 부모의 'abstract' 메서드를 'override'로 구현
     public override bool CanStartMining()
