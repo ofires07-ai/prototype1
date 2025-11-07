@@ -256,7 +256,17 @@ public class TowerBuildManager : MonoBehaviour
             //    '진짜' 타워의 색상을 '완전한 불투명'(흰색)으로 강제 리셋합니다.
             var sr = newTower.GetComponent<SpriteRenderer>();
             if (sr != null) sr.color = Color.white;
-
+            // 3. 방금 생성된 타워에서 HY_Tower 스크립트를 찾습니다.
+            HY_Tower towerScript = newTower.GetComponent<HY_Tower>();
+            
+            // 4. 스크립트가 존재하고, 비활성화되어 있다면
+            if (towerScript != null)
+            {
+                // 5. 스크립트를 '활성화'시킵니다. (체크박스를 켭니다)
+                //    이 순간부터 HY_Tower.FixedUpdate()가 작동하기 시작합니다.
+                towerScript.enabled = true; 
+                Debug.Log($"[TowerBuildManager] {newTower.name}의 HY_Tower.enabled = true로 설정.");
+            }
             Debug.Log($"[TowerBuildManager] {newTower.name} built at {position}");
 
             // 4. [핵심] EnterBuildMode에서 저장해뒀던 '예약 함수(onBuildComplete)'를 실행합니다.
