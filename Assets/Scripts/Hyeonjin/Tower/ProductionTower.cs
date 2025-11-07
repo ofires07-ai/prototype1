@@ -27,6 +27,9 @@ public class ProductionTower : MonoBehaviour
 
     // 이 타워가 생성한 유닛들을 추적하는 리스트
     private List<GameObject> producedUnits = new List<GameObject>();
+    
+     [Tooltip("'미미한 값'의 범위 (Inspector에서 조절)")]    
+    public float spawnRadiusOffset = 0.5f; 
 
     void Start()
     {
@@ -74,11 +77,18 @@ public class ProductionTower : MonoBehaviour
     /// </summary>
     private void SpawnUnit()
     {
-        // 유닛 생성 위치 결정
-        Vector3 spawnPos = (spawnPoint != null) ? spawnPoint.position : transform.position;
+       // 1. 기본 생성 위치 결정
+        Vector3 basePos = (spawnPoint != null) ? spawnPoint.position : transform.position;
 
-        // 전투 유닛을 생성(Instantiate)
-        GameObject newUnitGO = Instantiate(unitPrefab, spawnPos, Quaternion.identity);
+        // 2. "미미한 랜덤값" 계산 (2D 기준)
+        Vector2 randomOffset = Random.insideUnitCircle * spawnRadiusOffset; 
+
+        // 3. 기본 위치 + 랜덤값 = 최종 위치
+        // (Z축은 3D 게임일 경우 basePos.z를, 2D 게임이면 0 또는 basePos.z를 사용)
+        Vector3 finalSpawnPos = new Vector3(basePos.x + randomOffset.x, basePos.y + randomOffset.y, 0);
+
+        // 4. "절대 겹치지 않는" 최종 위치에 유닛 생성
+        GameObject newUnitGO = Instantiate(unitPrefab, finalSpawnPos, Quaternion.identity);
 
         // 생성된 유닛을 리스트에 추가
         producedUnits.Add(newUnitGO);
