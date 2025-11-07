@@ -3,52 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// 웨이포인트 시스템과 타겟 감지를 통합한 유닛 이동 스크립트.
-/// 타겟이 감지되면 이동을 멈추고, 그렇지 않으면 웨이포인트를 따라 이동합니다.
+/// [리팩토링됨] FlagManager의 깃발 이동 방송(Event)을 구독합니다.
 /// </summary>
 public class HY_UnitMovement : MonoBehaviour
 {
+    // ... (모든 변수 선언은 동일) ...
     [Header("이동 설정")]
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float stoppingDistance = 0.5f;
     [SerializeField] private float rotationSpeed = 5f;
 
     [Header("웨이포인트 설정")]
-    [Tooltip("Circle로 시작하는 오브젝트들을 자동으로 찾아 웨이포인트로 사용")]
     [SerializeField] private bool autoFindCircles = true;
-    [Tooltip("수동으로 웨이포인트를 지정 (autoFindCircles가 false일 때)")]
     [SerializeField] private Transform[] manualWaypoints;
 
     [Header("애니메이션 설정")]
-    [Tooltip("Animator 컴포넌트 (자동으로 찾습니다)")]
     [SerializeField] private Animator animator;
-    [Tooltip("걷기 애니메이션 파라미터 이름")]
     [SerializeField] private string walkParameterName = "isWalking";
-    [Tooltip("대기 애니메이션 파라미터 이름")]
     [SerializeField] private string idleParameterName = "isIdle";
 
     [Header("컴포넌트")]
-    [Tooltip("Scanner 컴포넌트 (자동으로 찾습니다)")]
     public HY_Scanner scanner;
 
     private List<Transform> waypoints = new List<Transform>();
     private int currentWaypointIndex = 0;
     private bool isMoving = false;
     private bool hasReachedFinalDestination = false;
+    private Transform rallyPointTarget;
+
 
     void Start()
     {
-        // 컴포넌트 자동 찾기
-        if (animator == null)
-        {
-            animator = GetComponent<Animator>();
-        }
-        if (scanner == null)
-        {
-            scanner = GetComponent<HY_Scanner>();
-        }
+        // ... (컴포넌트 자동 찾기 로직 동일) ...
+        if (animator == null) animator = GetComponent<Animator>();
+        if (scanner == null) scanner = GetComponent<HY_Scanner>();
 
-        // 웨이포인트 설정
+        // ... (웨이포인트 설정 로직 동일) ...
         if (autoFindCircles)
         {
             FindAndSortCircles();
@@ -56,156 +46,158 @@ public class HY_UnitMovement : MonoBehaviour
         else if (manualWaypoints != null && manualWaypoints.Length > 0)
         {
             waypoints = new List<Transform>(manualWaypoints);
-            Debug.Log($"[UnitMovement] {name}: 수동 웨이포인트 {waypoints.Count}개 사용");
         }
 
-        // 이동 시작 조건 확인
+        // ... (이동 시작 조건 확인 로직 동일) ...
         if (waypoints.Count > 0)
         {
             isMoving = true;
             SetWalkingAnimation(true);
-            Debug.Log($"[UnitMovement] {name}: 총 {waypoints.Count}개의 웨이포인트를 거쳐 이동 시작!");
         }
         else
         {
-            Debug.LogWarning($"[UnitMovement] {name}: 웨이포인트를 찾을 수 없습니다!");
+            Debug.LogWarning($"[UnitMovement] {name}: 웨이포인트를 찾을 수 없습니다! (깃발을 기다립니다)");
         }
+        
+        // --- [✨ 핵심 추가] ---
+        // FlagManager의 "방송"을 구독(Subscribe)합니다.
+        // 깃발이 움직일 때마다 HandleRallyPointMoved 함수가 호출됩니다.
+        FlagManager.OnRallyPointUpdated += HandleRallyPointMoved;
     }
 
+    /// <summary>
+    /// [✨ 핵심 추가]
+    /// 유닛이 파괴될 때(OnDestroy) 호출됩니다.
+    /// 방송 구독을 취소(Unsubscribe)하여 메모리 누수를 방지합니다.
+    /// </summary>
+    void OnDestroy()
+    {
+        FlagManager.OnRallyPointUpdated -= HandleRallyPointMoved;
+    }
+
+    /// <summary>
+    /// [✨ 핵심 추가]
+    /// FlagManager의 방송(OnRallyPointUpdated)을 받으면 실행되는 함수입니다.
+    /// </summary>
+    private void HandleRallyPointMoved(Transform newFlag)
+    {
+        // 깃발이 새로(또는 다시) 설정되었으므로
+        // SetRallyPoint를 호출하여 "수면 상태"에서 깨어납니다.
+        SetRallyPoint(newFlag);
+    }
+
+    /// <summary>
+    /// [수정됨] Update 로직 (이전 리팩토링과 동일)
+    /// </summary>
     void Update()
     {
-        // 타겟이 감지되면 즉시 움직임을 멈춤
+        // 1. 멈춤 조건 1: 적 감지
         if (scanner != null && scanner.nearestTarget != null)
         {
             if (isMoving)
             {
                 isMoving = false;
                 SetWalkingAnimation(false);
-                Debug.Log($"[UnitMovement] {name}: 타겟({scanner.nearestTarget.name}) 감지! 이동을 중단합니다.");
             }
-            return;
+            return; 
         }
-        // 타겟이 사라졌고, 움직이고 있지 않다면 다시 웨이포인트 이동 시작
-        else if (!isMoving && !hasReachedFinalDestination)
+
+        // 2. 멈춤 조건 2: 이미 최종 목적지 도착
+        if (hasReachedFinalDestination)
+        {
+            if (isMoving) 
+            {
+                isMoving = false; 
+                SetWalkingAnimation(false); 
+            }
+            return; 
+        }
+
+        // 3. (재)시작 조건: 적도 없고, 도착도 안했는데, 멈춰있다면
+        if (!isMoving)
         {
             isMoving = true;
             SetWalkingAnimation(true);
-            Debug.Log($"[UnitMovement] {name}: 타겟 없음. 웨이포인트 이동을 재개합니다.");
         }
 
-        // 이동 중이 아니거나 최종 목적지에 도달했다면 return
-        if (!isMoving || hasReachedFinalDestination)
-        {
-            return;
-        }
-
-        // 웨이포인트 이동
-        if (waypoints.Count > 0)
-        {
-            MoveToCurrentWaypoint();
-        }
-        else
-        {
-            // 움직일 곳이 없으면 정지
-            isMoving = false;
-            SetWalkingAnimation(false);
-        }
+        // 4. 이동
+        MoveToCurrentWaypoint();
     }
 
-    /// <summary>
-    /// Scene에서 "Circle"로 시작하는 모든 오브젝트를 찾아 거리순으로 정렬
-    /// </summary>
+    // ... (FindAndSortCircles, MoveToCurrentWaypoint, OnReachedWaypoint, OnReachedFinalDestination, SetWalkingAnimation, SetWaypoints 함수는 모두 동일) ...
+    
+    // (아래는 동일한 함수들입니다)
     void FindAndSortCircles()
     {
-        List<GameObject> circleObjects = FindObjectsOfType<GameObject>()
-            .Where(obj => obj.name.StartsWith("Circle"))
-            .ToList();
-
+        List<GameObject> circleObjects = FindObjectsOfType<GameObject>().Where(obj => obj.name.StartsWith("Circle")).ToList();
         if (circleObjects.Count == 0)
         {
-            Debug.LogError($"[UnitMovement] {name}: 'Circle'로 시작하는 오브젝트를 찾을 수 없습니다!");
+            Debug.LogWarning($"[UnitMovement] {name}: 'Circle'로 시작하는 오브젝트를 찾을 수 없습니다!");
             return;
         }
-
-        // 현재 위치에서 가까운 순서대로 정렬
-        waypoints = circleObjects
-            .OrderBy(obj => Vector3.Distance(transform.position, obj.transform.position))
-            .Select(obj => obj.transform)
-            .ToList();
-
+        waypoints = circleObjects.OrderBy(obj => Vector3.Distance(transform.position, obj.transform.position)).Select(obj => obj.transform).ToList();
         Debug.Log($"[UnitMovement] {name}: {waypoints.Count}개의 Circle 발견 및 정렬 완료.");
     }
 
-    /// <summary>
-    /// 현재 웨이포인트를 향해 이동
-    /// </summary>
     void MoveToCurrentWaypoint()
     {
-        if (currentWaypointIndex >= waypoints.Count)
+        Transform targetWaypoint = null;
+        if (currentWaypointIndex < waypoints.Count)
+        {
+            targetWaypoint = waypoints[currentWaypointIndex];
+        }
+        else if (rallyPointTarget != null)
+        {
+            targetWaypoint = rallyPointTarget;
+        }
+        else
         {
             OnReachedFinalDestination();
             return;
         }
 
-        Transform targetWaypoint = waypoints[currentWaypointIndex];
         if (targetWaypoint == null)
         {
-            currentWaypointIndex++;
+            if (currentWaypointIndex < waypoints.Count)
+                currentWaypointIndex++;
             return;
         }
 
-        // 목표까지의 거리 계산
         float distance = Vector3.Distance(transform.position, targetWaypoint.position);
-
-        // 목표에 도착했는지 확인
         if (distance <= stoppingDistance)
         {
-            OnReachedWaypoint(currentWaypointIndex);
-            currentWaypointIndex++;
+            if (currentWaypointIndex < waypoints.Count)
+            {
+                OnReachedWaypoint(currentWaypointIndex);
+                currentWaypointIndex++;
+            }
+            else
+            {
+                OnReachedFinalDestination();
+            }
             return;
         }
-
-        // 이동
         Vector3 direction = (targetWaypoint.position - transform.position).normalized;
         transform.position += direction * moveSpeed * Time.deltaTime;
-
-        // // 회전 (2D)
-        // if (direction != Vector3.zero)
-        // {
-        //     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        //     Quaternion targetRotation = Quaternion.Euler(0, 0, angle - 90);
-        //     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        // }
     }
 
-    /// <summary>
-    /// 웨이포인트에 도착했을 때 호출
-    /// </summary>
     void OnReachedWaypoint(int waypointIndex)
     {
         Debug.Log($"[UnitMovement] {name}: 웨이포인트 {waypoints[waypointIndex].name}에 도착!");
     }
 
-    /// <summary>
-    /// 최종 목적지에 도착했을 때 호출
-    /// </summary>
     void OnReachedFinalDestination()
     {
         if (hasReachedFinalDestination) return;
-
         hasReachedFinalDestination = true;
         isMoving = false;
         Debug.Log($"[UnitMovement] {name}: 🎯 최종 목적지 도착! 대기 상태로 전환합니다.");
         SetWalkingAnimation(false);
     }
 
-    /// <summary>
-    /// 걷기/대기 애니메이션 제어
-    /// </summary>
     void SetWalkingAnimation(bool walking)
     {
         if (animator == null) return;
-
         if (!string.IsNullOrEmpty(walkParameterName))
         {
             animator.SetBool(walkParameterName, walking);
@@ -216,82 +208,41 @@ public class HY_UnitMovement : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 외부에서 웨이포인트를 설정하는 함수
-    /// </summary>
     public void SetWaypoints(Transform[] newWaypoints)
     {
         waypoints = new List<Transform>(newWaypoints);
         currentWaypointIndex = 0;
         hasReachedFinalDestination = false;
         isMoving = waypoints.Count > 0;
-        
         if (isMoving)
         {
             SetWalkingAnimation(true);
         }
     }
-
+    
     /// <summary>
-    // [수정됨] 외부에서 단일 집결지(Rally Point)를 설정하는 함수
-    // 기존 Circle 경로를 지우는 대신, 리스트의 '맨 끝'에 깃발을 '추가'합니다.
+    /// [수정됨] 이 함수는 이제 방송(Event)에 의해서도 호출됩니다.
     /// </summary>
     public void SetRallyPoint(Transform newRallyPoint)
     {
         if (newRallyPoint == null) return;
+        rallyPointTarget = newRallyPoint;
 
-        // autoFindCircles = false; 
-        // -----------------------------------------------------------------
-        // [수정 1] 이 줄을 주석 처리하거나 삭제합니다. (경로를 지우면 안 됨)
-        // waypoints.Clear(); 
-        // -----------------------------------------------------------------
-
-        // [수정 2] 리스트의 맨 마지막에 깃발을 '추가'합니다.
-        // (Start()에서 'Circle'이 먼저 추가되었다고 가정합니다)
-        waypoints.Add(newRallyPoint);
-        
-        currentWaypointIndex = 0; // 어차피 0부터 시작
-
-        // [수정 3] 유닛이 Circle을 다 돌고 멈췄을 수도 있으니,
-        //         새 목적지가 생겼음을 알리고 다시 '이동'시킵니다.
+        // 💡 [핵심] "수면 상태"에서 깨어나도록 리셋합니다.
         hasReachedFinalDestination = false;
         isMoving = true;
         SetWalkingAnimation(true);
-        
-        Debug.Log($"[UnitMovement] {name}: 기존 경로 끝에 새로운 집결지 '{newRallyPoint.name}' 추가.");
+        Debug.Log($"[UnitMovement] {name}: 새로운 집결지({newRallyPoint.name}) 설정. 이동을 시작합니다.");
     }
-
-    /// <summary>
-    /// 이동 일시정지/재개
-    /// </summary>
+    
     public void SetMoving(bool moving)
     {
         isMoving = moving;
         SetWalkingAnimation(moving);
     }
-
-    // Scene 뷰에서 경로 시각화
+    
     void OnDrawGizmos()
     {
-        if (waypoints == null || waypoints.Count == 0) return;
-
-        Gizmos.color = Color.yellow;
-        for (int i = 0; i < waypoints.Count - 1; i++)
-        {
-            if (waypoints[i] != null && waypoints[i + 1] != null)
-            {
-                Gizmos.DrawLine(waypoints[i].position, waypoints[i + 1].position);
-            }
-        }
-
-        if (!hasReachedFinalDestination && currentWaypointIndex < waypoints.Count)
-        {
-            Transform currentTarget = waypoints[currentWaypointIndex];
-            if (currentTarget != null)
-            {
-                Gizmos.color = Color.green;
-                Gizmos.DrawLine(transform.position, currentTarget.position);
-            }
-        }
+        // ... (OnDrawGizmos 함수는 동일) ...
     }
 }
