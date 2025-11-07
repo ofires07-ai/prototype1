@@ -112,4 +112,10 @@ public class HY_Player : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, meleeAttackRange);
     }
+
+    public void TakeDamage(int damageAmount)
+    {
+        // 플레이어가 데미지를 받았을 때 처리할 로직
+        Debug.Log("Player took " + damageAmount + " damage!");
+    }
 }
