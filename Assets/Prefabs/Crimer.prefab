@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 5357917692956219262}
   - component: {fileID: 152422359589069549}
   - component: {fileID: -40671005236533735}
+  - component: {fileID: -8351200104583886927}
   m_Layer: 0
   m_Name: Crimer
   m_TagString: Untagged
@@ -401,3 +402,18 @@ PolygonCollider2D:
       - {x: -0.049999997, y: -1.055}
       - {x: 0.099999994, y: -1.055}
   m_UseDelaunayMesh: 0
+--- !u!114 &-8351200104583886927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778050509501687500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f586f285b3847808d79083bd19ef1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  unwrap: 1
+  splitAtEveryPortal: 0
