@@ -53,7 +53,7 @@ public class InventoryManager : MonoBehaviour
         // 1. 딕셔너리에 해당 자원이 없으면 키(key) 생성
         if (!resourceTotals.ContainsKey(type))
         {
-            resourceTotals[type] = 100;
+            resourceTotals[type] = 0;
         }
 
         // 2. 자원량 추가

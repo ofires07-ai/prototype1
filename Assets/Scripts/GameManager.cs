@@ -10,7 +10,7 @@ public enum ResourceType
     Tier2, // 인덱스 1
     Tier3, // 인덱스 2
     Tier4, // 인덱스 3
-    Tier5, // 인덱스 4
+    //Tier5, // 인덱스 4
     Special
 }
 
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI resource2Text;
     public TextMeshProUGUI resource3Text;
     public TextMeshProUGUI resource4Text;
-    public TextMeshProUGUI resource5Text;
+    public TextMeshProUGUI specialText;
 
     // 4. 게임 상태 정의
     public enum GameState
@@ -326,21 +326,22 @@ public class GameManager : MonoBehaviour
 
     // --- UI 업데이트 ---
     public void UpdateResourceUI()
-    {
-        if (inventoryManager == null) return;
+{
+    if (inventoryManager == null) return;
 
-        // InventoryManager의 GetTotalAmount 함수를 호출하여 화면을 갱신합니다.
-        if (resource1Text != null) 
-            resource1Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier1);
-        if (resource2Text != null) 
-            resource2Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier2);
-        if (resource3Text != null) 
-            resource3Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier3);
-        if (resource4Text != null) 
-            resource4Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier4);
-        if (resource5Text != null) 
-            resource5Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier5);
-    }
+    if (resource1Text != null) 
+        resource1Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier1);
+    if (resource2Text != null) 
+        resource2Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier2);
+    if (resource3Text != null) 
+        resource3Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier3);
+    if (resource4Text != null) 
+        resource4Text.text = "" + inventoryManager.GetTotalAmount(ResourceType.Tier4);
+    // 새 이름을 쓰고 싶다면:
+    if (specialText != null)
+        specialText.text = "" + inventoryManager.GetTotalAmount(ResourceType.Special);
+}
+
 
     private void UpdateHPUI()
     {
