@@ -85,7 +85,7 @@ public class PickUnit : MonoBehaviour
                 
                 float distanceToTarget = Vector3.Distance(transform.position, targetSource.transform.position);
 
-                if (distanceToTarget > aiPath.endReachedDistance * 2f || !targetSource.CanStartMining())
+                if (distanceToTarget > aiPath.endReachedDistance * 1f || !targetSource.CanStartMining())
                 {
                     // (선택) 통합된 로그 메시지
                     Debug.Log("조건 미달(거리 이탈 또는 부모 중지)로 채굴을 중지합니다.");

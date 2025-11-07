@@ -1,33 +1,36 @@
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem; // 새 입력 시스템을 쓰면 마우스 위치용
+using UnityEngine.InputSystem;
 #endif
 
 [RequireComponent(typeof(Camera))]
 public class CameraEdgePan2D : MonoBehaviour
 {
     [Header("이동")]
-    public float moveSpeed = 12f;           // 카메라 이동 속도(유닛/초)
-    [Tooltip("화면 가장자리에서 몇 픽셀 안으로 들어오면 이동을 시작할지")]
-    public int edgeThickness = 16;          // px
+    public float moveSpeed = 12f;
+    public int edgeThickness = 16; // px
+
+    [Header("줌")]
+    public float zoomStep = 2f;      // 휠 한 칸 당 사이즈 변화량
+    public float minOrtho = 4f;      // 최소 orthographicSize
+    public float maxOrtho = 30f;     // 절대 상한(보호용)
+    public bool zoomToCursor = true; // 커서 기준 줌
+
+    [Tooltip("ON: 양쪽(위+아래 또는 좌+우)이 동시에 닿을 때에만 줌아웃 멈춤\nOFF: 한쪽이라도 닿으면 멈춤(기존 방식)")]
+    public bool limitWhenBothSidesTouch = true;
 
     [Header("맵 경계")]
-    [Tooltip("경계를 BoxCollider2D로 지정하면 그 Bounds를 자동 사용")]
-    public BoxCollider2D worldBounds;       // 선택: 맵의 바운더리 콜라이더
-    [Tooltip("Collider를 안 쓸 때 수동 크기 지정 (월드 단위)")]
-    public Vector2 manualMapSize = new Vector2(100, 100); // 가로x세로(월드)
+    public BoxCollider2D worldBounds;
+    public Vector2 manualMapSize = new Vector2(100, 100); // worldBounds 없을 때 수동 지정
 
-    Camera cam;
-    Bounds mapBounds;
-    bool hasBounds = false;
+    private Camera cam;
+    private Bounds mapBounds;
+    private bool hasBounds;
 
     void Awake()
     {
         cam = GetComponent<Camera>();
-        if (!cam.orthographic)
-        {
-            Debug.LogWarning("[CameraEdgePan2D] 2D용이므로 Camera는 Orthographic 권장");
-        }
+        if (!cam.orthographic) cam.orthographic = true;
 
         if (worldBounds != null)
         {
@@ -36,7 +39,6 @@ public class CameraEdgePan2D : MonoBehaviour
         }
         else
         {
-            // manualMapSize 기준으로, 현재 transform.position을 중심으로 하는 Bounds 구성
             Vector3 center = transform.position;
             Vector3 size = new Vector3(Mathf.Max(0.01f, manualMapSize.x), Mathf.Max(0.01f, manualMapSize.y), 10f);
             mapBounds = new Bounds(center, size);
@@ -46,27 +48,39 @@ public class CameraEdgePan2D : MonoBehaviour
 
     void Update()
     {
-        Vector2 dir = GetEdgeDirection();           // 가장자리 접촉 방향(대각선 포함)
+        // 1) 에지 팬
+        Vector2 dir = GetEdgeDirection();
         if (dir.sqrMagnitude > 0f)
         {
-            Vector3 delta = (Vector3)(dir.normalized * moveSpeed * Time.deltaTime);
-            transform.position += delta;
-            if (hasBounds) ClampToBounds();
+            transform.position += (Vector3)(dir.normalized * moveSpeed * Time.deltaTime);
+            if (hasBounds)
+            {
+                ClampToBounds();
+
+                // 이동 후 현재 위치에서 허용되는 최대치보다 크면 보정 (둘 다 닿음/한쪽 닿음 모드에 따라 계산)
+                float dynMax = GetAllowedMaxOrtho();
+                if (cam.orthographicSize > dynMax)
+                    cam.orthographicSize = dynMax;
+            }
+        }
+
+        // 2) 휠 줌
+        float scroll = ReadScroll();
+        if (Mathf.Abs(scroll) > 0.01f)
+        {
+            Zoom(scroll);
         }
     }
 
     Vector2 GetEdgeDirection()
     {
-        // 마우스 위치
-        Vector2 mpos;
 #if ENABLE_INPUT_SYSTEM
-        mpos = Mouse.current != null ? Mouse.current.position.ReadValue() : (Vector2)Input.mousePosition;
+        Vector2 mpos = Mouse.current != null ? Mouse.current.position.ReadValue() : (Vector2)Input.mousePosition;
 #else
-        mpos = Input.mousePosition;
+        Vector2 mpos = Input.mousePosition;
 #endif
         float w = Screen.width;
         float h = Screen.height;
-
         float dx = 0f, dy = 0f;
 
         if (mpos.x <= edgeThickness) dx = -1f;
@@ -75,16 +89,121 @@ public class CameraEdgePan2D : MonoBehaviour
         if (mpos.y <= edgeThickness) dy = -1f;
         else if (mpos.y >= h - edgeThickness) dy = 1f;
 
-        return new Vector2(dx, dy); // 모서리면 (±1, ±1) → 대각선 이동
+        return new Vector2(dx, dy);
+    }
+
+    float ReadScroll()
+    {
+#if ENABLE_INPUT_SYSTEM
+        return Mouse.current != null ? Mouse.current.scroll.ReadValue().y / 120f : 0f;
+#else
+        return Input.mouseScrollDelta.y;
+#endif
+    }
+
+    void Zoom(float scroll)
+    {
+        // 줌 전 커서 월드좌표
+        Vector3 before = Vector3.zero;
+        if (zoomToCursor)
+        {
+#if ENABLE_INPUT_SYSTEM
+            Vector2 mpos = Mouse.current != null ? Mouse.current.position.ReadValue() : (Vector2)Input.mousePosition;
+#else
+            Vector2 mpos = Input.mousePosition;
+#endif
+            before = cam.ScreenToWorldPoint(new Vector3(mpos.x, mpos.y, -cam.transform.position.z));
+        }
+
+        // 사용자 목표
+        float desired = cam.orthographicSize - scroll * zoomStep;
+
+        // 허용 최대(모드에 따라 계산)
+        float allowedMax = GetAllowedMaxOrtho();
+
+        // 최종 반영
+        float clamped = Mathf.Clamp(desired, minOrtho, Mathf.Min(maxOrtho, allowedMax));
+        cam.orthographicSize = clamped;
+
+        // 커서 기준 줌 보정
+        if (zoomToCursor)
+        {
+#if ENABLE_INPUT_SYSTEM
+            Vector2 mpos = Mouse.current != null ? Mouse.current.position.ReadValue() : (Vector2)Input.mousePosition;
+#else
+            Vector2 mpos = Input.mousePosition;
+#endif
+            Vector3 after = cam.ScreenToWorldPoint(new Vector3(mpos.x, mpos.y, -cam.transform.position.z));
+            Vector3 delta = before - after;
+            transform.position += new Vector3(delta.x, delta.y, 0f);
+        }
+
+        if (hasBounds) ClampToBounds();
+
+        // 보정 후에도 초과가 있으면 한번 더 제한
+        if (hasBounds)
+        {
+            float allowedMax2 = GetAllowedMaxOrtho();
+            cam.orthographicSize = Mathf.Min(cam.orthographicSize, allowedMax2);
+            ClampToBounds();
+        }
+    }
+
+    /// <summary>
+    /// 현재 설정에서 허용되는 최대 orthographicSize 계산
+    /// - limitWhenBothSidesTouch=true: 맵 전체 크기 기준(글로벌) 제한 → 양쪽이 동시에 닿을 때 멈춤
+    /// - false: 현 위치 기준(로컬) 제한 → 한쪽이라도 닿으면 멈춤(이전 방식)
+    /// </summary>
+    float GetAllowedMaxOrtho()
+    {
+        if (!hasBounds) return maxOrtho;
+
+        if (limitWhenBothSidesTouch)
+        {
+            // 전역 제한: 맵 전체를 화각에 넣을 때까지 허용 (양쪽 동시 접촉 시 멈춤)
+            float fullHalfH = mapBounds.extents.y;          // 지도 세로 절반
+            float fullHalfW = mapBounds.extents.x;          // 지도 가로 절반
+            float byHeight  = fullHalfH;
+            float byWidth   = fullHalfW / cam.aspect;
+            float globalMax = Mathf.Min(byHeight, byWidth);
+
+            // 너무 딱 붙는 경계 떨림 방지용 epsilon
+            const float eps = 0.0001f;
+            return Mathf.Clamp(globalMax - eps, minOrtho, maxOrtho);
+        }
+        else
+        {
+            // 위치 기반(이전 방식): 한쪽이라도 닿으면 멈춤
+            float camX = transform.position.x;
+            float camY = transform.position.y;
+
+            float minX = mapBounds.min.x;
+            float maxX = mapBounds.max.x;
+            float minY = mapBounds.min.y;
+            float maxY = mapBounds.max.y;
+
+            float roomLeft   = camX - minX;
+            float roomRight  = maxX - camX;
+            float roomDown   = camY - minY;
+            float roomUp     = maxY - camY;
+
+            float maxHalfH = Mathf.Min(roomDown, roomUp);
+            float maxHalfW = Mathf.Min(roomLeft, roomRight);
+
+            float byHeight = maxHalfH;
+            float byWidth  = maxHalfW / cam.aspect;
+
+            const float eps = 0.0001f;
+            float dynMax = Mathf.Min(byHeight, byWidth) - eps;
+            return Mathf.Clamp(dynMax, minOrtho, maxOrtho);
+        }
     }
 
     void ClampToBounds()
     {
-        // 카메라 반폭/반높이 계산(orthographic)
         float halfH = cam.orthographicSize;
         float halfW = halfH * cam.aspect;
 
-        // 카메라 중심이 갈 수 있는 최소/최대
         float minX = mapBounds.min.x + halfW;
         float maxX = mapBounds.max.x - halfW;
         float minY = mapBounds.min.y + halfH;
@@ -99,18 +218,13 @@ public class CameraEdgePan2D : MonoBehaviour
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
-        // 에디터에서 경계 시각화
         Gizmos.color = new Color(0f, 1f, 0f, 0.25f);
         Bounds b;
         if (worldBounds != null) b = worldBounds.bounds;
         else
         {
             Vector3 center = Application.isPlaying ? mapBounds.center : transform.position;
-            Vector3 size = new Vector3(
-                Mathf.Max(0.01f, manualMapSize.x),
-                Mathf.Max(0.01f, manualMapSize.y),
-                1f
-            );
+            Vector3 size = new Vector3(Mathf.Max(0.01f, manualMapSize.x), Mathf.Max(0.01f, manualMapSize.y), 1f);
             b = new Bounds(center, size);
         }
         Gizmos.DrawCube(b.center, b.size);

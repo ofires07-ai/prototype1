@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744bacac5ff5f484f8f6e737056f611e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceType: 5
+  resourceType: 4
   amountPerTick: 1
   activationTime: 3
   attachedNormalSource: {fileID: 0}
-  capacity: 0
+  capacity: 10

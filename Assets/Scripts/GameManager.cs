@@ -230,7 +230,7 @@ public class GameManager : MonoBehaviour
     {
         if (_monsterCountUIs.ContainsKey(enemyID))
         {
-            _monsterCountUIs[enemyID].text = $"X {remaining}";
+            _monsterCountUIs[enemyID].text = $" {remaining}";
         }
     }
 

@@ -8,6 +8,7 @@ TagManager:
   - Tower
   - Buildable
   - Enemy
+  - Resource
   layers:
   - Default
   - TransparentFX
