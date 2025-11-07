@@ -6,8 +6,7 @@ public abstract class MineableResource : MonoBehaviour
 {
     [Header("공통 자원 정보")]
     public ResourceType resourceType;
-    public int amountPerTick = 1;
-    public float activationTime = 3.0f; // 예시: 3초
+    public float activationTime = 1.5f; // 예시: 3초
     private bool isMining = false;
     
     // [중요] SourceManager 참조는 이제 부모가 가집니다.
