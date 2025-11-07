@@ -3,53 +3,75 @@ using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// 웨이포인트 시스템과 타겟 감지를 통합한 유닛 이동 스크립트.
-/// 타겟이 감지되면 이동을 멈추고, 그렇지 않으면 웨이포인트를 따라 이동합니다.
+/// [통합 AI 스크립트]
+/// 웨이포인트(순찰)와 스캐너(추적/공격)를 모두 처리하며,
+/// 체력, 죽음, 애니메이션(Speed, Attack, Die) 제어를 담당합니다.
+/// 
+/// [필수 Animator Parameters]
+/// - Speed (Float)
+/// - Attack (Trigger)
+/// - Die (Trigger)
+/// 
+/// [필수 컴포넌트]
+/// - Animator, HY_Scanner, SpriteRenderer, Collider2D
 /// </summary>
 public class HY_EnemyUnitMovement : MonoBehaviour
 {
     [Header("이동 설정")]
+    [Tooltip("기본 순찰 속도")]
     [SerializeField] private float moveSpeed = 3f;
+    [Tooltip("웨이포인트에 도달했다고 판단하는 거리")]
     [SerializeField] private float stoppingDistance = 0.5f;
-    [SerializeField] private float rotationSpeed = 5f;
+
+    [Header("전투 설정")]
+    [Tooltip("적을 발견했을 때의 추격 속도")]
+    [SerializeField] private float chaseSpeed = 4f;
+    [Tooltip("이 거리 안으로 들어오면 공격을 시작합니다")]
+    [SerializeField] private float attackRange = 1.0f; 
+    [Tooltip("공격 데미지 (필요한 경우)")]
+    [SerializeField] private int attackDamage = 1; // (예시)
+
+    [Header("체력 설정")]
+    [SerializeField] private int maxHp = 10;
+    private int currentHp;
+    private bool isLive = true;
 
     [Header("웨이포인트 설정")]
-    [Tooltip("Circle로 시작하는 오브젝트들을 자동으로 찾아 웨이포인트로 사용")]
+    [Tooltip("Scene에서 'spaceship'으로 시작하는 오브젝트를 자동으로 찾아 순서대로 정렬")]
     [SerializeField] private bool autoFindCircles = true;
-    [Tooltip("수동으로 웨이포인트를 지정 (autoFindCircles가 false일 때)")]
+    [Tooltip("수동 웨이포인트 (autoFindCircles가 false일 때)")]
     [SerializeField] private Transform[] manualWaypoints;
 
-    [Header("애니메이션 설정")]
-    [Tooltip("Animator 컴포넌트 (자동으로 찾습니다)")]
+    [Header("컴포넌트 (자동 찾기)")]
     [SerializeField] private Animator animator;
-    [Tooltip("걷기 애니메이션 파라미터 이름")]
-    [SerializeField] private string walkParameterName = "isWalking";
-    [Tooltip("대기 애니메이션 파라미터 이름")]
-    [SerializeField] private string idleParameterName = "isIdle";
+    public HY_Scanner scanner; // AI의 '눈' 역할
+    private SpriteRenderer spriteRenderer; // 좌우 반전용
 
-    [Header("컴포넌트")]
-    [Tooltip("Scanner 컴포넌트 (자동으로 찾습니다)")]
-    public HY_Scanner scanner;
-
+    // --- 내부 관리 변수 ---
     private List<Transform> waypoints = new List<Transform>();
     private int currentWaypointIndex = 0;
-    private bool isMoving = false;
     private bool hasReachedFinalDestination = false;
+
+    // (SpawnManager에 사망 보고가 필요하다면 HY_Enemy처럼 enemyID 변수 추가)
+    // public string enemyID; 
+
 
     void Start()
     {
-        //HandleSpriteFlip();
-        // 컴포넌트 자동 찾기
-        if (animator == null)
+        // 1. 컴포넌트 자동 찾기 및 초기화
+        if (animator == null) animator = GetComponent<Animator>();
+        if (scanner == null) scanner = GetComponent<HY_Scanner>();
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        
+        currentHp = maxHp; // 체력 초기화
+        isLive = true;
+
+        if (spriteRenderer == null)
         {
-            animator = GetComponent<Animator>();
-        }
-        if (scanner == null)
-        {
-            scanner = GetComponent<HY_Scanner>();
+            Debug.LogError($"[AI] {name}: SpriteRenderer가 없습니다! 좌우 반전(flipX)을 할 수 없습니다.");
         }
 
-        // 웨이포인트 설정
+        // 2. 웨이포인트(순찰 경로) 설정
         if (autoFindCircles)
         {
             FindAndSortCircles();
@@ -57,75 +79,235 @@ public class HY_EnemyUnitMovement : MonoBehaviour
         else if (manualWaypoints != null && manualWaypoints.Length > 0)
         {
             waypoints = new List<Transform>(manualWaypoints);
-            Debug.Log($"[UnitMovement] {name}: 수동 웨이포인트 {waypoints.Count}개 사용");
+            Debug.Log($"[AI] {name}: 수동 웨이포인트 {waypoints.Count}개 사용");
         }
 
-        // 이동 시작 조건 확인
-        if (waypoints.Count > 0)
+        if (waypoints.Count == 0 && autoFindCircles)
         {
-            isMoving = true;
-            SetWalkingAnimation(true);
-            Debug.Log($"[UnitMovement] {name}: 총 {waypoints.Count}개의 웨이포인트를 거쳐 이동 시작!");
-        }
-        else
-        {
-            Debug.LogWarning($"[UnitMovement] {name}: 웨이포인트를 찾을 수 없습니다!");
-        }
-    }
-
-    void Update()
-    {
-        // 타겟이 감지되면 즉시 움직임을 멈춤
-        if (scanner != null && scanner.nearestTarget != null)
-        {
-            if (isMoving)
-            {
-                isMoving = false;
-                SetWalkingAnimation(false);
-                Debug.Log($"[UnitMovement] {name}: 타겟({scanner.nearestTarget.name}) 감지! 이동을 중단합니다.");
-            }
-            return;
-        }
-        // 타겟이 사라졌고, 움직이고 있지 않다면 다시 웨이포인트 이동 시작
-        else if (!isMoving && !hasReachedFinalDestination)
-        {
-            isMoving = true;
-            SetWalkingAnimation(true);
-            Debug.Log($"[UnitMovement] {name}: 타겟 없음. 웨이포인트 이동을 재개합니다.");
-        }
-
-        // 이동 중이 아니거나 최종 목적지에 도달했다면 return
-        if (!isMoving || hasReachedFinalDestination)
-        {
-            return;
-        }
-
-        // 웨이포인트 이동
-        if (waypoints.Count > 0)
-        {
-            MoveToCurrentWaypoint();
-        }
-        else
-        {
-            // 움직일 곳이 없으면 정지
-            isMoving = false;
-            SetWalkingAnimation(false);
+             Debug.LogWarning($"[AI] {name}: 'spaceship'으로 시작하는 웨이포인트를 찾을 수 없습니다! (제자리 대기)");
         }
     }
 
     /// <summary>
-    /// Scene에서 "Circle"로 시작하는 모든 오브젝트를 찾아 거리순으로 정렬
+    /// AI의 메인 두뇌 (매 프레임 실행)
+    /// </summary>
+    void Update()
+    {
+        // 죽었으면 아무것도 하지 않음
+        if (!isLive) return;
+
+        // 1. "눈" (스캐너)으로 적을 찾음
+        Transform target = scanner.nearestTarget;
+
+        if (target != null)
+        {
+            // 2. 적이 있다! (전투 모드: 추격 또는 공격)
+            HandleCombat(target);
+        }
+        else
+        {
+            // 3. 적이 없다! (순찰 모드)
+            HandlePatrol();
+        }
+    }
+
+    /// <summary>
+    /// (전투) 타겟을 추격하거나 공격합니다.
+    /// </summary>
+    void HandleCombat(Transform target)
+    {
+        float distance = Vector3.Distance(transform.position, target.position);
+        Vector3 direction = (target.position - transform.position).normalized;
+
+        if (distance > attackRange)
+        {
+            // --- 1. 추격 (Chase) ---
+            // "적이 죽으면... 다시 움직이고" (새로운 적을 향해)
+            transform.position += direction * chaseSpeed * Time.deltaTime;
+            
+            // 애니메이션: 'Walk' 상태 재생 (Speed > 0.1)
+            animator.SetFloat("Speed", chaseSpeed);
+            
+            // 방향: 좌우 반전 (상하 이동 시 마지막 좌우 방향 유지)
+            HandleSpriteFlip(direction.x);
+        }
+        else
+        {
+            // --- 2. 공격 (Attack) ---
+            // "가까워 지면 공격을 하고"
+            // (1) 멈춤 (Animator FSM이 'Idle' 상태로 가게 함)
+            animator.SetFloat("Speed", 0); 
+            
+            // (2) 공격 트리거 발동 (FSM이 'Idle' -> 'Attack'으로 즉시 전환)
+            animator.SetTrigger("Attack"); 
+            
+            // (3) 방향: 적을 바라보도록 좌우 반전
+            HandleSpriteFlip(direction.x);
+        }
+    }
+
+    /// <summary>
+    /// (순찰) 웨이포인트를 따라 이동합니다.
+    /// </summary>
+    void HandlePatrol()
+    {
+        // "적이 죽으면... 없으면 다시 움직이고"
+        if (hasReachedFinalDestination || waypoints.Count == 0)
+        {
+            // 멈춤 (모든 순찰 완료 또는 순찰 경로 없음)
+            animator.SetFloat("Speed", 0); // 'Idle' 상태로
+            return;
+        }
+
+        // --- 1. 목표 웨이포인트 설정 ---
+        Transform targetWaypoint = waypoints[currentWaypointIndex];
+        if (targetWaypoint == null) 
+        {
+            // (혹시 웨이포인트가 파괴된 경우)
+            currentWaypointIndex++;
+            return;
+        }
+
+        float distance = Vector3.Distance(transform.position, targetWaypoint.position);
+
+        // --- 2. 웨이포인트 도착 ---
+        if (distance <= stoppingDistance)
+        {
+            OnReachedWaypoint(currentWaypointIndex);
+            currentWaypointIndex++;
+
+            if (currentWaypointIndex >= waypoints.Count)
+            {
+                // 최종 목적지 도착
+                OnReachedFinalDestination();
+            }
+            return;
+        }
+
+        // --- 3. 이동 ---
+        Vector3 direction = (targetWaypoint.position - transform.position).normalized;
+        transform.position += direction * moveSpeed * Time.deltaTime;
+
+        // 애니메이션: 'Walk' 상태 재생
+        animator.SetFloat("Speed", moveSpeed);
+        
+        // 방향: 좌우 반전
+        HandleSpriteFlip(direction.x);
+    }
+
+    /// <summary>
+    /// 이동 방향(x)에 따라 스프라이트를 좌우로 뒤집습니다.
+    /// </summary>
+    void HandleSpriteFlip(float directionX)
+    {
+        if (spriteRenderer == null) return;
+
+        // directionX가 0이 아닐 때만 방향을 바꿉니다.
+        // (0이면, 즉 수직 이동 시에는 마지막 방향을 유지합니다)
+        if (directionX > 0.01f) // 오른쪽
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (directionX < -0.01f) // 왼쪽
+        {
+            spriteRenderer.flipX = true;
+        }
+    }
+
+    // --- 체력 및 피격 로직 (HY_Enemy에서 가져옴) ---
+
+    /// <summary>
+    /// 외부(총알 등)에서 호출하여 데미지를 입힙니다.
+    /// </summary>
+    public void TakeDamage(int damage)
+    {
+        if (!isLive) return; // 이미 죽었으면 무시
+
+        currentHp -= damage;
+        // (선택) 여기서 피격 애니메이션 트리거
+        // animator.SetTrigger("Hit"); 
+
+        if (currentHp <= 0)
+        {
+            Die();
+        }
+    }
+
+    /// <summary>
+    /// 사망 처리
+    /// </summary>
+    public void Die()
+    {
+        if (!isLive) return; // 중복 사망 방지
+        isLive = false;
+        currentHp = 0;
+
+        // 1. 죽음 애니메이션 재생
+        animator.SetTrigger("Die");
+        
+        // (선택) SpawnManager에 사망 보고
+        // if (SpawnManager.Instance != null && !string.IsNullOrEmpty(enemyID))
+        //     SpawnManager.Instance.OnMonsterDied(enemyID);
+
+        // 2. 물리/충돌 중지
+        GetComponent<Collider2D>().enabled = false;
+        // Rigidbody2D가 있다면 비활성화
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.isKinematic = true;
+        }
+
+        // 3. 오브젝트 파괴 (Die 애니메이션 재생 시간 기다리기)
+        // (Tip: 애니메이션 클립의 실제 길이만큼 설정하는 것이 좋음)
+        Destroy(gameObject, 2.0f); 
+    }
+
+    /// <summary>
+    /// 총알 등과의 충돌 감지
+    /// </summary>
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // (총알 스크립트 이름이 HY_Bullet이라고 가정)
+        HY_Bullet bullet = collision.GetComponent<HY_Bullet>();
+        if (bullet != null)
+        {
+            TakeDamage(bullet.damage);
+            
+            // 총알이 관통형이 아니라면 즉시 파괴
+            Destroy(bullet.gameObject);
+        }
+    }
+
+
+    // --- 웨이포인트 관련 헬퍼 함수 ---
+
+    void OnReachedWaypoint(int waypointIndex)
+    {
+        // Debug.Log($"[AI] {name}: 웨이포인트 {waypoints[waypointIndex].name}에 도착!");
+        // (필요시 이곳에서 사운드 재생 등)
+    }
+
+    void OnReachedFinalDestination()
+    {
+        hasReachedFinalDestination = true;
+        animator.SetFloat("Speed", 0); // 멈춤
+        Debug.Log($"[AI] {name}: 🎯 최종 목적지 도착! 순찰을 중단합니다.");
+    }
+
+    /// <summary>
+    /// Scene에서 "spaceship"으로 시작하는 모든 오브젝트를 찾아 거리순으로 정렬
     /// </summary>
     void FindAndSortCircles()
     {
         List<GameObject> circleObjects = FindObjectsOfType<GameObject>()
-            .Where(obj => obj.name.StartsWith("spaceship"))
+            .Where(obj => obj.name.StartsWith("spaceship")) // ⚠️ "spaceship" 이름 확인
             .ToList();
 
         if (circleObjects.Count == 0)
         {
-            Debug.LogError($"[UnitMovement] {name}: 'Circle'로 시작하는 오브젝트를 찾을 수 없습니다!");
-            return;
+            return; // (로그는 Start()에서 이미 찍으므로 여기선 생략)
         }
 
         // 현재 위치에서 가까운 순서대로 정렬
@@ -134,134 +316,10 @@ public class HY_EnemyUnitMovement : MonoBehaviour
             .Select(obj => obj.transform)
             .ToList();
 
-        Debug.Log($"[UnitMovement] {name}: {waypoints.Count}개의 Circle 발견 및 정렬 완료.");
+        Debug.Log($"[AI] {name}: {waypoints.Count}개의 'spaceship' 웨이포인트 발견 및 정렬 완료.");
     }
 
-    /// <summary>
-    /// 현재 웨이포인트를 향해 이동
-    /// </summary>
-    void MoveToCurrentWaypoint()
-    {
-        if (currentWaypointIndex >= waypoints.Count)
-        {
-            OnReachedFinalDestination();
-            return;
-        }
-
-        Transform targetWaypoint = waypoints[currentWaypointIndex];
-        if (targetWaypoint == null)
-        {
-            currentWaypointIndex++;
-            return;
-        }
-
-        // 목표까지의 거리 계산
-        float distance = Vector3.Distance(transform.position, targetWaypoint.position);
-
-        // 목표에 도착했는지 확인
-        if (distance <= stoppingDistance)
-        {
-            OnReachedWaypoint(currentWaypointIndex);
-            currentWaypointIndex++;
-            return;
-        }
-
-        // 이동
-        Vector3 direction = (targetWaypoint.position - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
-
-        // // 회전 (2D)
-        // if (direction != Vector3.zero)
-        // {
-        //     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        //     Quaternion targetRotation = Quaternion.Euler(0, 0, angle - 90);
-        //     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        // }
-    }
-
-    /// <summary>
-    /// 웨이포인트에 도착했을 때 호출
-    /// </summary>
-    void OnReachedWaypoint(int waypointIndex)
-    {
-        Debug.Log($"[UnitMovement] {name}: 웨이포인트 {waypoints[waypointIndex].name}에 도착!");
-    }
-
-    /// <summary>
-    /// 최종 목적지에 도착했을 때 호출
-    /// </summary>
-    void OnReachedFinalDestination()
-    {
-        if (hasReachedFinalDestination) return;
-
-        hasReachedFinalDestination = true;
-        isMoving = false;
-        Debug.Log($"[UnitMovement] {name}: 🎯 최종 목적지 도착! 대기 상태로 전환합니다.");
-        SetWalkingAnimation(false);
-    }
-
-    /// <summary>
-    /// 걷기/대기 애니메이션 제어
-    /// </summary>
-    void SetWalkingAnimation(bool walking)
-    {
-        if (animator == null) return;
-
-        if (!string.IsNullOrEmpty(walkParameterName))
-        {
-            animator.SetBool(walkParameterName, walking);
-        }
-        if (!string.IsNullOrEmpty(idleParameterName))
-        {
-            animator.SetBool(idleParameterName, !walking);
-        }
-    }
-
-    /// <summary>
-    /// 외부에서 웨이포인트를 설정하는 함수
-    /// </summary>
-    public void SetWaypoints(Transform[] newWaypoints)
-    {
-        waypoints = new List<Transform>(newWaypoints);
-        currentWaypointIndex = 0;
-        hasReachedFinalDestination = false;
-        isMoving = waypoints.Count > 0;
-        
-        if (isMoving)
-        {
-            SetWalkingAnimation(true);
-        }
-    }
-
-    /// <summary>
-    /// 외부에서 단일 집결지(Rally Point)를 설정하는 함수
-    /// </summary>
-    public void SetRallyPoint(Transform newRallyPoint)
-    {
-        if (newRallyPoint == null) return;
-
-        autoFindCircles = false; 
-        waypoints.Clear();
-        waypoints.Add(newRallyPoint);
-        
-        currentWaypointIndex = 0;
-        hasReachedFinalDestination = false;
-        isMoving = true;
-        SetWalkingAnimation(true);
-        
-        Debug.Log($"[UnitMovement] {name}: 새로운 집결지 '{newRallyPoint.name}' 설정 완료.");
-    }
-
-    /// <summary>
-    /// 이동 일시정지/재개
-    /// </summary>
-    public void SetMoving(bool moving)
-    {
-        isMoving = moving;
-        SetWalkingAnimation(moving);
-    }
-
-    // Scene 뷰에서 경로 시각화
+    // Scene 뷰에서 경로 시각화 (디버깅용)
     void OnDrawGizmos()
     {
         if (waypoints == null || waypoints.Count == 0) return;
@@ -285,5 +343,6 @@ public class HY_EnemyUnitMovement : MonoBehaviour
             }
         }
     }
-    
+
+    // --- (기존 스크립트의 SetRallyPoint 등은 제거됨. 필요하면 추가) ---
 }

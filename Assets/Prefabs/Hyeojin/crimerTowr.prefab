@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8323602960233691375}
   - component: {fileID: 6970258084560141748}
   - component: {fileID: 3165397417315474620}
-  - component: {fileID: 2495053863041438329}
   - component: {fileID: -3673149374367849200}
   - component: {fileID: 1118935596361407257}
   m_Layer: 10
@@ -149,7 +148,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 253044694582849939}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -179,26 +178,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.05, y: 0.05}
   m_Direction: 0
---- !u!114 &2495053863041438329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 253044694582849939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80ad243c5bf71134b86552cdf1bd1db8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigid: {fileID: 0}
-  anim: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  Target: {fileID: 0}
-  enemyID: 
-  stoppingDistance: 0.5
-  maxHp: 10
-  currentHp: 0
 --- !u!114 &-3673149374367849200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,7 +185,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 253044694582849939}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73ce1f45c3c9dcc4c9f76bc7dd4be941, type: 3}
   m_Name: 
@@ -223,18 +202,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 253044694582849939}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a798acfa3c5eb4154966423f4d74a8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
   stoppingDistance: 0.5
-  rotationSpeed: 0
+  chaseSpeed: 4
+  attackRange: 1
+  attackDamage: 1
+  maxHp: 10
   autoFindCircles: 1
   manualWaypoints:
   - {fileID: 0}
   animator: {fileID: 0}
-  walkParameterName: isWalking
-  idleParameterName: isIdle
   scanner: {fileID: 0}
