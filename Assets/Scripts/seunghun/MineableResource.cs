@@ -4,9 +4,8 @@ using UnityEngine;
 // 자식들에 의해 상속되어야 함을 의미합니다.
 public abstract class MineableResource : MonoBehaviour
 {
-    [Header("공통 자원 정보")]
+    [Header("공통 자원 정보")] 
     public ResourceType resourceType;
-    public float activationTime = 1.5f; // 예시: 3초
     private bool isMining = false;
     
     // [중요] SourceManager 참조는 이제 부모가 가집니다.
