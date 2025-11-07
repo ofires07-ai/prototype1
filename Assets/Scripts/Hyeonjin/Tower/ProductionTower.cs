@@ -67,6 +67,8 @@ public class ProductionTower : MonoBehaviour
                 SpawnUnit();
             }
 
+            Debug.LogError($"[ProductionTower] {producedUnits.Count}: 현재 생산된 유닛 수");
+            
             // 4. 다음 생산까지 대기
             yield return new WaitForSeconds(productionTime);
         }
@@ -75,38 +77,59 @@ public class ProductionTower : MonoBehaviour
     /// <summary>
     /// 유닛을 생성하고 설정하는 함수
     /// </summary>
-    private void SpawnUnit()
+    // (이 스크립트는 'ProductionTower' 또는 'UnitSpawner'라고 가정합니다)
+
+// ... (unitPrefab, spawnPoint 등 변수 선언) ...
+
+
+/// <summary>
+/// 유닛 1기를 스폰하고, Circle 경로 + 깃발 위치를 설정합니다.
+/// </summary>
+private void SpawnUnit()
+{
+    // --- 1. 스폰 위치 계산 (콜라이더 충돌 방지) ---
+    // 기본 생성 위치 결정
+    Vector3 basePos = (spawnPoint != null) ? spawnPoint.position : transform.position;
+    // 미미한 랜덤값 적용
+    Vector2 randomOffset = Random.insideUnitCircle * spawnRadiusOffset;
+    Vector3 finalSpawnPos = new Vector3(basePos.x + randomOffset.x, basePos.y + randomOffset.y, basePos.z);
+
+    // --- 2. 유닛 생성 ---
+    // (이제 밀려남 없이 안전한 위치에 스폰됩니다)
+    GameObject newUnitGO = Instantiate(unitPrefab, finalSpawnPos, Quaternion.identity);
+
+    // (리스트 추가 등... 기존 로직)
+    // producedUnits.Add(newUnitGO);
+
+    // --- 3. [핵심] 유닛에게 경로 설정하기 ---
+    
+    // (A) 생성된 유닛의 UnitMovement 스크립트를 가져옵니다.
+    HY_UnitMovement unitMovement = newUnitGO.GetComponent<HY_UnitMovement>();
+    
+    if (unitMovement != null)
     {
-       // 1. 기본 생성 위치 결정
-        Vector3 basePos = (spawnPoint != null) ? spawnPoint.position : transform.position;
+        // (B) [중요] FlagManager의 '싱글톤 인스턴스'에 접근하여
+        //     '현재 깃발'의 Transform을 가져옵니다.
+        //     (FlagManager.cs)
+        Transform currentFlag = FlagManager.Instance.currentSpawnFlag; 
 
-        // 2. "미미한 랜덤값" 계산 (2D 기준)
-        Vector2 randomOffset = Random.insideUnitCircle * spawnRadiusOffset; 
-
-        // 3. 기본 위치 + 랜덤값 = 최종 위치
-        // (Z축은 3D 게임일 경우 basePos.z를, 2D 게임이면 0 또는 basePos.z를 사용)
-        Vector3 finalSpawnPos = new Vector3(basePos.x + randomOffset.x, basePos.y + randomOffset.y, 0);
-
-        // 4. "절대 겹치지 않는" 최종 위치에 유닛 생성
-        GameObject newUnitGO = Instantiate(unitPrefab, finalSpawnPos, Quaternion.identity);
-
-        // 생성된 유닛을 리스트에 추가
-        producedUnits.Add(newUnitGO);
-
-        // ✅ (FR-RU-007) 생성된 유닛에게 '깃발' 위치 전달
-        // UnitMovement 스크립트가 있는지 확인
-        HY_UnitMovement unitMovement = newUnitGO.GetComponent<HY_UnitMovement>();
-        if (unitMovement != null && rallyPoint != null)
+        // (C) 깃발이 (아직) 생성되지 않았을 수도 있으니 확인합니다.
+        if (currentFlag != null)
         {
-            // 유닛에게 집결지(깃발) 위치를 설정해줍니다.
-            unitMovement.SetRallyPoint(rallyPoint);
-            Debug.Log($"[ProductionTower] {newUnitGO.name}에게 rally point 설정 완료: {rallyPoint.position}");
+            // (D) 유닛의 SetRallyPoint 함수를 호출하여
+            //     "Circle 경로 + 깃발"의 최종 경로를 완성시킵니다.
+            unitMovement.SetRallyPoint(currentFlag);
         }
-        else if (unitMovement == null)
+        else
         {
-            Debug.LogWarning($"[ProductionTower] 생성된 유닛 {newUnitGO.name}에 UnitMovement 스크립트가 없습니다. 유닛이 이동하지 않을 수 있습니다.");
+            Debug.LogWarning($"[ProductionTower] FlagManager.Instance.currentSpawnFlag가 null이라 깃발을 설정할 수 없습니다. (유닛이 Circle 경로만 이동합니다)");
         }
     }
+    else
+    {
+        Debug.LogWarning($"[ProductionTower] 생성된 유닛 {newUnitGO.name}에 UnitMovement 스크립트가 없습니다.");
+    }
+}
 
     /// <summary>
     /// 리스트를 순회하며 파괴된 (null) 유닛들을 제거합니다.

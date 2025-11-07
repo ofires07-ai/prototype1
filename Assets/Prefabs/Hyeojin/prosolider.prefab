@@ -17,8 +17,6 @@ GameObject:
   - component: {fileID: 8012085637815812056}
   - component: {fileID: 4392963804564419546}
   - component: {fileID: 2624876932380424909}
-  - component: {fileID: -7166788701959011018}
-  - component: {fileID: -7949367823717603177}
   - component: {fileID: 9209226800380163747}
   m_Layer: 0
   m_Name: prosolider
@@ -155,7 +153,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -204,7 +202,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   walkParameterName: isWalking
   idleParameterName: isIdle
-  scanner: {fileID: 2624876932380424909}
+  scanner: {fileID: 0}
 --- !u!114 &8012085637815812056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,33 +290,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   nearestTarget: {fileID: 0}
---- !u!114 &-7166788701959011018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109419728504738079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d09002256cd55346a3fa0f28a7b2142, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-7949367823717603177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109419728504738079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e64bad299a76f7743857fe53e0c53f93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visionRadius: 10
-  updateInterval: 0.1
-  showVisionRange: 1
 --- !u!114 &9209226800380163747
 MonoBehaviour:
   m_ObjectHideFlags: 0

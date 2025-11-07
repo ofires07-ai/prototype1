@@ -233,22 +233,32 @@ public class HY_UnitMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// 외부에서 단일 집결지(Rally Point)를 설정하는 함수
+    // [수정됨] 외부에서 단일 집결지(Rally Point)를 설정하는 함수
+    // 기존 Circle 경로를 지우는 대신, 리스트의 '맨 끝'에 깃발을 '추가'합니다.
     /// </summary>
     public void SetRallyPoint(Transform newRallyPoint)
     {
         if (newRallyPoint == null) return;
 
-        autoFindCircles = false; 
-        waypoints.Clear();
+        // autoFindCircles = false; 
+        // -----------------------------------------------------------------
+        // [수정 1] 이 줄을 주석 처리하거나 삭제합니다. (경로를 지우면 안 됨)
+        // waypoints.Clear(); 
+        // -----------------------------------------------------------------
+
+        // [수정 2] 리스트의 맨 마지막에 깃발을 '추가'합니다.
+        // (Start()에서 'Circle'이 먼저 추가되었다고 가정합니다)
         waypoints.Add(newRallyPoint);
         
-        currentWaypointIndex = 0;
+        currentWaypointIndex = 0; // 어차피 0부터 시작
+
+        // [수정 3] 유닛이 Circle을 다 돌고 멈췄을 수도 있으니,
+        //         새 목적지가 생겼음을 알리고 다시 '이동'시킵니다.
         hasReachedFinalDestination = false;
         isMoving = true;
         SetWalkingAnimation(true);
         
-        Debug.Log($"[UnitMovement] {name}: 새로운 집결지 '{newRallyPoint.name}' 설정 완료.");
+        Debug.Log($"[UnitMovement] {name}: 기존 경로 끝에 새로운 집결지 '{newRallyPoint.name}' 추가.");
     }
 
     /// <summary>
