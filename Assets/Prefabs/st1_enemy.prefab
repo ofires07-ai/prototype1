@@ -159,6 +159,7 @@ MonoBehaviour:
   attackRange: 1
   attackDamage: 1
   maxHp: 10
+  enemyID: 
   autoFindCircles: 1
   manualWaypoints: []
   animator: {fileID: 0}
@@ -212,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ce1f45c3c9dcc4c9f76bc7dd4be941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scanRage: 0
+  scanRage: 100
   targetLayer:
     serializedVersion: 2
     m_Bits: 0

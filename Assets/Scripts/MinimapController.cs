@@ -56,23 +56,30 @@ public class MinimapController : MonoBehaviour, IPointerClickHandler, IDragHandl
     // --- 적 점 갱신 ---
     void RefreshEnemies()
     {
-        // 현재 살아 있는 적 목록 확보
         List<Transform> enemies = new List<Transform>();
         if (enemiesRoot != null)
         {
             foreach (Transform child in enemiesRoot)
             {
                 if (child == null) continue;
-                // HY_Enemy가 붙었거나 태그가 Enemy면 적으로 간주
-                if (child.GetComponent<HY_Enemy>() != null || child.CompareTag(enemyTag))
+                if (child.CompareTag(enemyTag) || child.GetComponent<HY_Enemy>() != null)
                     enemies.Add(child);
             }
         }
         else
         {
-            // 전체 씬에서 탐색 (비용이 더 들지만 간편)
-            var all = GameObject.FindObjectsOfType<HY_Enemy>();
-            foreach (var e in all) enemies.Add(e.transform);
+            // 1) 태그로 찾기(스크립트명이 달라져도 작동)
+            var tagged = GameObject.FindGameObjectsWithTag(enemyTag);
+            if (tagged != null && tagged.Length > 0)
+            {
+                foreach (var go in tagged) enemies.Add(go.transform);
+            }
+            else
+            {
+                // 2) 백업: HY_Enemy가 있으면 그것도 포함
+                var all = GameObject.FindObjectsOfType<HY_Enemy>();
+                foreach (var e in all) enemies.Add(e.transform);
+            }
         }
 
         // 없는 점 정리
