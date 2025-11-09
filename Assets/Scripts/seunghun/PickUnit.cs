@@ -23,24 +23,30 @@ public class PickUnit : MonoBehaviour
     private AIPath aiPath;        // 길찾기 및 이동 담당 (A* 버전)
     private Seeker seeker;          // [추가] 경로 계산을 "요청"하는 컴포넌트
     private MineableResource targetSource;    // [중요] 내가 목표로 삼은 '특정' 광물
+    private MiningSpot currentMiningSpot;        // [추가] 나의 '물리적' 타겟 (주차 공간)
     public SourceManager sourceManager;
     private Animator animator;
     
     // [추가] 유닛이 선택되었을 때 켜질 시각 효과 (예: 초록색 원)
     public GameObject selectionVisual;
-
-    void Start()
+    private Rigidbody2D rb;         // [추가] 리지드바디 참조
+    private Collider2D unitCollider; // [추가] 콜라이더 참조
+    
+    void Awake()
     {
         aiPath = GetComponent<AIPath>();
         seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
-        
-        // (선택) SourceManager를 자동으로 찾아 연결
+        rb = GetComponent<Rigidbody2D>(); // [추가]
+        unitCollider = GetComponent<Collider2D>(); // [추가]
+
         if (sourceManager == null)
         {
             sourceManager = FindObjectOfType<SourceManager>();
         }
-
+    }
+    void Start()
+    {
         Deselect();
     }
     
@@ -63,6 +69,7 @@ public class PickUnit : MonoBehaviour
                     aiPath.isStopped = true;
                     aiPath.SetPath(null); // 경로도 깨끗이 지웁니다.
                 }
+                HandleSpriteFlip();
                 break;
                 
             case UnitState.MovingToSource:
@@ -72,6 +79,7 @@ public class PickUnit : MonoBehaviour
                     Debug.Log("[PickUnit] 광물 도착! 채굴 시작 호출");
                     StartMining(); // 도착했으면 채굴 시작
                 }
+                HandleSpriteFlip();
                 break;
 
             case UnitState.Mining:
@@ -83,7 +91,7 @@ public class PickUnit : MonoBehaviour
                     break;
                 }
                 
-                float distanceToTarget = Vector3.Distance(transform.position, targetSource.transform.position);
+                float distanceToTarget = Vector3.Distance(transform.position, currentMiningSpot.transform.position);
 
                 if (distanceToTarget > aiPath.endReachedDistance * 1f || !targetSource.CanStartMining())
                 {
@@ -94,8 +102,6 @@ public class PickUnit : MonoBehaviour
                 }
                 break;
         }
-        
-        HandleSpriteFlip();
         // [수정] 애니메이션을 AIPath 속도 기반으로 업데이트
         UpdateAnimation();
     }
@@ -174,12 +180,39 @@ public class PickUnit : MonoBehaviour
         }
         
         targetSource = resource; 
-        aiPath.isStopped = false;
-        
-        // 'resource'가 null이 아님이 보장된 상태에서 호출
-        seeker.StartPath(transform.position, targetSource.transform.position, OnPathComplete);
-        
-        currentState = UnitState.MovingToSource; 
+        // 1. "비어있는 가장 가까운 주차 공간"을 광물에게 물어봅니다.
+        MiningSpot targetSpot = targetSource.GetClosestMiningSpot(transform.position);
+
+        // [핵심] 2. 스팟을 찾았는지 확인
+        if (targetSpot != null)
+        {
+            // 3. [예약] 스팟을 찾았으면, 내가 찜합니다.
+            targetSpot.isOccupied = true;
+            currentMiningSpot = targetSpot; // 내 스팟으로 저장
+
+            // 4. AIPath/Seeker 설정
+            aiPath.isStopped = false;
+            seeker.StartPath(transform.position, currentMiningSpot.transform.position, OnPathComplete);
+            
+            currentState = UnitState.MovingToSource; 
+        }
+        else
+        {
+            // 5. [예외] 빈 스팟이 없음
+            Debug.Log(resource.name + "에 빈 채굴 지점이 없습니다!");
+            currentState = UnitState.Idle; // 이동 포기
+        }
+    }
+    
+    // 현재 스팟을 '반납'하는 헬퍼 함수
+    private void ReleaseCurrentMiningSpot()
+    {
+        if (currentMiningSpot != null)
+        {
+            Debug.Log("Mining Spot을 반납합니다!");
+            currentMiningSpot.isOccupied = false; // "이제 비었어요"
+            currentMiningSpot = null;
+        }
     }
     
     // (행동 2) 특정 위치로 이동
@@ -216,6 +249,8 @@ public class PickUnit : MonoBehaviour
             Debug.LogError($"[PickUnit] 경로 계산 실패: {p.errorLog}");
             currentState = UnitState.Idle;
             aiPath.isStopped = true;
+            // 스팟을 "반납(예약 취소)"해야 합니다.
+            ReleaseCurrentMiningSpot();
             return;
         }
         
@@ -237,10 +272,19 @@ public class PickUnit : MonoBehaviour
             currentState = UnitState.Idle;
             return;
         }
-         
-        // [수정] CanStartMining() 체크를 여기서 삭제합니다!
         
         currentState = UnitState.Mining; // 상태 변경 (일단 '채굴 중'으로)
+        
+        // [핵심 1] 나 자신을 'Obstacle' 레이어로 변경
+        gameObject.layer = LayerMask.NameToLayer("Obstacle");
+        // [핵심 2] 물리적으로도 '벽'이 되도록 Static으로 변경
+        rb.bodyType = RigidbodyType2D.Static;
+        // [핵심 3] A*에게 "내 위치"만 실시간으로 갱신하라고 명령
+        // (A*는 'Obstacle' 레이어를 감지하고 이 위치를 '길 없음(빨간색)'으로 만듦)
+        if (unitCollider != null)
+        {
+            AstarPath.active.UpdateGraphs(unitCollider.bounds);
+        }
 
         // SourceManager에게 활성화를 요청
         if (sourceManager != null)
@@ -269,7 +313,19 @@ public class PickUnit : MonoBehaviour
         // "현재" 상태가 채굴 중일 때만 중지 로직을 실행
         if (currentState == UnitState.Mining)
         {
+            ReleaseCurrentMiningSpot();
             Debug.Log("채굴을 중지하고 이동 준비.");
+            
+            // [핵심 1] 나 자신을 다시 'Unit' 레이어로 복구
+            gameObject.layer = LayerMask.NameToLayer("Unit");
+            // [핵심 2] 다시 움직일 수 있도록 Dynamic으로 변경
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            // [핵심 3] A*에게 "내 위치"를 다시 갱신하라고 명령
+            // (A*는 'Unit' 레이어를 무시하고 이 위치를 '길 있음(파란색)'으로 만듦)
+            if (unitCollider != null)
+            {
+                 AstarPath.active.UpdateGraphs(unitCollider.bounds);
+            }
 
             // [중요] AIPath의 멈춤 상태를 "먼저" 해제합니다.
             // 이렇게 하면 StopMining에서 에러가 나도 이동은 가능해집니다.

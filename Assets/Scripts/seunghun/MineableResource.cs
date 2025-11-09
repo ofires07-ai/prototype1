@@ -38,4 +38,8 @@ public abstract class MineableResource : MonoBehaviour
     // [핵심] 채굴 가능 여부 확인 로직은
     // 자식 클래스(Source, SpecialSource)가 반드시 직접 구현하도록 'abstract'로 만듭니다.
     public abstract bool CanStartMining();
+    
+    // [새 메서드] 자식들이 "어떻게" 찾을지는 모르지만,
+    // "가장 가까운 채굴 지점을 찾는 기능"이 있어야 함을 강제합니다.
+    public abstract MiningSpot GetClosestMiningSpot(Vector3 unitPosition);
 }

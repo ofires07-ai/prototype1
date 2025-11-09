@@ -23,6 +23,20 @@ public class SpecialSource : MineableResource
         
         return attachedNormalSource.CanStartMining();
     }
+    
+    // [핵심] "빌려오는" 로직 구현
+    public override MiningSpot GetClosestMiningSpot(Vector3 unitPosition)
+    {
+        if (attachedNormalSource == null)
+        {
+            Debug.LogError(name + "에 attachedNormalSource가 연결되지 않았습니다! 임시로 중심점을 반환합니다.");
+            return null;
+        }
+
+        // [핵심] 나는 스팟이 없으니, "내가 붙어있는 일반 자원"의
+        // GetClosestMiningSpot 함수를 대신 호출해서 그 결과를 돌려줍니다.
+        return attachedNormalSource.GetClosestMiningSpot(unitPosition);
+    }
 
     public void Start()
     {
