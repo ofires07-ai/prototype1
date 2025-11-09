@@ -176,5 +176,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePrefab: {fileID: 0}
-  rotationSpeed: 10
+  rotationSpeed: 0
   damage: 1

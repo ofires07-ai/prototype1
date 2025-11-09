@@ -21,6 +21,7 @@ public class HY_UnitMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private string walkParameterName = "isWalking";
     [SerializeField] private string idleParameterName = "isIdle";
+    
 
     [Header("컴포넌트")]
     public HY_Scanner scanner;
@@ -243,6 +244,12 @@ public class HY_UnitMovement : MonoBehaviour
     
     void OnDrawGizmos()
     {
-        // ... (OnDrawGizmos 함수는 동일) ...
+        if (waypoints == null) return;
+        Gizmos.color = Color.yellow;
+        for (int i = 0; i < waypoints.Count - 1; i++)
+        {
+            if (waypoints[i] != null && waypoints[i + 1] != null)
+                Gizmos.DrawLine(waypoints[i].position, waypoints[i + 1].position);
+        }
     }
 }

@@ -110,7 +110,7 @@ public class SpawnManager : MonoBehaviour
         }
 
         // 웨이브 종료: 모두 스폰되었고, 남은 처치 수가 0
-        if (!_isSpawning
+        if (_currentWave != null && !_isSpawning
             && _spawnedCountInCurrentWave >= _currentWave.totalMonsterCount
             && _remainingMonsterCounts.Values.All(v => v <= 0))
         {
@@ -166,7 +166,7 @@ public class SpawnManager : MonoBehaviour
         if (enemyScript != null)
             enemyScript.enemyID = enemyID;
 
-        HY_Enemy hyEnemy = enemyObject.GetComponent<HY_Enemy>();
+        HY_EnemyUnitMovement hyEnemy = enemyObject.GetComponent<HY_EnemyUnitMovement>();
         if (hyEnemy != null)
             hyEnemy.enemyID = enemyID;
     }

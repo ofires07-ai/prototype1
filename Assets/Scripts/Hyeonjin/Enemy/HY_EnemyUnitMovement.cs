@@ -35,6 +35,9 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     [SerializeField] private int maxHp = 10;
     private int currentHp;
     private bool isLive = true;
+    bool deathReported = false; // 사망 보고 중복 방지
+
+    public string enemyID; //enemyID 
 
     [Header("웨이포인트 설정")]
     [Tooltip("Scene에서 'spaceship'으로 시작하는 오브젝트를 자동으로 찾아 순서대로 정렬")]
@@ -238,12 +241,19 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     /// </summary>
     public void Die()
     {
-        if (!isLive) return; // 중복 사망 방지
+        animator.SetTrigger("Die");
+         if (deathReported) return;       // 중복 보고 방지
+        deathReported = true;
+
+        // 스폰 매니저에 사망 보고
+        if (SpawnManager.Instance != null)
+            SpawnManager.Instance.OnMonsterDied(enemyID);
+
         isLive = false;
         currentHp = 0;
 
         // 1. 죽음 애니메이션 재생
-        animator.SetTrigger("Die");
+        
         
         // (선택) SpawnManager에 사망 보고
         // if (SpawnManager.Instance != null && !string.IsNullOrEmpty(enemyID))
@@ -261,7 +271,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour
 
         // 3. 오브젝트 파괴 (Die 애니메이션 재생 시간 기다리기)
         // (Tip: 애니메이션 클립의 실제 길이만큼 설정하는 것이 좋음)
-        Destroy(gameObject, 2.0f); 
+        Destroy(gameObject, 3.0f); 
     }
 
     /// <summary>
