@@ -83,7 +83,6 @@ public class PickUnit : MonoBehaviour
                 break;
 
             case UnitState.Mining:
-                LookAtTarget(targetSource.transform.position);
                 // ✅ FIX: null check 추가
                 if (targetSource == null)
                 {
@@ -91,6 +90,7 @@ public class PickUnit : MonoBehaviour
                     currentState = UnitState.Idle;
                     break;
                 }
+                LookAtTarget(targetSource.transform.position);
 
                 if (!targetSource.CanStartMining() || targetSource.IsDepleted())
                 {
