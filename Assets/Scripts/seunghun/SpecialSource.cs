@@ -37,6 +37,13 @@ public class SpecialSource : MineableResource
         // GetClosestMiningSpot 함수를 대신 호출해서 그 결과를 돌려줍니다.
         return attachedNormalSource.GetClosestMiningSpot(unitPosition);
     }
+    
+    // [핵심] 부모의 IsDepleted 함수를 '재정의'합니다.
+    public override bool IsDepleted()
+    {
+        // "나의 남은 양(remaining)이 0 이하면 '고갈'된 것입니다."
+        return remaining <= 0;
+    }
 
     public void Start()
     {

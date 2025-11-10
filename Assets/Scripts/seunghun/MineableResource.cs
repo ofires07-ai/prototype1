@@ -42,4 +42,10 @@ public abstract class MineableResource : MonoBehaviour
     // [새 메서드] 자식들이 "어떻게" 찾을지는 모르지만,
     // "가장 가까운 채굴 지점을 찾는 기능"이 있어야 함을 강제합니다.
     public abstract MiningSpot GetClosestMiningSpot(Vector3 unitPosition);
+    
+    // 일반 자원(Source)은 무한하다고 가정하고 기본값 'false'를 반환합니다.
+    public virtual bool IsDepleted()
+    {
+        return false;
+    }
 }

@@ -92,10 +92,10 @@ public class PickUnit : MonoBehaviour
                     break;
                 }
 
-                if (!targetSource.CanStartMining())
+                if (!targetSource.CanStartMining() || targetSource.IsDepleted())
                 {
                     // (선택) 통합된 로그 메시지
-                    Debug.Log("부모 채굴 중지로 채굴을 중지합니다.");
+                    Debug.Log("부모 채굴 중지 또는 자원 고갈로 채굴을 중지합니다.");
                     StopMining();
                     currentState = UnitState.Idle; // 대기 상태로 전환
                 }
