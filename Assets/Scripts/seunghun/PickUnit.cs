@@ -83,6 +83,7 @@ public class PickUnit : MonoBehaviour
                 break;
 
             case UnitState.Mining:
+                LookAtTarget(targetSource.transform.position);
                 // ✅ FIX: null check 추가
                 if (targetSource == null)
                 {
@@ -90,13 +91,11 @@ public class PickUnit : MonoBehaviour
                     currentState = UnitState.Idle;
                     break;
                 }
-                
-                float distanceToTarget = Vector3.Distance(transform.position, currentMiningSpot.transform.position);
 
-                if (distanceToTarget > aiPath.endReachedDistance * 1f || !targetSource.CanStartMining())
+                if (!targetSource.CanStartMining())
                 {
                     // (선택) 통합된 로그 메시지
-                    Debug.Log("조건 미달(거리 이탈 또는 부모 중지)로 채굴을 중지합니다.");
+                    Debug.Log("부모 채굴 중지로 채굴을 중지합니다.");
                     StopMining();
                     currentState = UnitState.Idle; // 대기 상태로 전환
                 }
@@ -106,31 +105,46 @@ public class PickUnit : MonoBehaviour
         UpdateAnimation();
     }
     
+    // [새 함수] Mining 상태일 때, '목표 위치'를 바라보도록 스프라이트를 뒤집습니다.
+    private void LookAtTarget(Vector3 targetPosition)
+    {
+        // 유닛의 X위치와 타겟의 X위치를 비교합니다.
+        float horizontalDirection = targetPosition.x - transform.position.x;
+        
+        // SetSpriteFlip 함수를 호출하여 스케일을 변경합니다.
+        SetSpriteFlip(horizontalDirection);
+    }
+
+    // [새 함수] HandleSpriteFlip에서 스케일 변경 로직만 분리한 헬퍼 함수
+    // (이걸로 HandleSpriteFlip과 LookAtTarget이 코드를 공유합니다)
+    private void SetSpriteFlip(float horizontalDirection)
+    {
+        // 0.1f보다 작으면 (거의 정중앙이면) 방향을 바꾸지 않습니다.
+        if (Mathf.Abs(horizontalDirection) > 0.1f)
+        {
+            Vector3 newScale = transform.localScale;
+
+            if (horizontalDirection > 0)
+            {
+                // 오른쪽을 바라봄 (X 스케일 1)
+                newScale.x = 1f;
+            }
+            else
+            {
+                // 왼쪽을 바라봄 (X 스케일 -1)
+                newScale.x = -1f;
+            }
+            transform.localScale = newScale;
+        }
+    }
+    
     private void HandleSpriteFlip()
     {
         // AIPath의 수평 속도를 가져옵니다.
         float horizontalVelocity = aiPath.velocity.x;
-
-        // 0.1f보다 작으면 (거의 멈췄으면) 방향을 바꾸지 않습니다 (깜빡임 방지).
-        if (Mathf.Abs(horizontalVelocity) > 0.1f)
-        {
-            // 현재 스케일 값을 가져옵니다.
-            Vector3 newScale = transform.localScale;
-
-            if (horizontalVelocity > 0.1f)
-            {
-                // 오른쪽으로 이동: X 스케일을 1로 (양수)
-                newScale.x = 1f;
-            }
-            else if (horizontalVelocity < -0.1f)
-            {
-                // 왼쪽으로 이동: X 스케일을 -1로 (음수)
-                newScale.x = -1f;
-            }
-
-            // 변경된 스케일 값을 적용합니다.
-            transform.localScale = newScale;
-        }
+        
+        // SetSpriteFlip 함수를 호출하여 스케일을 변경합니다.
+        SetSpriteFlip(horizontalVelocity);
     }
     
     // [새로 추가] 애니메이션을 실제 이동 상태에 따라 업데이트
