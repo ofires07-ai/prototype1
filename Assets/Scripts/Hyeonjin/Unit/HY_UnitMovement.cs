@@ -130,7 +130,7 @@ public class HY_UnitMovement : MonoBehaviour
     // (아래는 동일한 함수들입니다)
     void FindAndSortCircles()
     {
-        List<GameObject> circleObjects = FindObjectsOfType<GameObject>().Where(obj => obj.name.StartsWith("Circle")).ToList();
+        List<GameObject> circleObjects = FindObjectsOfType<GameObject>().Where(obj => obj.name.StartsWith("Square")).ToList();
         if (circleObjects.Count == 0)
         {
             Debug.LogWarning($"[UnitMovement] {name}: 'Circle'로 시작하는 오브젝트를 찾을 수 없습니다!");

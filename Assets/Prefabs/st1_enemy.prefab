@@ -159,11 +159,11 @@ MonoBehaviour:
   attackRange: 1
   attackDamage: 1
   maxHp: 10
-  enemyID: 
   autoFindCircles: 1
   manualWaypoints: []
   animator: {fileID: 0}
   scanner: {fileID: 0}
+  enemyID: 
 --- !u!70 &-5581634340763998736
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -213,8 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ce1f45c3c9dcc4c9f76bc7dd4be941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scanRage: 100
+  scanRage: 1.5
   targetLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   nearestTarget: {fileID: 0}
