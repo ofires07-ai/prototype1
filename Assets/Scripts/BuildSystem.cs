@@ -177,6 +177,32 @@ public class BuildSystem : MonoBehaviour
         int[] costsToSpend = new int[selectedData.costs.Length];
         System.Array.Copy(selectedData.costs, costsToSpend, selectedData.costs.Length);
         
+        float costModifier = 1.0f; // 기본값 (할인 없음)
+        if (GameManager.Instance != null)
+        {
+            // [분기] 지으려는 타입에 맞는 할인율을 가져옵니다.
+            if (unitType == "SOLDIER")
+            {
+                costModifier = GameManager.Instance.unitCostModifier; 
+            }
+            else if (unitType == "TOWER")
+            {
+                costModifier = GameManager.Instance.towerCostModifier;
+            }
+        }
+        
+        // "결제할 비용(costsToSpend)"에 할인율을 적용합니다.
+        if (costModifier != 1.0f)
+        {
+            for (int i = 0; i < costsToSpend.Length; i++)
+            {
+                if (costsToSpend[i] > 0)
+                {
+                    costsToSpend[i] = Mathf.FloorToInt(costsToSpend[i] * costModifier);
+                }
+            }
+            Debug.Log($"[BuildSystem] {unitType} 할인({costModifier}배) 적용됨.");
+        }
         Debug.Log($"[BuildSystem] {prefabToBuild.name} 선택됨. 타입: {unitType}");
 
         
