@@ -47,6 +47,12 @@ public class HY_FogOfWar : MonoBehaviour
     [SerializeField] private float resourceBoostRadius = 0.6f;
     [Tooltip("자원 주변 영역의 목표 알파(기본 안개보다 크게 설정)")]
     [SerializeField, Range(0f, 1f)] private float resourceBoostAlpha = 0.85f;
+    
+    [Header("Ability: Special Resource Reveal")]
+    [Tooltip("어빌리티: 특수 자원을 식별할 태그")]
+    [SerializeField] private string specialResourceTag = "SpecialSource"; // ⬅️ 이 태그를 유니티에서 새로 만드셔야 합니다.
+    [Tooltip("어빌리티: 특수 자원을 밝힐 반경(월드 단위)")]
+    [SerializeField] private float specialResourceRevealRadius = 0.3f; // ⬅️ 밝힐 반경 (조절 가능)
 
     // 내부 상태
     private Texture2D fogTexture;
@@ -294,5 +300,38 @@ public class HY_FogOfWar : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(new Vector3(mapCenter.x, mapCenter.y, 0f),
                             new Vector3(mapSize.x, mapSize.y, 0f));
+    }
+
+    /// <summary>
+    /// [새 함수] 어빌리티가 호출할 함수: 씬의 모든 특수 자원 위치를 즉시 밝힙니다.
+    /// </summary>
+    public void RevealAllSpecialSources()
+    {
+        // 안개 텍스처(fogPixels)가 아직 준비되지 않았다면 (Start 함수가 아직 실행 안 됨)
+        if (fogPixels == null)
+        {
+            Debug.LogError("[HY_FogOfWar] 안개가 초기화되기 전에 특수 자원 밝히기 어빌리티가 호출되었습니다!");
+            return;
+        }
+
+        // 1. "SpecialSource" 태그를 가진 모든 오브젝트를 씬에서 찾습니다.
+        var specialResources = GameObject.FindGameObjectsWithTag(specialResourceTag);
+        
+        if (specialResources.Length == 0)
+        {
+            Debug.LogWarning("[HY_FogOfWar] 'SpecialSource' 태그를 가진 오브젝트를 찾을 수 없습니다.");
+            return;
+        }
+
+        Debug.Log($"[HY_FogOfWar] 죄수 어빌리티: 특수 자원 {specialResources.Length}개의 위치를 밝힙니다.");
+
+        // 2. 찾은 모든 자원 위치에 대해 '즉시 밝히기'를 실행합니다.
+        for (int i = 0; i < specialResources.Length; i++)
+        {
+            RevealCircleImmediate(specialResources[i].transform.position, specialResourceRevealRadius);
+        }
+        
+        // 3. 텍스처에 변경 사항을 적용하도록 'dirty' 플래그를 true로 설정합니다.
+        dirty = true;
     }
 }

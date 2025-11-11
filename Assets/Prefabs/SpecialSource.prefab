@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8789587007163059432}
   m_Layer: 0
   m_Name: SpecialSource
-  m_TagString: Untagged
+  m_TagString: SpecialSource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 4
-  amountPerTick: 1
-  activationTime: 3
   attachedNormalSource: {fileID: 0}
   capacity: 10
+  remaining: 0
+  amountPerTick: 1
