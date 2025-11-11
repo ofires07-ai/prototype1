@@ -80,19 +80,34 @@ public class SourceManager : MonoBehaviour
         }
     }
     
-    // [사용자 요청] 코루틴을 제거하고 즉시 활성화하도록 수정
-    public void TryActivateSource(MineableResource targetSource)
+    public void TryActivateSource(MineableResource targetSource, PickUnit unit)
     {
         // 1. 기본 검사
-        if (targetSource.IsMining() || !targetSource.CanStartMining())
+        if (targetSource.IsMining())
         {
-            Debug.Log("이미 채굴 중이거나, 부모가 비활성화되어 채굴을 시작할 수 없습니다.");
+            Debug.Log("이미 채굴 중입니다!");
             return;
         }
-
-        // 2. [수정] 즉시 활성화
-        targetSource.StartMining();
-        activeSources.Add(targetSource);
-        Debug.Log(targetSource.name + " 즉시 활성화 완료!");
+        
+        bool canIgnoreRules = unit.CanIgnoreParentRule();
+        // 3. (A) 유닛이 규칙을 무시할 수 있거나,
+        //    (B) 자원이 원래 채굴 가능한 상태라면 -> 통과
+        if (canIgnoreRules || targetSource.CanStartMining())
+        {
+            if (canIgnoreRules && !targetSource.CanStartMining())
+            {
+                Debug.Log(unit.name + "이(가) 규칙을 무시하고 " + targetSource.name + " 채굴을 시작합니다!");
+            }
+            
+            // 4. 가능하면 활성화
+            targetSource.StartMining();
+            activeSources.Add(targetSource);
+        }
+        else
+        {
+            // 유닛이 규칙 무시 능력도 없고, 자원도 잠겨있음
+            Debug.LogWarning(targetSource.name + " 자원은 현재 채굴 불가능합니다 (부모 미활성).");
+            // (이 경우, PickUnit의 Update() FSM이 자동으로 Mining 상태를 중지시킬 것입니다)
+        }
     }
 }

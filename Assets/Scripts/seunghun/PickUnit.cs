@@ -31,14 +31,16 @@ public class PickUnit : MonoBehaviour
     public GameObject selectionVisual;
     private Rigidbody2D rb;         // [추가] 리지드바디 참조
     private Collider2D unitCollider; // [추가] 콜라이더 참조
+    private CrimerAbility myAbility;
     
     void Awake()
     {
         aiPath = GetComponent<AIPath>();
         seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>(); // [추가]
-        unitCollider = GetComponent<Collider2D>(); // [추가]
+        rb = GetComponent<Rigidbody2D>();
+        unitCollider = GetComponent<Collider2D>();
+        myAbility = GetComponent<CrimerAbility>();
 
         if (sourceManager == null)
         {
@@ -48,6 +50,14 @@ public class PickUnit : MonoBehaviour
     void Start()
     {
         Deselect();
+        if (myAbility != null)
+        {
+            myAbility.ApplyAbility();
+        }
+        else
+        {
+            Debug.LogWarning(name + "에게 Ability가 없습니다! (기본 유닛)");
+        }
     }
     
     void Update()
@@ -306,7 +316,7 @@ public class PickUnit : MonoBehaviour
             try
             {
                 // SourceManager가 규칙을 체크하고 활성화할 것입니다.
-                sourceManager.TryActivateSource(targetSource); 
+                sourceManager.TryActivateSource(targetSource, this); 
             }
             catch (Exception e)
             {
@@ -386,5 +396,12 @@ public class PickUnit : MonoBehaviour
         {
             selectionVisual.SetActive(false);
         }
+    }
+    
+    // "내가 규칙 무시 능력을 가졌는지?"를 반환합니다.
+    public bool CanIgnoreParentRule()
+    {
+        if (myAbility == null) return false;
+        return myAbility.CanIgnoreParentRule();
     }
 }
