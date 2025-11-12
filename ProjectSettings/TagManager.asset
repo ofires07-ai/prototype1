@@ -9,6 +9,8 @@ TagManager:
   - Buildable
   - Enemy
   - Resource
+  - SpecialSource
+  - MeleeHitbox
   layers:
   - Default
   - TransparentFX
