@@ -1,0 +1,26 @@
+# Git이 기본적으로 텍스트 파일의 줄 바꿈을 자동으로 처리하도록 설정
+* text=auto
+
+# C# 스크립트는 명확히 텍스트 파일로 지정 (줄 바꿈 LF로 통일)
+*.cs text eol=lf
+*.shader text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+
+# Unity 에셋 파일들은 '바이너리(binary)'로 취급
+# Git이 줄 바꿈을 절대 건드리지 못하게 하여 에셋 깨짐 방지
+*.unity binary
+*.prefab binary
+*.asset binary
+*.meta binary
+
+# 기타 미디어 파일 (이미지, 폰트 등)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.psd binary
+*.fbx binary
+*.obj binary
+*.mat binary
+*.ttf binary
