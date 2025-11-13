@@ -139,7 +139,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour
             animator.SetFloat("Speed", chaseSpeed);
             
             // 방향: 좌우 반전 (상하 이동 시 마지막 좌우 방향 유지)
-            HandleSpriteFlip(direction.x);
+            //HandleSpriteFlip(direction.x);
         }
         else
         {
@@ -152,7 +152,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour
             animator.SetTrigger("Attack"); 
             
             // (3) 방향: 적을 바라보도록 좌우 반전
-            HandleSpriteFlip(direction.x);
+           // HandleSpriteFlip(direction.x);
         }
     }
 
