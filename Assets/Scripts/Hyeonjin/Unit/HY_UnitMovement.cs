@@ -31,13 +31,16 @@ public class HY_UnitMovement : MonoBehaviour
     private bool isMoving = false;
     private bool hasReachedFinalDestination = false;
     private Transform rallyPointTarget;
+    
 
+    private HY_Player playerUnit;
 
     void Start()
     {
         // ... (컴포넌트 자동 찾기 로직 동일) ...
         if (animator == null) animator = GetComponent<Animator>();
         if (scanner == null) scanner = GetComponent<HY_Scanner>();
+        if (playerUnit == null) playerUnit = GetComponent<HY_Player>();
 
         // ... (웨이포인트 설정 로직 동일) ...
         if (autoFindCircles)
@@ -100,7 +103,18 @@ public class HY_UnitMovement : MonoBehaviour
                 isMoving = false;
                 SetWalkingAnimation(false);
             }
-            return; 
+            return;
+        }
+        
+
+        if(playerUnit.isLive == false)
+        {
+            if (isMoving)
+            {
+                isMoving = false;
+                SetWalkingAnimation(false);
+            }
+            return;
         }
 
         // 2. 멈춤 조건 2: 이미 최종 목적지 도착
