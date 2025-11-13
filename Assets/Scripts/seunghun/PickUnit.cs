@@ -167,7 +167,7 @@ public class PickUnit : MonoBehaviour
         bool isDepleted = targetSource.IsDepleted();
         bool canMine = targetSource.CanStartMining();
 
-        if (!canMine || isDepleted)
+        if ((!canMine && !CanIgnoreParentRule()) || isDepleted)
         {
             // (로그 메시지)
             if (isDepleted) Debug.Log(targetSource.name + " 고갈로 채굴 중지.");
