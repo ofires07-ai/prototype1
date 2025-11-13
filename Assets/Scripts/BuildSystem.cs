@@ -73,8 +73,16 @@ public class BuildSystem : MonoBehaviour
         RefreshAllButtonUI();
     }
     
-    private void RefreshAllButtonUI()
+    public void RefreshAllButtonUI()
     {
+        float soldierModifier = 1.0f;
+        float towerModifier = 1.0f;
+        if (GameManager.Instance != null)
+        {
+            soldierModifier = GameManager.Instance.unitCostModifier;
+            towerModifier = GameManager.Instance.towerCostModifier;
+        }
+        
         for (int i = 0; i < buildButtons.Length; i++)
         {
             buildButtons[i].unitIndex = i; 
@@ -83,6 +91,17 @@ public class BuildSystem : MonoBehaviour
             {
                 UnitData data = availableUnits[i];
                 buildButtons[i].unitImage.sprite = data.unitIcon;
+                
+                // [추가] 이 버튼에 적용할 할인율을 결정합니다.
+                float currentModifier = 1.0f;
+                if (data.unitType == "SOLDIER")
+                {
+                    currentModifier = soldierModifier;
+                }
+                else if (data.unitType == "TOWER")
+                {
+                    currentModifier = towerModifier;
+                }
                 
                 List<int> requiredTiers = new List<int>();
                 for(int tier = 0; tier < data.costs.Length; tier++)
@@ -99,8 +118,11 @@ public class BuildSystem : MonoBehaviour
                     // (참고: .Contains()를 쓰려면 using System.Linq;가 필요합니다)
                     if (requiredTiers.Contains(4) && data.costs[4] > 0) 
                     {
+                        // [수정] "정가"에 "할인율"을 적용해서 UI 텍스트를 씁니다.
+                        int originalCost = data.costs[4];
+                        int finalCost = Mathf.FloorToInt(originalCost * currentModifier);
+                        buildButtons[i].cost1Text.text = finalCost.ToString();
                         buildButtons[i].cost1Icon.sprite = data.GetIconForTier(4); 
-                        buildButtons[i].cost1Text.text = data.costs[4].ToString();
                         buildButtons[i].cost1Icon.gameObject.SetActive(true);
                         buildButtons[i].cost1Text.gameObject.SetActive(true);
                         
@@ -120,8 +142,12 @@ public class BuildSystem : MonoBehaviour
                     if (requiredTiers.Count >= 1)
                     {
                         int tier1Index = requiredTiers[0];
+                        // [수정] "정가"에 "할인율"을 적용해서 UI 텍스트를 씁니다.
+                        int originalCost1 = data.costs[tier1Index];
+                        int finalCost1 = Mathf.FloorToInt(originalCost1 * currentModifier);
+                        buildButtons[i].cost1Text.text = finalCost1.ToString();
+                        
                         buildButtons[i].cost1Icon.sprite = data.GetIconForTier(tier1Index);
-                        buildButtons[i].cost1Text.text = data.costs[tier1Index].ToString();
                         buildButtons[i].cost1Icon.gameObject.SetActive(true);
                         buildButtons[i].cost1Text.gameObject.SetActive(true);
                     }
@@ -134,8 +160,12 @@ public class BuildSystem : MonoBehaviour
                     if (requiredTiers.Count >= 2) 
                     {
                         int tier2Index = requiredTiers[1];
+                        // [수정] "정가"에 "할인율"을 적용해서 UI 텍스트를 씁니다.
+                        int originalCost2 = data.costs[tier2Index];
+                        int finalCost2 = Mathf.FloorToInt(originalCost2 * currentModifier);
+                        buildButtons[i].cost2Text.text = finalCost2.ToString();
+                        
                         buildButtons[i].cost2Icon.sprite = data.GetIconForTier(tier2Index);
-                        buildButtons[i].cost2Text.text = data.costs[tier2Index].ToString();
                         buildButtons[i].cost2Icon.gameObject.SetActive(true);
                         buildButtons[i].cost2Text.gameObject.SetActive(true);
                     }
