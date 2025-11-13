@@ -18,6 +18,7 @@ using System.Linq;
 public class HY_EnemyUnitMovement : MonoBehaviour
 {
     [Header("이동 설정")]
+    [Header("이동 설정")]
     [Tooltip("기본 순찰 속도")]
     [SerializeField] private float moveSpeed = 3f;
     [Tooltip("웨이포인트에 도달했다고 판단하는 거리")]
@@ -27,20 +28,18 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     [Tooltip("적을 발견했을 때의 추격 속도")]
     [SerializeField] private float chaseSpeed = 4f;
     [Tooltip("이 거리 안으로 들어오면 공격을 시작합니다")]
-    [SerializeField] private float attackRange = 1.0f; 
+    [SerializeField] private float attackRange = 1.0f;
     [Tooltip("공격 데미지 (필요한 경우)")]
     [SerializeField] private int attackDamage = 1; // (예시)
-    // --- ✨ 1. 히트박스 소환 변수 (추가됨) ---
+
+
     [Tooltip("적이 소환할 근접 공격 히트박스 프리팹 (MeleeHitbox.cs 사용)")]
     [SerializeField] private GameObject enemyMeleeHitboxPrefab;
-
+    
     [Header("체력 설정")]
     [SerializeField] private int maxHp = 10;
     private int currentHp;
     private bool isLive = true;
-    bool deathReported = false; // 사망 보고 중복 방지
-
-    public string enemyID; //enemyID 
 
     [Header("웨이포인트 설정")]
     [Tooltip("Scene에서 'spaceship'으로 시작하는 오브젝트를 자동으로 찾아 순서대로 정렬")]
@@ -59,7 +58,8 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     private bool hasReachedFinalDestination = false;
 
     // (SpawnManager에 사망 보고가 필요하다면 HY_Enemy처럼 enemyID 변수 추가)
-    // public string enemyID; 
+    bool deathReported = false; // 사망 보고 중복 방지
+    public string enemyID; 
 
 
     void Start()
@@ -100,7 +100,11 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     void Update()
     {
         // 죽었으면 아무것도 하지 않음
-        if (!isLive) return;
+        if (!isLive)
+        {
+            animator.SetBool("isLive", false);
+            return;
+        }   
 
         // 1. "눈" (스캐너)으로 적을 찾음
         Transform target = scanner.nearestTarget;
@@ -195,10 +199,13 @@ public class HY_EnemyUnitMovement : MonoBehaviour
         transform.position += direction * moveSpeed * Time.deltaTime;
 
         // 애니메이션: 'Walk' 상태 재생
-        animator.SetFloat("Speed", moveSpeed);
+        
         
         // 방향: 좌우 반전
-        HandleSpriteFlip(direction.x);
+        animator.SetFloat("Speed", moveSpeed);
+        animator.SetFloat("moveX", direction.x);
+        animator.SetFloat("moveY", direction.y);
+        //HandleSpriteFlip(direction.x);
     }
 
     /// <summary>
@@ -247,19 +254,15 @@ public class HY_EnemyUnitMovement : MonoBehaviour
         if (!isLive) return; // 중복 사망 방지
         isLive = false;
         currentHp = 0;
+
         // 1. 죽음 애니메이션 재생
         animator.SetTrigger("Die");
-        
-         if (deathReported) return;       // 중복 보고 방지
+        if (deathReported) return;       // 중복 보고 방지
         deathReported = true;
 
         // 스폰 매니저에 사망 보고
         if (SpawnManager.Instance != null)
             SpawnManager.Instance.OnMonsterDied(enemyID);
-
-        // (선택) SpawnManager에 사망 보고
-        // if (SpawnManager.Instance != null && !string.IsNullOrEmpty(enemyID))
-        //     SpawnManager.Instance.OnMonsterDied(enemyID);
 
         // 2. 물리/충돌 중지
         GetComponent<Collider2D>().enabled = false;
@@ -276,30 +279,28 @@ public class HY_EnemyUnitMovement : MonoBehaviour
         Destroy(gameObject, 2.0f); 
     }
 
-    // --- ✨ 2. '맞는' 로직 (수정됨) ---
     /// <summary>
     /// 총알 및 아군의 근접 히트박스(MeleeHitbox) 감지
     /// </summary>
     void OnTriggerEnter2D(Collider2D collision)
     {
-          // (총알 스크립트 이름이 HY_Bullet이라고 가정)
+        // (총알 스크립트 이름이 HY_Bullet이라고 가정)
         HY_Bullet bullet = collision.GetComponent<HY_Bullet>();
         if (bullet != null)
         {
             TakeDamage(bullet.damage);
-            
+
             // 총알이 관통형이 아니라면 즉시 파괴
             Destroy(bullet.gameObject);
         }
-        // 2. 근접 공격(Melee Hitbox)인지 확인, 11/10 추가
-    MeleeHitbox melee = collision.GetComponent<MeleeHitbox>();
-    if (melee != null)
-    {
-        // 근접 히트박스의 데미지 값으로 TakeDamage 호출
-        TakeDamage(melee.damage);
-        
-        // (근접 히트박스는 스스로 파괴되므로 여기서 Destroy 안 해도 됨)
-    }
+        MeleeHitbox melee = collision.GetComponent<MeleeHitbox>();
+        if (melee != null)
+        {
+            // 근접 히트박스의 데미지 값으로 TakeDamage 호출
+            TakeDamage(melee.damage);
+            
+            // (근접 히트박스는 스스로 파괴되므로 여기서 Destroy 안 해도 됨)
+        }
     }
 
 
@@ -319,26 +320,55 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Scene에서 "spaceship"으로 시작하는 모든 오브젝트를 찾아 거리순으로 정렬
+    /// Scene에서 "Circle"으로 시작하는 모든 오브젝트를 찾아 거리순으로 정렬
     /// </summary>
     void FindAndSortCircles()
     {
-        List<GameObject> circleObjects = FindObjectsOfType<GameObject>()
-            .Where(obj => obj.name.StartsWith("spaceship")) // ⚠️ "spaceship" 이름 확인
-            .ToList();
+        // 1) 후보 수집: 이름이 "Circle"로 시작하는 오브젝트들
+    //    (태그를 쓰신다면 FindGameObjectsWithTag("Circle")로 대체 가능)
+    List<Transform> circleList = FindObjectsOfType<Transform>()
+        .Where(t => t != null && t.gameObject != null && t.gameObject.name.StartsWith("Circle"))
+        .ToList();
 
-        if (circleObjects.Count == 0)
+    if (circleList.Count == 0)
+    {
+        waypoints = new List<Transform>();
+        Debug.Log($"[AI] {name}: 'Circle' 웨이포인트가 없습니다.");
+        return;
+    }
+
+    // 2) Greedy 경로 구성: 현재 위치에서 가장 가까운 것을 하나씩 고름
+    Vector3 currentPos = transform.position; // 시작점: 적군 스폰 위치(현재 유닛 위치)
+    var remaining = new List<Transform>(circleList);
+    var ordered = new List<Transform>(circleList.Count);
+
+    while (remaining.Count > 0)
+    {
+        Transform next = null;
+        float bestSqr = float.PositiveInfinity;
+
+        // 남은 후보들 중 현재 위치와의 거리가 가장 짧은 것 선택
+        for (int i = 0; i < remaining.Count; i++)
         {
-            return; // (로그는 Start()에서 이미 찍으므로 여기선 생략)
+            Transform cand = remaining[i];
+            // sqrMagnitude로 루트 연산을 피해서 성능 최적화
+            float sqr = (cand.position - currentPos).sqrMagnitude;
+            if (sqr < bestSqr)
+            {
+                bestSqr = sqr;
+                next = cand;
+            }
         }
 
-        // 현재 위치에서 가까운 순서대로 정렬
-        waypoints = circleObjects
-            .OrderBy(obj => Vector3.Distance(transform.position, obj.transform.position))
-            .Select(obj => obj.transform)
-            .ToList();
+        // 선택된 후보를 경로에 추가하고, 현재 위치를 갱신
+            ordered.Add(next);
+            remaining.Remove(next);
+            currentPos = next.position;
+        }
 
-        Debug.Log($"[AI] {name}: {waypoints.Count}개의 'spaceship' 웨이포인트 발견 및 정렬 완료.");
+        waypoints = ordered;
+
+        Debug.Log($"[AI] {name}: Greedy 방식으로 {waypoints.Count}개의 'Circle' 웨이포인트 경로 구성 완료.");
     }
 
     // Scene 뷰에서 경로 시각화 (디버깅용)
@@ -365,11 +395,6 @@ public class HY_EnemyUnitMovement : MonoBehaviour
             }
         }
     }
-    // --- ✨ 3. '때리는' 로직 (추가됨) ---
-    /// <summary>
-    /// 'Attack' 애니메이션 클립의 '이벤트'에 의해 호출됩니다.
-    /// (이제 이 함수는 데미지를 직접 주지 않고, 히트박스를 '소환'합니다)
-    /// </summary>
     public void Event_PerformAttack()
     {
         Debug.Log($"[AI] {name}이(가) Event_PerformAttack()를 호출했습니다!");
@@ -385,6 +410,5 @@ public class HY_EnemyUnitMovement : MonoBehaviour
 
         Debug.Log($"[AI] {name}이(가) 히트박스를 소환하여 공격합니다!");
     }
-
-    // --- (기존 스크립트의 SetRallyPoint 등은 제거됨. 필요하면 추가) ---
+    // — (기존 스크립트의 SetRallyPoint 등은 제거됨. 필요하면 추가) —
 }

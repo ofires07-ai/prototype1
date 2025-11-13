@@ -4398,6 +4398,8 @@ MonoBehaviour:
   resourceTag: Resource
   resourceBoostRadius: 1.5
   resourceBoostAlpha: 0.995
+  specialResourceTag: SpecialSource
+  specialResourceRevealRadius: 0.3
 --- !u!4 &464148173
 Transform:
   m_ObjectHideFlags: 0
@@ -8766,6 +8768,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 1589675490}
   maxBaseHealth: 10
+  unitCostModifier: 1
+  towerCostModifier: 1
   hpText: {fileID: 920319911}
   baseHPSlider: {fileID: 700269091}
   resource1Text: {fileID: 1026140157}
@@ -8773,7 +8777,7 @@ MonoBehaviour:
   resource3Text: {fileID: 405553769}
   resource4Text: {fileID: 1791959739}
   specialText: {fileID: 1186500500}
-  initialTimeBetweenWaves: 61
+  initialTimeBetweenWaves: 5
   waveInfoPanel: {fileID: 1049290369}
   timerText: {fileID: 398119399}
   waveStatusText: {fileID: 772760071}
@@ -10962,7 +10966,7 @@ MonoBehaviour:
   playerSpawnPoint: {fileID: 252007035}
   availableUnits:
   - prefab: {fileID: 5077430461845310826, guid: 79e5284a38b661a4fae56e3b068f63cc, type: 3}
-    costs: 0a000000050000000000000000000000
+    costs: 00000000000000000000000000000000
     unitType: TOWER
     unitIcon: {fileID: 4113829005332862926, guid: b26e3d0ff22262245845652351597cc8, type: 3}
     resource1Icon: {fileID: -8053002167776101150, guid: 5fa4267f2251a4864ba9a0e18115f65a, type: 3}
@@ -10989,7 +10993,7 @@ MonoBehaviour:
     resource4Icon: {fileID: 8785618894833809297, guid: 564ad2b48c924374f8b5a8d2e60003da, type: 3}
     resource5Icon: {fileID: 21300000, guid: 99f921b1c41aa3c449cfc1041c453fcf, type: 3}
   - prefab: {fileID: 8886632982214295028, guid: 279c75a581ea5754d9d6307fff1f3b71, type: 3}
-    costs: 0a000000050000000000000000000000
+    costs: 00000000000000000000000000000000
     unitType: TOWER
     unitIcon: {fileID: -1540426309290004842, guid: e028e1a5129a28a47aa5be387b2d13de, type: 3}
     resource1Icon: {fileID: -8053002167776101150, guid: 5fa4267f2251a4864ba9a0e18115f65a, type: 3}
@@ -12049,10 +12053,10 @@ MonoBehaviour:
   - waveName: Wave1
     enemySpawns:
     - enemyID: Enemy
-      enemyPrefab: {fileID: 5393621365595395595, guid: 4d9cfa8e4a8bf324e94c401ae58ab62a, type: 3}
+      enemyPrefab: {fileID: 883179094620236413, guid: a79bee2dc39b119468f2746b60f8a934, type: 3}
       spawnInterval: 0.5
       count: 30
-      uiIcon: {fileID: 2492063137762351953, guid: 49bd7700988ed42419a0033b0705be1a, type: 3}
+      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
     totalMonsterCount: 0
   - waveName: Wave2
     enemySpawns:
@@ -12078,7 +12082,7 @@ MonoBehaviour:
       count: 50
       uiIcon: {fileID: 2492063137762351953, guid: 49bd7700988ed42419a0033b0705be1a, type: 3}
     - enemyID: Boss
-      enemyPrefab: {fileID: 253044694582849939, guid: f61062796dfca4ca297952a56709bc3c, type: 3}
+      enemyPrefab: {fileID: 6937973467607618868, guid: c34c9f455560ccd4ab9e3ce12a40f4c5, type: 3}
       spawnInterval: 5
       count: 1
       uiIcon: {fileID: 8838371519414987260, guid: ce8257eec008a4d0f83a8b51bc8990e0, type: 3}
