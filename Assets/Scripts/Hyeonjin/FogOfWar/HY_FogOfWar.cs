@@ -52,7 +52,7 @@ public class HY_FogOfWar : MonoBehaviour
     [Tooltip("어빌리티: 특수 자원을 식별할 태그")]
     [SerializeField] private string specialResourceTag = "SpecialSource"; // ⬅️ 이 태그를 유니티에서 새로 만드셔야 합니다.
     [Tooltip("어빌리티: 특수 자원을 밝힐 반경(월드 단위)")]
-    [SerializeField] private float specialResourceRevealRadius = 0.3f; // ⬅️ 밝힐 반경 (조절 가능)
+    [SerializeField] public float specialResourceRevealRadius = 0.3f; // ⬅️ 밝힐 반경 (조절 가능)
 
     // 내부 상태
     private Texture2D fogTexture;
