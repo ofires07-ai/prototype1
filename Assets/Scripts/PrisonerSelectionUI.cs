@@ -27,15 +27,16 @@ public class PrisonerSelectionUI : MonoBehaviour
         }
 
         currentIndices = new int[slotTexts.Length];
-        gameObject.SetActive(false);       // 시작 시에는 안 보이게
     }
 
     // StageSceneController에서 호출: prisonerSelectionUI.Open(OnPrisonerSelected);
     public void Open(Action<int> onSelected)
     {
+        Debug.Log($"[PrisonerSelectionUI] Open on {gameObject.name}, scene={gameObject.scene.name}", gameObject);
+
         _onSelected = onSelected;
         remainingRefreshCount = maxRefreshCount;
-        gameObject.SetActive(true);
+        gameObject.SetActive(true); 
 
         RollNewCombination();   // 첫 조합 뽑기
         UpdateRefreshText();
@@ -44,6 +45,7 @@ public class PrisonerSelectionUI : MonoBehaviour
     // ---------------- 랜덤 조합 뽑기 ----------------
     void RollNewCombination()
     {
+         Debug.Log("[PrisonerSelectionUI] RollNewCombination"); // ★ 추가
         if (prisonerPrefabs == null || prisonerPrefabs.Length == 0)
         {
             Debug.LogWarning("PrisonerSelectionUI: prisonerPrefabs가 비어 있습니다.");

@@ -116,6 +116,7 @@ public class GameFlowManager : MonoBehaviour
     {
         if (CurrentStageIndex >= 0) return; // 이미 진행 중
 
+        Debug.Log("[GF] StartGame 호출됨");
         // 새 게임 시작이므로 점수 리셋
         ResetScores();
 
@@ -143,17 +144,23 @@ public class GameFlowManager : MonoBehaviour
 
     IEnumerator LoadStageRoutine(int stageIndex)
     {
+
+        Debug.Log($"[GF] LoadStageRoutine 시작. stageIndex={stageIndex}"); // ★ 추가
         CurrentStageIndex = stageIndex;
 
         if (screenFader != null)
+        {
+            Debug.Log("[GF] FadeInCoroutine 호출"); // ★ 추가
             yield return screenFader.FadeInCoroutine(fadeDuration);   // 화면 검게
-
+        }
         yield return SceneManager.LoadSceneAsync(stageSceneNames[stageIndex]); // 스테이지 로딩
-
+        Debug.Log("[GF] Scene 로드 완료");
         yield return null; // 한 프레임 대기
 
-        if (screenFader != null)
+        if (screenFader != null){
+            Debug.Log("[GF] FadeOutCoroutine 호출"); // ★ 추가
             yield return screenFader.FadeOutCoroutine(fadeDuration);  // 게임 화면 보이기
+        }
     }
 
     IEnumerator LoadResultRoutine()

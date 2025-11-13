@@ -16,6 +16,7 @@ public class StageSceneController : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("[StageSceneController] Awake");  // ★ 추가
         // 스테이지 로드 후, 죄수 선택 전까지는 게임 로직 정지
         if (gameManager != null) gameManager.enabled = false;
         if (spawnManager != null) spawnManager.enabled = false;
@@ -23,9 +24,11 @@ public class StageSceneController : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("[StageSceneController] Start");  // ★ 추가
         // 죄수 선택 UI를 띄운다.
         if (prisonerSelectionUI != null)
         {
+            Debug.Log("[StageSceneController] PrisonerSelectionUI.Open 호출");  // ★ 추가
             prisonerSelectionUI.Open(OnPrisonerSelected);
         }
         else
@@ -37,6 +40,7 @@ public class StageSceneController : MonoBehaviour
         // 스테이지 클리어 이벤트 구독
         if (spawnManager != null)
         {
+            Debug.LogWarning("[StageSceneController] prisonerSelectionUI가 null. 바로 StartGameplay"); // ★ 추가
             spawnManager.OnAllWavesCompleted += HandleAllWavesCompleted;
         }
     }

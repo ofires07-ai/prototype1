@@ -424,8 +424,9 @@ MonoBehaviour:
   - Stage2
   resultSceneName: Result
   screenFader: {fileID: 876091431}
-  fadeDuration: 1
+  fadeDuration: 2
   stageScores: 
+  selectedPrisonerPrefabs: []
 --- !u!4 &423537256
 Transform:
   m_ObjectHideFlags: 0
@@ -542,7 +543,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_TargetDisplay: 0
 --- !u!1 &500484504
 GameObject:
