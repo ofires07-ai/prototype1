@@ -26,15 +26,6 @@ public class GameFlowManager : MonoBehaviour
     public int[] stageScores;
     public int TotalScore { get; private set; }
 
-        [Header("Prisoner Selection")]
-    public List<GameObject> selectedPrisonerPrefabs = new List<GameObject>();
-
-    public void SaveSelectedPrisoners(List<GameObject> prisoners)
-    {
-        selectedPrisonerPrefabs.Clear();
-        if (prisoners == null) return;
-        selectedPrisonerPrefabs.AddRange(prisoners);
-    }
 
 
     public int CurrentStageIndex { get; private set; } = -1;
