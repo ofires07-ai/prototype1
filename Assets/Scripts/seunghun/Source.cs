@@ -16,8 +16,6 @@ public class Source : MineableResource
     [Header("채굴 지점")]
     // [추가] 'Source'가 직접 'miningSpots'를 소유합니다.
     public List<MiningSpot> miningSpots;
-
-    public float amountPerTick = 1f;
     
 // [핵심] 부모의 'abstract' 메서드를 'override'로 구현
     public override bool CanStartMining()

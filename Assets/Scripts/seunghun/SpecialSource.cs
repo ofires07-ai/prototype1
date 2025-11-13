@@ -10,8 +10,6 @@ public class SpecialSource : MineableResource
     public float capacity = 1f;
     public float remaining;
     
-    public float amountPerTick = 0.1f;
-    
     // [핵심] 부모의 'abstract' 메서드를 'override'로 구현
     public override bool CanStartMining()
     {

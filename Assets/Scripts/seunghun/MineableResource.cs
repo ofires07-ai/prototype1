@@ -7,7 +7,8 @@ public abstract class MineableResource : MonoBehaviour
     [Header("공통 자원 정보")] 
     public ResourceType resourceType;
     private bool isMining = false;
-    
+    public float amountPerTick = 1f;
+        
     // [중요] SourceManager 참조는 이제 부모가 가집니다.
     protected SourceManager sourceManager;
 

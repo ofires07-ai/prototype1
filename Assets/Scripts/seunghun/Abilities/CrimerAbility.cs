@@ -10,4 +10,16 @@ public abstract class CrimerAbility : MonoBehaviour
     {
         return false;
     }
+    
+    // "이번 틱의 채굴 '결과(원장)'를 'MiningTickResult' 객체로 반환해!"
+    public virtual MiningTickResult ProcessMiningTick(MineableResource currentResourceNode)
+    {
+        // [기본 행동] (능력 없는 유닛)
+        // "그냥 네가 붙어있는 자원의 '타입'과 '기본 채굴량'을 반환할게."
+        return new MiningTickResult
+        {
+            Type = currentResourceNode.resourceType,
+            Amount = currentResourceNode.amountPerTick
+        };
+    }
 }
