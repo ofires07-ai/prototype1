@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,9 @@ public class SpawnManager : MonoBehaviour
     public bool useProductionTowersAsSpawnPoints = true;
     [Tooltip("적 스폰을 SpawnManager가 전담하도록, ProductionTower를 자동 비활성화")]
     public bool takeoverProductionTowers = true;
+
+    // 🔹 스테이지 클리어(모든 웨이브 완료) 이벤트
+    public Action OnAllWavesCompleted;
 
     // 진행 상태
     private Wave _currentWave;
@@ -45,7 +49,6 @@ public class SpawnManager : MonoBehaviour
                 var points = new List<Transform>();
                 foreach (var t in towers)
                 {
-                    // 타워가 지정한 spawnPoint가 있으면 그 위치, 없으면 타워 위치 사용
                     var p = (t.spawnPoint != null) ? t.spawnPoint : t.transform;
                     points.Add(p);
                 }
@@ -92,7 +95,6 @@ public class SpawnManager : MonoBehaviour
                 _spawnTimer -= Time.deltaTime;
                 if (_spawnTimer <= 0f)
                 {
-                    // 🔹 원본 count 대신 _remainingToSpawnPerType 사용
                     if (_remainingToSpawnPerType[_currentEnemySpawnIndex] > 0)
                     {
                         SpawnEnemy(cfg.enemyPrefab, cfg.enemyID);
@@ -121,9 +123,13 @@ public class SpawnManager : MonoBehaviour
     // --- GameManager가 호출 ---
     public void StartWave(int waveIndex)
     {
+        // 🔹 모든 웨이브를 다 돌았으면 스테이지 클리어
         if (waveIndex >= waves.Count)
         {
             GameManager.Instance.UpdateWaveStatus("Game Won!");
+
+            // 스테이지 전체 클리어 이벤트 발행 (Boss Wave 포함 전부 끝난 시점)
+            OnAllWavesCompleted?.Invoke();
             return;
         }
 
