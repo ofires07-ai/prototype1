@@ -61,6 +61,8 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     bool deathReported = false; // 사망 보고 중복 방지
     public string enemyID; 
 
+    public string NodeName;
+
 
     void Start()
     {
@@ -325,9 +327,9 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     void FindAndSortCircles()
     {
         // 1) 후보 수집: 이름이 "Circle"로 시작하는 오브젝트들
-    //    (태그를 쓰신다면 FindGameObjectsWithTag("Circle")로 대체 가능)
+        //(태그를 쓰신다면 FindGameObjectsWithTag("Circle")로 대체 가능)
     List<Transform> circleList = FindObjectsOfType<Transform>()
-        .Where(t => t != null && t.gameObject != null && t.gameObject.name.StartsWith("Circle"))
+        .Where(t => t != null && t.gameObject != null && t.gameObject.name.StartsWith(NodeName))
         .ToList();
 
     if (circleList.Count == 0)
