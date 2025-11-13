@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 460008117261545423}
   - component: {fileID: -5767089230215290353}
   - component: {fileID: -9171908173441089708}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Source_Group4
   m_TagString: Resource
   m_Icon: {fileID: 0}
@@ -106,9 +106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 3
-  activationTime: 1.5
   parentSource: {fileID: 0}
   attachedSpecialSource: {fileID: 0}
+  miningSpots: []
   amountPerTick: 1
 --- !u!60 &-9171908173441089708
 PolygonCollider2D:

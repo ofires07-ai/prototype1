@@ -33,6 +33,11 @@ public class PickUnit : MonoBehaviour
     private Collider2D unitCollider; // [추가] 콜라이더 참조
     private CrimerAbility myAbility;
     
+    // [추가] 막힘 감지를 위한 변수
+    private float stuckTimer = 0f;
+    // 1.5초 이상 속도가 0이면 '막혔다'고 판단
+    private const float STUCK_TIME_THRESHOLD = 1.0f;
+    
     void Awake()
     {
         aiPath = GetComponent<AIPath>();
@@ -62,57 +67,115 @@ public class PickUnit : MonoBehaviour
     
     void Update()
     {
-        // 1. 상태별 행동 처리
-        // FSM (Finite State Machine, 유한 상태 기계)
+        // 1. FSM: 'switch'가 현재 상태에 따라 올바른 함수를 호출합니다.
         switch (currentState)
         {
             case UnitState.Idle:
-                // 할 일 없음 (대기)
-                break;
-            case UnitState.MovingToPosition:
-                // 목적지에 도착했는지 체크
-                if (HasArrivedAtDestination())
-                {
-                    Debug.Log("[PickUnit] 목적지 도착! Idle로 전환");
-                    currentState = UnitState.Idle; // 도착했으면 대기 상태로 변경
-                    // [핵심 수정] Idle이 될 때 AIPath를 명확히 멈춥니다.
-                    aiPath.isStopped = true;
-                    aiPath.SetPath(null); // 경로도 깨끗이 지웁니다.
-                }
-                HandleSpriteFlip();
+                UpdateIdleState();
                 break;
                 
+            case UnitState.MovingToPosition:
             case UnitState.MovingToSource:
-                // [중요] '목표 광물'에 도착했는지 체크
-                if (HasArrivedAtDestination())
-                {
-                    Debug.Log("[PickUnit] 광물 도착! 채굴 시작 호출");
-                    StartMining(); // 도착했으면 채굴 시작
-                }
-                HandleSpriteFlip();
+                UpdateMovingState(); // ⬅️ 두 이동 상태를 하나로 통합
                 break;
 
             case UnitState.Mining:
-                // ✅ FIX: null check 추가
-                if (targetSource == null)
-                {
-                    Debug.LogWarning("[PickUnit] targetSource가 null입니다. Idle로 전환합니다.");
-                    currentState = UnitState.Idle;
-                    break;
-                }
-                LookAtTarget(targetSource.transform.position);
-
-                if (!targetSource.CanStartMining() || targetSource.IsDepleted())
-                {
-                    // (선택) 통합된 로그 메시지
-                    Debug.Log("부모 채굴 중지 또는 자원 고갈로 채굴을 중지합니다.");
-                    StopMining();
-                    currentState = UnitState.Idle; // 대기 상태로 전환
-                }
+                UpdateMiningState();
                 break;
         }
-        // [수정] 애니메이션을 AIPath 속도 기반으로 업데이트
+        
+        // 2. 애니메이션은 FSM이 결정한 '최종 상태'를 기반으로 매번 업데이트됩니다.
         UpdateAnimation();
+    }
+    
+    // --- FSM 상태별 함수들 ---
+
+    private void UpdateIdleState()
+    {
+        // 할 일 없음 (대기)
+        stuckTimer = 0f; // 막힘 타이머 리셋
+    }
+
+    private void UpdateMovingState()
+    {
+        // 1. 이동 중일 때만 좌우 반전
+        HandleSpriteFlip();
+
+        // 2. 목적지에 도착했는지 체크
+        if (HasArrivedAtDestination())
+        {
+            stuckTimer = 0f; // 도착했으므로 타이머 리셋
+            
+            if (currentState == UnitState.MovingToSource)
+            {
+                Debug.Log("[PickUnit] 광물 도착! 채굴 시작 호출");
+                StartMining(); // 광물이었으면 채굴 시작
+            }
+            else // MovingToPosition
+            {
+                Debug.Log("[PickUnit] 목적지 도착! Idle로 전환");
+                currentState = UnitState.Idle;
+                aiPath.isStopped = true;
+                aiPath.SetPath(null);
+            }
+        }
+        // 3. [막힘 감지] 도착 안 했는데 속도가 0에 가까우면
+        else if (aiPath.velocity.magnitude < 0.1f && !aiPath.pathPending)
+        {
+            stuckTimer += Time.deltaTime; 
+            if (stuckTimer > STUCK_TIME_THRESHOLD)
+            {
+                Debug.LogWarning("[PickUnit] 이동 중 막혔습니다! 스팟을 반납하고 Idle로 전환합니다.");
+                
+                // 'MovingToSource' 상태였다면 스팟을 "반납"해야 함
+                if (currentState == UnitState.MovingToSource)
+                {
+                    ReleaseCurrentMiningSpot(); 
+                }
+                
+                currentState = UnitState.Idle;
+                aiPath.isStopped = true;
+                stuckTimer = 0f;
+            }
+        }
+        // 4. 정상 이동 중이면 타이머 리셋
+        else
+        {
+            stuckTimer = 0f;
+        }
+    }
+    
+    private void UpdateMiningState()
+    {
+        stuckTimer = 0f; // 채굴 중이므로 타이머 리셋
+
+        // 1. 'null'인지 "먼저" 확인
+        if (targetSource == null)
+        {
+            Debug.LogWarning("[PickUnit] targetSource가 null입니다. Idle로 전환합니다.");
+            StopMining(); 
+            currentState = UnitState.Idle;
+            return; // 'break' 대신 'return'을 써서 즉시 Update() 종료
+        }
+
+        // --- 이 아래부터는 targetSource가 'null'이 아님이 보장됩니다 ---
+
+        // 2. 타겟 바라보기
+        LookAtTarget(targetSource.transform.position);
+
+        // 3. 모든 중지 조건(고갈, 부모)을 한 번에 검사
+        bool isDepleted = targetSource.IsDepleted();
+        bool canMine = targetSource.CanStartMining();
+
+        if (!canMine || isDepleted)
+        {
+            // (로그 메시지)
+            if (isDepleted) Debug.Log(targetSource.name + " 고갈로 채굴 중지.");
+            else Debug.Log("부모 노드 중지로 채굴 중지.");
+            
+            StopMining();
+            currentState = UnitState.Idle; 
+        }
     }
     
     // [새 함수] Mining 상태일 때, '목표 위치'를 바라보도록 스프라이트를 뒤집습니다.
@@ -177,6 +240,43 @@ public class PickUnit : MonoBehaviour
         animator.SetBool("isWalking", isMoving);
         animator.SetBool("isMining", isMining);
         
+    }
+    
+    // // "SourceManager야, 내가 이번에 캘 자원은 이거야!"
+    // public ResourceType GetMinedResourceType()
+    // {
+    //     // (안전장치) targetSource가 없으면 일단 기본값 반환
+    //     if (targetSource == null) return ResourceType.Tier1; // (기본 자원 타입으로 변경)
+    //
+    //     if (myAbility == null)
+    //     {
+    //         // 능력이 없으면 (기본 유닛), 붙어있는 자원 타입을 반환
+    //         return targetSource.resourceType; 
+    //     }
+    //     
+    //     // 내 능력이 결정한 자원 타입을 반환
+    //     // (이때 'targetSource'를 인자로 넘겨서, 기본 능력이 참조할 수 있게 함)
+    //     return myAbility.GetMinedResourceType(targetSource);
+    // }
+    // [새 헬퍼 함수]
+    // "SourceManager야, 내 '최종 작업 원장'을 받아!"
+    public MiningTickResult GetMiningTickResult()
+    {
+        if (targetSource == null) 
+            return new MiningTickResult { Type = ResourceType.Tier1, Amount = 0 }; // 비상 탈출
+
+        if (myAbility == null)
+        {
+            // 능력 없음 (기본 행동)
+            return new MiningTickResult 
+            {
+                Type = targetSource.resourceType, 
+                Amount = targetSource.amountPerTick 
+            };
+        }
+        
+        // 내 능력이 계산한 '최종 원장'을 반환
+        return myAbility.ProcessMiningTick(targetSource);
     }
     
     // (행동 1) 특정 광물을 목표로 설정하고 이동 (방탄 버전)
@@ -360,7 +460,7 @@ public class PickUnit : MonoBehaviour
             {
                 try
                 {
-                    sourceManager.DeactivateSource(targetSource);
+                    sourceManager.DeactivateSource(this);
                 }
                 catch (Exception e)
                 {

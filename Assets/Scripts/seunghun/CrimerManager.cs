@@ -1,11 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CrimerManager : MonoBehaviour
 {
    public Camera mainCamera;
+   public List<PickUnit> allCrimers; // (ScriptableObject 등으로 10명 정보 저장)
+   public List<PickUnit> currentDraft; // (현재 뽑힌 5명)
+   public int rerollChances = 3;
     
     // [중요] 현재 유저가 선택한 단 하나의 유닛
     private PickUnit selectedUnit;
+    // 랜덤 생성기를 멤버 변수로 "한 번"만 생성합니다.
+    private System.Random rand = new System.Random();
 
     void Start()
     {
@@ -97,5 +103,32 @@ public class CrimerManager : MonoBehaviour
         {
             selectedUnit.MoveToPosition(mouseWorldPos);
         }
+    }
+    
+    public void SelectRandomCrimers()
+    {
+        if (rerollChances == 0)
+        {
+            Debug.Log("reroll 기회를 다 소진하여 현재 reroll을 할 수 없습니다.");
+            return;
+        }
+        // 1. 원본 리스트를 "복사"합니다. (원본이 손상되지 않도록)
+        List<PickUnit> availableCrimers = new List<PickUnit>(allCrimers);
+
+        for (int i = 0; i < 5; i++)
+        {
+            // 2. "현재 남은" 리스트에서 랜덤 인덱스를 뽑습니다.
+            // (예: 0 ~ 9, 다음엔 0 ~ 8, ...)
+            int index = rand.Next(0, availableCrimers.Count);
+            
+            // 3. 뽑힌 죄수를 '선택된' 리스트에 추가합니다.
+            currentDraft.Add(availableCrimers[index]);
+            
+            // 4. [핵심] "복사본" 리스트에서 뽑힌 죄수를 "제거"합니다.
+            // (다음 추첨에서 또 뽑히지 않도록)
+            availableCrimers.RemoveAt(index);
+        }
+
+        rerollChances -= 1; // 기회 차감
     }
 }

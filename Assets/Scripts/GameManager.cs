@@ -4,16 +4,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 
-public enum ResourceType
-{
-    Tier1, // 인덱스 0
-    Tier2, // 인덱스 1
-    Tier3, // 인덱스 2
-    Tier4, // 인덱스 3
-    //Tier5, // 인덱스 4
-    Special
-}
-
 // EnemySpawn 클래스는 SpawnManager.cs 파일에 정의되어 있으므로, 
 // 이 파일에서는 SpawnManager를 통해 간접적으로 사용합니다.
 

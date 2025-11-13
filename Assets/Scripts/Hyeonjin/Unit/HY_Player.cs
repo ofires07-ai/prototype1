@@ -11,9 +11,9 @@ public class HY_Player : MonoBehaviour
     Animator anim;
     HY_Scanner scanner;
     [Header("아군 유닛 스탯")]
-    [SerializeField] private int maxHp = 10;
+    [SerializeField] public int maxHp = 10;
     private int currentHp;
-    private bool isLive = true; // 생존 상태 
+    public bool isLive = true; // 생존 상태 
     public GameObject bulletObj;
     public GameObject meleeAttackObj; // 근접 공격 프리팹
     public bool isMeleeAttacker = false; // 공격 타입 설정
