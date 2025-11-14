@@ -15,7 +15,6 @@ public class BuildButtonUI // 💡(참고) BuildSystem 클래스 외부에 이�
     
     public TMP_Text maxText;   // 만렙일 때만 보여줄 텍스트 (예: "MAX UPGRADE")
 
-    public Image upIcon;
     [HideInInspector] public int unitIndex; 
 }
 
