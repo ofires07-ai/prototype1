@@ -83,7 +83,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_Sprite: {fileID: 2159924733834313075, guid: f8fc2384629961242a978d93ba2ced9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -264,7 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {fileID: 0}
-  maxHp: 10
+  maxHp: 100
+  isLive: 1
   bulletObj: {fileID: 0}
   meleeAttackObj: {fileID: 5719379456205050084, guid: 20e283043f0c19d468c2d39f5b596aa1, type: 3}
   isMeleeAttacker: 1

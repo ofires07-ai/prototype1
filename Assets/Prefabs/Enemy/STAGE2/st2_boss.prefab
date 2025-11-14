@@ -20,7 +20,7 @@ GameObject:
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2156850648115021223
 Transform:
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 8549553805338371857, guid: 99b9c70de7e45c242b428015b3a953be, type: 3}
+  m_Sprite: {fileID: -6462444553072130206, guid: 99b9c70de7e45c242b428015b3a953be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -197,11 +197,11 @@ MonoBehaviour:
   attackDamage: 1
   enemyMeleeHitboxPrefab: {fileID: 36502750192200874, guid: 88f23ac6008f05c4abdd976b55843bce, type: 3}
   maxHp: 10
-  enemyID: 
   autoFindCircles: 1
   manualWaypoints: []
   animator: {fileID: 0}
   scanner: {fileID: 0}
+  enemyID: 
 --- !u!114 &-7649294900076508312
 MonoBehaviour:
   m_ObjectHideFlags: 0

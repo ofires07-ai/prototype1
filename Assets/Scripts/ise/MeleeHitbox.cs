@@ -3,7 +3,7 @@ using UnityEngine;
 public class MeleeHitbox : MonoBehaviour
 {
     // 이 히트박스의 데미지
-    public int damage = 25; 
+    public int damage = 5; 
 
     void Start()
     {
