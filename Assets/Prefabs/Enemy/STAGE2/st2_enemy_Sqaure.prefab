@@ -219,4 +219,4 @@ MonoBehaviour:
   animator: {fileID: 0}
   scanner: {fileID: 0}
   enemyID: 
-  NodeName: Sqaure
+  NodeName: Square
