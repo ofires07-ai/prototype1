@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 4
+  amountPerTick: 0.1
   attachedNormalSource: {fileID: 0}
-  capacity: 10
+  capacity: 1
   remaining: 0
-  amountPerTick: 1

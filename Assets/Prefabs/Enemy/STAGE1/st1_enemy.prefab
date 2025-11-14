@@ -160,11 +160,12 @@ MonoBehaviour:
   attackDamage: 10
   enemyMeleeHitboxPrefab: {fileID: 2739837314160803032, guid: 389bb2ee4cfb28c4ebdf4a8b95eaaf6e, type: 3}
   maxHp: 10
-  enemyID: 
   autoFindCircles: 1
   manualWaypoints: []
   animator: {fileID: 0}
   scanner: {fileID: 0}
+  enemyID: 
+  NodeName: Circle
 --- !u!70 &-5581634340763998736
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

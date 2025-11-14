@@ -1,0 +1,767 @@
+fileFormatVersion: 2
+guid: 4c0d0367bcd3ad046854d1c11e83ff65
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2962801936098912256
+    second: tesla_ball10_0
+  - first:
+      213: 401147101865081896
+    second: tesla_ball10_1
+  - first:
+      213: 5723714320954033880
+    second: tesla_ball10_2
+  - first:
+      213: 8548759978079377923
+    second: tesla_ball10_3
+  - first:
+      213: -6605909566611481837
+    second: tesla_ball10_4
+  - first:
+      213: -227577031705556901
+    second: tesla_ball10_5
+  - first:
+      213: 7598988374902563941
+    second: tesla_ball10_6
+  - first:
+      213: -8831289437899514701
+    second: tesla_ball10_7
+  - first:
+      213: 9058099645614678601
+    second: tesla_ball10_8
+  - first:
+      213: -9102798954824910889
+    second: tesla_ball10_9
+  - first:
+      213: 7580450600795901780
+    second: tesla_ball10_10
+  - first:
+      213: -1877696784595372684
+    second: tesla_ball10_11
+  - first:
+      213: 3530855512311538138
+    second: tesla_ball10_12
+  - first:
+      213: 5107757642106612862
+    second: tesla_ball10_13
+  - first:
+      213: 821215593144343164
+    second: tesla_ball10_14
+  - first:
+      213: 2599707322878680775
+    second: tesla_ball10_15
+  - first:
+      213: 1517771117654903685
+    second: tesla_ball10_16
+  - first:
+      213: -7302253102348066045
+    second: tesla_ball10_17
+  - first:
+      213: 1248620460571733149
+    second: tesla_ball10_18
+  - first:
+      213: 4581967909474350152
+    second: tesla_ball10_19
+  - first:
+      213: 1126739915392448090
+    second: tesla_ball10_20
+  - first:
+      213: -1872438952633553020
+    second: tesla_ball10_21
+  - first:
+      213: 4399477694223411425
+    second: tesla_ball10_22
+  - first:
+      213: -3433370373073842106
+    second: tesla_ball10_23
+  - first:
+      213: -4508064978746196516
+    second: tesla_ball10_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tesla_ball10_0
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 82
+        width: 8
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 008e30dc9acfd1920800000000000000
+      internalID: 2962801936098912256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_1
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 85
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82c785de929219500800000000000000
+      internalID: 401147101865081896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_2
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 85
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d6084079d7be6f40800000000000000
+      internalID: 5723714320954033880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_3
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 75
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30a5f7328eb43a670800000000000000
+      internalID: 8548759978079377923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_4
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 81
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31b94cfaf381354a0800000000000000
+      internalID: -6605909566611481837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_5
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 57
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b58072a35eb77dcf0800000000000000
+      internalID: -227577031705556901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_6
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 77
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 564e3627aa7057960800000000000000
+      internalID: 7598988374902563941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_7
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 73
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bc1751eb05f07580800000000000000
+      internalID: -8831289437899514701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_8
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 69
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94264f4c2a5d4bd70800000000000000
+      internalID: 9058099645614678601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_9
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 59
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d73ddb449c5ca180800000000000000
+      internalID: -9102798954824910889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_10
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 48
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45f06d198ab233960800000000000000
+      internalID: 7580450600795901780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_11
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 67
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 475bc4e09b411f5e0800000000000000
+      internalID: -1877696784595372684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_12
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 59
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad12f84916e100130800000000000000
+      internalID: 3530855512311538138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_13
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 64
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7c2d80738662e640800000000000000
+      internalID: 5107757642106612862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_14
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 38
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7a51612b3b856b00800000000000000
+      internalID: 821215593144343164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_15
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 47
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ce5a2c4904041420800000000000000
+      internalID: 2599707322878680775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_16
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 35
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58b0b2e3ac4301510800000000000000
+      internalID: 1517771117654903685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_17
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 33
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 303ac8e0e7f29aa90800000000000000
+      internalID: -7302253102348066045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_18
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 47
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9ca9a381bdf35110800000000000000
+      internalID: 1248620460571733149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_19
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 50
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8443570998b669f30800000000000000
+      internalID: 4581967909474350152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_20
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 46
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a56783bbbfbf2af00800000000000000
+      internalID: 1126739915392448090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_21
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 35
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48f2ca471b2c306e0800000000000000
+      internalID: -1872438952633553020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_22
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 25
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e8e07947a51e0d30800000000000000
+      internalID: 4399477694223411425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_23
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 37
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 640559226d73a50d0800000000000000
+      internalID: -3433370373073842106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tesla_ball10_24
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 33
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdd347d59c22071c0800000000000000
+      internalID: -4508064978746196516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      tesla_ball10_0: 2962801936098912256
+      tesla_ball10_1: 401147101865081896
+      tesla_ball10_10: 7580450600795901780
+      tesla_ball10_11: -1877696784595372684
+      tesla_ball10_12: 3530855512311538138
+      tesla_ball10_13: 5107757642106612862
+      tesla_ball10_14: 821215593144343164
+      tesla_ball10_15: 2599707322878680775
+      tesla_ball10_16: 1517771117654903685
+      tesla_ball10_17: -7302253102348066045
+      tesla_ball10_18: 1248620460571733149
+      tesla_ball10_19: 4581967909474350152
+      tesla_ball10_2: 5723714320954033880
+      tesla_ball10_20: 1126739915392448090
+      tesla_ball10_21: -1872438952633553020
+      tesla_ball10_22: 4399477694223411425
+      tesla_ball10_23: -3433370373073842106
+      tesla_ball10_24: -4508064978746196516
+      tesla_ball10_3: 8548759978079377923
+      tesla_ball10_4: -6605909566611481837
+      tesla_ball10_5: -227577031705556901
+      tesla_ball10_6: 7598988374902563941
+      tesla_ball10_7: -8831289437899514701
+      tesla_ball10_8: 9058099645614678601
+      tesla_ball10_9: -9102798954824910889
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

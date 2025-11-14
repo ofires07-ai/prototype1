@@ -191,31 +191,48 @@ public class GameManager : MonoBehaviour
     {
         ClearMonsterCountUIs();
 
+        if (monsterCountItemPrefab == null)
+        {
+            Debug.LogError("MonsterCountItemPrefab is not assigned in GameManager Inspector!");
+            return;
+        }
+
+        // enemyID 기준으로 수량 합산 & 아이콘 하나만 유지
+        Dictionary<string, int> totalCounts = new Dictionary<string, int>();
+        Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
+
         foreach (var spawn in enemySpawns)
         {
-            if (monsterCountItemPrefab == null)
+            if (!totalCounts.ContainsKey(spawn.enemyID))
             {
-                Debug.LogError("MonsterCountItemPrefab is not assigned in GameManager Inspector!");
-                continue;
+                totalCounts[spawn.enemyID] = 0;
+                icons[spawn.enemyID] = spawn.uiIcon;
             }
 
-            // 1. 프리팹 생성 (monsterCountPanel의 자식으로)
+            totalCounts[spawn.enemyID] += spawn.count;
+        }
+
+        // 합산된 데이터 기준으로 UI 생성
+        foreach (var kvp in totalCounts)
+        {
+            string enemyID = kvp.Key;
+            int totalCount = kvp.Value;
+
             GameObject item = Instantiate(monsterCountItemPrefab, monsterCountPanel.transform);
 
-            // 2. 이미지(아이콘) 설정
+            // 1. 이미지(아이콘)
             Image icon = item.GetComponentInChildren<Image>();
-            if (icon != null)
+            if (icon != null && icons.ContainsKey(enemyID))
             {
-                icon.sprite = spawn.uiIcon;
+                icon.sprite = icons[enemyID];
             }
 
-            // 3. 텍스트 설정
+            // 2. 텍스트 (총 수량)
             TextMeshProUGUI text = item.GetComponentInChildren<TextMeshProUGUI>();
             if (text != null)
             {
-                // 초기 수량 표시: (X [Count])
-                text.text = $"{spawn.count}";
-                _monsterCountUIs.Add(spawn.enemyID, text); // 딕셔너리에 저장
+                text.text = $"{totalCount}";
+                _monsterCountUIs.Add(enemyID, text);
             }
         }
     }

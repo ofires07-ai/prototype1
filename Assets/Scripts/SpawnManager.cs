@@ -25,16 +25,15 @@ public class SpawnManager : MonoBehaviour
     private Wave _currentWave;
     private int _currentWaveIndex = -1;
 
-    private int _spawnPointCursor = 0;
-
     // 🔹 웨이브 원본을 건드리지 않기 위한 작업용 카운트
     private Dictionary<string, int> _remainingMonsterCounts = new Dictionary<string, int>(); // 남은 처치 수
-    private List<int> _remainingToSpawnPerType = new List<int>(); // 각 타입별 남은 스폰 수
 
-    private float _spawnTimer = 0f;
+    // 🔹 각 EnemySpawn(타입) 별 남은 스폰 수 & 개별 타이머
+    private List<int> _remainingToSpawnPerType = new List<int>(); 
+    private List<float> _spawnTimersPerType = new List<float>();
+
     private int _spawnedCountInCurrentWave = 0;
     private bool _isSpawning = false;
-    private int _currentEnemySpawnIndex = 0;
 
     // ✅ 이 웨이브가 끝났다는 사실을 GameManager에 이미 알렸는지 여부
     private bool _waveClearNotified = false;
@@ -85,32 +84,37 @@ public class SpawnManager : MonoBehaviour
 
     void Update()
     {
-        if (_isSpawning)
+        if (_isSpawning && _currentWave != null)
         {
-            if (_currentEnemySpawnIndex >= _currentWave.enemySpawns.Count)
+            bool anyLeftToSpawn = false;
+
+            // 🔹 각 EnemySpawn(타입) 별로 "동시에" 스폰 진행
+            for (int i = 0; i < _currentWave.enemySpawns.Count; i++)
+            {
+                if (_remainingToSpawnPerType[i] <= 0)
+                    continue;
+
+                anyLeftToSpawn = true;
+
+                _spawnTimersPerType[i] -= Time.deltaTime;
+                if (_spawnTimersPerType[i] <= 0f)
+                {
+                    var cfg = _currentWave.enemySpawns[i];
+
+                    SpawnEnemy(cfg.enemyPrefab, cfg.enemyID, i);
+
+                    _remainingToSpawnPerType[i]--;
+                    _spawnedCountInCurrentWave++;
+
+                    // 다음 스폰까지의 간격 재설정
+                    _spawnTimersPerType[i] = cfg.spawnInterval;
+                }
+            }
+
+            // 더 이상 스폰할 몬스터가 없으면 스폰 종료
+            if (!anyLeftToSpawn)
             {
                 _isSpawning = false;
-            }
-            else
-            {
-                var cfg = _currentWave.enemySpawns[_currentEnemySpawnIndex];
-
-                _spawnTimer -= Time.deltaTime;
-                if (_spawnTimer <= 0f)
-                {
-                    if (_remainingToSpawnPerType[_currentEnemySpawnIndex] > 0)
-                    {
-                        SpawnEnemy(cfg.enemyPrefab, cfg.enemyID);
-                        _remainingToSpawnPerType[_currentEnemySpawnIndex]--;
-                        _spawnedCountInCurrentWave++;
-                        _spawnTimer = cfg.spawnInterval;
-                    }
-                    else
-                    {
-                        _currentEnemySpawnIndex++;
-                        _spawnTimer = 0f;
-                    }
-                }
             }
         }
 
@@ -132,7 +136,6 @@ public class SpawnManager : MonoBehaviour
         // 🔹 모든 웨이브를 다 돌았으면 스테이지 클리어
         if (waveIndex >= waves.Count)
         {
-            // 여기로 오는 로직은 이제 거의 없지만, 안전망으로 남겨둠
             GameManager.Instance.UpdateWaveStatus("Game Won!");
             OnAllWavesCompleted?.Invoke();
             return;
@@ -141,10 +144,8 @@ public class SpawnManager : MonoBehaviour
         _currentWave = waves[waveIndex];
         _currentWaveIndex = waveIndex;
 
-        _currentEnemySpawnIndex = 0;
         _spawnedCountInCurrentWave = 0;
         _isSpawning = true;
-        _spawnTimer = 0f;
 
         // 새 웨이브 시작하니 클리어 알림 플래그 리셋
         _waveClearNotified = false;
@@ -153,17 +154,29 @@ public class SpawnManager : MonoBehaviour
         GameManager.Instance.UpdateWaveStatus(_currentWave.waveName);
         GameManager.Instance.UpdateMonsterTypesUI(_currentWave.enemySpawns);
 
-        // 🔹 남은 처치 수(= 원본 count)를 복사해서 초기화
+        // 🔹 남은 처치 수(= 원본 count)를 enemyID 기준으로 "합산"해서 초기화
         _remainingMonsterCounts.Clear();
         foreach (var s in _currentWave.enemySpawns)
-            _remainingMonsterCounts[s.enemyID] = s.count;
+        {
+            if (!_remainingMonsterCounts.ContainsKey(s.enemyID))
+                _remainingMonsterCounts[s.enemyID] = 0;
 
-        // 🔹 스폰 잔량도 별도 복사(원본 불변)
-        _remainingToSpawnPerType = _currentWave.enemySpawns.Select(s => s.count).ToList();
+            _remainingMonsterCounts[s.enemyID] += s.count;
+        }
+
+        // 🔹 스폰 잔량 & 타이머도 초기화 (각 타입별로 따로 관리)
+        _remainingToSpawnPerType = new List<int>();
+        _spawnTimersPerType = new List<float>();
+
+        foreach (var s in _currentWave.enemySpawns)
+        {
+            _remainingToSpawnPerType.Add(s.count);
+            _spawnTimersPerType.Add(0f);   // 0으로 시작하면 웨이브 시작 시 바로 1마리씩 나옴
+        }
     }
 
     // --- 스폰 ---
-    private void SpawnEnemy(GameObject enemyPrefab, string enemyID)
+    private void SpawnEnemy(GameObject enemyPrefab, string enemyID, int enemySpawnIndex)
     {
         if (spawnPoints == null || spawnPoints.Length == 0)
         {
@@ -171,8 +184,13 @@ public class SpawnManager : MonoBehaviour
             return;
         }
 
-        Transform point = spawnPoints[_spawnPointCursor % spawnPoints.Length];
-        _spawnPointCursor++;
+        // 🔹 N번째 EnemySpawn은 (N % 스폰포인트 개수) 번째 스폰 포인트에서 출발
+        //    예) 0번 EnemySpawn → spawnPoints[0]
+        //        1번 EnemySpawn → spawnPoints[1]
+        //        2번 EnemySpawn → spawnPoints[0] (스폰 포인트가 2개인 경우)
+        int spawnIndex = enemySpawnIndex % spawnPoints.Length;
+        Transform point = spawnPoints[spawnIndex];
+
         GameObject enemyObject = Instantiate(enemyPrefab, point.position, point.rotation);
 
         // 타입 ID 전달
