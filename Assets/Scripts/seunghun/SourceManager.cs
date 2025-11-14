@@ -88,6 +88,7 @@ public class SourceManager : MonoBehaviour
             // 5. 인벤토리에 '정산액'과 '정산 타입' 추가
             if (amountToAdd > 0)
             {
+                Debug.Log(typeToMine + ": " + amountToAdd);
                 inventoryManager.AddResource(typeToMine, amountToAdd);
             }
 
@@ -96,6 +97,7 @@ public class SourceManager : MonoBehaviour
             {
                 job.Resource.StopMining();
                 activeJobs.RemoveAt(i);
+                Destroy(job.Resource.gameObject);
             }
         }
     }

@@ -13,8 +13,8 @@ public class CheckSpecialSourceAbility : CrimerAbility
     {
         return new MiningTickResult
         {
-            Type = ResourceType.Special,                   // 타입은 'Special'로 고정
-            Amount = node.amountPerTick * inventoryManager.GetTotalAmount(ResourceType.Special) // 양은 '기본량 * 배율'
+            Type = node.resourceType,                   // 타입은 'Special'로 고정
+            Amount = node.amountPerTick * (inventoryManager.GetTotalAmount(ResourceType.Special) + 1) // 양은 '기본량 * 배율'
         };
     }
 }
