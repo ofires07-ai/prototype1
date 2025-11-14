@@ -2710,7 +2710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &372644951
 Transform:
   m_ObjectHideFlags: 0
@@ -4988,7 +4988,6 @@ MonoBehaviour:
     cost2Icon: {fileID: 1347753596}
     cost2Text: {fileID: 2024420549}
     maxText: {fileID: 375673580}
-    upIcon: {fileID: 0}
     unitIndex: 0
 --- !u!4 &682143773
 Transform:
@@ -7798,7 +7797,6 @@ MonoBehaviour:
     cost2Icon: {fileID: 5238018947385325541}
     cost2Text: {fileID: 4057013151533745240}
     maxText: {fileID: 0}
-    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 874741191153309832}
     cost1Icon: {fileID: 9141391795971543525}
@@ -7806,7 +7804,6 @@ MonoBehaviour:
     cost2Icon: {fileID: 6428468673533939884}
     cost2Text: {fileID: 4794835254678866113}
     maxText: {fileID: 0}
-    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 1637592025604303236}
     cost1Icon: {fileID: 7971741444658205698}
@@ -7814,7 +7811,6 @@ MonoBehaviour:
     cost2Icon: {fileID: 6716881941931694409}
     cost2Text: {fileID: 6345318298477579056}
     maxText: {fileID: 0}
-    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 6774123075631394174}
     cost1Icon: {fileID: 6821231834025056146}
@@ -7822,7 +7818,6 @@ MonoBehaviour:
     cost2Icon: {fileID: 4050850129014198023}
     cost2Text: {fileID: 4293039329842609169}
     maxText: {fileID: 0}
-    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 6733988779199935413}
     cost1Icon: {fileID: 6827331214976453822}
@@ -7830,7 +7825,6 @@ MonoBehaviour:
     cost2Icon: {fileID: 4724313262589547573}
     cost2Text: {fileID: 2141872494092570087}
     maxText: {fileID: 0}
-    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 3340932873140997687}
     cost1Icon: {fileID: 7889495890109555100}
@@ -7838,7 +7832,6 @@ MonoBehaviour:
     cost2Icon: {fileID: 6042846529031627417}
     cost2Text: {fileID: 2677732396746087594}
     maxText: {fileID: 0}
-    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 5791926908811097591}
     cost1Icon: {fileID: 6643029390692598685}
@@ -7846,7 +7839,6 @@ MonoBehaviour:
     cost2Icon: {fileID: 4642084059531939487}
     cost2Text: {fileID: 8108825233861285303}
     maxText: {fileID: 0}
-    upIcon: {fileID: 0}
     unitIndex: 0
 --- !u!224 &994710488
 RectTransform:
@@ -10664,7 +10656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1387452083
 Transform:
   m_ObjectHideFlags: 0
@@ -11335,6 +11327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 791734396}
   spawnManager: {fileID: 1060494771}
+  spaceShip: {fileID: 1559563214}
   prisonerSelectionUI: {fileID: 5076624986185951538}
   upgradeCardUI: {fileID: 5319521310184259387}
   showUpgradeBeforeNextStage: 0

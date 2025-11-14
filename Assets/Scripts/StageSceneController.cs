@@ -5,6 +5,7 @@ public class StageSceneController : MonoBehaviour
     [Header("필수 참조")]
     public GameManager gameManager;
     public SpawnManager spawnManager;
+    public SpaceShip spaceShip;
 
     [Header("UI 참조")]
     public PrisonerSelectionUI prisonerSelectionUI;
@@ -67,6 +68,8 @@ public class StageSceneController : MonoBehaviour
 
         if (spawnManager != null && !spawnManager.enabled)
             spawnManager.enabled = true;
+        spaceShip.Init();
+        spaceShip.SpawnAndMovePrisoners();
     }
 
     // Boss Wave까지 포함해서 모든 웨이브를 다 깬 시점
