@@ -7922,6 +7922,11 @@ MonoBehaviour:
       spawnInterval: 0.5
       count: 30
       uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
+    - enemyID: Enemy
+      enemyPrefab: {fileID: 883179094620236413, guid: d3c4998b6f3a4b34ba11be2c0e2db647, type: 3}
+      spawnInterval: 0.5
+      count: 30
+      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
     totalMonsterCount: 0
   - waveName: Wave2
     enemySpawns:
@@ -9349,7 +9354,6 @@ MonoBehaviour:
   productionTime: 5
   maxUnits: 5
   spawnPoint: {fileID: 252007035}
-  rallyPoint: {fileID: 0}
   spawnRadiusOffset: 0.5
 --- !u!1001 &1333950344
 PrefabInstance:
