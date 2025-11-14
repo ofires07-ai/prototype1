@@ -6,10 +6,10 @@ public class SpaceShip : MonoBehaviour
     
     public CrimerManager crimerManager; 
     [Header("죄수 스폰 설정")]
-    [Tooltip("추첨에서 뽑힌 죄수 5명의 프리팹 리스트, initSelectedPrisoner를 통한 초기화 필수")]
-    public List<PickUnit> selectedPrisonerPrefabs; // ⬅️ (추첨 시스템이 이 리스트를 채워야 함)
+    [Tooltip("추첨에서 뽑힌 죄수 5명의 프리팹 리스트, init()을 통한 초기화 필수")]
+    private List<PickUnit> selectedPrisonerPrefabs; // ⬅️ (추첨 시스템이 이 리스트를 채워야 함)
     [Tooltip("죄수들이 '생성'될 위치 (우주선 문 앞)")]
-    public Transform spaceshipSpawnPoint; 
+    private Transform spaceshipSpawnPoint; 
     [Tooltip("죄수들이 '이동할' 최종 도착 지점들 (5개)")]
     public List<Transform> rallyPoints; 
 
