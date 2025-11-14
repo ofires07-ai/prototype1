@@ -131,4 +131,9 @@ public class CrimerManager : MonoBehaviour
 
         rerollChances -= 1; // 기회 차감
     }
+    
+    public List<PickUnit> GetCurrentDraft()
+    {
+        return currentDraft;
+    }
 }
