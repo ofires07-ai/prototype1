@@ -42,6 +42,14 @@ public class PrisonerSelectionUI : MonoBehaviour
         gameObject.SetActive(true);
 
         RollNewCombination();
+
+        // 🔹 여기서 최초 한 번만 최대 리롤 수를 GameManager에 기록
+        if (GameManager.Instance != null && GameManager.Instance.maxRerollChances <= 0)
+        {
+            // 현재 값은 "기본 조합 뽑고 난 뒤"라서 +1 해줘야 원래 총 리롤 수가 됨
+            GameManager.Instance.maxRerollChances = crimerManager.rerollChances + 1;
+        }
+
         UpdateRefreshText();
     }
 
@@ -110,7 +118,21 @@ public class PrisonerSelectionUI : MonoBehaviour
             return;
         }
 
-        refreshCountText.text = crimerManager.rerollChances.ToString();
+        int current = crimerManager.rerollChances;
+
+        int maxMinusOne;
+        if (GameManager.Instance != null && GameManager.Instance.maxRerollChances > 0)
+        {
+            maxMinusOne = GameManager.Instance.maxRerollChances - 1;
+        }
+        else
+        {
+            // 혹시라도 GameManager가 없거나 max 값이 세팅 안 되어 있으면
+            // 기존처럼 "현재값/현재값"으로 표시되도록 안전장치
+            maxMinusOne = current;
+        }
+
+        refreshCountText.text = $"{current}/{maxMinusOne}";
     }
 
     // ---------------- 버튼 이벤트 ----------------
