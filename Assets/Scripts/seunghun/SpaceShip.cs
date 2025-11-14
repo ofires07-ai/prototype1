@@ -23,7 +23,7 @@ public class SpaceShip : MonoBehaviour
         selectedPrisonerPrefabs = crimerManager.GetCurrentDraft();
     }
     
-    private void SpawnAndMovePrisoners()
+    public void SpawnAndMovePrisoners()
     {
         if (selectedPrisonerPrefabs == null || selectedPrisonerPrefabs.Count == 0)
         {
