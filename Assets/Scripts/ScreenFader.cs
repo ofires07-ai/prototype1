@@ -32,7 +32,9 @@ public class ScreenFader : MonoBehaviour
         float t = 0f;
         while (t < duration)
         {
-            t += Time.unscaledDeltaTime;
+            float dt = Time.unscaledDeltaTime;
+            dt = Mathf.Min(dt, 0.05f); // 한 프레임에 최대 0.05초만 진행
+            t += dt;
             float normalized = Mathf.Clamp01(t / duration);
             canvasGroup.alpha = Mathf.Lerp(0f, 1f, normalized);
             yield return null;
@@ -47,7 +49,6 @@ public class ScreenFader : MonoBehaviour
     public IEnumerator FadeOutCoroutine(float duration)
 {
     // 🔴 여기서 강제로 화면을 완전 검게 맞추고 시작
-    canvasGroup.blocksRaycasts = true;
     canvasGroup.alpha = 1f;
 
     if (duration <= 0f)
@@ -60,9 +61,14 @@ public class ScreenFader : MonoBehaviour
     float t = 0f;
     while (t < duration)
     {
-        t += Time.unscaledDeltaTime;
+        float dt = Time.unscaledDeltaTime;
+        dt = Mathf.Min(dt, 0.05f); // 한 프레임에 최대 0.05초만 진행
+        t += dt;
         float normalized = Mathf.Clamp01(t / duration);
-        canvasGroup.alpha = Mathf.Lerp(1f, 0f, normalized); // 1 -> 0
+        float a = Mathf.Lerp(1f, 0f, normalized); // 1 -> 0
+        Debug.Log($"t = {t:F3}, normalized = {normalized:F3}, alpha = {a:F3}");
+
+        canvasGroup.alpha = a;
         yield return null;
     }
 

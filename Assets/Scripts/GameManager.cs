@@ -14,10 +14,11 @@ public class GameManager : MonoBehaviour
 
     [Header("시스템 연동")]
     public InventoryManager inventoryManager;
+    public BuildSystem buildSystem;
 
     // 2. 게임 스탯 및 자원 (기존 필드 유지)
     public int maxBaseHealth = 10;
-    private int _currentBaseHealth;
+    public int _currentBaseHealth;
     // 현재 적용 중인 유닛 비용 할인율
     public float unitCostModifier = 1.0f;
     // 현재 적용 중인 타워 비용 할인율 (1.0 = 100% = 할인 없음)
@@ -357,11 +358,13 @@ public class GameManager : MonoBehaviour
     public void RegisterUnitCostModifier(float modifier)
     {
         unitCostModifier = modifier;
+        buildSystem.RefreshAllButtonUI();
     }
     
     /// 타워 할인 어빌리티가 이 함수를 호출하여 할인율을 등록합니다.
     public void RegisterTowerCostModifier(float modifier)
     {
         towerCostModifier = modifier;
+        buildSystem.RefreshAllButtonUI();
     }
 }

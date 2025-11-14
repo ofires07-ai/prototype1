@@ -75,7 +75,7 @@ public class CrimerManager : MonoBehaviour
             // 1. 클릭한 것이 'SpecialSource'인지 먼저 확인
             if (hit.collider.TryGetComponent<SpecialSource>(out SpecialSource specialSource))
             {
-                // 특수 자원을 클릭 -> 특수 자원 채굴 명령
+                // 특수 자원을 클릭 -> 특수 자원 채굴 명령  
                 selectedUnit.SetTargetSource(specialSource);
             }
             // 2. 클릭한 것이 'Source' (일반 자원)인지 확인
