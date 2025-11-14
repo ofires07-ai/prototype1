@@ -84,6 +84,7 @@ public class StageSceneController : MonoBehaviour
         // 3) 이후 흐름: 업그레이드 → 다음 스테이지/결과
         if (showUpgradeBeforeNextStage && upgradeCardUI != null)
         {
+            Time.timeScale = 0f;
             // 스테이지1: 업그레이드 카드 먼저
             upgradeCardUI.Open(OnUpgradeCardSelected);
         }
@@ -96,6 +97,7 @@ public class StageSceneController : MonoBehaviour
 
     void OnUpgradeCardSelected(int cardIndex)
     {
+        Time.timeScale = 1f;
         // TODO: 선택된 카드 효과를 아군 포탑 강화에 적용하는 로직
         // (어떤 능력치/프리팹인지는 나중에 결정)
         GameFlowManager.Instance.GoToNextStage();

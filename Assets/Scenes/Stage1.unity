@@ -2942,7 +2942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &372644951
 Transform:
   m_ObjectHideFlags: 0
@@ -9724,6 +9724,7 @@ MonoBehaviour:
     cost2Icon: {fileID: 79144882}
     cost2Text: {fileID: 197153223}
     maxText: {fileID: 0}
+    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 1098164736}
     cost1Icon: {fileID: 679804815}
@@ -9731,6 +9732,7 @@ MonoBehaviour:
     cost2Icon: {fileID: 282460977}
     cost2Text: {fileID: 177901222}
     maxText: {fileID: 0}
+    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 667699942}
     cost1Icon: {fileID: 226683543}
@@ -9738,6 +9740,7 @@ MonoBehaviour:
     cost2Icon: {fileID: 1451456025}
     cost2Text: {fileID: 1153565120}
     maxText: {fileID: 0}
+    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 1721081736}
     cost1Icon: {fileID: 754435218}
@@ -9745,6 +9748,7 @@ MonoBehaviour:
     cost2Icon: {fileID: 663185543}
     cost2Text: {fileID: 990630229}
     maxText: {fileID: 0}
+    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 1180277036}
     cost1Icon: {fileID: 1059354252}
@@ -9752,6 +9756,7 @@ MonoBehaviour:
     cost2Icon: {fileID: 1546820135}
     cost2Text: {fileID: 536305550}
     maxText: {fileID: 0}
+    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 253565641}
     cost1Icon: {fileID: 1438832772}
@@ -9759,6 +9764,7 @@ MonoBehaviour:
     cost2Icon: {fileID: 1565741602}
     cost2Text: {fileID: 816328202}
     maxText: {fileID: 0}
+    upIcon: {fileID: 0}
     unitIndex: 0
   - unitImage: {fileID: 1340927761}
     cost1Icon: {fileID: 866200764}
@@ -9766,6 +9772,7 @@ MonoBehaviour:
     cost2Icon: {fileID: 2079779007}
     cost2Text: {fileID: 1123424635}
     maxText: {fileID: 0}
+    upIcon: {fileID: 0}
     unitIndex: 0
 --- !u!224 &994710488
 RectTransform:
@@ -15493,7 +15500,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 366, y: 200}
+  m_SizeDelta: {x: 244, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1512287807
 MonoBehaviour:
@@ -17769,7 +17776,7 @@ MonoBehaviour:
     levels:
     - upgradeID: SCV_Lv1
       costs: 0a00000005000000000000000000000000000000
-      upgradeIcon: {fileID: 4164744761163438241, guid: 9c5d6a8afb53c3b4e8990fb3e8b27a02, type: 3}
+      upgradeIcon: {fileID: -3690306243466877936, guid: f81a0f1c933f141dbb9e578cef58a3aa, type: 3}
       resource1Icon: {fileID: -8053002167776101150, guid: acaa82e42958efd42bb1cff167818047, type: 3}
       resource2Icon: {fileID: 8585081495337123410, guid: cff41342e3ac441f3ad4fed39a3221a6, type: 3}
       resource3Icon: {fileID: 0}
@@ -17777,7 +17784,7 @@ MonoBehaviour:
       resource5Icon: {fileID: 0}
     - upgradeID: SCV_Lv2
       costs: 0000000000000000000000000000000000000000
-      upgradeIcon: {fileID: 4164744761163438241, guid: 1e5568d000b1cbe49bfaf7ea54766299, type: 3}
+      upgradeIcon: {fileID: -5548372121160148620, guid: 5a5a0ffa858154b50a13cb304b6c1f0a, type: 3}
       resource1Icon: {fileID: 0}
       resource2Icon: {fileID: 8585081495337123410, guid: 2037fb14167bca341ac62260be503e30, type: 3}
       resource3Icon: {fileID: 5230572312951809089, guid: e302d8134e02140059bdeba9f8c745e8, type: 3}
@@ -17785,7 +17792,7 @@ MonoBehaviour:
       resource5Icon: {fileID: 0}
     - upgradeID: SCV_Lv3
       costs: 0000000000000000000000000000000000000000
-      upgradeIcon: {fileID: 4164744761163438241, guid: 1681e975263199a4498747392b1dfcf7, type: 3}
+      upgradeIcon: {fileID: 8381884700436462446, guid: e921b3eb24fb6485996831e512650d22, type: 3}
       resource1Icon: {fileID: 0}
       resource2Icon: {fileID: 0}
       resource3Icon: {fileID: 5230572312951809089, guid: cc4501548834cd147b4391cd84008775, type: 3}
@@ -17799,6 +17806,7 @@ MonoBehaviour:
     cost2Icon: {fileID: 884744205}
     cost2Text: {fileID: 89842562}
     maxText: {fileID: 1995743956}
+    upIcon: {fileID: 0}
     unitIndex: 0
 --- !u!4 &1774294728
 Transform:
@@ -19093,8 +19101,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
