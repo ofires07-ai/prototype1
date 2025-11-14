@@ -60,32 +60,42 @@ public class HomingMissile : MonoBehaviour
         // 2-5. 항상 내 '앞'방향(transform.up)으로 전진!
         rb.linearVelocity = transform.up * moveSpeed;
     }
+// ... (다른 변수 및 함수들은 그대로) ...
 
-    /// <summary>
-    /// 콜라이더(Is Trigger)가 다른 콜라이더와 부딪혔을 때 호출됩니다.
-    /// </summary>
-    void OnTriggerEnter2D(Collider2D other)
+/// <summary>
+/// 콜라이더(Is Trigger)가 다른 콜라이더와 부딪혔을 때 호출됩니다.
+/// </summary>
+// [HomingMissile.cs]
+
+void OnTriggerEnter2D(Collider2D other)
+{
+    // --- [✨ 1. 추적기 추가] ---
+    // 일단 "무언가"와 부딪혔는지 확인
+    Debug.Log("OnTriggerEnter! 부딪힌 대상: " + other.gameObject.name);
+
+    // [중요] 부딪힌 대상이 "Enemy" 레이어인지 확인합니다.
+    if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
     {
-        // [중요] 부딪힌 대상이 "Enemy" 레이어인지 확인합니다.
-        // (참고: LayerMask.LayerToName(other.gameObject.layer) == "Enemy"와 같습니다)
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            // 1. (선택 사항) 폭발 이펙트가 있다면, 현재 위치에 생성
-            if (explosionPrefab != null)
-            {
-                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            }
-            
-            // 2. (선택 사항) 적에게 데미지를 줍니다.
-            //    (적에게 EnemyHealth.cs 같은 스크립트가 있다면)
-            // EnemyHealth enemy = other.GetComponent<EnemyHealth>();
-            // if (enemy != null)
-            // {
-            //     enemy.TakeDamage(50); // RPG 데미지 50!
-            // }
+        // --- [✨ 2. 추적기 추가] ---
+        // "Enemy" 레이어와 부딪혔는지 확인
+        Debug.Log("적('Enemy' 레이어)과 충돌했습니다! 폭발합니다!");
 
-            // 3. 미사일 자신을 파괴
-            Destroy(gameObject);
+        // 1. (선택 사항) 폭발 이펙트가 있다면, 현재 위치에 생성
+        if (explosionPrefab != null)
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         }
+
+        // ... (데미지 코드 등) ...
+
+        // 3. 미사일 자신을 파괴
+        Destroy(gameObject);
     }
+    else
+    {
+        // --- [✨ 3. 추적기 추가] ---
+        // "Enemy"가 아닌 다른 것과 부딪혔을 때
+        Debug.Log("부딪혔지만 'Enemy' 레이어가 아닙니다. (대상 레이어: " + LayerMask.LayerToName(other.gameObject.layer) + ")");
+    }
+}
 }
