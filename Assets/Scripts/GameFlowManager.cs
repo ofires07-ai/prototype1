@@ -116,15 +116,25 @@ public class GameFlowManager : MonoBehaviour
 
     public void GoToNextStage()
     {
-        if (HasNextStage)
+        int len = (stageSceneNames != null) ? stageSceneNames.Length : 0;
+        int nextIndex = CurrentStageIndex + 1;
+
+        Debug.Log($"[GF] GoToNextStage 호출: CurrentStageIndex={CurrentStageIndex}, " +
+                $"nextIndex={nextIndex}, stageSceneNames.Length={len}");
+
+        // HasNextStage 로직을 여기서 직접 계산
+        if (nextIndex < len)
         {
-            StartCoroutine(LoadStageRoutine(CurrentStageIndex + 1));
+            Debug.Log($"[GF] 다음 스테이지 로드: index={nextIndex} ({stageSceneNames[nextIndex]})");
+            StartCoroutine(LoadStageRoutine(nextIndex));
         }
         else
         {
+            Debug.Log("[GF] 다음 스테이지가 없어 Result로 이동");
             StartCoroutine(LoadResultRoutine());
         }
     }
+
 
     public void BackToTitle()
     {

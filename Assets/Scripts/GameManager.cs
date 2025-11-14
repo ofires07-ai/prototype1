@@ -233,6 +233,23 @@ public class GameManager : MonoBehaviour
     public void OnWaveCleared()
     {
         Debug.Log("Wave " + _currentWaveIndex + " Cleared!");
+
+        // 🔸 마지막 웨이브인지 확인
+        if (spawnManager != null && _currentWaveIndex >= spawnManager.waves.Count - 1)
+        {
+            Debug.Log("모든 웨이브 완료! (마지막 웨이브)");
+            
+            // StageSceneController가 구독하고 있는 이벤트 호출
+            if (spawnManager.OnAllWavesCompleted != null)
+            {
+                spawnManager.OnAllWavesCompleted.Invoke();
+            }
+
+            // 여기서는 더 이상 다음 웨이브를 준비하지 않습니다.
+            return;
+        }
+
+        // 🔹 마지막 웨이브가 아니면, 기존처럼 다음 웨이브 준비
         _currentWaveIndex++;
 
         // --- 수정된 로직: 첫 웨이브 이후에는 무조건 0초 대기 ---

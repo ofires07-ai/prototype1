@@ -66,7 +66,6 @@ public class ScreenFader : MonoBehaviour
         t += dt;
         float normalized = Mathf.Clamp01(t / duration);
         float a = Mathf.Lerp(1f, 0f, normalized); // 1 -> 0
-        Debug.Log($"t = {t:F3}, normalized = {normalized:F3}, alpha = {a:F3}");
 
         canvasGroup.alpha = a;
         yield return null;

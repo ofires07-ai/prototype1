@@ -424,9 +424,8 @@ MonoBehaviour:
   - Stage2
   resultSceneName: Result
   screenFader: {fileID: 876091431}
-  fadeDuration: 2
+  fadeDuration: 1
   stageScores: 
-  selectedPrisonerPrefabs: []
 --- !u!4 &423537256
 Transform:
   m_ObjectHideFlags: 0

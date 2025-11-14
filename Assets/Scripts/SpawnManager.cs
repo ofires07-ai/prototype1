@@ -36,6 +36,9 @@ public class SpawnManager : MonoBehaviour
     private bool _isSpawning = false;
     private int _currentEnemySpawnIndex = 0;
 
+    // ✅ 이 웨이브가 끝났다는 사실을 GameManager에 이미 알렸는지 여부
+    private bool _waveClearNotified = false;
+
     void Awake()
     {
         if (Instance == null)
@@ -112,11 +115,14 @@ public class SpawnManager : MonoBehaviour
         }
 
         // 웨이브 종료: 모두 스폰되었고, 남은 처치 수가 0
-        if (_currentWave != null && !_isSpawning
+        if (_currentWave != null 
+            && !_isSpawning
             && _spawnedCountInCurrentWave >= _currentWave.totalMonsterCount
-            && _remainingMonsterCounts.Values.All(v => v <= 0))
+            && _remainingMonsterCounts.Values.All(v => v <= 0)
+            && !_waveClearNotified)   // ✅ 한 번만
         {
-            GameManager.Instance.OnWaveCleared(); // 다음 웨이브로 넘어감
+            _waveClearNotified = true;
+            GameManager.Instance.OnWaveCleared();
         }
     }
 
@@ -126,9 +132,8 @@ public class SpawnManager : MonoBehaviour
         // 🔹 모든 웨이브를 다 돌았으면 스테이지 클리어
         if (waveIndex >= waves.Count)
         {
+            // 여기로 오는 로직은 이제 거의 없지만, 안전망으로 남겨둠
             GameManager.Instance.UpdateWaveStatus("Game Won!");
-
-            // 스테이지 전체 클리어 이벤트 발행 (Boss Wave 포함 전부 끝난 시점)
             OnAllWavesCompleted?.Invoke();
             return;
         }
@@ -140,6 +145,9 @@ public class SpawnManager : MonoBehaviour
         _spawnedCountInCurrentWave = 0;
         _isSpawning = true;
         _spawnTimer = 0f;
+
+        // 새 웨이브 시작하니 클리어 알림 플래그 리셋
+        _waveClearNotified = false;
 
         // UI
         GameManager.Instance.UpdateWaveStatus(_currentWave.waveName);
