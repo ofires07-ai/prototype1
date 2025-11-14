@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 
 /// <summary>
 /// [통합 AI 스크립트]
@@ -21,7 +22,6 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     [Header("이동 설정")]
     [Tooltip("기본 순찰 속도")]
     [SerializeField] private float moveSpeed = 3f;
-    [Tooltip("웨이포인트에 도달했다고 판단하는 거리")]
     [SerializeField] private float stoppingDistance = 0.5f;
 
     [Header("전투 설정")]
@@ -63,6 +63,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour
 
     public string NodeName;
 
+    private bool isStunned = false;
 
     void Start()
     {
@@ -101,6 +102,13 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
+
+        if (!isLive || isStunned)
+        {
+            // (스턴 상태일 때 스피드를 0으로 만드는 것은 StunRoutine에서 처리)
+            animator.SetBool("isLive", isLive); // isLive가 false일 때만 반영
+            return;
+        }
         // 죽었으면 아무것도 하지 않음
         if (!isLive)
         {
@@ -246,6 +254,40 @@ public class HY_EnemyUnitMovement : MonoBehaviour
         {
             Die();
         }
+    }
+
+
+    /// <summary>
+    /// 외부(폭발 등)에서 호출하여 적을 잠시 경직시킵니다.
+    /// </summary>
+    /// <param name="duration">경직(스턴) 시간 (초)</param>
+    public void ApplyStun(float duration)
+    {
+        if (!isLive) return; // 죽은 적은 경직되지 않음
+
+        // 이미 스턴 상태라면 기존 코루틴을 멈추고 새로 시작 (선택 사항)
+        // StopCoroutine("StunRoutine"); 
+        StartCoroutine(StunRoutine(duration));
+    }
+
+    /// <summary>
+    /// 스턴 코루틴: 지정된 시간 동안 isStunned를 true로 설정합니다.
+    /// </summary>
+    private IEnumerator StunRoutine(float duration)
+    {
+        isStunned = true;
+        
+        // [✨ 중요!] 스턴에 걸리면 즉시 멈추도록 애니메이터 속도 0
+        animator.SetFloat("Speed", 0); 
+        
+        // (선택) Rigidbody가 있다면 여기서 속도를 0으로 만들 수도 있습니다.
+        // Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        // if (rb != null) rb.velocity = Vector2.zero;
+
+        // 지정된 시간(duration)만큼 대기
+        yield return new WaitForSeconds(duration);
+
+        isStunned = false;
     }
 
     /// <summary>

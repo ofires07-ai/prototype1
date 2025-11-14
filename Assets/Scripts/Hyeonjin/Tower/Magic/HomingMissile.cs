@@ -71,14 +71,14 @@ void OnTriggerEnter2D(Collider2D other)
 {
     // --- [✨ 1. 추적기 추가] ---
     // 일단 "무언가"와 부딪혔는지 확인
-    Debug.Log("OnTriggerEnter! 부딪힌 대상: " + other.gameObject.name);
+    //Debug.Log("OnTriggerEnter! 부딪힌 대상: " + other.gameObject.name);
 
     // [중요] 부딪힌 대상이 "Enemy" 레이어인지 확인합니다.
     if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
     {
         // --- [✨ 2. 추적기 추가] ---
         // "Enemy" 레이어와 부딪혔는지 확인
-        Debug.Log("적('Enemy' 레이어)과 충돌했습니다! 폭발합니다!");
+       // Debug.Log("적('Enemy' 레이어)과 충돌했습니다! 폭발합니다!");
 
         // 1. (선택 사항) 폭발 이펙트가 있다면, 현재 위치에 생성
         if (explosionPrefab != null)
@@ -91,11 +91,11 @@ void OnTriggerEnter2D(Collider2D other)
         // 3. 미사일 자신을 파괴
         Destroy(gameObject);
     }
-    else
-    {
-        // --- [✨ 3. 추적기 추가] ---
-        // "Enemy"가 아닌 다른 것과 부딪혔을 때
-        Debug.Log("부딪혔지만 'Enemy' 레이어가 아닙니다. (대상 레이어: " + LayerMask.LayerToName(other.gameObject.layer) + ")");
-    }
+    // else
+    // {
+    //     // --- [✨ 3. 추적기 추가] ---
+    //     // "Enemy"가 아닌 다른 것과 부딪혔을 때
+    //     Debug.Log("부딪혔지만 'Enemy' 레이어가 아닙니다. (대상 레이어: " + LayerMask.LayerToName(other.gameObject.layer) + ")");
+    // }
 }
 }
