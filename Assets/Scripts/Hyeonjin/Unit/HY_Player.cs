@@ -192,11 +192,11 @@ public class HY_Player : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
 
         // 5. 오브젝트 파괴 (Die 애니메이션 재생 시간 기다리기)
-        Destroy(gameObject, 2.5f);
+        Destroy(gameObject, 1.5f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        MeleeHitbox hitbox = collision.GetComponent<MeleeHitbox>();
+        /*EnemyMeleeHitbox hitbox = collision.GetComponent<EnemyMeleeHitbox>();
         if (hitbox != null)
         {
             if (!collision.CompareTag("MeleeHitbox")) // <-- 이 부분은 선택사항이지만 권장됩니다.
@@ -204,6 +204,17 @@ public class HY_Player : MonoBehaviour
             // 3. 내 자신의 TakeDamage를 호출
             TakeDamage(hitbox.damage);
             }
+        }*/
+        EnemyMeleeHitbox enemyHitbox = collision.GetComponent<EnemyMeleeHitbox>();
+    
+        if (enemyHitbox != null)
+        {
+        // 1. 적군 히트박스(EnemyMeleeHitbox)와 충돌했는지 확인되면
+        
+        // 2. 데미지를 입고 함수를 종료합니다.
+        // (AoE 방지/파괴 로직은 EnemyMeleeHitbox 스크립트에서 처리됩니다.)
+        TakeDamage(enemyHitbox.damage);
+        return; 
         }
     }
 }

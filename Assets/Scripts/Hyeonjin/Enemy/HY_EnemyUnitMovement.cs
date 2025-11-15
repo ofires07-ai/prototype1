@@ -337,7 +337,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour
             // 총알이 관통형이 아니라면 즉시 파괴
             Destroy(bullet.gameObject);
         }
-        MeleeHitbox melee = collision.GetComponent<MeleeHitbox>();
+        PlayerMeleeHitbox melee = collision.GetComponent<PlayerMeleeHitbox>();
         if (melee != null)
         {
             // 근접 히트박스의 데미지 값으로 TakeDamage 호출
