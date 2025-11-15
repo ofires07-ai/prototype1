@@ -20,7 +20,7 @@ public class HY_Player : MonoBehaviour
     public float fireCooldown = 0.5f;
     public float meleeAttackRange = 1.5f; // 근접 공격 범위
     float lastFireTime;
-
+    Vector2 lastDirection = Vector2.down; // 마지막으로 바라본 방향(기본값:아래)
     void Awake()
     {
         aiPath = GetComponent<AIPath>();
@@ -87,10 +87,39 @@ public class HY_Player : MonoBehaviour
                 aiPath.destination = destination.position;
             }
         }
-
-        // 애니메이터에 속도 전달
-        float animSpeed = aiPath.velocity.magnitude;
+       
+        
+       // --- [ ✨ 1. 실제 속도/방향 계산 ] ---
+        Vector2 currentVelocity = aiPath.velocity; 
+        float animSpeed = currentVelocity.magnitude;
         anim.SetFloat("Speed", animSpeed);
+
+        // --- [ ✨ 2. 애니메이션 방향 결정 로직 (수정됨) ] ---
+
+        // 1) 만약 "이동 중"이라면 (Speed > 0.1)
+        if (animSpeed > 0.1f)
+        {
+            // 실제 이동 방향(velocity)을 바라본다
+            // (velocity가 0이 아닐 때만 갱신하여 (0,0) 저장을 방지)
+            if (currentVelocity.magnitude > 0.01f) 
+            {
+                 lastDirection = currentVelocity.normalized; 
+            }
+        }
+        // 2) 만약 "멈춰있고" "적이 있다면" (target 변수는 Update 상단에 이미 있음)
+        else if (target != null) 
+        {
+            // 적의 방향을 바라본다
+            Vector2 dirToTarget = (target.position - transform.position).normalized;
+            lastDirection = dirToTarget;
+        }
+        // 3) 만약 "멈춰있고" "적이 없다면" (깃발 도착 등)
+        //    -> lastDirection을 바꾸지 않습니다. (마지막 방향 유지)
+        
+
+        // --- [ ✨ 3. 애니메이터에 최종 방향 전달 ] ---
+        anim.SetFloat("moveX", lastDirection.x);
+        anim.SetFloat("moveY", lastDirection.y);
     }
 
     void Fire(Transform target)
@@ -103,6 +132,7 @@ public class HY_Player : MonoBehaviour
         {
             rb.AddForce(dir * 10f, ForceMode2D.Impulse);
         }
+        anim.SetTrigger("Attack");
     }
 
     void MeleeAttack(Transform target)
@@ -156,7 +186,7 @@ public class HY_Player : MonoBehaviour
         aiPath.enabled = false; // AIPath 컴포넌트 자체를 꺼버림
 
         // 3. 이 스크립트(뇌) 정지
-        this.enabled = false;
+        //this.enabled = false;
 
         // 4. 물리/충돌 중지
         GetComponent<Collider2D>().enabled = false;
