@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     // 몬스터 ID별로 동적으로 생성된 UI 아이템을 추적
     private Dictionary<string, TextMeshProUGUI> _monsterCountUIs = new Dictionary<string, TextMeshProUGUI>();
 
-
+    public int maxRerollChances = 0;
     // 7. 시스템 참조
     public SpawnManager spawnManager; // Inspector에서 연결
 

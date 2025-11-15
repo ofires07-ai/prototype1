@@ -70,6 +70,7 @@ public class StageSceneController : MonoBehaviour
             spawnManager.enabled = true;
         spaceShip.Init();
         spaceShip.SpawnAndMovePrisoners();
+        
     }
 
     // Boss Wave까지 포함해서 모든 웨이브를 다 깬 시점
