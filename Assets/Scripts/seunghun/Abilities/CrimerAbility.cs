@@ -1,7 +1,12 @@
+using System;
 using UnityEngine;
 
 public abstract class CrimerAbility : MonoBehaviour
 {
+    public virtual string AbilityName 
+    {
+        get { return "기본 능력"; } 
+    }
     public abstract void ApplyAbility();
     
     // "이 능력은 부모-자식 채굴 규칙을 무시할 수 있습니까?"

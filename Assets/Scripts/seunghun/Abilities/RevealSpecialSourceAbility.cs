@@ -1,8 +1,13 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class RevealSpecialSourceAbility : CrimerAbility
 {
+    public override string AbilityName 
+    {
+        get { return "FindSS"; } 
+    }
     private bool hasActivated = false; // 이 어빌리티는 씬에서 '딱 한 번'만 실행되어야 함
 
     // PickUnit의 Start()에서 호출되는 ApplyAbility()를 사용합니다.

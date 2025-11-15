@@ -1,8 +1,14 @@
+using System;
 using UnityEngine;
-using System.Collections.Generic; // List<>를 사용하기 위해 추가
+using System.Collections.Generic;
+using Random = UnityEngine.Random; // List<>를 사용하기 위해 추가
 
 public class Ability_RandomMiner : CrimerAbility
 {
+    public override string AbilityName 
+    {
+        get { return "RandomMining"; } 
+    }
     [Header("가중치 랜덤 채굴 설정")]
     [Tooltip("Tier1, Tier2, Tier3, Tier4가 나올 상대적 확률 (Special은 제외)")]
     // 💡 [50, 30, 15, 5]로 설정하면 50%, 30%, 15%, 5% 확률이 됩니다.

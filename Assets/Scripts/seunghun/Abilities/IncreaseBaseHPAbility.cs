@@ -1,7 +1,12 @@
+using System;
 using UnityEngine;
 
 public class IncreaseBaseHPAbility : CrimerAbility
 {
+    public override string AbilityName 
+    {
+        get { return "IncBaseHP"; } 
+    }
     public override void ApplyAbility()
     {
         GameManager.Instance.maxBaseHealth += 5;
