@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6712901794171934450}
   - component: {fileID: -7730308355546446439}
   - component: {fileID: 2093430372398776685}
-  - component: {fileID: 6024533593020200974}
   m_Layer: 10
   m_Name: st2_enemy2
   m_TagString: Enemy
@@ -195,27 +194,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   nearestTarget: {fileID: 0}
---- !u!114 &6024533593020200974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6347296946635166604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a798acfa3c5eb4154966423f4d74a8bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  stoppingDistance: 0.5
-  chaseSpeed: 4
-  attackRange: 1
-  attackDamage: 1
-  enemyMeleeHitboxPrefab: {fileID: 2739837314160803032, guid: 389bb2ee4cfb28c4ebdf4a8b95eaaf6e, type: 3}
-  maxHp: 20
-  autoFindCircles: 1
-  manualWaypoints: []
-  animator: {fileID: 0}
-  scanner: {fileID: 0}
-  enemyID: 

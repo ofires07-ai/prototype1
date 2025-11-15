@@ -32,4 +32,10 @@ public class HY_Scanner : MonoBehaviour
       }
       return result;
    }
+
+   void OnDrawGizmosSelected()
+   {
+      Gizmos.color = Color.red;
+      Gizmos.DrawWireSphere(transform.position, scanRage);
+   }
 }
