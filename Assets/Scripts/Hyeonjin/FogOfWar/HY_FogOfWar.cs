@@ -54,6 +54,13 @@ public class HY_FogOfWar : MonoBehaviour
     [Tooltip("어빌리티: 특수 자원을 밝힐 반경(월드 단위)")]
     [SerializeField] public float specialResourceRevealRadius = 0.3f; // ⬅️ 밝힐 반경 (조절 가능)
 
+    [Header("초기 항상 보이는 영역(옵션)")]
+    [Tooltip("초기화 시, 특정 월드 영역(rect)을 항상 보이도록(알파=0) 만듭니다.")]
+    [SerializeField] private bool useAlwaysVisibleAreas = false;
+
+    // world-space 좌표 기준의 사각형들 (x,y = 중심, width,height = 크기)
+    [SerializeField] private List<Rect> alwaysVisibleRects = new List<Rect>();
+
     // 내부 상태
     private Texture2D fogTexture;
     private Color[] fogPixels;
@@ -190,9 +197,20 @@ public class HY_FogOfWar : MonoBehaviour
         if (useResourceBoost)
         {
             ApplyResourceBoostOnce();
-            fogTexture.SetPixels(fogPixels);
-            fogTexture.Apply();
         }
+
+        // 🔹 항상 보이는 영역(강, 강 사이 등) 마스크 적용
+        if (useAlwaysVisibleAreas && alwaysVisibleRects != null)
+        {
+            for (int i = 0; i < alwaysVisibleRects.Count; i++)
+            {
+                ClearRectArea(alwaysVisibleRects[i]);
+            }
+        }
+
+        // 마지막으로 텍스처 반영
+        fogTexture.SetPixels(fogPixels);
+        fogTexture.Apply();
 
         Debug.Log("[HY_FogOfWar] 초기화 완료");
     }
@@ -276,6 +294,37 @@ public class HY_FogOfWar : MonoBehaviour
         }
     }
 
+    // 월드 좌표 기준 직사각형 영역을 "완전 투명"으로 깎는 함수
+    private void ClearRectArea(Rect worldRect)
+    {
+        // Rect는 (x, y, width, height)이고, x,y는 "좌측 하단"이 아니라 "xMin,yMin"로 취급해야 하므로
+        Vector2 min = new Vector2(worldRect.xMin, worldRect.yMin);
+        Vector2 max = new Vector2(worldRect.xMax, worldRect.yMax);
+
+        Vector2 uvMin = WorldToUV(new Vector3(min.x, min.y));
+        Vector2 uvMax = WorldToUV(new Vector3(max.x, max.y));
+
+        int x0 = Mathf.Clamp(Mathf.RoundToInt(uvMin.x * textureSize), 0, textureSize - 1);
+        int x1 = Mathf.Clamp(Mathf.RoundToInt(uvMax.x * textureSize), 0, textureSize - 1);
+        int y0 = Mathf.Clamp(Mathf.RoundToInt(uvMin.y * textureSize), 0, textureSize - 1);
+        int y1 = Mathf.Clamp(Mathf.RoundToInt(uvMax.y * textureSize), 0, textureSize - 1);
+
+        for (int y = y0; y <= y1; y++)
+        {
+            int row = y * textureSize;
+            for (int x = x0; x <= x1; x++)
+            {
+                int idx = row + x;
+
+                // 완전 투명으로 설정
+                var c = fogPixels[idx];
+                c.a = 0f;
+                fogPixels[idx] = c;
+            }
+        }
+    }
+
+
     // 초기화/리셋 시 1회 실행
     private void ApplyResourceBoostOnce()
     {
@@ -297,10 +346,29 @@ public class HY_FogOfWar : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        // 맵 전체 영역 (기존 코드)
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(new Vector3(mapCenter.x, mapCenter.y, 0f),
                             new Vector3(mapSize.x, mapSize.y, 0f));
+
+        // 🔹 항상 보이는 영역 Rect 들도 그려주기
+        if (useAlwaysVisibleAreas && alwaysVisibleRects != null)
+        {
+            // 테두리 색
+            Gizmos.color = Color.cyan;
+
+            foreach (var rect in alwaysVisibleRects)
+            {
+                // Rect는 (x, y, width, height) 구조이고, (x, y)는 좌측 하단이 아니라
+                // Unity에서 center/size를 따로 가져올 수 있습니다.
+                Vector3 center = new Vector3(rect.center.x, rect.center.y, 0f);
+                Vector3 size   = new Vector3(rect.size.x,   rect.size.y,   0f);
+
+                Gizmos.DrawWireCube(center, size);
+            }
+        }
     }
+
 
     /// <summary>
     /// [새 함수] 어빌리티가 호출할 함수: 씬의 모든 특수 자원 위치를 즉시 밝힙니다.
