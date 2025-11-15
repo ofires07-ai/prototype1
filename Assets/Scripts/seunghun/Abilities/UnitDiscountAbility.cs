@@ -1,7 +1,12 @@
+using System;
 using UnityEngine;
 
 public class UnitDiscountAbility : CrimerAbility
 {
+    public override string AbilityName 
+    {
+        get { return "DiscountUTower"; } 
+    }
     public float costMultiplier = 0.8f; // 20% 할인
 
     public override void ApplyAbility()

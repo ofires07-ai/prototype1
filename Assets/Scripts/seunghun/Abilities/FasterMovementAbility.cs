@@ -1,11 +1,15 @@
+using System;
 using UnityEngine;
 using Pathfinding; // ⬅️ AIPath를 사용하려면 "using Pathfinding;"이 필수입니다.
 
 // [핵심] Ability를 상속받음
 public class FasterMovementAbility : CrimerAbility
 {
+    public override string AbilityName 
+    {
+        get { return "FasterMovement"; } 
+    }
     public float speedMultiplier = 1.5f; // 50% 더 빠르게
-    
     
     public override void ApplyAbility()
     {

@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8380206863251832728}
   - component: {fileID: 3660117670826469644}
   - component: {fileID: 8101756209908204447}
-  - component: {fileID: 4753274693153042961}
   - component: {fileID: -2272936228016434055}
   - component: {fileID: 3451686383251681121}
   - component: {fileID: 7353052120625446258}
@@ -207,27 +206,6 @@ MonoBehaviour:
   isMeleeAttacker: 1
   fireCooldown: 0.5
   meleeAttackRange: 1.5
---- !u!114 &4753274693153042961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8856057984929323761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69624a70cf05c744784ba91f959a7d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  stoppingDistance: 0.5
-  rotationSpeed: 5
-  autoFindCircles: 1
-  manualWaypoints: []
-  animator: {fileID: 0}
-  walkParameterName: isWalking
-  idleParameterName: isIdle
-  scanner: {fileID: 0}
 --- !u!114 &-2272936228016434055
 MonoBehaviour:
   m_ObjectHideFlags: 0

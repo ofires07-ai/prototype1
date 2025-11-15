@@ -1,7 +1,12 @@
+using System;
 using UnityEngine;
 
 public class TowerDiscountAbility : CrimerAbility
 {
+    public override string AbilityName 
+    {
+        get { return "DiscountDTower"; } 
+    }
     public float costMultiplier = 0.8f; // 20% 할인
 
     public override void ApplyAbility()
@@ -10,7 +15,7 @@ public class TowerDiscountAbility : CrimerAbility
         if (GameManager.Instance != null)
         {
             GameManager.Instance.RegisterTowerCostModifier(costMultiplier);
-            Debug.Log("타워 할인 활성화! 타워 비용 20% 할인 적용.");
+            Debug.Log(AbilityName + " 활성화! 타워 비용 20% 할인 적용.");
         }
     }
 }

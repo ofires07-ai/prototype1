@@ -442,10 +442,11 @@ public class HY_UnitMovement : MonoBehaviour
         // 4. 이동
         MoveToCurrentWaypoint();
     }
-    
+    // [HY_UnitMovement.cs]
+
     // --- [✨ 핵심 교체] ---
     /// <summary>
-    /// 'FindAndSortCircles' 대신 'OverlapSphere'를 사용해 '근처'의 웨이포인트만 찾습니다.
+    /// 'FindAndSortCircles' 대신 'OverlapCircleAll' (2D)을 사용해 '근처'의 웨이포인트만 찾습니다.
     /// </summary>
     void FindAndSortNearbyCircles()
     {
@@ -455,8 +456,9 @@ public class HY_UnitMovement : MonoBehaviour
             return;
         }
 
-        // 3D (Vector3) 기준: 내 위치(transform.position)를 중심으로 searchRadius 반경 안의 'waypointLayer'를 모두 찾음
-        Collider[] colliders = Physics.OverlapSphere(transform.position, searchRadius, waypointLayer);
+        // [✨ 수정!] Physics(3D) -> Physics2D (2D)
+        // OverlapSphere(3D) -> OverlapCircleAll(2D)
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, searchRadius, waypointLayer);
         
         if (colliders.Length == 0)
         {
@@ -466,13 +468,12 @@ public class HY_UnitMovement : MonoBehaviour
 
         // 찾은 콜라이더들을 '거리 순'으로 정렬하여 'waypoints' 리스트에 저장
         waypoints = colliders
-            .OrderBy(col => Vector3.Distance(transform.position, col.transform.position))
+            .OrderBy(col => Vector2.Distance(transform.position, col.transform.position)) // [✨ 수정!] Vector3 -> Vector2
             .Select(col => col.transform)
             .ToList();
             
         Debug.Log($"[UnitMovement] {name}: {waypoints.Count}개의 근처 웨이포인트 발견 및 정렬 완료.");
     }
-
     void MoveToCurrentWaypoint()
     {
         // (이하 로직은 이전과 동일합니다)

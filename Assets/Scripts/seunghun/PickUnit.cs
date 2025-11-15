@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Pathfinding;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -38,6 +39,9 @@ public class PickUnit : MonoBehaviour
     // 1.5초 이상 속도가 0이면 '막혔다'고 판단
     private const float STUCK_TIME_THRESHOLD = 1.0f;
     
+    [Header("UI")]
+    private TextMeshProUGUI nameTagText;
+    
     void Awake()
     {
         aiPath = GetComponent<AIPath>();
@@ -46,7 +50,8 @@ public class PickUnit : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         unitCollider = GetComponent<Collider2D>();
         myAbility = GetComponent<CrimerAbility>();
-
+        nameTagText = GetComponentInChildren<TextMeshProUGUI>(true);
+        
         if (sourceManager == null)
         {
             sourceManager = FindObjectOfType<SourceManager>();
@@ -58,9 +63,11 @@ public class PickUnit : MonoBehaviour
         if (myAbility != null)
         {
             myAbility.ApplyAbility();
+            nameTagText.text = myAbility.AbilityName;
         }
         else
         {
+            nameTagText.text = "일반 죄수"; // 능력이 없을 때
             Debug.LogWarning(name + "에게 Ability가 없습니다! (기본 유닛)");
         }
     }

@@ -1,7 +1,12 @@
+using System;
 using UnityEngine;
 
 public class FasterMiningAbility : CrimerAbility
 {
+    public override string AbilityName 
+    {
+        get { return "FasterMining"; } 
+    }
     public override void ApplyAbility()
     {
     }
