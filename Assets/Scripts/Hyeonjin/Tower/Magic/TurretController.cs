@@ -94,16 +94,24 @@ public class TurretController : MonoBehaviour
     // --- [✨ 리팩토링] 발사 조건 수정 ---
     void TryFire()
     {
-        // [✨ 추가!] 1. 스폰이 끝나서 발사 준비(isReadyToFire)가 되었는지 확인
-        // [✨ 수정!] 2. 쿨타임이 지났는지 확인
+        // --- [✨✨✨ 핵심 추가!] ---
+        // 1. 빌드 매니저가 존재하고(null이 아니고) && 빌드 매니저가 건설 모드(isBuilding) 중이라면
+        if (TowerBuildManager.Instance != null && TowerBuildManager.Instance.GetIsBuilding())
+        {
+            // 2. 지금은 공격할 수 없음. 즉시 종료.
+            return;
+        }
+        // --- [핵심 추가 끝] ---
+
+
+        // [기존 로직] (스폰 대기 또는 쿨타임 중이라면)
         if (!isReadyToFire || (Time.time - lastFireTime <= fireCooldown))
         {
-            // 둘 중 하나라도 만족 못하면 발사하지 않고 즉시 종료
             return;
         }
 
-        Fire(); 
-        lastFireTime = Time.time; 
+        Fire();
+        lastFireTime = Time.time;
     }
 
     // (Fire 함수, OnDrawGizmosSelected 함수는 이전과 100% 동일)

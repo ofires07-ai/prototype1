@@ -286,5 +286,14 @@ public class TowerBuildManager : MonoBehaviour
         }
         
     }
+
+    /// <summary>
+    /// 외부 스크립트(타워 등)가 "지금 건설 중인지" 확인할 수 있도록
+    /// 'isBuilding' 변수의 현재 상태를 알려주는 공용 함수입니다.
+    /// </summary>
+    public bool GetIsBuilding()
+    {
+        return isBuilding;
+    }
 }
    

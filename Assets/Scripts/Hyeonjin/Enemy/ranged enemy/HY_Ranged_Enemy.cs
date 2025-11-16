@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
 /// <summary>
 /// [통합 AI 스크립트 - 원거리 유닛 리팩토링]
 /// 1. 웨이포인트(순찰)와 스캐너(추적) 로직은 유지.
@@ -265,7 +264,7 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
             TakeDamage(bullet.damage);
             Destroy(bullet.gameObject);
         }
-        MeleeHitbox melee = collision.GetComponent<MeleeHitbox>();
+        PlayerMeleeHitbox melee = collision.GetComponent<PlayerMeleeHitbox>();
         if (melee != null)
         {
             TakeDamage(melee.damage);
