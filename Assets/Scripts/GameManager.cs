@@ -87,6 +87,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (buildSystem == null)
+        {
+            buildSystem = FindObjectOfType<BuildSystem>();
+        }
     }
 
     void Start()
