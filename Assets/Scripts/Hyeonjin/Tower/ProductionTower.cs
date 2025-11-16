@@ -106,7 +106,7 @@ public class ProductionTower : MonoBehaviour
     /// <summary>
     /// 유닛 1기를 스폰하고, 경로와 "주인"을 설정합니다.
     /// </summary>
-    private void SpawnUnit()
+    public void SpawnUnit()//프라이빗 -> 퍼블릭으로 수정(특수자원유닛)
     {
         // --- 1. 스폰 위치 계산 (유닛끼리 겹치지 않게 약간 랜덤) ---
         Vector3 basePos = (spawnPoint != null) ? spawnPoint.position : transform.position;

@@ -182,15 +182,20 @@ public class HY_Player : MonoBehaviour
         anim.SetTrigger("Die");
 
         // 2. A* 이동 AI 정지
-        aiPath.canMove = false;
-        aiPath.enabled = false; // AIPath 컴포넌트 자체를 꺼버림
+        //aiPath.canMove = false;
+        //aiPath.enabled = false; // AIPath 컴포넌트 자체를 꺼버림
 
         // 3. 이 스크립트(뇌) 정지
         //this.enabled = false;
 
         // 4. 물리/충돌 중지
         GetComponent<Collider2D>().enabled = false;
-
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+    if (rb != null)
+    {
+        rb.linearVelocity = Vector2.zero; // 현재 속도 0으로 만듦
+        rb.isKinematic = true;          // 물리 엔진 무시 (스크립트로만 제어 가능하도록)
+    }
         // 5. 오브젝트 파괴 (Die 애니메이션 재생 시간 기다리기)
         Destroy(gameObject, 1.5f);
     }

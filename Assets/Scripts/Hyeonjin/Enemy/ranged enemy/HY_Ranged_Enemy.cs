@@ -264,7 +264,9 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
             TakeDamage(bullet.damage);
             Destroy(bullet.gameObject);
         }
+
         PlayerMeleeHitbox melee = collision.GetComponent<PlayerMeleeHitbox>();
+      
         if (melee != null)
         {
             TakeDamage(melee.damage);

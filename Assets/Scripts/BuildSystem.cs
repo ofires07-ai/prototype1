@@ -65,7 +65,8 @@ public class BuildSystem : MonoBehaviour
     
     [Header("빌드 버튼 UI 연결")]
     public BuildButtonUI[] buildButtons; 
-
+    [Header("✨ 우주선 연결 ✨")]
+    public ProductionTower spaceshipRef;
     private GameObject _unitToBuild; 
     private int[] _unitCosts = new int[5]; 
     private string _selectedUnitType;
@@ -243,13 +244,37 @@ public class BuildSystem : MonoBehaviour
         // [기존 로직: SOLDIER] (수정 없음)
         if (unitType == "SOLDIER")
         {
-            _unitToBuild = prefabToBuild;
-            _unitCosts = costsToSpend; 
+            if (unitIndex == 6) // 특수자원유닛 6번
+         {
+            if (spaceshipRef == null)
+            {
+            Debug.LogError("[BuildSystem] 6번 버튼을 위한 우주선(ProductionTower) 참조가 누락되었습니다.");
+            return;
+            }
+
+        // 1. 자원 소모 시도 (BuildSystem의 TrySpendMultipleResources와 동일한 로직 사용)
+            if (GameManager.Instance.TrySpendMultipleResources(costsToSpend))
+            {
+            // 2. [소모 성공] 우주선에게 직접 소환 명령을 위임합니다.
+            spaceshipRef.SpawnUnit(); // ⬅️ ProductionTower의 public SpawnUnit() 호출
+            Debug.Log($"[BuildSystem] 6번 버튼 특수 유닛 소환 성공!");
+            }
+            else
+            {
+            Debug.LogWarning("[BuildSystem] 6번 버튼 소환 실패: 자원 부족.");
+            }
+        }
+            else
+            {
+                _unitToBuild = prefabToBuild;
+                _unitCosts = costsToSpend; 
             
-            TrySpawnUnit(playerSpawnPoint.position);
+                TrySpawnUnit(playerSpawnPoint.position);
             
-            _unitToBuild = null;
-            _unitCosts = new int[5]; 
+                _unitToBuild = null;
+                _unitCosts = new int[5];
+            }
+            
         } 
         
         // [✨ 수정된 연동 로직: TOWER]
