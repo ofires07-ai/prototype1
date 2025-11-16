@@ -131,7 +131,7 @@ MonoBehaviour:
     m_Bits: 1024
   bulletPrefab: {fileID: 528666708090091370, guid: cdb3a9a3e5126244abd830e308e933b9, type: 3}
   firePoint: {fileID: 1941826524757898717}
-  fireCooldown: 1.5
+  fireCooldown: 1
   spawnAnimationTime: 4
   animator: {fileID: 0}
   fireTriggerName: 

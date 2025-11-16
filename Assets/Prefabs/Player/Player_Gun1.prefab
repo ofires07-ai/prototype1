@@ -320,7 +320,7 @@ MonoBehaviour:
   destination: {fileID: 0}
   maxHp: 10
   isLive: 1
-  bulletObj: {fileID: 8247499230207821644, guid: 3e6bf7393fb9bc34d9688b8da983bed7, type: 3}
+  bulletObj: {fileID: 8247499230207821644, guid: 77b3d06d6bb1cc4499ffce889647b359, type: 3}
   meleeAttackObj: {fileID: 0}
   isMeleeAttacker: 0
   fireCooldown: 0.5

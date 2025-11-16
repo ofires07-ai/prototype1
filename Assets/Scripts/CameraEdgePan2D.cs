@@ -66,7 +66,8 @@ public class CameraEdgePan2D : MonoBehaviour
 
         // 2) 휠 줌
         float scroll = ReadScroll();
-        if (Mathf.Abs(scroll) > 0.01f)
+
+        if (Mathf.Abs(scroll) > 0.001f)
         {
             Zoom(scroll);
         }
@@ -94,11 +95,28 @@ public class CameraEdgePan2D : MonoBehaviour
 
     float ReadScroll()
     {
+        float scroll = 0f;
+
 #if ENABLE_INPUT_SYSTEM
-        return Mouse.current != null ? Mouse.current.scroll.ReadValue().y / 120f : 0f;
-#else
-        return Input.mouseScrollDelta.y;
+        // 새 Input System 먼저
+        if (Mouse.current != null)
+        {
+            // 보통 -120, 120 단위로 들어옴
+            float newSysScroll = Mouse.current.scroll.ReadValue().y;
+            if (Mathf.Abs(newSysScroll) > 0.01f)
+            {
+                scroll = newSysScroll / 120f;
+            }
+        }
 #endif
+
+        // 새 Input System에서 못 읽었으면, 옛 Input Manager도 한 번 더 체크
+        if (Mathf.Abs(scroll) < 0.0001f)
+        {
+            scroll = Input.mouseScrollDelta.y; // 에디터/빌드 둘 다에서 휠 지원
+        }
+
+        return scroll;
     }
 
     void Zoom(float scroll)

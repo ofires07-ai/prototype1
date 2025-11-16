@@ -216,33 +216,69 @@ public class UpgradeCardUI : MonoBehaviour
             return;
         }
 
+        // ---------------- 방어 타워 업그레이드 ----------------
         if (card.category == TowerCategory.Defense)
         {
-            HY_Tower tower = targetPrefab.GetComponent<HY_Tower>();
-            if (tower == null)
+            // 1) 탱크형 타워 (HY_TankController)
+            if (targetPrefab.TryGetComponent<HY_TankController>(out var tank))
             {
-                Debug.LogWarning($"[UpgradeCardUI] HY_Tower 컴포넌트를 찾을 수 없습니다. prefab={targetPrefab.name}");
-                return;
+                switch (card.statType)
+                {
+                    case StatType.AttackPower:
+                        tank.bulletForce *= card.valueMultiplier;
+                        Debug.Log($"[UpgradeCardUI] TANK {targetPrefab.name} bulletForce x{card.valueMultiplier} → {tank.bulletForce}");
+                        break;
+
+                    case StatType.AttackSpeed:
+                        // fireCooldown은 작을수록 빠름
+                        tank.fireCooldown *= card.valueMultiplier;
+                        Debug.Log($"[UpgradeCardUI] TANK {targetPrefab.name} fireCooldown x{card.valueMultiplier} → {tank.fireCooldown}");
+                        break;
+
+                    default:
+                        Debug.LogWarning($"[UpgradeCardUI] Defense에서 사용할 수 없는 StatType: {card.statType}");
+                        break;
+                }
+
+                return; // 탱크에 적용했으면 여기서 끝
             }
 
-            switch (card.statType)
+            // 2) RPG / 미사일 타워 (TurretController + ExplosionDamage)
+            if (targetPrefab.TryGetComponent<TurretController>(out var turret))
             {
-                case StatType.AttackPower:
-                    tower.bulletForce *= card.valueMultiplier;
-                    Debug.Log($"[UpgradeCardUI] {targetPrefab.name} bulletForce x{card.valueMultiplier}");
-                    break;
+                switch (card.statType)
+                {
+                    case StatType.AttackPower:
+                        // 공격력은 ExplosionDamage.damage 기준으로 업그레이드
+                        var explosion = targetPrefab.GetComponent<ExplosionDamage>();
+                        if (explosion != null)
+                        {
+                            explosion.damage = Mathf.RoundToInt(explosion.damage * card.valueMultiplier);
+                            Debug.Log($"[UpgradeCardUI] RPG {targetPrefab.name} explosion damage x{card.valueMultiplier} → {explosion.damage}");
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"[UpgradeCardUI] {targetPrefab.name}에 ExplosionDamage 컴포넌트가 없습니다.");
+                        }
+                        break;
 
-                case StatType.AttackSpeed:
-                    // fireCooldown은 '작을수록 빠름' → 배율 0.8 등 사용
-                    tower.fireCooldown *= card.valueMultiplier;
-                    Debug.Log($"[UpgradeCardUI] {targetPrefab.name} fireCooldown x{card.valueMultiplier}");
-                    break;
+                    case StatType.AttackSpeed:
+                        turret.fireCooldown *= card.valueMultiplier;
+                        Debug.Log($"[UpgradeCardUI] RPG {targetPrefab.name} fireCooldown x{card.valueMultiplier} → {turret.fireCooldown}");
+                        break;
 
-                default:
-                    Debug.LogWarning($"[UpgradeCardUI] Defense에서 사용할 수 없는 StatType: {card.statType}");
-                    break;
+                    default:
+                        Debug.LogWarning($"[UpgradeCardUI] Defense에서 사용할 수 없는 StatType: {card.statType}");
+                        break;
+                }
+
+                return; // RPG 타워에 적용했으면 여기서 끝
             }
+
+            // 둘 다 아니라면 경고
+            Debug.LogWarning($"[UpgradeCardUI] 지원하지 않는 방어 타워 타입입니다. prefab={targetPrefab.name}");
         }
+        // ---------------- 생산 타워 업그레이드 (기존 그대로) ----------------
         else if (card.category == TowerCategory.Production)
         {
             ProductionTower prod = targetPrefab.GetComponent<ProductionTower>();
@@ -260,9 +296,8 @@ public class UpgradeCardUI : MonoBehaviour
                     break;
 
                 case StatType.ProductionSpeed:
-                    // productionTime은 '작을수록 빠름' → 배율 0.8 등 사용
                     prod.productionTime *= card.valueMultiplier;
-                    Debug.Log($"[UpgradeCardUI] {targetPrefab.name} productionTime x{card.valueMultiplier}");
+                    Debug.Log($"[UpgradeCardUI] {targetPrefab.name} productionTime x{card.valueMultiplier} → {prod.productionTime}");
                     break;
 
                 default:
@@ -271,4 +306,6 @@ public class UpgradeCardUI : MonoBehaviour
             }
         }
     }
+
+
 }

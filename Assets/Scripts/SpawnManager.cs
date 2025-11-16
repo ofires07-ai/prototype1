@@ -171,7 +171,7 @@ public class SpawnManager : MonoBehaviour
         foreach (var s in _currentWave.enemySpawns)
         {
             _remainingToSpawnPerType.Add(s.count);
-            _spawnTimersPerType.Add(0f);   // 0으로 시작하면 웨이브 시작 시 바로 1마리씩 나옴
+            _spawnTimersPerType.Add(s.spawnInterval);  // 0으로 시작하면 웨이브 시작 시 바로 1마리씩 나옴
         }
     }
 

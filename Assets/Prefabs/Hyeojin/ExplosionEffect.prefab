@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620ea6f6b108d8b459a03b207b0a2cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 3
+  delay: 0
 --- !u!212 &6467278575236616028
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionRadius: 3
-  damage: 25
+  damage: 10
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024

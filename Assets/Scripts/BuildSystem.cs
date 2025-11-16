@@ -240,45 +240,8 @@ public class BuildSystem : MonoBehaviour
 
         
         // 4. 유닛 타입에 따라 분기
-        
-        // [기존 로직: SOLDIER] (수정 없음)
-        if (unitType == "SOLDIER")
-        {
-            if (unitIndex == 6) // 특수자원유닛 6번
-         {
-            if (spaceshipRef == null)
-            {
-            Debug.LogError("[BuildSystem] 6번 버튼을 위한 우주선(ProductionTower) 참조가 누락되었습니다.");
-            return;
-            }
-
-        // 1. 자원 소모 시도 (BuildSystem의 TrySpendMultipleResources와 동일한 로직 사용)
-            if (GameManager.Instance.TrySpendMultipleResources(costsToSpend))
-            {
-            // 2. [소모 성공] 우주선에게 직접 소환 명령을 위임합니다.
-            spaceshipRef.SpawnUnit(); // ⬅️ ProductionTower의 public SpawnUnit() 호출
-            Debug.Log($"[BuildSystem] 6번 버튼 특수 유닛 소환 성공!");
-            }
-            else
-            {
-            Debug.LogWarning("[BuildSystem] 6번 버튼 소환 실패: 자원 부족.");
-            }
-        }
-            else
-            {
-                _unitToBuild = prefabToBuild;
-                _unitCosts = costsToSpend; 
-            
-                TrySpawnUnit(playerSpawnPoint.position);
-            
-                _unitToBuild = null;
-                _unitCosts = new int[5];
-            }
-            
-        } 
-        
         // [✨ 수정된 연동 로직: TOWER]
-        else if (unitType == "TOWER")
+        if (unitType == "TOWER"||unitType == "SOLDIER")
         {
             // [핵심 1] '콜백 함수' (람다식)
             System.Action<Vector3> onBuildCallback = (buildPosition) =>
@@ -346,6 +309,29 @@ public class BuildSystem : MonoBehaviour
 
             _unitToBuild = null; 
             _selectedUnitType = null;
+        }
+        else if(unitType == "UNIT")
+        {
+            if (unitIndex == 6) // 특수자원유닛 6번
+            {
+                if (spaceshipRef == null)
+                {
+                    Debug.LogError("[BuildSystem] 6번 버튼을 위한 우주선(ProductionTower) 참조가 누락되었습니다.");
+                    return;
+                }
+
+        // 1. 자원 소모 시도 (BuildSystem의 TrySpendMultipleResources와 동일한 로직 사용)
+                if (GameManager.Instance.TrySpendMultipleResources(costsToSpend))
+                {
+                // 2. [소모 성공] 우주선에게 직접 소환 명령을 위임합니다.
+                    spaceshipRef.SpawnUnit(); // ⬅️ ProductionTower의 public SpawnUnit() 호출
+                    Debug.Log($"[BuildSystem] 6번 버튼 특수 유닛 소환 성공!");
+                }
+                else
+                {
+                    Debug.LogWarning("[BuildSystem] 6번 버튼 소환 실패: 자원 부족.");
+                }
+            }
         }
         else
         {
