@@ -10,5 +10,6 @@ public class ExtendsPreparingTimeAbility : CrimerAbility
     public override void ApplyAbility()
     {
         GameManager.Instance.initialTimeBetweenWaves += 60;
+        Debug.Log(AbilityName + "능력을 적용합니다!");
     }
 }

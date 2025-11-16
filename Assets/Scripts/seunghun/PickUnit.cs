@@ -56,13 +56,10 @@ public class PickUnit : MonoBehaviour
         {
             sourceManager = FindObjectOfType<SourceManager>();
         }
-    }
-    void Start()
-    {
-        Deselect();
         if (myAbility != null)
         {
             myAbility.ApplyAbility();
+            Debug.Log(myAbility.AbilityName + "적용!");
             nameTagText.text = myAbility.AbilityName;
         }
         else
@@ -70,6 +67,10 @@ public class PickUnit : MonoBehaviour
             nameTagText.text = "일반 죄수"; // 능력이 없을 때
             Debug.LogWarning(name + "에게 Ability가 없습니다! (기본 유닛)");
         }
+    }
+    void Start()
+    {
+        Deselect();
     }
     
     void Update()
