@@ -10613,10 +10613,10 @@ MonoBehaviour:
     resource3Icon: {fileID: 5230572312951809089, guid: e302d8134e02140059bdeba9f8c745e8, type: 3}
     resource4Icon: {fileID: 8785618894833809297, guid: e5b38096d310b4712bd33e191cbd8aca, type: 3}
     resource5Icon: {fileID: 21300000, guid: 99f921b1c41aa3c449cfc1041c453fcf, type: 3}
-  - prefab: {fileID: 8886632982214295028, guid: 279c75a581ea5754d9d6307fff1f3b71, type: 3}
+  - prefab: {fileID: 6236588023677543449, guid: 765d3e8b36191d941b57d90a9621fd9a, type: 3}
     costs: 00000000000000000000000000000000
     unitType: TOWER
-    unitIcon: {fileID: -1540426309290004842, guid: e028e1a5129a28a47aa5be387b2d13de, type: 3}
+    unitIcon: {fileID: -273029044813975458, guid: 65728116b55b97849944aaa14db5e8b7, type: 3}
     resource1Icon: {fileID: -8053002167776101150, guid: 5fa4267f2251a4864ba9a0e18115f65a, type: 3}
     resource2Icon: {fileID: 8585081495337123410, guid: cff41342e3ac441f3ad4fed39a3221a6, type: 3}
     resource3Icon: {fileID: 5230572312951809089, guid: cc4501548834cd147b4391cd84008775, type: 3}
@@ -10631,10 +10631,10 @@ MonoBehaviour:
     resource3Icon: {fileID: 5230572312951809089, guid: e302d8134e02140059bdeba9f8c745e8, type: 3}
     resource4Icon: {fileID: 8785618894833809297, guid: e5b38096d310b4712bd33e191cbd8aca, type: 3}
     resource5Icon: {fileID: 21300000, guid: 99f921b1c41aa3c449cfc1041c453fcf, type: 3}
-  - prefab: {fileID: 7015361391784503399, guid: 30c8e1a3be9df43df84b5ae27992cac9, type: 3}
+  - prefab: {fileID: 2589101403216525693, guid: 77414ee2f3aab254ebe6fb7f73f5d190, type: 3}
     costs: 00000000000000000a00000005000000
-    unitType: Tower
-    unitIcon: {fileID: -1540426309290004842, guid: e028e1a5129a28a47aa5be387b2d13de, type: 3}
+    unitType: TOWER
+    unitIcon: {fileID: -6852413920901843825, guid: e97c1bb99360e4a4e83bc168de7f191c, type: 3}
     resource1Icon: {fileID: -8053002167776101150, guid: 5fa4267f2251a4864ba9a0e18115f65a, type: 3}
     resource2Icon: {fileID: 8585081495337123410, guid: cff41342e3ac441f3ad4fed39a3221a6, type: 3}
     resource3Icon: {fileID: 5230572312951809089, guid: e302d8134e02140059bdeba9f8c745e8, type: 3}

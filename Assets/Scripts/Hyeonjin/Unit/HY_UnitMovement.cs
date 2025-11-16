@@ -411,7 +411,7 @@ public class HY_UnitMovement : MonoBehaviour
             return;
         }
         
-        if(playerUnit.isLive == false)
+        if(playerUnit != null && playerUnit.isLive == false)
         {
             if (isMoving)
             {

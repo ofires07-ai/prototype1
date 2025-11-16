@@ -33,7 +33,10 @@ public class HY_Player : MonoBehaviour
 
     void Update() // FixedUpdate에서 Update로 변경하여 매 프레임 상태를 확인
     {
-        if (!isLive) return; // 죽었으면 정지
+        if (!isLive) 
+        {   
+            return; // 죽었으면 정지
+        }
         // AIPath가 목적지로 이동하도록 설정
         if (destination != null)
         {
@@ -124,6 +127,7 @@ public class HY_Player : MonoBehaviour
 
     void Fire(Transform target)
     {
+        if(!isLive) return;
         if (bulletObj == null || target == null) return;
         Vector2 dir = (target.position - transform.position).normalized;
         GameObject bullet = Instantiate(bulletObj, transform.position, Quaternion.identity);
@@ -137,6 +141,7 @@ public class HY_Player : MonoBehaviour
 
     void MeleeAttack(Transform target)
     {
+        if(!isLive) return;
         if (meleeAttackObj == null || target == null) return;
         // 근접 공격 프리팹을 플레이어 위치에 생성
         Instantiate(meleeAttackObj, transform.position, Quaternion.identity);
@@ -166,6 +171,7 @@ public class HY_Player : MonoBehaviour
         if (currentHp <= 0)
         {
             currentHp = 0;
+           
             Die(); // 체력이 0 이하면 사망
         }
         // 플레이어가 데미지를 받았을 때 처리할 로직
@@ -179,11 +185,17 @@ public class HY_Player : MonoBehaviour
 
         Debug.Log("Player Died (최초 1회 실행)");
         // 1. 죽음 애니메이션 재생
-        anim.SetTrigger("Die");
+        // [✨ 추가 1] 혹시 모를 Attack 트리거가 대기열에 있다면 강제 리셋
+        anim.ResetTrigger("Attack");
+        if(aiPath != null)
+        {
+            aiPath.enabled = false; // AIPath 컴포넌트 자체를 꺼버
+            
+        }
 
         // 2. A* 이동 AI 정지
         //aiPath.canMove = false;
-        //aiPath.enabled = false; // AIPath 컴포넌트 자체를 꺼버림
+        //
 
         // 3. 이 스크립트(뇌) 정지
         //this.enabled = false;
@@ -194,10 +206,16 @@ public class HY_Player : MonoBehaviour
     if (rb != null)
     {
         rb.linearVelocity = Vector2.zero; // 현재 속도 0으로 만듦
-        rb.isKinematic = true;          // 물리 엔진 무시 (스크립트로만 제어 가능하도록)
+        rb.isKinematic = true;         // 물리 엔진 무시 (스크립트로만 제어 가능하도록)
+        
     }
+        anim.SetTrigger("Die");
+        // [✨ 추가 1] 혹시 모를 Attack 트리거가 대기열에 있다면 강제 리셋
+        anim.ResetTrigger("Attack");
+       
         // 5. 오브젝트 파괴 (Die 애니메이션 재생 시간 기다리기)
         Destroy(gameObject, 1.5f);
+       
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
