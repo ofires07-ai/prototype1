@@ -250,22 +250,6 @@ public class PickUnit : MonoBehaviour
         
     }
     
-    // // "SourceManager야, 내가 이번에 캘 자원은 이거야!"
-    // public ResourceType GetMinedResourceType()
-    // {
-    //     // (안전장치) targetSource가 없으면 일단 기본값 반환
-    //     if (targetSource == null) return ResourceType.Tier1; // (기본 자원 타입으로 변경)
-    //
-    //     if (myAbility == null)
-    //     {
-    //         // 능력이 없으면 (기본 유닛), 붙어있는 자원 타입을 반환
-    //         return targetSource.resourceType; 
-    //     }
-    //     
-    //     // 내 능력이 결정한 자원 타입을 반환
-    //     // (이때 'targetSource'를 인자로 넘겨서, 기본 능력이 참조할 수 있게 함)
-    //     return myAbility.GetMinedResourceType(targetSource);
-    // }
     // [새 헬퍼 함수]
     // "SourceManager야, 내 '최종 작업 원장'을 받아!"
     public MiningTickResult GetMiningTickResult()
@@ -290,6 +274,8 @@ public class PickUnit : MonoBehaviour
     // (행동 1) 특정 광물을 목표로 설정하고 이동 (방탄 버전)
     public void SetTargetSource(MineableResource resource)
     {
+        // 0. (중요) 기존에 예약한 스팟이 있다면 반납!
+        ReleaseCurrentMiningSpot();
         // [핵심] 'null'이 들어오면 크래시를 내기 전에 즉시 함수를 중단!
         if (resource == null)
         {
@@ -302,14 +288,7 @@ public class PickUnit : MonoBehaviour
 
         Debug.Log("[PickUnit] SetTargetSource 호출: " + resource.name);
         
-        try
-        {
-            StopMining();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"[PickUnit] StopMining 중 에러 발생: {e.Message}");
-        }
+        StopMining();
         
         targetSource = resource; 
         // 1. "비어있는 가장 가까운 주차 공간"을 광물에게 물어봅니다.
@@ -350,6 +329,7 @@ public class PickUnit : MonoBehaviour
     // (행동 2) 특정 위치로 이동
     public void MoveToPosition(Vector3 position)
     {
+        ReleaseCurrentMiningSpot();
         Debug.Log("[PickUnit] MoveToPosition 호출: " + position);
         
         // ✅ FIX: 안전하게 채굴 중지
@@ -406,17 +386,6 @@ public class PickUnit : MonoBehaviour
         }
         
         currentState = UnitState.Mining; // 상태 변경 (일단 '채굴 중'으로)
-        
-        // [핵심 1] 나 자신을 'Obstacle' 레이어로 변경
-        gameObject.layer = LayerMask.NameToLayer("Obstacle");
-        // [핵심 2] 물리적으로도 '벽'이 되도록 Static으로 변경
-        rb.bodyType = RigidbodyType2D.Static;
-        // [핵심 3] A*에게 "내 위치"만 실시간으로 갱신하라고 명령
-        // (A*는 'Obstacle' 레이어를 감지하고 이 위치를 '길 없음(빨간색)'으로 만듦)
-        if (unitCollider != null)
-        {
-            AstarPath.active.UpdateGraphs(unitCollider.bounds);
-        }
 
         // SourceManager에게 활성화를 요청
         if (sourceManager != null)
@@ -447,17 +416,6 @@ public class PickUnit : MonoBehaviour
         {
             ReleaseCurrentMiningSpot();
             Debug.Log("채굴을 중지하고 이동 준비.");
-            
-            // [핵심 1] 나 자신을 다시 'Unit' 레이어로 복구
-            gameObject.layer = LayerMask.NameToLayer("Unit");
-            // [핵심 2] 다시 움직일 수 있도록 Dynamic으로 변경
-            rb.bodyType = RigidbodyType2D.Dynamic;
-            // [핵심 3] A*에게 "내 위치"를 다시 갱신하라고 명령
-            // (A*는 'Unit' 레이어를 무시하고 이 위치를 '길 있음(파란색)'으로 만듦)
-            if (unitCollider != null)
-            {
-                 AstarPath.active.UpdateGraphs(unitCollider.bounds);
-            }
 
             // [중요] AIPath의 멈춤 상태를 "먼저" 해제합니다.
             // 이렇게 하면 StopMining에서 에러가 나도 이동은 가능해집니다.
