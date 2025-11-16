@@ -265,13 +265,12 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
             TakeDamage(bullet.damage);
             Destroy(bullet.gameObject);
         }
-        MeleeHitbox melee = collision.GetComponent<MeleeHitbox>();
+        PlayerMeleeHitbox melee = collision.GetComponent<PlayerMeleeHitbox>();
         if (melee != null)
         {
             TakeDamage(melee.damage);
         }
     }
-
     // --- 웨이포인트 관련 헬퍼 함수 (로직 동일) ---
 
     void OnReachedWaypoint(int waypointIndex)
