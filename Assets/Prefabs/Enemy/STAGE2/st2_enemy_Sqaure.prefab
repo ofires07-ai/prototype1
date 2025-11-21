@@ -213,7 +213,7 @@ MonoBehaviour:
   attackRange: 1
   attackDamage: 1
   enemyMeleeHitboxPrefab: {fileID: 2739837314160803032, guid: 389bb2ee4cfb28c4ebdf4a8b95eaaf6e, type: 3}
-  maxHp: 30
+  maxHp: 10
   autoFindCircles: 1
   manualWaypoints: []
   animator: {fileID: 0}

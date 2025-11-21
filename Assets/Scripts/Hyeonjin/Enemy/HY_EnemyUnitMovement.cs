@@ -301,6 +301,8 @@ public class HY_EnemyUnitMovement : MonoBehaviour
 
         // 1. 죽음 애니메이션 재생
         animator.SetTrigger("Die");
+        animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Idle");
         if (deathReported) return;       // 중복 보고 방지
         deathReported = true;
 
@@ -308,8 +310,12 @@ public class HY_EnemyUnitMovement : MonoBehaviour
         if (SpawnManager.Instance != null)
             SpawnManager.Instance.OnMonsterDied(enemyID);
 
+     
+       
+
         // 2. 물리/충돌 중지
         GetComponent<Collider2D>().enabled = false;
+
         // Rigidbody2D가 있다면 비활성화
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)

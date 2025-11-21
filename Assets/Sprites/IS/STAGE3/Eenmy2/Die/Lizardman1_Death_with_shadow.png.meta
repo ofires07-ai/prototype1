@@ -1,0 +1,874 @@
+fileFormatVersion: 2
+guid: a96bd4a9e594c4243a7101ee705b0f25
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3613383502903310123
+    second: Lizardman1_Death_with_shadow_0
+  - first:
+      213: 8297720791370115147
+    second: Lizardman1_Death_with_shadow_1
+  - first:
+      213: 3965182892248908088
+    second: Lizardman1_Death_with_shadow_2
+  - first:
+      213: -3203681410870493831
+    second: Lizardman1_Death_with_shadow_3
+  - first:
+      213: 4559667519142690265
+    second: Lizardman1_Death_with_shadow_4
+  - first:
+      213: 2645720103187499182
+    second: Lizardman1_Death_with_shadow_5
+  - first:
+      213: 1967975311185140981
+    second: Lizardman1_Death_with_shadow_6
+  - first:
+      213: 9020776403589394265
+    second: Lizardman1_Death_with_shadow_7
+  - first:
+      213: -2716494199660898133
+    second: Lizardman1_Death_with_shadow_8
+  - first:
+      213: -3914272613071747495
+    second: Lizardman1_Death_with_shadow_9
+  - first:
+      213: -1593534396423359723
+    second: Lizardman1_Death_with_shadow_10
+  - first:
+      213: 1403227434130046509
+    second: Lizardman1_Death_with_shadow_11
+  - first:
+      213: 7962460511578709427
+    second: Lizardman1_Death_with_shadow_12
+  - first:
+      213: 4314893873450303643
+    second: Lizardman1_Death_with_shadow_13
+  - first:
+      213: 8883880634916539708
+    second: Lizardman1_Death_with_shadow_14
+  - first:
+      213: -2375434829837068547
+    second: Lizardman1_Death_with_shadow_15
+  - first:
+      213: 5065231855380761214
+    second: Lizardman1_Death_with_shadow_16
+  - first:
+      213: -6753586549969847520
+    second: Lizardman1_Death_with_shadow_17
+  - first:
+      213: -7301297200841930405
+    second: Lizardman1_Death_with_shadow_18
+  - first:
+      213: -6944017531064408694
+    second: Lizardman1_Death_with_shadow_19
+  - first:
+      213: -8044220653088519166
+    second: Lizardman1_Death_with_shadow_20
+  - first:
+      213: 8958876024612113429
+    second: Lizardman1_Death_with_shadow_21
+  - first:
+      213: 2749681841128187253
+    second: Lizardman1_Death_with_shadow_22
+  - first:
+      213: 3388872822623905054
+    second: Lizardman1_Death_with_shadow_23
+  - first:
+      213: -387258150848813174
+    second: Lizardman1_Death_with_shadow_24
+  - first:
+      213: -6155900024793206604
+    second: Lizardman1_Death_with_shadow_25
+  - first:
+      213: -4077409480332942351
+    second: Lizardman1_Death_with_shadow_26
+  - first:
+      213: 1006164383914506352
+    second: Lizardman1_Death_with_shadow_27
+  - first:
+      213: -5805913512298455586
+    second: Lizardman1_Death_with_shadow_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 209
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b27fecfb621552230800000000000000
+      internalID: 3613383502903310123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_1
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 209
+        width: 30
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b482df6b81d672370800000000000000
+      internalID: 8297720791370115147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 209
+        width: 32
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 831c3f105d8270730800000000000000
+      internalID: 3965182892248908088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_3
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 209
+        width: 42
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97dba8b0bbc3a83d0800000000000000
+      internalID: -3203681410870493831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_4
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 197
+        width: 35
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea8c99d8a6c77b420800000000000000
+      internalID: 2645720103187499182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_5
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 197
+        width: 43
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fcdde56e17af4b10800000000000000
+      internalID: 1967975311185140981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_7
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 196
+        width: 43
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95feb2e485c303d70800000000000000
+      internalID: 9020776403589394265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_8
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 145
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba89dc20be21d4ad0800000000000000
+      internalID: -2716494199660898133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_9
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 145
+        width: 30
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95681df0cc5bda9c0800000000000000
+      internalID: -3914272613071747495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_10
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 145
+        width: 32
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 513b1dbc8e0a2e9e0800000000000000
+      internalID: -1593534396423359723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_11
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 145
+        width: 37
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2e776eaae3497310800000000000000
+      internalID: 1403227434130046509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_12
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 145
+        width: 35
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bd59baf5a7508e60800000000000000
+      internalID: 7962460511578709427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_13
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 145
+        width: 36
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b90c38add1591eb30800000000000000
+      internalID: 4314893873450303643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_14
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 145
+        width: 36
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3d0c2f5e52e94b70800000000000000
+      internalID: 8883880634916539708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_15
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 81
+        width: 29
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df6987c9b92c80fd0800000000000000
+      internalID: -2375434829837068547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_16
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 81
+        width: 29
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7a86f429815b4640800000000000000
+      internalID: 5065231855380761214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_17
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 81
+        width: 30
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02bf03990d07642a0800000000000000
+      internalID: -6753586549969847520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_18
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 81
+        width: 45
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b59434831e49caa90800000000000000
+      internalID: -7301297200841930405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_19
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 81
+        width: 44
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8522d2b8d4e1af90800000000000000
+      internalID: -6944017531064408694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_20
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 80
+        width: 47
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20c4cc5afef2d5090800000000000000
+      internalID: -8044220653088519166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_21
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 80
+        width: 47
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51cc4c93742545c70800000000000000
+      internalID: 8958876024612113429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_22
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 17
+        width: 29
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 575a9c9e015d82620800000000000000
+      internalID: 2749681841128187253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_23
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 17
+        width: 29
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e15297d80e1b70f20800000000000000
+      internalID: 3388872822623905054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_24
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 17
+        width: 30
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a87284a73ce20aaf0800000000000000
+      internalID: -387258150848813174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_25
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 17
+        width: 42
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b0f165fa89d19aa0800000000000000
+      internalID: -6155900024793206604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_26
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 9
+        width: 43
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f3e1f04ea12a67c0800000000000000
+      internalID: -4077409480332942351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_27
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 10
+        width: 46
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 078bfd02d2d96fd00800000000000000
+      internalID: 1006164383914506352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman1_Death_with_shadow_28
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 9
+        width: 46
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edd5fceeb604d6fa0800000000000000
+      internalID: -5805913512298455586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1b8eb318db85ee74c80739f36e26ffde
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lizardman1_Death_with_shadow_0: 3613383502903310123
+      Lizardman1_Death_with_shadow_1: 8297720791370115147
+      Lizardman1_Death_with_shadow_10: -1593534396423359723
+      Lizardman1_Death_with_shadow_11: 1403227434130046509
+      Lizardman1_Death_with_shadow_12: 7962460511578709427
+      Lizardman1_Death_with_shadow_13: 4314893873450303643
+      Lizardman1_Death_with_shadow_14: 8883880634916539708
+      Lizardman1_Death_with_shadow_15: -2375434829837068547
+      Lizardman1_Death_with_shadow_16: 5065231855380761214
+      Lizardman1_Death_with_shadow_17: -6753586549969847520
+      Lizardman1_Death_with_shadow_18: -7301297200841930405
+      Lizardman1_Death_with_shadow_19: -6944017531064408694
+      Lizardman1_Death_with_shadow_2: 3965182892248908088
+      Lizardman1_Death_with_shadow_20: -8044220653088519166
+      Lizardman1_Death_with_shadow_21: 8958876024612113429
+      Lizardman1_Death_with_shadow_22: 2749681841128187253
+      Lizardman1_Death_with_shadow_23: 3388872822623905054
+      Lizardman1_Death_with_shadow_24: -387258150848813174
+      Lizardman1_Death_with_shadow_25: -6155900024793206604
+      Lizardman1_Death_with_shadow_26: -4077409480332942351
+      Lizardman1_Death_with_shadow_27: 1006164383914506352
+      Lizardman1_Death_with_shadow_28: -5805913512298455586
+      Lizardman1_Death_with_shadow_3: -3203681410870493831
+      Lizardman1_Death_with_shadow_4: 2645720103187499182
+      Lizardman1_Death_with_shadow_5: 1967975311185140981
+      Lizardman1_Death_with_shadow_7: 9020776403589394265
+      Lizardman1_Death_with_shadow_8: -2716494199660898133
+      Lizardman1_Death_with_shadow_9: -3914272613071747495
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

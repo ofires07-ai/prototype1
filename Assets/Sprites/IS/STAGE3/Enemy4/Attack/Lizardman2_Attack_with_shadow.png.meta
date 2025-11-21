@@ -1,0 +1,891 @@
+fileFormatVersion: 2
+guid: 4b3ff6ca311296c46831d7f4f73649ea
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -571280681957324826
+    second: Lizardman2_Attack_with_shadow_0
+  - first:
+      213: -8520009083003274415
+    second: Lizardman2_Attack_with_shadow_1
+  - first:
+      213: 4743936910711968892
+    second: Lizardman2_Attack_with_shadow_2
+  - first:
+      213: -7546866231853416596
+    second: Lizardman2_Attack_with_shadow_3
+  - first:
+      213: -1315089391160722738
+    second: Lizardman2_Attack_with_shadow_4
+  - first:
+      213: -8694761206530811969
+    second: Lizardman2_Attack_with_shadow_5
+  - first:
+      213: 1039513862877207596
+    second: Lizardman2_Attack_with_shadow_6
+  - first:
+      213: -151282376295651137
+    second: Lizardman2_Attack_with_shadow_7
+  - first:
+      213: 4119130639509998952
+    second: Lizardman2_Attack_with_shadow_8
+  - first:
+      213: 6856220043038400976
+    second: Lizardman2_Attack_with_shadow_9
+  - first:
+      213: 7783185630073072437
+    second: Lizardman2_Attack_with_shadow_10
+  - first:
+      213: -6211109343049549971
+    second: Lizardman2_Attack_with_shadow_11
+  - first:
+      213: 8983415801358805500
+    second: Lizardman2_Attack_with_shadow_12
+  - first:
+      213: -6583069367142112013
+    second: Lizardman2_Attack_with_shadow_13
+  - first:
+      213: -4360131497711003380
+    second: Lizardman2_Attack_with_shadow_14
+  - first:
+      213: 7607522356660133037
+    second: Lizardman2_Attack_with_shadow_15
+  - first:
+      213: -8681611556314323104
+    second: Lizardman2_Attack_with_shadow_16
+  - first:
+      213: -6952667025319211852
+    second: Lizardman2_Attack_with_shadow_17
+  - first:
+      213: 1516814030696594206
+    second: Lizardman2_Attack_with_shadow_18
+  - first:
+      213: -5004482514934825508
+    second: Lizardman2_Attack_with_shadow_19
+  - first:
+      213: 5412765578982444951
+    second: Lizardman2_Attack_with_shadow_20
+  - first:
+      213: 1865294533789444995
+    second: Lizardman2_Attack_with_shadow_21
+  - first:
+      213: 8843552192187963004
+    second: Lizardman2_Attack_with_shadow_22
+  - first:
+      213: 8267655527440671257
+    second: Lizardman2_Attack_with_shadow_23
+  - first:
+      213: 3391023890733278
+    second: Lizardman2_Attack_with_shadow_24
+  - first:
+      213: 7049209477507492539
+    second: Lizardman2_Attack_with_shadow_25
+  - first:
+      213: -109448219923658151
+    second: Lizardman2_Attack_with_shadow_26
+  - first:
+      213: 6636203635191747541
+    second: Lizardman2_Attack_with_shadow_27
+  - first:
+      213: -8241685313747518414
+    second: Lizardman2_Attack_with_shadow_28
+  - first:
+      213: 1515437282570547928
+    second: Lizardman2_Attack_with_shadow_29
+  - first:
+      213: 3463844043560467186
+    second: Lizardman2_Attack_with_shadow_30
+  - first:
+      213: -6925835537621228926
+    second: Lizardman2_Attack_with_shadow_31
+  - first:
+      213: 3124557467475174016
+    second: Lizardman2_Attack_with_shadow_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 209
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e704ec1f376218f0800000000000000
+      internalID: -571280681957324826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_1
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 209
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15bfc7441e8d2c980800000000000000
+      internalID: -8520009083003274415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_2
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 209
+        width: 40
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c74d9df5c79d5d140800000000000000
+      internalID: 4743936910711968892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_3
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 209
+        width: 46
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6f7cfaa525244790800000000000000
+      internalID: -7546866231853416596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_4
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 192
+        width: 51
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecafaf79a2ddfbde0800000000000000
+      internalID: -1315089391160722738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_5
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 191
+        width: 37
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb752eddfb0065780800000000000000
+      internalID: -8694761206530811969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_6
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 191
+        width: 41
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2cd3e7c9581d6e00800000000000000
+      internalID: 1039513862877207596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_8
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 145
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86dcb671e771a2930800000000000000
+      internalID: 4119130639509998952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_9
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 145
+        width: 39
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d1a737adcf262f50800000000000000
+      internalID: 6856220043038400976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_10
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 145
+        width: 39
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53b2e6de71e630c60800000000000000
+      internalID: 7783185630073072437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_11
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 145
+        width: 44
+        height: 38
+      alignment: 9
+      pivot: {x: 0.42045766, y: 0.5000004}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d67fb6ad5f4bdc9a0800000000000000
+      internalID: -6211109343049549971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_12
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 143
+        width: 58
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf96f9d33118bac70800000000000000
+      internalID: 8983415801358805500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_13
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 140
+        width: 44
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f42db70a4d34a4a0800000000000000
+      internalID: -6583069367142112013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_15
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 139
+        width: 47
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dacd199e649539960800000000000000
+      internalID: 7607522356660133037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_17
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 81
+        width: 29
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bcc6426d2a238f90800000000000000
+      internalID: -6952667025319211852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_18
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 81
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1bbff1135ecc0510800000000000000
+      internalID: 1516814030696594206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_19
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 81
+        width: 32
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cddf7a4eaa18c8ab0800000000000000
+      internalID: -5004482514934825508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_20
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 81
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79fc5b3bd910e1b40800000000000000
+      internalID: 5412765578982444951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_21
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 79
+        width: 57
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38b6ff7ee7bd2e910800000000000000
+      internalID: 1865294533789444995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_22
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 74
+        width: 45
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c769df71ddb9aba70800000000000000
+      internalID: 8843552192187963004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_23
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 70
+        width: 49
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9126566f5ec9cb270800000000000000
+      internalID: 8267655527440671257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_25
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 17
+        width: 29
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbaa626eba2d3d160800000000000000
+      internalID: 7049209477507492539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_26
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 17
+        width: 31
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95ac6228c692b7ef0800000000000000
+      internalID: -109448219923658151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_27
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 17
+        width: 32
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d392cccb08881c50800000000000000
+      internalID: 6636203635191747541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_28
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 17
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23c768b9fd6af9d80800000000000000
+      internalID: -8241685313747518414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_29
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 15
+        width: 57
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d2300bed2ae70510800000000000000
+      internalID: 1515437282570547928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_30
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 10
+        width: 45
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fa36cd2ecb021030800000000000000
+      internalID: 3463844043560467186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lizardman2_Attack_with_shadow_31
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 8
+        width: 48
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2826f4fe54d72ef90800000000000000
+      internalID: -6925835537621228926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e1acc9d85aacb8c49811809624485bb4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lizardman2_Attack_with_shadow_0: -571280681957324826
+      Lizardman2_Attack_with_shadow_1: -8520009083003274415
+      Lizardman2_Attack_with_shadow_10: 7783185630073072437
+      Lizardman2_Attack_with_shadow_11: -6211109343049549971
+      Lizardman2_Attack_with_shadow_12: 8983415801358805500
+      Lizardman2_Attack_with_shadow_13: -6583069367142112013
+      Lizardman2_Attack_with_shadow_14: -4360131497711003380
+      Lizardman2_Attack_with_shadow_15: 7607522356660133037
+      Lizardman2_Attack_with_shadow_16: -8681611556314323104
+      Lizardman2_Attack_with_shadow_17: -6952667025319211852
+      Lizardman2_Attack_with_shadow_18: 1516814030696594206
+      Lizardman2_Attack_with_shadow_19: -5004482514934825508
+      Lizardman2_Attack_with_shadow_2: 4743936910711968892
+      Lizardman2_Attack_with_shadow_20: 5412765578982444951
+      Lizardman2_Attack_with_shadow_21: 1865294533789444995
+      Lizardman2_Attack_with_shadow_22: 8843552192187963004
+      Lizardman2_Attack_with_shadow_23: 8267655527440671257
+      Lizardman2_Attack_with_shadow_24: 3391023890733278
+      Lizardman2_Attack_with_shadow_25: 7049209477507492539
+      Lizardman2_Attack_with_shadow_26: -109448219923658151
+      Lizardman2_Attack_with_shadow_27: 6636203635191747541
+      Lizardman2_Attack_with_shadow_28: -8241685313747518414
+      Lizardman2_Attack_with_shadow_29: 1515437282570547928
+      Lizardman2_Attack_with_shadow_3: -7546866231853416596
+      Lizardman2_Attack_with_shadow_30: 3463844043560467186
+      Lizardman2_Attack_with_shadow_31: -6925835537621228926
+      Lizardman2_Attack_with_shadow_32: 3124557467475174016
+      Lizardman2_Attack_with_shadow_4: -1315089391160722738
+      Lizardman2_Attack_with_shadow_5: -8694761206530811969
+      Lizardman2_Attack_with_shadow_6: 1039513862877207596
+      Lizardman2_Attack_with_shadow_7: -151282376295651137
+      Lizardman2_Attack_with_shadow_8: 4119130639509998952
+      Lizardman2_Attack_with_shadow_9: 6856220043038400976
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
