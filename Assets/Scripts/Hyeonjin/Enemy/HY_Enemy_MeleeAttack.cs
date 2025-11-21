@@ -13,18 +13,20 @@ public class HY_Enemy_MeleeAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // [수정됨] 적의 공격은 "Player" 태그를 감지해야 합니다!
-        if (collision.CompareTag("Player"))
+        Debug.Log("MeleeAttack!");
+        // 1. Player인지 확인
+        HY_Player player = collision.GetComponent<HY_Player>();
+        if (player != null)
         {
-            // [수정됨] 플레이어의 스크립트 (예: HY_Player)를 가져옵니다.
-            HY_Player player = collision.GetComponent<HY_Player>();
-            if (player != null)
-            {
-                player.TakeDamage(damage);
-            }
+            player.TakeDamage(damage);
+            // (선택) 한 번 공격으로 하나의 대상만 때리고 싶다면 여기서 return;
+        }
 
-            // (선택) 한 번만 때리도록, 맞춘 즉시 히트박스를 파괴할 수도 있습니다.
-            // Destroy(gameObject); 
+        // 2. SpaceShip인지 확인 (Player가 아니었다면 이어서 실행됨)
+        SpaceShip spaceship = collision.GetComponent<SpaceShip>();
+        if (spaceship != null)
+        {
+            spaceship.TakeDamage(damage);
         }
     }
 }

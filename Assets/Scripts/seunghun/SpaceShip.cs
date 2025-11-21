@@ -3,7 +3,13 @@ using UnityEngine;
 
 public class SpaceShip : MonoBehaviour
 {
-    
+    [Header("기지 설정")]
+    [SerializeField] 
+    public int maxHp = 10;
+    public int currentHp;
+
+    [Header("상태")]
+    public bool isDestroyed = false;
     public CrimerManager crimerManager; 
     [Header("죄수 스폰 설정")]
     [Tooltip("추첨에서 뽑힌 죄수 5명의 프리팹 리스트, init()을 통한 초기화 필수")]
@@ -12,7 +18,14 @@ public class SpaceShip : MonoBehaviour
     private Transform spaceshipSpawnPoint; 
     [Tooltip("죄수들이 '이동할' 최종 도착 지점들 (5개)")]
     public List<Transform> rallyPoints; 
-
+    
+    void Start()
+    {
+        currentHp = maxHp;
+        Debug.Log($"[Base] 우주선 배치 완료! 체력: {currentHp}");
+        GameManager.Instance.UpdateHPUI(currentHp, maxHp);
+    }
+    
     public void Init()
     {
         if (crimerManager == null)
@@ -58,5 +71,53 @@ public class SpaceShip : MonoBehaviour
             pickUnitScript.MoveToPosition(destination);
             */
         } 
+    }
+    
+    /// <summary>
+    /// 적(또는 적의 히트박스)이 호출하여 데미지를 입힘
+    /// </summary>
+    public void TakeDamage(int damage)
+    {
+        if (isDestroyed) return;
+
+        currentHp -= damage;
+        Debug.Log($"[Base] 우주선 피격! 남은 체력: {currentHp}");
+        GameManager.Instance.UpdateHPUI(currentHp, maxHp);
+        // (선택) 피격 효과음이나 파티클 재생
+        // ...
+
+        if (currentHp <= 0)
+        {
+            DestroyBase();
+        }
+    }
+
+    void DestroyBase()
+    {
+        isDestroyed = true;
+        currentHp = 0;
+        Debug.Log("[Base] 🚨 우주선 파괴됨! GAME OVER 🚨");
+        
+        // 여기서 게임 매니저를 불러 게임 오버 처리를 하면 됩니다.
+        // 예: GameManager.Instance.GameOver();
+        
+        // 우주선 터지는 효과 (선택)
+        Destroy(gameObject); 
+    }
+    
+    // 외부에서 최대 체력을 증가시키는 메서드
+    public void IncreaseMaxHP(int amount)
+    {
+        maxHp += amount;
+        
+        // (선택 사항) 최대 체력이 늘어난 만큼 현재 체력도 회복시켜 줄 것인가?
+        // 만약 최대 체력만 늘리고 현재 체력은 그대로 두려면 아래 줄 주석 처리
+        currentHp += amount; 
+
+        // UI 업데이트 (현재 체력이 maxHp를 넘지 않도록 방어 코드 추가)
+        currentHp = Mathf.Min(currentHp, maxHp);
+        GameManager.Instance.UpdateHPUI(currentHp, maxHp);
+
+        Debug.Log($"[Base] 최대 체력 {amount} 증가! (Max: {maxHp}, Current: {currentHp})");
     }
 }

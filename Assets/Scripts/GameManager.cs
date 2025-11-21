@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour
     public BuildSystem buildSystem;
 
     // 2. 게임 스탯 및 자원 (기존 필드 유지)
-    public int maxBaseHealth = 10;
-    public int _currentBaseHealth;
     // 현재 적용 중인 유닛 비용 할인율
     public float unitCostModifier = 1.0f;
     // 현재 적용 중인 타워 비용 할인율 (1.0 = 100% = 할인 없음)
@@ -81,7 +79,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            _currentBaseHealth = maxBaseHealth;
         }
         else
         {
@@ -97,7 +94,6 @@ public class GameManager : MonoBehaviour
 {
     // 1. GameManager UI 필드 초기화 (UpdateHPUI는 여기서 호출되어야 함)
     UpdateResourceUI(); // (새로 추가됨)
-    UpdateHPUI();
 
     // 2. 게임 시작 설정: 첫 웨이브는 120초부터 시작
     _waveCountdown = initialTimeBetweenWaves;
@@ -343,20 +339,6 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    // --- 기지 HP 관리 ---
-    public void TakeDamage(int damage)
-    {
-        _currentBaseHealth -= damage;
-        UpdateHPUI();
-
-        if (_currentBaseHealth <= 0)
-        {
-            _currentBaseHealth = 0;
-            Time.timeScale = 0; // 게임 오버
-            Debug.Log("게임 오버!");
-        }
-    }
-
     // --- UI 업데이트 ---
     public void UpdateResourceUI()
 {
@@ -376,7 +358,7 @@ public class GameManager : MonoBehaviour
 }
 
 
-    private void UpdateHPUI()
+    public void UpdateHPUI(int _currentBaseHealth, int  maxBaseHealth)
     {
         // 1. 텍스트 업데이트
         if (hpText != null)

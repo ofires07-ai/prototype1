@@ -193,10 +193,10 @@ public class SpawnManager : MonoBehaviour
 
         GameObject enemyObject = Instantiate(enemyPrefab, point.position, point.rotation);
 
-        // 타입 ID 전달
-        Enemy_Y enemyScript = enemyObject.GetComponent<Enemy_Y>();
-        if (enemyScript != null)
-            enemyScript.enemyID = enemyID;
+        // // 타입 ID 전달
+        // Enemy_Y enemyScript = enemyObject.GetComponent<Enemy_Y>();
+        // if (enemyScript != null)
+        //     enemyScript.enemyID = enemyID;
 
         HY_EnemyUnitMovement hyEnemy = enemyObject.GetComponent<HY_EnemyUnitMovement>();
         if (hyEnemy != null)
