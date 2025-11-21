@@ -120,4 +120,21 @@ public class SpaceShip : MonoBehaviour
 
         Debug.Log($"[Base] 최대 체력 {amount} 증가! (Max: {maxHp}, Current: {currentHp})");
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+    
+           EnemyMeleeHitbox enemyHitbox = collision.GetComponent<EnemyMeleeHitbox>();
+    
+        if (enemyHitbox != null)
+        {
+        // 1. 적군 히트박스(EnemyMeleeHitbox)와 충돌했는지 확인되면
+        
+        // 2. 데미지를 입고 함수를 종료합니다.
+        // (AoE 방지/파괴 로직은 EnemyMeleeHitbox 스크립트에서 처리됩니다.)
+        TakeDamage(enemyHitbox.damage);
+        return; 
+        }
+        }
+  
 }

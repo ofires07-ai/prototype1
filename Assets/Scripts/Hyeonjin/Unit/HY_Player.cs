@@ -175,7 +175,7 @@ public class HY_Player : MonoBehaviour
             Die(); // 체력이 0 이하면 사망
         }
         // 플레이어가 데미지를 받았을 때 처리할 로직
-        Debug.Log("Player took " + damageAmount + " damage!");
+        Debug.Log("zzzzzPlayer took " + damageAmount + " damage!");
 
     }
     private void Die() // 추가(IS)

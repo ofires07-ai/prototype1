@@ -21,5 +21,12 @@ public class EnemyMeleeHitbox : MonoBehaviour // ⬅️ 클래스 이름 변경
             // 데미지 적용은 상대방 스크립트가 처리합니다.
             Destroy(gameObject); 
         }
+
+        if (collision.CompareTag("Base")) 
+        {
+            hasHitTarget = true; 
+            // 데미지 적용은 상대방 스크립트가 처리합니다.
+            Destroy(gameObject); 
+        }
     }
 }

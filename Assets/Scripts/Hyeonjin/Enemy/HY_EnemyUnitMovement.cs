@@ -379,7 +379,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour
         PlayerMeleeHitbox melee = collision.GetComponent<PlayerMeleeHitbox>();
         if (melee != null)
         {
-            // 근접 히트박스의 데미지 값으로 TakeDamage 호출
+            
             TakeDamage(melee.damage);
             
             // (근접 히트박스는 스스로 파괴되므로 여기서 Destroy 안 해도 됨)
