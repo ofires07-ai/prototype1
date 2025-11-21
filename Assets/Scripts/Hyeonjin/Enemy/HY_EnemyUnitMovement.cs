@@ -52,6 +52,10 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     public HY_Scanner scanner; // AI의 '눈' 역할
     private SpriteRenderer spriteRenderer; // 좌우 반전용
 
+    [Header("상태 이상 설정")]
+    [Tooltip("현재 속도 배율 (1.0 = 정상, 0.5 = 절반 속도)")]
+    [SerializeField] private float speedMultiplier = 1.0f;
+
     // --- 내부 관리 변수 ---
     private List<Transform> waypoints = new List<Transform>();
     private int currentWaypointIndex = 0;
@@ -141,12 +145,13 @@ public class HY_EnemyUnitMovement : MonoBehaviour
 
         if (distance > attackRange)
         {
-            // --- 1. 추격 (Chase) ---
-            // "적이 죽으면... 다시 움직이고" (새로운 적을 향해)
-            transform.position += direction * chaseSpeed * Time.deltaTime;
-            
-            // 애니메이션: 'Walk' 상태 재생 (Speed > 0.1)
-            animator.SetFloat("Speed", chaseSpeed);
+            // 기존: transform.position += direction * chaseSpeed * Time.deltaTime;
+            // 수정:
+            float currentChaseSpeed = chaseSpeed * speedMultiplier; 
+            transform.position += direction * currentChaseSpeed * Time.deltaTime;
+    
+            // 애니메이션 속도도 같이 느려지게 하려면:
+            animator.SetFloat("Speed", currentChaseSpeed);
             
             // 방향: 좌우 반전 (상하 이동 시 마지막 좌우 방향 유지)
             //HandleSpriteFlip(direction.x);
@@ -206,16 +211,44 @@ public class HY_EnemyUnitMovement : MonoBehaviour
 
         // --- 3. 이동 ---
         Vector3 direction = (targetWaypoint.position - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
+        // 기존: transform.position += direction * moveSpeed * Time.deltaTime;
+        // 수정:
+        float currentMoveSpeed = moveSpeed * speedMultiplier;
+        transform.position += direction * currentMoveSpeed * Time.deltaTime;
+
+        // 애니메이션 속도 적용
+        animator.SetFloat("Speed", currentMoveSpeed);
 
         // 애니메이션: 'Walk' 상태 재생
         
         
         // 방향: 좌우 반전
-        animator.SetFloat("Speed", moveSpeed);
+        
         animator.SetFloat("moveX", direction.x);
         animator.SetFloat("moveY", direction.y);
         //HandleSpriteFlip(direction.x);
+    }
+
+
+
+    /// <summary>
+    /// 외부(타워)에서 호출하여 속도 배율을 변경합니다.
+    /// </summary>
+    /// <param name="ratio">적용할 비율 (예: 0.75f)</param>
+    public void ApplySlow(float ratio)
+    {
+        speedMultiplier = ratio;
+        // 디버깅용 로그 (필요 없으면 삭제)
+        // Debug.Log($"[AI] {name}: 이동 속도 {ratio * 100}%로 감소");
+    }
+
+    /// <summary>
+    /// 속도를 다시 원래대로(1.0) 복구합니다.
+    /// </summary>
+    public void RemoveSlow()
+    {
+        speedMultiplier = 1.0f;
+        // Debug.Log($"[AI] {name}: 이동 속도 정상화");
     }
 
     /// <summary>
