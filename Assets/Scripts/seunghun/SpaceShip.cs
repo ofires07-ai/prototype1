@@ -24,6 +24,15 @@ public class SpaceShip : MonoBehaviour
         currentHp = maxHp;
         Debug.Log($"[Base] 우주선 배치 완료! 체력: {currentHp}");
         GameManager.Instance.UpdateHPUI(currentHp, maxHp);
+        GameObject parentObj = GameObject.Find("SpaceShip");
+        if (parentObj != null)
+        {
+            foreach (Transform child in parentObj.transform)
+            {
+                Debug.Log("rallyPoint 추가!");
+                rallyPoints.Add(child);
+            }
+        }
     }
     
     public void Init()
