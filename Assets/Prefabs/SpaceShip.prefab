@@ -103,11 +103,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36214004fab843d79c56b34d99c0b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 10
   currentHp: 0
   isDestroyed: 0
   crimerManager: {fileID: 0}
-  rallyPoints: []
+  rallyPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!50 &3419458153097361396
 Rigidbody2D:
   serializedVersion: 5
