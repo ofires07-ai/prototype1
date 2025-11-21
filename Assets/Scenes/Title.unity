@@ -422,6 +422,8 @@ MonoBehaviour:
   stageSceneNames:
   - Stage1
   - Stage2
+  - Stage3
+  - Stage4
   resultSceneName: Result
   screenFader: {fileID: 876091431}
   fadeDuration: 1
