@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ce1f45c3c9dcc4c9f76bc7dd4be941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scanRage: 2
+  scanRage: 7.99
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -211,12 +211,12 @@ MonoBehaviour:
   stoppingDistance: 0.5
   chaseSpeed: 4
   rangedAttackRange: 8
-  orbPrefab: {fileID: 0}
+  orbPrefab: {fileID: 5579384281233417934, guid: e424fbe0c27139d4ba72ed34188dea5f, type: 3}
   firePoint: {fileID: 0}
   maxHp: 10
   autoFindCircles: 1
   manualWaypoints: []
-  NodeName: 
+  NodeName: Circle
   animator: {fileID: 0}
   scanner: {fileID: 0}
   enemyID: 

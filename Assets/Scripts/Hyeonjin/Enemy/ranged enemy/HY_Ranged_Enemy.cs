@@ -55,6 +55,9 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
     private bool deathReported = false;
     public string enemyID;
 
+    private float attackCooldown = 2.0f; // 2초마다 공격
+    private float lastAttackTime = 0f;   // 마지막 공격 시간 저장
+
     // [✨ 추가] 공격 이벤트를 위해 현재 타겟을 클래스 변수로 저장
     private Transform currentTarget; 
 
@@ -125,6 +128,7 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
         float distance = Vector3.Distance(transform.position, target.position);
         Vector3 direction = (target.position - transform.position).normalized;
 
+
         // [✨ 수정] 'attackRange' -> 'rangedAttackRange'
         if (distance > rangedAttackRange)
         {
@@ -132,18 +136,22 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
             transform.position += direction * chaseSpeed * Time.deltaTime;
             animator.SetFloat("Speed", chaseSpeed);
             
-            // [✨ 수정] 좌우 반전 활성화
-            HandleSpriteFlip(direction.x);
+           
         }
         else
         {
-            // --- 2. 공격 (Attack) --- (로직 동일)
+            // 공격 범위 안임
             animator.SetFloat("Speed", 0);
-            animator.SetTrigger("Attack");
             
-            // [✨ 수정] 좌우 반전 활성화
-            HandleSpriteFlip(direction.x);
+            // [✨ 수정된 로직] 쿨타임이 지났을 때만 공격 명령을 내림
+            if (Time.time >= lastAttackTime + attackCooldown)
+            {
+                lastAttackTime = Time.time; // 현재 시간 저장
+                animator.SetTrigger("Attack"); // 공격!
+            }
         }
+        animator.SetFloat("moveX", direction.x);
+        animator.SetFloat("moveY", direction.y);
     }
 
     /// <summary>
@@ -186,7 +194,7 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
         animator.SetFloat("moveY", direction.y);
         
         // [✨ 수정] 좌우 반전 활성화
-        HandleSpriteFlip(direction.x);
+       
     }
 
     /// <summary>
@@ -382,7 +390,7 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
 
         // 5. 구체에서 'GrowingOrb' 스크립트를 가져옵니다.
         //    (스크립트 이름이 GrowingOrb.cs라고 가정)
-        GrowingOrb orbScript = orbGO.GetComponent<GrowingOrb>();
+        HY_Orb orbScript = orbGO.GetComponent<HY_Orb>();
 
         // 6. [가장 중요!] 구체 스크립트가 존재한다면
         if (orbScript != null)

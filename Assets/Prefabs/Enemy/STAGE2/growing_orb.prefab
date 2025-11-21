@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.64, y: 3.33, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -195,3 +195,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   explosionPrefab: {fileID: 1504140332386014109, guid: e38ac8c5de216fa45bb895bd4782aacb, type: 3}
+  maxLifetime: 5
