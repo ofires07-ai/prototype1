@@ -1,18 +1,24 @@
 using UnityEngine;
 
-using UnityEngine;
-
-[System.Serializable] // 인스펙터에서 리스트로 보기 위해 필수
-public class TutorialStep : MonoBehaviour
+// (미래 대비용) 하이라이트 모양 정의
+public enum HighlightShape
 {
-    [Header("설명 텍스트")]
-    [TextArea(3, 5)] // 텍스트 입력창 넓게 보기
-    public string instruction;
+    Rectangle, // 사각형 (기본)
+    Circle     // 원형 (나중에 필요하면 사용)
+}
 
-    [Header("하이라이트 타겟")]
-    [Tooltip("강조 표시할 UI 요소의 RectTransform을 연결하세요.")]
-    public RectTransform targetRect;
+[System.Serializable] // 이 줄이 있어야 인스펙터에 보입니다!
+public class TutorialStep
+{
+    [Header("단계 설정")]
+    [TextArea(3, 5)] // 텍스트 입력창을 넓게 보여줍니다.
+    [Tooltip("설명창에 표시될 텍스트입니다.")]
+    public string instructionText;
 
-    // (선택 사항) Next 버튼 대신 특정 행동을 기다려야 할 때 사용
-    // public bool waitForSpecificAction = false; 
+    [Header("타겟 설정")]
+    [Tooltip("하이라이트 할 실제 게임 UI 요소의 RectTransform을 연결하세요. (없으면 비워두세요)")]
+    public RectTransform targetUI; // 목표 대상
+
+    [Tooltip("나중에 마스킹 방식 도입 시 사용할 모양 정보 (지금은 무시해도 됩니다)")]
+    public HighlightShape shape = HighlightShape.Rectangle;
 }
