@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: 40c4ec301d9658b45a5b9691fb57732d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 91076584533799197
+    second: Ground_grass_shadow2_0
+  - first:
+      213: 4739059875240668352
+    second: Ground_grass_shadow2_1
+  - first:
+      213: -8051966481760269006
+    second: Ground_grass_shadow2_2
+  - first:
+      213: -3044645902757956490
+    second: Ground_grass_shadow2_3
+  - first:
+      213: -9171834744944132653
+    second: Ground_grass_shadow2_4
+  - first:
+      213: 1889715736685279735
+    second: Ground_grass_shadow2_5
+  - first:
+      213: -5665766545779561439
+    second: Ground_grass_shadow2_6
+  - first:
+      213: -2535981545163426939
+    second: Ground_grass_shadow2_7
+  - first:
+      213: 3588076659035002783
+    second: Ground_grass_shadow2_8
+  - first:
+      213: -4653458817988144085
+    second: Ground_grass_shadow2_9
+  - first:
+      213: 5590180338616424985
+    second: Ground_grass_shadow2_10
+  - first:
+      213: -850547850904979862
+    second: Ground_grass_shadow2_11
+  - first:
+      213: 6953897013075718390
+    second: Ground_grass_shadow2_12
+  - first:
+      213: 6253988062485683330
+    second: Ground_grass_shadow2_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 229
+        width: 49
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d113e7ccba1934100800000000000000
+      internalID: 91076584533799197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 231
+        width: 162
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cce60119d584c140800000000000000
+      internalID: 4739059875240668352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_2
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 255
+        width: 31
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23dc35f552ba14090800000000000000
+      internalID: -8051966481760269006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_3
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 95
+        width: 33
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6747343ceae3fb5d0800000000000000
+      internalID: -3044645902757956490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 165
+        width: 49
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ddf409d4e817b080800000000000000
+      internalID: -9171834744944132653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_5
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 167
+        width: 162
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f9779b437e993a10800000000000000
+      internalID: 1889715736685279735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_6
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 191
+        width: 31
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12c648a58572f51b0800000000000000
+      internalID: -5665766545779561439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 93
+        width: 49
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 583769b88326eccd0800000000000000
+      internalID: -2535981545163426939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_8
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 95
+        width: 162
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f97d6a006b86bc130800000000000000
+      internalID: 3588076659035002783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_9
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 127
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2458e03cd79b6fb0800000000000000
+      internalID: -4653458817988144085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 13
+        width: 49
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ada91666f449d40800000000000000
+      internalID: 5590180338616424985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_11
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 15
+        width: 162
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a66365a6c3f3234f0800000000000000
+      internalID: -850547850904979862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_12
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 47
+        width: 31
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f037057d74318060800000000000000
+      internalID: 6953897013075718390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_grass_shadow2_13
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 15
+        width: 33
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28c1efdf101aac650800000000000000
+      internalID: 6253988062485683330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Ground_grass_shadow2_0: 91076584533799197
+      Ground_grass_shadow2_1: 4739059875240668352
+      Ground_grass_shadow2_10: 5590180338616424985
+      Ground_grass_shadow2_11: -850547850904979862
+      Ground_grass_shadow2_12: 6953897013075718390
+      Ground_grass_shadow2_13: 6253988062485683330
+      Ground_grass_shadow2_2: -8051966481760269006
+      Ground_grass_shadow2_3: -3044645902757956490
+      Ground_grass_shadow2_4: -9171834744944132653
+      Ground_grass_shadow2_5: 1889715736685279735
+      Ground_grass_shadow2_6: -5665766545779561439
+      Ground_grass_shadow2_7: -2535981545163426939
+      Ground_grass_shadow2_8: 3588076659035002783
+      Ground_grass_shadow2_9: -4653458817988144085
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -381,12 +381,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_0
       rect:
         serializedVersion: 2
-        x: 37
-        y: 417
-        width: 53
-        height: 64
+        x: 0
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -403,12 +403,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_1
       rect:
         serializedVersion: 2
-        x: 165
-        y: 417
-        width: 53
-        height: 63
+        x: 128
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -425,12 +425,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_2
       rect:
         serializedVersion: 2
-        x: 293
-        y: 416
-        width: 53
-        height: 62
+        x: 256
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -447,12 +447,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_3
       rect:
         serializedVersion: 2
-        x: 421
-        y: 416
-        width: 53
-        height: 62
+        x: 384
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -469,12 +469,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_4
       rect:
         serializedVersion: 2
-        x: 551
-        y: 430
-        width: 52
-        height: 54
+        x: 512
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -491,12 +491,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_6
       rect:
         serializedVersion: 2
-        x: 679
-        y: 424
-        width: 49
-        height: 63
+        x: 768
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -513,12 +513,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_8
       rect:
         serializedVersion: 2
-        x: 807
-        y: 423
-        width: 51
-        height: 67
+        x: 1024
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -535,12 +535,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_9
       rect:
         serializedVersion: 2
-        x: 943
-        y: 429
-        width: 33
-        height: 37
+        x: 1152
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -557,12 +557,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_10
       rect:
         serializedVersion: 2
-        x: 1071
-        y: 430
-        width: 34
-        height: 28
+        x: 1280
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -579,12 +579,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_11
       rect:
         serializedVersion: 2
-        x: 1199
-        y: 430
-        width: 34
-        height: 29
+        x: 1408
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -601,12 +601,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_12
       rect:
         serializedVersion: 2
-        x: 1327
-        y: 430
-        width: 34
-        height: 28
+        x: 1536
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -623,12 +623,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_13
       rect:
         serializedVersion: 2
-        x: 1455
-        y: 430
-        width: 34
-        height: 28
+        x: 0
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -645,12 +645,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_14
       rect:
         serializedVersion: 2
-        x: 1582
-        y: 430
-        width: 34
-        height: 28
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -667,12 +667,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_25
       rect:
         serializedVersion: 2
-        x: 37
-        y: 302
-        width: 53
-        height: 51
+        x: 1536
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -689,12 +689,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_26
       rect:
         serializedVersion: 2
-        x: 165
-        y: 302
-        width: 53
-        height: 50
+        x: 0
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -711,12 +711,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_27
       rect:
         serializedVersion: 2
-        x: 293
-        y: 302
-        width: 53
-        height: 49
+        x: 128
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -733,12 +733,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_28
       rect:
         serializedVersion: 2
-        x: 421
-        y: 302
-        width: 53
-        height: 49
+        x: 256
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -755,12 +755,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_29
       rect:
         serializedVersion: 2
-        x: 549
-        y: 302
-        width: 53
-        height: 53
+        x: 384
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -777,12 +777,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_31
       rect:
         serializedVersion: 2
-        x: 677
-        y: 302
-        width: 52
-        height: 57
+        x: 640
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -799,12 +799,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_33
       rect:
         serializedVersion: 2
-        x: 806
-        y: 302
-        width: 51
-        height: 60
+        x: 896
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -821,12 +821,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_40
       rect:
         serializedVersion: 2
-        x: 942
-        y: 302
-        width: 36
-        height: 37
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -843,12 +843,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_41
       rect:
         serializedVersion: 2
-        x: 1071
-        y: 302
-        width: 34
-        height: 29
+        x: 256
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -865,12 +865,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_42
       rect:
         serializedVersion: 2
-        x: 1199
-        y: 302
-        width: 34
-        height: 30
+        x: 384
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -887,12 +887,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_43
       rect:
         serializedVersion: 2
-        x: 1327
-        y: 302
-        width: 34
-        height: 29
+        x: 512
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -909,12 +909,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_44
       rect:
         serializedVersion: 2
-        x: 1455
-        y: 302
-        width: 34
-        height: 29
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -931,12 +931,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_45
       rect:
         serializedVersion: 2
-        x: 1583
-        y: 302
-        width: 34
-        height: 29
+        x: 768
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -953,12 +953,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_46
       rect:
         serializedVersion: 2
-        x: 33
-        y: 175
-        width: 52
-        height: 51
+        x: 896
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -975,12 +975,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_47
       rect:
         serializedVersion: 2
-        x: 162
-        y: 174
-        width: 51
-        height: 50
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -997,12 +997,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_48
       rect:
         serializedVersion: 2
-        x: 292
-        y: 174
-        width: 49
-        height: 49
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1019,12 +1019,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_49
       rect:
         serializedVersion: 2
-        x: 420
-        y: 174
-        width: 49
-        height: 49
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1041,12 +1041,12 @@ TextureImporter:
       name: Demon3_Death_with_shadow_50
       rect:
         serializedVersion: 2
-        x: 549
-        y: 174
-        width: 50
-        height: 51
+        x: 1408
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1060,463 +1060,463 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_53
+      name: Demon3_Death_with_shadow_5
       rect:
         serializedVersion: 2
-        x: 679
-        y: 174
-        width: 44
-        height: 53
+        x: 640
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9600fbcc31f287b90800000000000000
-      internalID: -7243988238539489175
+      spriteID: 5473c49bd84963c4aa27dee62eef9dd3
+      internalID: 1370334018919208361
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_57
+      name: Demon3_Death_with_shadow_7
       rect:
         serializedVersion: 2
-        x: 809
-        y: 174
-        width: 40
-        height: 55
+        x: 896
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2adf653d426fb3950800000000000000
-      internalID: 6430003531026464162
+      spriteID: f9448dcf54e72ab4495b8e864d0491b9
+      internalID: 9034971464588169280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_59
+      name: Demon3_Death_with_shadow_15
       rect:
         serializedVersion: 2
-        x: 949
-        y: 174
-        width: 27
-        height: 30
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 13e359edb7c1723a0800000000000000
-      internalID: -6690347403094704591
+      spriteID: 524ead7f05d067644b9dd2244bf94cab
+      internalID: -191855487
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_60
+      name: Demon3_Death_with_shadow_16
       rect:
         serializedVersion: 2
-        x: 1077
-        y: 175
-        width: 22
-        height: 31
+        x: 384
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: efc4fcc68d4eb97c0800000000000000
-      internalID: -4063402620582146818
+      spriteID: a70345b29a646394b8c2b01c8b5c6afa
+      internalID: -363013508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_61
+      name: Demon3_Death_with_shadow_17
       rect:
         serializedVersion: 2
-        x: 1205
-        y: 174
-        width: 23
-        height: 30
+        x: 512
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9411294feaf94f2a0800000000000000
-      internalID: -6704558371471486647
+      spriteID: 271c8290ff2cfb440a79f786d24b0937
+      internalID: -1662976272
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_62
+      name: Demon3_Death_with_shadow_18
       rect:
         serializedVersion: 2
-        x: 1333
-        y: 174
-        width: 23
-        height: 30
+        x: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9d6edd28c2cd94b70800000000000000
-      internalID: 8883873823697266393
+      spriteID: 6c469187507389a478456253fe8896f0
+      internalID: -2044564729
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_63
+      name: Demon3_Death_with_shadow_19
       rect:
         serializedVersion: 2
-        x: 1461
-        y: 174
-        width: 23
-        height: 30
+        x: 768
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1807a5b6f2d79d300800000000000000
-      internalID: 277390494678020225
+      spriteID: 3d7f6d88dbc57264c9dd0316d7e6888c
+      internalID: -410649477
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_64
+      name: Demon3_Death_with_shadow_20
       rect:
         serializedVersion: 2
-        x: 1589
-        y: 174
-        width: 23
-        height: 30
+        x: 896
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 255f83d7480851300800000000000000
-      internalID: 222225063149630802
+      spriteID: 519968ebac9fbef4b8c7ae9708933984
+      internalID: -1908171004
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_65
+      name: Demon3_Death_with_shadow_21
       rect:
         serializedVersion: 2
-        x: 42
-        y: 45
-        width: 52
-        height: 51
+        x: 1024
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 73100bec58407a680800000000000000
-      internalID: -8744015178771726025
+      spriteID: db4801e662cbd1948a7e3a2d0bf2f510
+      internalID: -6684058013937827416
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_66
+      name: Demon3_Death_with_shadow_22
       rect:
         serializedVersion: 2
-        x: 170
-        y: 46
-        width: 51
-        height: 50
+        x: 1152
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 79525426d151291e0800000000000000
-      internalID: -2192666852629076585
+      spriteID: c391f0d48077b844497e449e8d48b923
+      internalID: -3819359013301036916
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_67
+      name: Demon3_Death_with_shadow_23
       rect:
         serializedVersion: 2
-        x: 297
-        y: 45
-        width: 49
-        height: 49
+        x: 1280
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9d7e7148bdcd347a0800000000000000
-      internalID: -6394024210563864615
+      spriteID: ef8eb9c0245b991449c14de4bbe0774c
+      internalID: -6312024329044577207
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_68
+      name: Demon3_Death_with_shadow_24
       rect:
         serializedVersion: 2
-        x: 426
-        y: 46
-        width: 49
-        height: 49
+        x: 1408
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3e466853204ca68e0800000000000000
-      internalID: -1699330395611962141
+      spriteID: 8d42fa2951abfc247ba6ae03e8f68458
+      internalID: 2229360439122458145
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_69
+      name: Demon3_Death_with_shadow_30
       rect:
         serializedVersion: 2
-        x: 554
-        y: 46
-        width: 48
-        height: 52
+        x: 512
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2e1b8f1ac7e9cd420800000000000000
-      internalID: 2656172138372313570
+      spriteID: fb4db87dfcd574d419b8074594d3d3fd
+      internalID: -5701747619501932128
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_72
+      name: Demon3_Death_with_shadow_32
       rect:
         serializedVersion: 2
-        x: 687
-        y: 47
-        width: 41
-        height: 53
+        x: 768
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6e63ca025deaf9970800000000000000
-      internalID: 8763915630285698790
+      spriteID: 539339ba892876d43ad82fcf5209e544
+      internalID: -444393922265660805
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_76
+      name: Demon3_Death_with_shadow_34
       rect:
         serializedVersion: 2
-        x: 815
-        y: 46
-        width: 39
-        height: 55
+        x: 1024
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a1e33690989454340800000000000000
-      internalID: 4847361426851053082
+      spriteID: e164bcf3588a1144fa801875d620a04b
+      internalID: -3972774647009387781
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_79
+      name: Demon3_Death_with_shadow_35
       rect:
         serializedVersion: 2
-        x: 944
-        y: 46
-        width: 27
-        height: 30
+        x: 1152
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8c296d01e141a8940800000000000000
-      internalID: 5299070030918881992
+      spriteID: d4d196f31880cf7449960c8b0c353c48
+      internalID: -1867588517668551558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_80
+      name: Demon3_Death_with_shadow_36
       rect:
         serializedVersion: 2
-        x: 1075
-        y: 46
-        width: 24
-        height: 31
+        x: 1280
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d892da1d62d1dd640800000000000000
-      internalID: 5106269605071759757
+      spriteID: 9c6b8dfd463da454095267c07b7c5532
+      internalID: -9022800713374015993
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_81
+      name: Demon3_Death_with_shadow_37
       rect:
         serializedVersion: 2
-        x: 1203
-        y: 46
-        width: 24
-        height: 30
+        x: 1408
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: eba7f990949d2fc80800000000000000
-      internalID: -8290325056318375234
+      spriteID: 133d087bdcf1c3646a37ec56790ddced
+      internalID: -5760481390766911364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_82
+      name: Demon3_Death_with_shadow_38
       rect:
         serializedVersion: 2
-        x: 1331
-        y: 46
-        width: 24
-        height: 30
+        x: 1536
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cca94d53665a99f80800000000000000
-      internalID: -8099260596440753460
+      spriteID: 7b072828f9d2a64409eaf5f0b8504630
+      internalID: 8957355465353123675
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_83
+      name: Demon3_Death_with_shadow_39
       rect:
         serializedVersion: 2
-        x: 1460
-        y: 46
-        width: 24
-        height: 30
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2a0899849db39f010800000000000000
-      internalID: 1223074578219761826
+      spriteID: 24beec7a5b0010c42a2b5220454d5bca
+      internalID: -4935646983060389041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Death_with_shadow_84
+      name: Demon3_Death_with_shadow_51
       rect:
         serializedVersion: 2
-        x: 1587
-        y: 46
-        width: 24
-        height: 30
+        x: 1536
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1cf14266457f776d0800000000000000
-      internalID: -2992651485501448255
+      spriteID: ca16a8b252138604abc0a01b6ca78abb
+      internalID: 765594240800247992
       vertices: []
       indices: 
       edges: []
@@ -1535,7 +1535,6 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Demon3_Death_with_4: 8945575094459225056
       Demon3_Death_with_shadow_0: 481695834915291889
       Demon3_Death_with_shadow_1: -6517448291812859040
       Demon3_Death_with_shadow_10: -1453776928308430797
@@ -1543,7 +1542,13 @@ TextureImporter:
       Demon3_Death_with_shadow_12: 5436192885700078797
       Demon3_Death_with_shadow_13: 5906830532987889298
       Demon3_Death_with_shadow_14: 8945575094459225056
+      Demon3_Death_with_shadow_15: -191855487
+      Demon3_Death_with_shadow_16: -363013508
+      Demon3_Death_with_shadow_17: -1662976272
+      Demon3_Death_with_shadow_18: -2044564729
+      Demon3_Death_with_shadow_19: -410649477
       Demon3_Death_with_shadow_2: -4038469354206897907
+      Demon3_Death_with_shadow_20: -1908171004
       Demon3_Death_with_shadow_21: -6684058013937827416
       Demon3_Death_with_shadow_22: -3819359013301036916
       Demon3_Death_with_shadow_23: -6312024329044577207
@@ -1578,42 +1583,9 @@ TextureImporter:
       Demon3_Death_with_shadow_5: 1370334018919208361
       Demon3_Death_with_shadow_50: 9015979997427816700
       Demon3_Death_with_shadow_51: 765594240800247992
-      Demon3_Death_with_shadow_52: 6126201263535519867
-      Demon3_Death_with_shadow_53: -7243988238539489175
-      Demon3_Death_with_shadow_54: 739070597404665840
-      Demon3_Death_with_shadow_55: 5180587454890055999
-      Demon3_Death_with_shadow_56: 7096596713911008000
-      Demon3_Death_with_shadow_57: 6430003531026464162
-      Demon3_Death_with_shadow_58: -4870992091381101444
-      Demon3_Death_with_shadow_59: -6690347403094704591
       Demon3_Death_with_shadow_6: 7729346716232143955
-      Demon3_Death_with_shadow_60: -4063402620582146818
-      Demon3_Death_with_shadow_61: -6704558371471486647
-      Demon3_Death_with_shadow_62: 8883873823697266393
-      Demon3_Death_with_shadow_63: 277390494678020225
-      Demon3_Death_with_shadow_64: 222225063149630802
-      Demon3_Death_with_shadow_65: -8744015178771726025
-      Demon3_Death_with_shadow_66: -2192666852629076585
-      Demon3_Death_with_shadow_67: -6394024210563864615
-      Demon3_Death_with_shadow_68: -1699330395611962141
-      Demon3_Death_with_shadow_69: 2656172138372313570
       Demon3_Death_with_shadow_7: 9034971464588169280
-      Demon3_Death_with_shadow_70: -1182135361859939249
-      Demon3_Death_with_shadow_71: 5909115541204921062
-      Demon3_Death_with_shadow_72: 8763915630285698790
-      Demon3_Death_with_shadow_73: -3776549343039642047
-      Demon3_Death_with_shadow_74: 8570847457774244320
-      Demon3_Death_with_shadow_75: 2625689271984942032
-      Demon3_Death_with_shadow_76: 4847361426851053082
-      Demon3_Death_with_shadow_77: 6994587080662503560
-      Demon3_Death_with_shadow_78: -7030070798543021504
-      Demon3_Death_with_shadow_79: 5299070030918881992
       Demon3_Death_with_shadow_8: -1379156645141096026
-      Demon3_Death_with_shadow_80: 5106269605071759757
-      Demon3_Death_with_shadow_81: -8290325056318375234
-      Demon3_Death_with_shadow_82: -8099260596440753460
-      Demon3_Death_with_shadow_83: 1223074578219761826
-      Demon3_Death_with_shadow_84: -2992651485501448255
       Demon3_Death_with_shadow_9: -8907526863701500950
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

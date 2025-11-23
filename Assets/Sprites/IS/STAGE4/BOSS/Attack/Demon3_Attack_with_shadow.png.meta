@@ -459,12 +459,12 @@ TextureImporter:
       name: Demon3_Attack_with_shadow_0
       rect:
         serializedVersion: 2
-        x: 37
-        y: 417
-        width: 53
-        height: 64
+        x: 0
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -481,12 +481,12 @@ TextureImporter:
       name: Demon3_Attack_with_shadow_1
       rect:
         serializedVersion: 2
-        x: 166
-        y: 422
-        width: 53
-        height: 61
+        x: 128
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -503,12 +503,12 @@ TextureImporter:
       name: Demon3_Attack_with_shadow_2
       rect:
         serializedVersion: 2
-        x: 294
-        y: 428
-        width: 53
-        height: 56
+        x: 256
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -525,12 +525,12 @@ TextureImporter:
       name: Demon3_Attack_with_shadow_3
       rect:
         serializedVersion: 2
-        x: 416
-        y: 419
-        width: 59
-        height: 71
+        x: 384
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -547,12 +547,12 @@ TextureImporter:
       name: Demon3_Attack_with_shadow_4
       rect:
         serializedVersion: 2
-        x: 540
-        y: 395
-        width: 68
-        height: 74
+        x: 512
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -569,12 +569,12 @@ TextureImporter:
       name: Demon3_Attack_with_shadow_5
       rect:
         serializedVersion: 2
-        x: 670
-        y: 390
-        width: 61
-        height: 79
+        x: 640
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -588,37 +588,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_55
-      rect:
-        serializedVersion: 2
-        x: 924
-        y: 299
-        width: 72
-        height: 86
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b7c4acd3087f4feb0800000000000000
-      internalID: -4686849182021301125
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Demon3_Attack_with_shadow_7
       rect:
         serializedVersion: 2
-        x: 800
-        y: 388
-        width: 59
-        height: 85
+        x: 896
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -635,12 +613,12 @@ TextureImporter:
       name: Demon3_Attack_with_shadow_8
       rect:
         serializedVersion: 2
-        x: 923
-        y: 385
-        width: 63
-        height: 96
+        x: 1024
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -657,12 +635,12 @@ TextureImporter:
       name: Demon3_Attack_with_shadow_9
       rect:
         serializedVersion: 2
-        x: 1056
+        x: 1152
         y: 384
-        width: 58
-        height: 97
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -679,12 +657,12 @@ TextureImporter:
       name: Demon3_Attack_with_shadow_10
       rect:
         serializedVersion: 2
-        x: 1188
-        y: 385
-        width: 55
-        height: 96
+        x: 0
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -698,639 +676,661 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_52
+      name: Demon3_Attack_with_shadow_6
       rect:
         serializedVersion: 2
-        x: 552
-        y: 300
-        width: 56
-        height: 69
+        x: 768
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4fab457222a04d360800000000000000
-      internalID: 7193385646622554868
+      spriteID: 112c0915d6e57074f95674537080f3b0
+      internalID: 2011033508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_53
+      name: Demon3_Attack_with_shadow_11
       rect:
         serializedVersion: 2
-        x: 678
-        y: 297
-        width: 60
-        height: 79
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 69dafaacf01e0c610800000000000000
-      internalID: 1639557722304130454
+      spriteID: 25d8333019faf0e4d8c23e267361c311
+      internalID: -8951417094417062880
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_56
+      name: Demon3_Attack_with_shadow_12
       rect:
         serializedVersion: 2
-        x: 1062
-        y: 301
-        width: 56
-        height: 81
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 80f125750f6e1d4b0800000000000000
-      internalID: -5417294956818456824
+      spriteID: ba5ac7b97e7f277468c13b4bb08fdcb3
+      internalID: -6818617778474948985
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_48
+      name: Demon3_Attack_with_shadow_13
       rect:
         serializedVersion: 2
-        x: 38
-        y: 302
-        width: 53
-        height: 51
+        x: 384
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 68a795480c2a816f0800000000000000
-      internalID: -713641593200346490
+      spriteID: fd663fcbe67620c4d83ecbab3a885a8a
+      internalID: 1329401826600269706
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_49
+      name: Demon3_Attack_with_shadow_14
       rect:
         serializedVersion: 2
-        x: 166
-        y: 301
-        width: 53
-        height: 51
+        x: 512
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 080a018bcd19eee10800000000000000
-      internalID: 2228879242761904256
+      spriteID: 9bdc19feede06df4bace4b1255fc9ff2
+      internalID: -3336214807334946509
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_50
+      name: Demon3_Attack_with_shadow_15
       rect:
         serializedVersion: 2
-        x: 298
-        y: 296
-        width: 49
-        height: 55
+        x: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4a78aeb8963cb9680800000000000000
-      internalID: -8747182993150670940
+      spriteID: 2ad7a426fd12e014e82802b9af81f081
+      internalID: 2271445634079085988
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_51
+      name: Demon3_Attack_with_shadow_16
       rect:
         serializedVersion: 2
-        x: 429
-        y: 294
-        width: 46
-        height: 54
+        x: 768
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9124e4e839e4f34e0800000000000000
-      internalID: -1999793313874558439
+      spriteID: 05489f774f3250b47ac4887899edf553
+      internalID: -3947776958501153928
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_54
+      name: Demon3_Attack_with_shadow_17
       rect:
         serializedVersion: 2
-        x: 806
-        y: 297
-        width: 58
-        height: 84
+        x: 896
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8b33807e5f6f6c520800000000000000
-      internalID: 2722134560795538360
+      spriteID: 06d7dca037fd67b4495b43f8bafc9a3f
+      internalID: -6920262182686184200
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_57
+      name: Demon3_Attack_with_shadow_18
       rect:
         serializedVersion: 2
-        x: 1189
-        y: 302
-        width: 53
-        height: 80
+        x: 1024
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 45a0b8075192cae20800000000000000
-      internalID: 3363108193798130260
+      spriteID: c2abfe37c73b49045992edac3b919c11
+      internalID: 1390376707789709426
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_59
+      name: Demon3_Attack_with_shadow_19
       rect:
         serializedVersion: 2
-        x: 33
-        y: 174
-        width: 52
-        height: 51
+        x: 1152
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 13ca5fb2056e32bf0800000000000000
-      internalID: -350183113995473871
+      spriteID: 9de09ae03a1cfd542b40878bacc916f4
+      internalID: -8938115376444719982
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_60
+      name: Demon3_Attack_with_shadow_20
       rect:
         serializedVersion: 2
-        x: 167
-        y: 174
-        width: 49
-        height: 52
+        x: 0
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 328eb25da73b487c0800000000000000
-      internalID: -4069930823092279261
+      spriteID: d71c7a525839a95458b8c0fba84bda1e
+      internalID: 2342565872496295339
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_61
+      name: Demon3_Attack_with_shadow_21
       rect:
         serializedVersion: 2
-        x: 301
-        y: 174
-        width: 47
-        height: 52
+        x: 128
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fbc3b18dd1d2380b0800000000000000
-      internalID: -5727684694882173761
+      spriteID: 9a90a14e8f328b84bbad93902897ae28
+      internalID: -548972534605135816
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_62
+      name: Demon3_Attack_with_shadow_22
       rect:
         serializedVersion: 2
-        x: 429
-        y: 174
-        width: 49
-        height: 52
+        x: 256
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0dfa4fb8c5e9a6d30800000000000000
-      internalID: 4425523704167182288
+      spriteID: 5897a0d392a03ec4c9267709f2b25d6b
+      internalID: 5859754047686561309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_63
+      name: Demon3_Attack_with_shadow_23
       rect:
         serializedVersion: 2
-        x: 525
-        y: 174
-        width: 69
-        height: 45
+        x: 384
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 37f2ae2db5bfbfdc0800000000000000
-      internalID: -3604010704980791437
+      spriteID: 2a6d68344feb17f448595745fcc672fc
+      internalID: 4907658768408557378
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_64
+      name: Demon3_Attack_with_shadow_24
       rect:
         serializedVersion: 2
-        x: 647
-        y: 172
-        width: 79
-        height: 47
+        x: 512
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 508d26d510e7d6740800000000000000
-      internalID: 5146908493481170949
+      spriteID: be5d360f71d0f08439968ce98303b6b7
+      internalID: -5341403502415483514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_66
+      name: Demon3_Attack_with_shadow_25
       rect:
         serializedVersion: 2
-        x: 770
-        y: 167
-        width: 84
-        height: 53
+        x: 640
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7ce741f41618d9010800000000000000
-      internalID: 1197255330888974023
+      spriteID: ac5ad459e04f5a943b4fb5a3276172c7
+      internalID: 2743903168161453026
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_70
+      name: Demon3_Attack_with_shadow_26
       rect:
         serializedVersion: 2
-        x: 895
-        y: 166
-        width: 87
-        height: 59
+        x: 768
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c2e83ad2c270730f0800000000000000
-      internalID: -1137432494562111956
+      spriteID: dccfd7656d45df74391f1ce7ee953f12
+      internalID: 7716444342282048399
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_73
+      name: Demon3_Attack_with_shadow_27
       rect:
         serializedVersion: 2
-        x: 1020
-        y: 163
-        width: 90
-        height: 62
+        x: 896
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 89d998be74b08a360800000000000000
-      internalID: 7181002009364503960
+      spriteID: a8d6cd1f6061b7b469f1a3f17b7824ab
+      internalID: -4998504611130986714
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_74
+      name: Demon3_Attack_with_shadow_28
       rect:
         serializedVersion: 2
-        x: 1151
-        y: 163
-        width: 87
-        height: 62
+        x: 1024
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 684a4474d67aeb400800000000000000
-      internalID: 341894709515691142
+      spriteID: 3587dc3013b5d76408470cb1feb31ec4
+      internalID: -218562756289537939
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_85
+      name: Demon3_Attack_with_shadow_29
       rect:
         serializedVersion: 2
-        x: 42
-        y: 46
-        width: 52
-        height: 51
+        x: 1152
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cbfc97da8cc2ffc50800000000000000
-      internalID: 6701124010966110140
+      spriteID: 44182055fbff6004a8d8be2298e53420
+      internalID: 2029963976419932579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_86
+      name: Demon3_Attack_with_shadow_30
       rect:
         serializedVersion: 2
-        x: 169
-        y: 46
-        width: 48
-        height: 52
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fe5b524ffb75ad190800000000000000
-      internalID: -7936934911340595729
+      spriteID: 7aa5cc552c24cec4693189ad1f3419b7
+      internalID: 2281733767340552224
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_87
+      name: Demon3_Attack_with_shadow_31
       rect:
         serializedVersion: 2
-        x: 291
-        y: 46
-        width: 48
-        height: 52
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 624883cfba24cb850800000000000000
-      internalID: 6394058877397664806
+      spriteID: 1662b78b0ced4b64ba1e5a60fa08b138
+      internalID: -1482380074772938029
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_88
+      name: Demon3_Attack_with_shadow_32
       rect:
         serializedVersion: 2
-        x: 416
-        y: 46
-        width: 45
-        height: 52
+        x: 256
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6c53c4aa638e345f0800000000000000
-      internalID: -773519389494594106
+      spriteID: 0d21a1c5966028b4e9f467f586a4c626
+      internalID: 1038801559
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_89
+      name: Demon3_Attack_with_shadow_33
       rect:
         serializedVersion: 2
-        x: 557
-        y: 46
-        width: 69
-        height: 45
+        x: 384
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fa9ac7e1e0687cf90800000000000000
-      internalID: -6933425706114438737
+      spriteID: cfb2bb17c6aadda4a9b78ddfc111378d
+      internalID: 564478318
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_90
+      name: Demon3_Attack_with_shadow_34
       rect:
         serializedVersion: 2
-        x: 682
-        y: 44
-        width: 79
-        height: 47
+        x: 512
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e4de73552779ae2a0800000000000000
-      internalID: -6707382177703137970
+      spriteID: 2ece94561f82a2343a41680964af4a16
+      internalID: 9016131226930292391
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_91
+      name: Demon3_Attack_with_shadow_35
       rect:
         serializedVersion: 2
-        x: 809
-        y: 40
-        width: 83
-        height: 52
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 34457bd275a7e34a0800000000000000
-      internalID: -6611712688085576637
+      spriteID: a883f35f637d5e34d8c4e3c45d5f2c61
+      internalID: 2437456681235310078
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_93
+      name: Demon3_Attack_with_shadow_36
       rect:
         serializedVersion: 2
-        x: 938
-        y: 39
-        width: 85
-        height: 58
+        x: 768
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 034a045053e7a6a30800000000000000
-      internalID: 4209315567917638704
+      spriteID: 319b4f961be10674cb39b96e8f3d9c7d
+      internalID: 3779162757137710679
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_97
+      name: Demon3_Attack_with_shadow_37
       rect:
         serializedVersion: 2
-        x: 1066
-        y: 36
-        width: 86
-        height: 61
+        x: 896
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c899da6efaac6a750800000000000000
-      internalID: 6315958384271923596
+      spriteID: 826b3dd54ccf7c44c9af361c70557f4b
+      internalID: 1949053809875893186
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Demon3_Attack_with_shadow_100
+      name: Demon3_Attack_with_shadow_38
       rect:
         serializedVersion: 2
-        x: 1194
-        y: 35
-        width: 86
-        height: 62
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 96ec8ce1b46d29310800000000000000
-      internalID: 1410425251447754345
+      spriteID: ef90633d9d10ea94b962110697704df5
+      internalID: -7722881022134258770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Demon3_Attack_with_shadow_39
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 960de478511a911429edc70e3f4f3837
+      internalID: 6934846228267525554
       vertices: []
       indices: 
       edges: []
@@ -1352,18 +1352,7 @@ TextureImporter:
       Demon3_Attack_with_shadow_0: -1597218122093743842
       Demon3_Attack_with_shadow_1: -6845741490094261850
       Demon3_Attack_with_shadow_10: 4605487588842355063
-      Demon3_Attack_with_shadow_100: 1410425251447754345
-      Demon3_Attack_with_shadow_101: 3623565145091723162
-      Demon3_Attack_with_shadow_102: -2092681165071828442
-      Demon3_Attack_with_shadow_103: -3467822124518881482
-      Demon3_Attack_with_shadow_104: 5798141792105709616
-      Demon3_Attack_with_shadow_105: -5741550309030627900
-      Demon3_Attack_with_shadow_106: 1014108708862570463
-      Demon3_Attack_with_shadow_107: -3935551393477538354
-      Demon3_Attack_with_shadow_108: -7762986642003138807
-      Demon3_Attack_with_shadow_109: -8366433096883639497
       Demon3_Attack_with_shadow_11: -8951417094417062880
-      Demon3_Attack_with_shadow_110: -213465878693141458
       Demon3_Attack_with_shadow_12: -6818617778474948985
       Demon3_Attack_with_shadow_13: 1329401826600269706
       Demon3_Attack_with_shadow_14: -3336214807334946509
@@ -1386,6 +1375,8 @@ TextureImporter:
       Demon3_Attack_with_shadow_3: 2062431637483344796
       Demon3_Attack_with_shadow_30: 2281733767340552224
       Demon3_Attack_with_shadow_31: -1482380074772938029
+      Demon3_Attack_with_shadow_32: 1038801559
+      Demon3_Attack_with_shadow_33: 564478318
       Demon3_Attack_with_shadow_34: 9016131226930292391
       Demon3_Attack_with_shadow_35: 2437456681235310078
       Demon3_Attack_with_shadow_36: 3779162757137710679
@@ -1393,69 +1384,11 @@ TextureImporter:
       Demon3_Attack_with_shadow_38: -7722881022134258770
       Demon3_Attack_with_shadow_39: 6934846228267525554
       Demon3_Attack_with_shadow_4: 1992778020670714416
-      Demon3_Attack_with_shadow_40: 6050539981829785863
-      Demon3_Attack_with_shadow_41: 4287862351248147802
-      Demon3_Attack_with_shadow_42: -7482195543543085984
-      Demon3_Attack_with_shadow_43: 3073028739107662385
-      Demon3_Attack_with_shadow_44: -5340734312939438413
-      Demon3_Attack_with_shadow_46: 2024914566985713975
-      Demon3_Attack_with_shadow_47: 1670274177774841976
-      Demon3_Attack_with_shadow_48: -713641593200346490
-      Demon3_Attack_with_shadow_49: 2228879242761904256
       Demon3_Attack_with_shadow_5: -3628721758151560603
-      Demon3_Attack_with_shadow_50: -8747182993150670940
-      Demon3_Attack_with_shadow_51: -1999793313874558439
-      Demon3_Attack_with_shadow_52: 7193385646622554868
-      Demon3_Attack_with_shadow_53: 1639557722304130454
-      Demon3_Attack_with_shadow_54: 2722134560795538360
-      Demon3_Attack_with_shadow_55: -4686849182021301125
-      Demon3_Attack_with_shadow_56: -5417294956818456824
-      Demon3_Attack_with_shadow_57: 3363108193798130260
-      Demon3_Attack_with_shadow_58: -1446721052895754203
-      Demon3_Attack_with_shadow_59: -350183113995473871
-      Demon3_Attack_with_shadow_60: -4069930823092279261
-      Demon3_Attack_with_shadow_61: -5727684694882173761
-      Demon3_Attack_with_shadow_62: 4425523704167182288
-      Demon3_Attack_with_shadow_63: -3604010704980791437
-      Demon3_Attack_with_shadow_64: 5146908493481170949
-      Demon3_Attack_with_shadow_65: -387157559869041994
-      Demon3_Attack_with_shadow_66: 1197255330888974023
-      Demon3_Attack_with_shadow_67: -4198216757294924205
-      Demon3_Attack_with_shadow_68: 1191923960558919933
-      Demon3_Attack_with_shadow_69: 493628461641063113
+      Demon3_Attack_with_shadow_6: 2011033508
       Demon3_Attack_with_shadow_7: 4771137385739620938
-      Demon3_Attack_with_shadow_70: -1137432494562111956
-      Demon3_Attack_with_shadow_71: 738330515965253524
-      Demon3_Attack_with_shadow_72: -1721845023289124942
-      Demon3_Attack_with_shadow_73: 7181002009364503960
-      Demon3_Attack_with_shadow_74: 341894709515691142
-      Demon3_Attack_with_shadow_75: -1076696275358058287
-      Demon3_Attack_with_shadow_76: -1631642650062760510
-      Demon3_Attack_with_shadow_77: -3667267276185132186
-      Demon3_Attack_with_shadow_78: 6291858482600363045
-      Demon3_Attack_with_shadow_79: 5964396769319841981
       Demon3_Attack_with_shadow_8: -7201301419890523838
-      Demon3_Attack_with_shadow_80: 4452410549030199003
-      Demon3_Attack_with_shadow_81: 786492475919421922
-      Demon3_Attack_with_shadow_82: 6714465676209252112
-      Demon3_Attack_with_shadow_83: 4262883785699900328
-      Demon3_Attack_with_shadow_84: -7312947155000184974
-      Demon3_Attack_with_shadow_85: 6701124010966110140
-      Demon3_Attack_with_shadow_86: -7936934911340595729
-      Demon3_Attack_with_shadow_87: 6394058877397664806
-      Demon3_Attack_with_shadow_88: -773519389494594106
-      Demon3_Attack_with_shadow_89: -6933425706114438737
       Demon3_Attack_with_shadow_9: 4480662129425112117
-      Demon3_Attack_with_shadow_90: -6707382177703137970
-      Demon3_Attack_with_shadow_91: -6611712688085576637
-      Demon3_Attack_with_shadow_92: 8693839252433263877
-      Demon3_Attack_with_shadow_93: 4209315567917638704
-      Demon3_Attack_with_shadow_94: -3491327085560193724
-      Demon3_Attack_with_shadow_95: -3894885309067657115
-      Demon3_Attack_with_shadow_96: -8068754688591619165
-      Demon3_Attack_with_shadow_97: 6315958384271923596
-      Demon3_Attack_with_shadow_98: -5135118947696122229
-      Demon3_Attack_with_shadow_99: 3005418488323776943
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

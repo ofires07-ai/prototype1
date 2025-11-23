@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 932928304278094074}
   - component: {fileID: 3004575735068113649}
   - component: {fileID: 7048532766134611001}
-  - component: {fileID: -3941589129477589669}
   - component: {fileID: 691518889414448477}
   - component: {fileID: -6934125249822737553}
+  - component: {fileID: 147895329591371289}
   m_Layer: 10
   m_Name: st3_boss
   m_TagString: Enemy
@@ -131,31 +131,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   nearestTarget: {fileID: 0}
---- !u!114 &-3941589129477589669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492350326740679817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a798acfa3c5eb4154966423f4d74a8bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  stoppingDistance: 0.5
-  chaseSpeed: 4
-  attackRange: 1
-  attackDamage: 1
-  enemyMeleeHitboxPrefab: {fileID: 36502750192200874, guid: 88f23ac6008f05c4abdd976b55843bce, type: 3}
-  maxHp: 1000
-  autoFindCircles: 1
-  manualWaypoints: []
-  animator: {fileID: 0}
-  scanner: {fileID: 0}
-  enemyID: 
-  NodeName: Square
 --- !u!50 &691518889414448477
 Rigidbody2D:
   serializedVersion: 5
@@ -220,3 +195,29 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.53, y: 0.58}
   m_Direction: 0
+--- !u!114 &147895329591371289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492350326740679817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b179873842ac8d4a8f125549b0dfd25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  stoppingDistance: 0.5
+  chaseSpeed: 4
+  attackRange: 1
+  attackDamage: 1
+  enemyMeleeHitboxPrefab: {fileID: 36502750192200874, guid: 88f23ac6008f05c4abdd976b55843bce, type: 3}
+  maxHp: 100
+  autoFindCircles: 1
+  manualWaypoints: []
+  animator: {fileID: 0}
+  scanner: {fileID: 0}
+  speedMultiplier: 1
+  enemyID: 
+  NodeName: Square
