@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5bf4d7101cd2f4d678a3c526b0575a56
+guid: 9281a70c0b1d54e0abf62545ef3b8694
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,10 +103,10 @@ TextureImporter:
       name: SpaceShip_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1024
-        height: 1024
+        x: 100
+        y: 280
+        width: 836
+        height: 644
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
