@@ -1,5 +1,14 @@
 using UnityEngine;
 
+public enum InstructionPos
+{
+    BottomMid, // 하단 중앙 (기본값)
+    TopMid,    // 상단 중앙
+    Center,     // 정중앙
+    LeftMid, //좌측 중앙
+    RightMid //우측 중앙
+}
+
 // (미래 대비용) 하이라이트 모양 정의
 public enum HighlightShape
 {
@@ -18,6 +27,15 @@ public class TutorialStep
     [Header("타겟 설정")]
     [Tooltip("하이라이트 할 실제 게임 UI 요소의 RectTransform을 연결하세요. (없으면 비워두세요)")]
     public RectTransform targetUI; // 목표 대상
+    
+    [Tooltip("이 단계에서 설명창이 표시될 위치를 선택하세요.")]
+    public InstructionPos boxPosition = InstructionPos.BottomMid;
+    
+    [Header("설명창 크기 옵션")]
+    [Tooltip("설명창의 너비를 설정합니다. (0으로 두면 기본 크기 유지)")]
+    public float boxWidth = 0f; 
+    [Tooltip("설명창의 높이를 설정합니다. (0으로 두면 기본 크기 유지)")]
+    public float boxHeight = 0f;
 
     [Tooltip("나중에 마스킹 방식 도입 시 사용할 모양 정보 (지금은 무시해도 됩니다)")]
     public HighlightShape shape = HighlightShape.Rectangle;
