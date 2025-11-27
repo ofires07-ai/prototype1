@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpaceShip : MonoBehaviour
@@ -13,11 +15,15 @@ public class SpaceShip : MonoBehaviour
     public CrimerManager crimerManager; 
     [Header("죄수 스폰 설정")]
     [Tooltip("추첨에서 뽑힌 죄수 5명의 프리팹 리스트, init()을 통한 초기화 필수")]
-    private List<PickUnit> selectedPrisonerPrefabs; // ⬅️ (추첨 시스템이 이 리스트를 채워야 함)
+    public List<PickUnit> selectedPrisonerPrefabs; // ⬅️ (추첨 시스템이 이 리스트를 채워야 함)
     [Tooltip("죄수들이 '생성'될 위치 (우주선 문 앞)")]
     private Transform spaceshipSpawnPoint; 
     [Tooltip("죄수들이 '이동할' 최종 도착 지점들 (5개)")]
     public List<Transform> rallyPoints; 
+    
+    // ✅ [추가] 스폰 완료를 알리는 이벤트 정의
+    // 'public static'으로 만들어서 어디서든 쉽게 접근하게 합니다.
+    public static event Action OnAllPrisonersSpawned;
     
     void Start()
     {
@@ -64,6 +70,10 @@ public class SpaceShip : MonoBehaviour
                 rallyPoints[i].position, 
                 rallyPoints[i].rotation
             );
+            
+            // ✅ [추가] 반복문이 다 끝나면(스폰 완료) 이벤트 발송!
+            Debug.Log("[SpaceShip] 모든 죄수 스폰 완료! 이벤트를 보냅니다.");
+            OnAllPrisonersSpawned?.Invoke(); // 구독자가 있을 때만 실행
 /*  !!!!!!!!!!!!!!!!!!!!나중에 구현할 코드임. 지우기 금지!!!!!!!!!!!!!!!!
             // 2. [수정] GetComponent가 필요 없어졌습니다.
             if (pickUnitScript == null)

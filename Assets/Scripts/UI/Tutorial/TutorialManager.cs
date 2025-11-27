@@ -129,15 +129,16 @@ public class TutorialManager : MonoBehaviour
         SetInstructionBoxTransform(step);
 
         // 2. 하이라이트 이동 (핵심 기능!)
-        FocusOnTarget(step.targetUI, step.shape);
+        FocusOnTarget(step);
     }
-
-    // 타겟 위치로 하이라이트 프레임을 이동시킴
-    // (⭐ 나중에 마스킹 방식으로 바꿀 때 이 함수 내용만 교체하면 됨 ⭐)
-    private void FocusOnTarget(RectTransform target, HighlightShape shape)
+    
+   // ✅ [초강력 디버깅 Ver.] 좌표 변환 집중 추적
+    private void FocusOnTarget(TutorialStep step)
     {
-        // 타겟이 없으면 하이라이터 숨김 (설명만 있는 단계)
-        if (target == null)
+        RectTransform uiTarget = step.targetUI;
+        Transform worldTarget = step.targetWorldObject;
+
+        if (uiTarget == null && worldTarget == null)
         {
             highlighterFrame.gameObject.SetActive(false);
             return;
@@ -145,72 +146,167 @@ public class TutorialManager : MonoBehaviour
 
         highlighterFrame.gameObject.SetActive(true);
 
-        // --- [방식 1: 테두리 프레임 이동 로직] ---
-        
-        // 타겟의 월드 좌표를 하이라이터의 좌표로 복사 (둘 다 UI이므로 잘 작동함)
-        highlighterFrame.position = target.position;
+        Vector3 finalScreenPos = Vector3.zero;
+        Vector2 finalSize = Vector2.zero;
+        Camera mainCam = Camera.main; // 카메라 캐싱
 
-        // 크기 맞추기 (타겟 크기 + 약간의 여유 공간 20픽셀)
-        // shape 정보는 지금은 무시하지만, 나중에 원형/사각형 구분 시 사용 가능
-        highlighterFrame.sizeDelta = target.sizeDelta + new Vector2(20f, 20f);
+        // --- 경우의 수 1: 타겟이 UI일 때 ---
+        if (uiTarget != null)
+        {
+            finalScreenPos = uiTarget.position;
+            finalSize = uiTarget.sizeDelta;
+        }
+        // --- 경우의 수 2: 타겟이 월드 오브젝트(죄수)일 때 ---
+        else if (worldTarget != null)
+        {
+            // 🚨 [체크] 카메라 존재 여부
+            if (mainCam == null)
+            {
+                Debug.LogError("🚨 [치명적 오류] MainCamera를 찾을 수 없습니다! 태그를 확인하세요.");
+                return;
+            }
 
-        // (참고: 타겟의 피벗/앵커 설정이 복잡해서 위치가 어긋난다면
-        // RectTransformUtility.ScreenPointToLocalPointInRectangle 등을 써야 할 수 있음.
-        // 일단은 이 간단한 방식으로 시작해보는 것 추천)
+            // 1. 위치 계산 (월드 좌표 -> 스크린 좌표)
+            Vector3 targetWorldPos = worldTarget.position;
+            Vector3 convertedScreenPos = mainCam.WorldToScreenPoint(targetWorldPos);
+
+            Debug.Log($"--- [좌표 변환 추적 시작] ---");
+            Debug.Log($"1. 타겟 월드 좌표: {targetWorldPos}");
+            Debug.Log($"2. 변환된 스크린 좌표(raw): {convertedScreenPos}");
+            Debug.Log($"   (참고: 현재 화면 해상도: {Screen.width} x {Screen.height})");
+
+            // 🚨 [중요 체크] 변환된 좌표가 화면 안에 있는가?
+            bool isOnScreen = convertedScreenPos.x >= 0 && convertedScreenPos.x <= Screen.width &&
+                              convertedScreenPos.y >= 0 && convertedScreenPos.y <= Screen.height;
+            
+            // Z값이 0보다 작으면 카메라 뒤에 있다는 뜻 (Orthographic에서도 확인 필요)
+            bool isInFrontOfCamera = convertedScreenPos.z > 0;
+
+            if (!isOnScreen || !isInFrontOfCamera)
+            {
+                 Debug.LogWarning($"⚠️ [경고] 타겟이 화면 밖이나 카메라 뒤에 있습니다! 하이라이터가 이상한 곳에 표시될 수 있습니다. (화면안: {isOnScreen}, 카메라앞: {isInFrontOfCamera})");
+            }
+            else
+            {
+                Debug.Log("✅ [정상] 타겟 좌표가 화면 내부에 정상적으로 변환되었습니다.");
+            }
+
+            finalScreenPos = convertedScreenPos;
+            Debug.Log($"--- [좌표 변환 추적 종료] ---");
+
+
+            // 2. 크기 계산 (기존 로직 유지)
+            SpriteRenderer sr = worldTarget.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                Bounds bounds = sr.bounds;
+                Vector3 screenBL = mainCam.WorldToScreenPoint(bounds.min);
+                Vector3 screenTR = mainCam.WorldToScreenPoint(bounds.max);
+                finalSize = new Vector2(Mathf.Abs(screenTR.x - screenBL.x), Mathf.Abs(screenTR.y - screenBL.y));
+            }
+            else
+            {
+                // SpriteRenderer가 없을 경우 대비
+                Collider2D col = worldTarget.GetComponent<Collider2D>();
+                if (col != null) {
+                     Bounds bounds = col.bounds;
+                     Vector3 screenBL = mainCam.WorldToScreenPoint(bounds.min);
+                     Vector3 screenTR = mainCam.WorldToScreenPoint(bounds.max);
+                     finalSize = new Vector2(Mathf.Abs(screenTR.x - screenBL.x), Mathf.Abs(screenTR.y - screenBL.y));
+                } else {
+                    finalSize = new Vector2(100f, 100f); // 기본값
+                }
+            }
+        }
+
+        // 최종 적용 (Z축은 UI이므로 0으로 평탄화)
+        finalScreenPos.z = 0f; 
+        highlighterFrame.position = finalScreenPos;
+        highlighterFrame.sizeDelta = finalSize + new Vector2(50f, 50f);
     }
+
+    // // 타겟 위치로 하이라이트 프레임을 이동시킴
+    // // (⭐ 나중에 마스킹 방식으로 바꿀 때 이 함수 내용만 교체하면 됨 ⭐)
+    // private void FocusOnTarget(RectTransform target, HighlightShape shape)
+    // {
+    //     // 타겟이 없으면 하이라이터 숨김 (설명만 있는 단계)
+    //     if (target == null)
+    //     {
+    //         highlighterFrame.gameObject.SetActive(false);
+    //         return;
+    //     }
+    //
+    //     highlighterFrame.gameObject.SetActive(true);
+    //
+    //     // --- [방식 1: 테두리 프레임 이동 로직] ---
+    //     
+    //     // 타겟의 월드 좌표를 하이라이터의 좌표로 복사 (둘 다 UI이므로 잘 작동함)
+    //     highlighterFrame.position = target.position;
+    //
+    //     // 크기 맞추기 (타겟 크기 + 약간의 여유 공간 20픽셀)
+    //     // shape 정보는 지금은 무시하지만, 나중에 원형/사각형 구분 시 사용 가능
+    //     highlighterFrame.sizeDelta = target.sizeDelta + new Vector2(20f, 20f);
+    //
+    //     // (참고: 타겟의 피벗/앵커 설정이 복잡해서 위치가 어긋난다면
+    //     // RectTransformUtility.ScreenPointToLocalPointInRectangle 등을 써야 할 수 있음.
+    //     // 일단은 이 간단한 방식으로 시작해보는 것 추천)
+    // }
     
-    // ✅ [함수명 변경 및 기능 확장] 위치와 크기를 모두 설정합니다.
+    // ✅ [수정됨] 설명창의 위치와 크기를 설정합니다.
     private void SetInstructionBoxTransform(TutorialStep step)
     {
-        // 2-1. 크기 설정 (너비/높이가 0보다 클 때만 적용, 아니면 기본값)
+        // 2-1. 크기 설정 (기존 코드 유지)
         float newWidth = (step.boxWidth > 0f) ? step.boxWidth : defaultBoxSize.x;
         float newHeight = (step.boxHeight > 0f) ? step.boxHeight : defaultBoxSize.y;
         instructionPanelRect.sizeDelta = new Vector2(newWidth, newHeight);
 
-        // 2-2. 위치 설정 (앵커/피벗 초기화: 중앙 기준)
+        // 2-2. 위치 설정 (앵커 고정, 피벗 및 위치만 변경)
+        
+        // [중요] 앵커를 중앙으로 고정합니다. (화면 정중앙 기준)
+        // 이렇게 하면 화면 해상도가 바뀌어도 항상 중앙을 기준으로 계산됩니다.
         instructionPanelRect.anchorMin = new Vector2(0.5f, 0.5f);
         instructionPanelRect.anchorMax = new Vector2(0.5f, 0.5f);
-        instructionPanelRect.pivot = new Vector2(0.5f, 0.5f);
-        instructionPanelRect.anchoredPosition = Vector2.zero;
 
         // 여백 값 정의 (취향에 따라 조절하세요)
-        float paddingX = 100f;
-        float paddingY = 100f;
+        float paddingX = 100f; // 좌우 가장자리에서 떨어진 거리
+        float paddingY = 100f; // 상하 가장자리에서 떨어진 거리
 
         switch (step.boxPosition)
         {
             case InstructionPos.BottomMid:
-                instructionPanelRect.anchorMin = new Vector2(0.5f, 0f);
-                instructionPanelRect.anchorMax = new Vector2(0.5f, 0f);
+                // 피벗을 하단 중앙으로 설정
                 instructionPanelRect.pivot = new Vector2(0.5f, 0f);
-                instructionPanelRect.anchoredPosition = new Vector2(0f, paddingY);
+                // 화면 중앙 기준(0,0)에서 아래쪽으로 이동, 바닥에서 paddingY만큼 띄움
+                // (화면 높이의 절반만큼 아래로 간 뒤 + 패딩)
+                instructionPanelRect.anchoredPosition = new Vector2(0f, -Screen.height / 2f + paddingY);
                 break;
 
             case InstructionPos.TopMid:
-                instructionPanelRect.anchorMin = new Vector2(0.5f, 1f);
-                instructionPanelRect.anchorMax = new Vector2(0.5f, 1f);
+                // 피벗을 상단 중앙으로 설정
                 instructionPanelRect.pivot = new Vector2(0.5f, 1f);
-                instructionPanelRect.anchoredPosition = new Vector2(0f, -paddingY);
+                // 화면 중앙 기준에서 위쪽으로 이동, 천장에서 paddingY만큼 띄움
+                instructionPanelRect.anchoredPosition = new Vector2(0f, Screen.height / 2f - paddingY);
                 break;
 
-            // ✅ [추가] 왼쪽 중앙
             case InstructionPos.LeftMid:
-                instructionPanelRect.anchorMin = new Vector2(0f, 0.5f);
-                instructionPanelRect.anchorMax = new Vector2(0f, 0.5f);
+                // 피벗을 좌측 중앙으로 설정
                 instructionPanelRect.pivot = new Vector2(0f, 0.5f);
-                instructionPanelRect.anchoredPosition = new Vector2(paddingX, 0f);
+                // 화면 중앙 기준에서 왼쪽으로 이동, 왼쪽 벽에서 paddingX만큼 띄움
+                instructionPanelRect.anchoredPosition = new Vector2(-Screen.width / 2f + paddingX, 0f);
                 break;
 
-            // ✅ [추가] 오른쪽 중앙
             case InstructionPos.RightMid:
-                instructionPanelRect.anchorMin = new Vector2(1f, 0.5f);
-                instructionPanelRect.anchorMax = new Vector2(1f, 0.5f);
+                // 피벗을 우측 중앙으로 설정
                 instructionPanelRect.pivot = new Vector2(1f, 0.5f);
-                instructionPanelRect.anchoredPosition = new Vector2(-paddingX, 0f);
+                // 화면 중앙 기준에서 오른쪽으로 이동, 오른쪽 벽에서 paddingX만큼 띄움
+                instructionPanelRect.anchoredPosition = new Vector2(Screen.width / 2f - paddingX, 0f);
                 break;
 
             case InstructionPos.Center:
-                // 중앙은 추가 오프셋 없음
+                // 피벗을 중앙으로 설정
+                instructionPanelRect.pivot = new Vector2(0.5f, 0.5f);
+                // 화면 정중앙에 배치
+                instructionPanelRect.anchoredPosition = Vector2.zero;
                 break;
         }
     }

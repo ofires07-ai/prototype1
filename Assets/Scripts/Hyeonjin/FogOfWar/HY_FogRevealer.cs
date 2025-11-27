@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -10,6 +11,11 @@ public class HY_FogRevealer : MonoBehaviour
     public float revealInterval = 0.1f;
 
     private float t;
+
+    private void Awake()
+    {
+        HY_FogOfWar.Instance.RevealCircle(transform.position, visionRadius);
+    }
 
     void Update()
     {

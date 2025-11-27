@@ -28,6 +28,10 @@ public class TutorialStep
     [Tooltip("하이라이트 할 실제 게임 UI 요소의 RectTransform을 연결하세요. (없으면 비워두세요)")]
     public RectTransform targetUI; // 목표 대상
     
+    // ✅ [신규 추가] 3D 월드 오브젝트(죄수 유닛 등) 타겟용 변수
+    [Tooltip("게임 월드에 있는 3D 오브젝트를 타겟팅할 때 사용합니다.")]
+    public Transform targetWorldObject;
+    
     [Tooltip("이 단계에서 설명창이 표시될 위치를 선택하세요.")]
     public InstructionPos boxPosition = InstructionPos.BottomMid;
     
