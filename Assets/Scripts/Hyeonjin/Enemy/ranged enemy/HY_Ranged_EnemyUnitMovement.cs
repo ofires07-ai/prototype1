@@ -7,13 +7,17 @@ using System.Linq;
 /// [통합 AI 스크립트 - 원거리 유닛 리팩토링]
 /// [🔧 수정] Event_PerformAttack에서 구체 타입을 자동으로 감지하도록 개선
 /// </summary>
-public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
+public class HY_Ranged_EnemyUnitMovement : MonoBehaviour, ISlowable
 {
     [Header("이동 설정")]
     [Tooltip("기본 순찰 속도")]
     [SerializeField] private float moveSpeed = 3f;
     [Tooltip("웨이포인트에 도달했다고 판단하는 거리")]
     [SerializeField] private float stoppingDistance = 0.5f;
+
+    [Header("상태 이상 설정")]
+    [Tooltip("현재 속도 배율 (1.0 = 정상, 0.5 = 절반 속도)")]
+    [SerializeField] public float speedMultiplier = 1.0f;
 
     [Header("전투 설정")]
     [Tooltip("적을 발견했을 때의 추격 속도")]
@@ -43,6 +47,7 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
     public HY_Scanner scanner;
     private SpriteRenderer spriteRenderer;
 
+    private float _originalSpeedMultiplier;
     private List<Transform> waypoints = new List<Transform>();
     private int currentWaypointIndex = 0;
     private bool hasReachedFinalDestination = false;
@@ -62,6 +67,7 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
         
         currentHp = maxHp;
         isLive = true;
+        _originalSpeedMultiplier = speedMultiplier; // 원래 속도 배율 저장
 
         if (spriteRenderer == null)
         {
@@ -159,9 +165,10 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
         }
 
         Vector3 direction = (targetWaypoint.position - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
+        float currentMoveSpeed = moveSpeed * speedMultiplier;
+        transform.position += direction * currentMoveSpeed * Time.deltaTime;
 
-        animator.SetFloat("Speed", moveSpeed);
+        animator.SetFloat("Speed", currentMoveSpeed);
         animator.SetFloat("moveX", direction.x);
         animator.SetFloat("moveY", direction.y);
     }
@@ -394,5 +401,24 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
         }
 
         Debug.Log($"[AI 🚀] {name}: 구체가 {currentTarget.name}을 향해 발사되었습니다!");
+    }
+    /// <summary>
+    /// 외부(타워)에서 호출하여 속도 배율을 변경합니다.
+    /// </summary>
+    /// <param name="ratio">적용할 비율 (예: 0.75f)</param>
+    public void ApplySlow(float ratio)
+    {
+        speedMultiplier = ratio;
+        // 디버깅용 로그 (필요 없으면 삭제)
+        // Debug.Log($"[AI] {name}: 이동 속도 {ratio * 100}%로 감소");
+    }
+
+    /// <summary>
+    /// 속도를 다시 원래대로(1.0) 복구합니다.
+    /// </summary>
+    public void RemoveSlow()
+    {
+        speedMultiplier = _originalSpeedMultiplier;
+        // Debug.Log($"[AI] {name}: 이동 속도 정상화");
     }
 }
