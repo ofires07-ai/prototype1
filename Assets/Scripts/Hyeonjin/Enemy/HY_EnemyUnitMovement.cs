@@ -16,7 +16,7 @@ using System.Collections;
 /// [필수 컴포넌트]
 /// - Animator, HY_Scanner, SpriteRenderer, Collider2D
 /// </summary>
-public class HY_EnemyUnitMovement : MonoBehaviour
+public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
 {
     [Header("이동 설정")]
     [Header("이동 설정")]
@@ -56,6 +56,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     [Tooltip("현재 속도 배율 (1.0 = 정상, 0.5 = 절반 속도)")]
     [SerializeField] private float speedMultiplier = 1.0f;
 
+    private float _originalSpeedMultiplier;
     // --- 내부 관리 변수 ---
     private List<Transform> waypoints = new List<Transform>();
     private int currentWaypointIndex = 0;
@@ -78,6 +79,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour
         
         currentHp = maxHp; // 체력 초기화
         isLive = true;
+        _originalSpeedMultiplier = speedMultiplier; // 원래 속도 배율 저장
 
         if (spriteRenderer == null)
         {
@@ -247,7 +249,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour
     /// </summary>
     public void RemoveSlow()
     {
-        speedMultiplier = 1.0f;
+        speedMultiplier = _originalSpeedMultiplier;
         // Debug.Log($"[AI] {name}: 이동 속도 정상화");
     }
 
