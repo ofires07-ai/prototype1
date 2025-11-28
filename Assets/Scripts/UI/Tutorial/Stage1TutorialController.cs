@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class Stage1TutorialController : MonoBehaviour
 {
     [Header("--- [설정] 튜토리얼 활성화 여부 ---")]
-    public bool enableTutorial = true;
+    public static bool enableTutorial = true;
     public GameObject tutorialPanel;
 
     [Header("--- [타겟 연결] 실제 게임 UI 버튼들을 연결하세요 ---")]
@@ -58,14 +58,14 @@ public class Stage1TutorialController : MonoBehaviour
 
         Debug.Log($"[Stage1TutorialController] enableTutorial: {enableTutorial}, spaceShipScript: {(spaceShipScript != null ? spaceShipScript.name : "null")}");
 
-        if (GameFlowManager.tutorialIsPlayed)
+        if (!enableTutorial)
         {
             Debug.Log("[Stage1TutorialController] 튜토리얼이 비활성화되어 있습니다.");
             tutorialPanel.SetActive(false);
             return;
         }
 
-        GameFlowManager.tutorialIsPlayed = true;
+        enableTutorial = true;
 
         // 튜토리얼이 꺼져있거나, 이미 클리어했다면 실행 안 함 (PlayerPrefs 활용 예시)
         // if (!enableTutorial || PlayerPrefs.GetInt("TutorialCleared_Stage1", 0) == 1) return;

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public class GameFlowManager : MonoBehaviour
 {
     public static GameFlowManager Instance { get; private set; }
-    public static bool tutorialIsPlayed;
 
     [Header("씬 이름 설정")]
     public string titleSceneName = "Title";      // 타이틀 씬 이름
@@ -66,7 +65,6 @@ public class GameFlowManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        tutorialIsPlayed = false;
 
         EnsureStageScoreArray();
 
