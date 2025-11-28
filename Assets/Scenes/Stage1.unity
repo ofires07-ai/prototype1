@@ -2216,10 +2216,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88fb98f718904ff190d3e5faaae0cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceShipScript: {fileID: 0}
   enableTutorial: 1
   crimerCards: {fileID: 149611409}
   rerollButtonTarget: {fileID: 1115593235}
+  spaceShipScript: {fileID: 0}
+  targetTier1Amount: 5
+  targetTier2Amount: 2
   seq1_Selection:
   - instructionText: "----------\uC8C4\uC218----------\n\uC774 \uCC3D\uC5D0\uC11C
       10\uBA85\uC758 \uC8C4\uC218 \uC911 5\uBA85\uC758 \uC8C4\uC218\uB97C \uB79C\uB364\uC73C\uB85C
@@ -2286,7 +2288,7 @@ MonoBehaviour:
     targetWorldObject: {fileID: 1500719099}
     boxPosition: 2
     boxWidth: 600
-    boxHeight: 600
+    boxHeight: 500
     shape: 0
   - instructionText: "----------\uC0C1\uD0DCUI----------\n\uCC44\uAD74\uD55C \uC790\uC6D0\uB7C9\uACFC
       \uC6B0\uC8FC\uC120\uC758 HP\uB97C \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
@@ -2306,7 +2308,7 @@ MonoBehaviour:
     targetWorldObject: {fileID: 0}
     boxPosition: 1
     boxWidth: 600
-    boxHeight: 200
+    boxHeight: 250
     shape: 0
   - instructionText: "----------\uBE4C\uB4DCUI----------\n\uC774\uCABD\uC5D0\uC11C\uB294
       \uC790\uC6D0 \uC885\uB958\uB97C \uC5C5\uADF8\uB808\uC774\uB4DC \uD560 \uC218
@@ -2319,12 +2321,18 @@ MonoBehaviour:
     boxHeight: 200
     shape: 0
   seq3_Source:
-  - instructionText: 
+  - instructionText: "----------\uD0C0\uC6CC \uC124\uCE58----------\n\uC124\uCE58\uD558\uACE0
+      \uC2F6\uC740 \uD0C0\uC6CC\uB97C \uC120\uD0DD\uD55C \uB2E4\uC74C, \uD0C0\uC6CC
+      \uC124\uCE58 \uAC00\uB2A5 \uAD6C\uC5ED\uC744 \uD074\uB9AD\uD558\uC5EC \uD0C0\uC6CC\uB97C
+      \uC124\uCE58\uD574\uBCF4\uC138\uC694.\n\uD0C0\uC6CC \uC124\uCE58 \uD6C4 \uAE43\uBC1C\uC744
+      \uC124\uCE58\uD560 \uC704\uCE58\uB97C \uD074\uB9AD\uD574\uC11C \uC124\uCE58\uD574\uBCF4\uC138\uC694.\n\uC0DD\uC131\uB41C
+      \uC720\uB2DB\uC774 \uAE43\uBC1C\uB85C \uC774\uB3D9\uD569\uB2C8\uB2E4.\n\uAE43\uBC1C\uC740
+      \uB2E4\uC2DC \uD074\uB9AD\uD558\uC5EC \uC7AC\uC124\uCE58 \uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     targetUI: {fileID: 0}
-    targetWorldObject: {fileID: 0}
-    boxPosition: 0
-    boxWidth: 0
-    boxHeight: 0
+    targetWorldObject: {fileID: 1382247931}
+    boxPosition: 4
+    boxWidth: 600
+    boxHeight: 350
     shape: 0
   seq4_Build: []
   seq5_Wave: []
@@ -5266,10 +5274,10 @@ RectTransform:
   - {fileID: 1207585724}
   m_Father: {fileID: 1368499252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 110}
-  m_SizeDelta: {x: 0, y: 220}
+  m_SizeDelta: {x: 1920, y: 220}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &518505863
 MonoBehaviour:

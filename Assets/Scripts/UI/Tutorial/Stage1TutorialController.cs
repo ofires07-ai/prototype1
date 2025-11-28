@@ -6,8 +6,6 @@ using UnityEngine.Serialization;
 
 public class Stage1TutorialController : MonoBehaviour
 {
-    // ✅ [추가] 우주선 스크립트 참조 (스폰된 죄수 명단을 얻기 위해 필요)
-    public SpaceShip spaceShipScript;
     [Header("--- [설정] 튜토리얼 활성화 여부 ---")]
     public bool enableTutorial = true;
 
@@ -17,9 +15,20 @@ public class Stage1TutorialController : MonoBehaviour
     public RectTransform rerollButtonTarget;
 
     [Header("[시퀀스 2: 인게임 초반]")]
-    // (필요한 타겟들을 계속 추가...)
-    // public RectTransform mineralTarget_A; 
-    // public RectTransform buildMenuButtonTarget;
+    // ✅ [추가] 우주선 스크립트 참조 (스폰된 죄수 명단을 얻기 위해 필요)
+    public SpaceShip spaceShipScript;
+    
+    [Header("--- [시퀀스 3: 광물 채집 목표 설정] ---")]
+    [Tooltip("목표로 하는 Tier1 광물 개수")]
+    public int targetTier1Amount = 5; // 예시: 5개
+    [Tooltip("목표로 하는 Tier2 광물 개수")]
+    public int targetTier2Amount = 2; // 예시: 2개
+
+    // 목표 달성 상태를 추적할 내부 변수
+    private bool isTier1GoalMet = false;
+    private bool isTier2GoalMet = false;
+    // 이 시퀀스가 이미 실행되었는지 기억하는 플래그
+    private bool hasSourceSequencePlayed = false;
 
 
     [Header("--- [데이터] 시퀀스별 단계 정의 ---")]
@@ -118,6 +127,41 @@ public class Stage1TutorialController : MonoBehaviour
     {
          Debug.Log("감독: '인게임 초반' 안내 끝. 다음 상황(예: 포탑 설치) 대기.");
          // 다음 튜토리얼 조건을 체크하거나 이벤트 대기...
+         // ⭐ 바로 다음 튜토리얼을 시작하는 게 아니라, '감시'를 시작합니다.
+         InventoryManager.Instance.OnResourceCountChanged += CheckResourceCondition;
+         
+         // (혹시 이미 자원이 다 모여있을 수도 있으니 즉시 한번 체크)
+         CheckConditionsAndRun();
+    }
+    
+    // ✅ [신규] 자원이 변경될 때마다 호출되는 체크 함수
+    private void CheckResourceCondition(ResourceType type, int totalAmount)
+    {
+        CheckConditionsAndRun();
+    }
+
+    // ✅ [신규] 실제 조건을 검사하고 튜토리얼을 시작하는 함수
+    private void CheckConditionsAndRun()
+    {
+        // 1. 이미 실행했다면 패스
+        if (hasSourceSequencePlayed) return;
+
+        // 2. 현재 자원량 가져오기
+        int currentTier1 = InventoryManager.Instance.GetTotalAmount(ResourceType.Tier1);
+        int currentTier2 = InventoryManager.Instance.GetTotalAmount(ResourceType.Tier2);
+
+        // 3. 조건 비교 (둘 다 만족해야 함)
+        if (currentTier1 >= targetTier1Amount && currentTier2 >= targetTier2Amount)
+        {
+            Debug.Log("감독: 자원 목표 달성! '광물 및 상부 UI' 시퀀스를 시작합니다.");
+            
+            // 더 이상 감시할 필요 없으니 구독 해제
+            if (InventoryManager.Instance != null)
+                InventoryManager.Instance.OnResourceCountChanged -= CheckResourceCondition;
+
+            // ⭐ 여기서 StartSourceSequence 호출! ⭐
+            StartSourceSequence();
+        }
     }
     
     // ✅ [수정된 핵심 함수] 죄수 대신 스폰 포인트를 타겟으로 할당
@@ -148,6 +192,21 @@ public class Stage1TutorialController : MonoBehaviour
         
         // 필요하다면 다른 단계에도 추가 할당 가능
         // if (seq2_CrimerControll.Count > 1 && spaceShipScript.rallyPoints.Count > 1) { ... }
+    }
+    
+    // 3. 광물 및 상부 UI 시퀀스 (조건 만족 시에만 호출됨)
+    void StartSourceSequence()
+    {
+        hasSourceSequencePlayed = true; // 실행됨 표시
+
+        // 이제야 튜토리얼 창을 띄웁니다!
+        TutorialManager.Instance.StartSequence(seq3_Source, OnSourceSequenceFinished);
+    }
+    
+    void OnSourceSequenceFinished()
+    {
+        Debug.Log("감독: '타워 설치' 안내 끝. 다음 상황 대기.");
+
     }
     
     void OnDestroy()

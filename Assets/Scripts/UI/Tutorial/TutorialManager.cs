@@ -222,7 +222,7 @@ public class TutorialManager : MonoBehaviour
         // 최종 적용 (Z축은 UI이므로 0으로 평탄화)
         finalScreenPos.z = 0f; 
         highlighterFrame.position = finalScreenPos;
-        highlighterFrame.sizeDelta = finalSize + new Vector2(50f, 50f);
+        highlighterFrame.sizeDelta = finalSize + new Vector2(20f, 20f);
     }
 
     // // 타겟 위치로 하이라이트 프레임을 이동시킴

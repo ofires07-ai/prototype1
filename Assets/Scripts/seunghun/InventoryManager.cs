@@ -5,10 +5,20 @@ using System.Collections.Generic;
 
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager Instance; // 싱글톤 (기존 코드 유지한다고 가정)
     // 자원 총량을 저장하는 딕셔너리 (데이터베이스 역할)
     // (예: {ResourceType.Iron: 150, ResourceType.Gold: 20})
     public Dictionary<ResourceType, int> resourceTotals = new Dictionary<ResourceType, int>();
+    
+    // Action<변경된 자원 타입, 현재 총 개수>
+    public event Action<ResourceType, int> OnResourceCountChanged;
 
+    void Awake() // 싱글톤 초기화 (없다면 추가하세요)
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+    
     void Start()
 {
     // ✅ 핵심: 게임 시작 시 모든 ResourceType에 대해 딕셔너리를 초기화합니다.
@@ -66,6 +76,9 @@ public class InventoryManager : MonoBehaviour
         {
             GameManager.Instance.UpdateResourceUI();
         }
+        
+        // "이 자원(type)의 개수가 지금 이렇게(currentTotal) 변했어요!" 라고 방송합니다.
+        OnResourceCountChanged?.Invoke(type, amount);
     }
 
     // (선택) 특정 자원 총량을 반환하는 함수
