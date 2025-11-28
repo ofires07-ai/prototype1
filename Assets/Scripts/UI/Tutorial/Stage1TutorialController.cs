@@ -206,7 +206,7 @@ public class Stage1TutorialController : MonoBehaviour
     void OnSourceSequenceFinished()
     {
         Debug.Log("감독: '타워 설치' 안내 끝. 다음 상황 대기.");
-
+        enableTutorial = false;
     }
     
     void OnDestroy()
