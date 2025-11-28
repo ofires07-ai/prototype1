@@ -2,12 +2,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 /// <summary>
 /// [통합 AI 스크립트 - 원거리 유닛 리팩토링]
-/// 1. 웨이포인트(순찰)와 스캐너(추적) 로직은 유지.
-/// 2. 전투(HandleCombat) 로직이 원거리(rangedAttackRange) 기준으로 변경됨.
-/// 3. 공격 이벤트(Event_PerformAttack)가 근접 히트박스 대신 [GrowingOrb] 프리펩을 발사함.
-/// 4. 피격 시 스턴(경직) 로직 포함.
+/// [🔧 수정] Event_PerformAttack에서 구체 타입을 자동으로 감지하도록 개선
 /// </summary>
 public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
 {
@@ -21,12 +19,10 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
     [Tooltip("적을 발견했을 때의 추격 속도")]
     [SerializeField] private float chaseSpeed = 4f;
     
-    // [✨ 수정] 근접 'attackRange' -> 원거리 'rangedAttackRange'
     [Tooltip("이 거리 안으로 들어오면 공격을 시작합니다 (원거리용 8~10 추천)")]
     [SerializeField] private float rangedAttackRange = 8f; 
 
-    // [✨ 수정] 'enemyMeleeHitboxPrefab' -> 'orbPrefab'
-    [Tooltip("적이 소환할 [성장하는 구체] 프리펩 (GrowingOrb.cs 포함)")]
+    [Tooltip("적이 소환할 구체 프리펩 (GrowingOrb 또는 HY_Orb 스크립트 포함)")]
     [SerializeField] private GameObject orbPrefab; 
     
     [Tooltip("구체가 발사될 위치 (없으면 유닛 위치)")]
@@ -44,10 +40,9 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
 
     [Header("컴포넌트 (자동 찾기)")]
     [SerializeField] private Animator animator;
-    public HY_Scanner scanner; // AI의 '눈' 역할
+    public HY_Scanner scanner;
     private SpriteRenderer spriteRenderer;
 
-    // --- 내부 관리 변수 ---
     private List<Transform> waypoints = new List<Transform>();
     private int currentWaypointIndex = 0;
     private bool hasReachedFinalDestination = false;
@@ -55,28 +50,24 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
     private bool deathReported = false;
     public string enemyID;
 
-    private float attackCooldown = 2.0f; // 2초마다 공격
-    private float lastAttackTime = 0f;   // 마지막 공격 시간 저장
-
-    // [✨ 추가] 공격 이벤트를 위해 현재 타겟을 클래스 변수로 저장
-    private Transform currentTarget; 
+    private float attackCooldown = 2.0f;
+    private float lastAttackTime = 0f;
+    private Transform currentTarget;
 
     void Start()
     {
-        // 1. 컴포넌트 자동 찾기 및 초기화
         if (animator == null) animator = GetComponent<Animator>();
         if (scanner == null) scanner = GetComponent<HY_Scanner>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         
-        currentHp = maxHp; // 체력 초기화
+        currentHp = maxHp;
         isLive = true;
 
         if (spriteRenderer == null)
         {
-            Debug.LogError($"[AI] {name}: SpriteRenderer가 없습니다! 좌우 반전(flipX)을 할 수 없습니다.");
+            Debug.LogError($"[AI] {name}: SpriteRenderer가 없습니다!");
         }
 
-        // 2. 웨이포인트(순찰 경로) 설정 (로직 동일)
         if (autoFindCircles)
         {
             FindAndSortCircles();
@@ -89,74 +80,55 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
 
         if (waypoints.Count == 0 && autoFindCircles)
         {
-             Debug.LogWarning($"[AI] {name}: '{NodeName}'으로 시작하는 웨이포인트를 찾을 수 없습니다! (제자리 대기)");
+             Debug.LogWarning($"[AI] {name}: '{NodeName}'으로 시작하는 웨이포인트를 찾을 수 없습니다!");
         }
     }
 
-    /// <summary>
-    /// AI의 메인 두뇌 (매 프레임 실행)
-    /// </summary>
     void Update()
     {
-        // [✨ 수정] 죽었거나 '스턴' 상태면 아무것도 하지 않음 (중복 체크 정리)
         if (!isLive || isStunned)
         {
             animator.SetBool("isLive", isLive);
             return;
         }
 
-        // [✨ 수정] 스캐너의 타겟을 클래스 변수 'currentTarget'에 저장
         currentTarget = scanner.nearestTarget;
 
         if (currentTarget != null)
         {
-            // 2. 적이 있다! (전투 모드: 추격 또는 공격)
             HandleCombat(currentTarget);
         }
         else
         {
-            // 3. 적이 없다! (순찰 모드)
             HandlePatrol();
         }
     }
 
-    /// <summary>
-    /// (전투) 타겟을 추격하거나 공격합니다.
-    /// </summary>
     void HandleCombat(Transform target)
     {
         float distance = Vector3.Distance(transform.position, target.position);
         Vector3 direction = (target.position - transform.position).normalized;
 
-
-        // [✨ 수정] 'attackRange' -> 'rangedAttackRange'
         if (distance > rangedAttackRange)
         {
-            // --- 1. 추격 (Chase) --- (로직 동일)
             transform.position += direction * chaseSpeed * Time.deltaTime;
             animator.SetFloat("Speed", chaseSpeed);
-            
-           
         }
         else
         {
-            // 공격 범위 안임
             animator.SetFloat("Speed", 0);
             
-            // [✨ 수정된 로직] 쿨타임이 지났을 때만 공격 명령을 내림
             if (Time.time >= lastAttackTime + attackCooldown)
             {
-                lastAttackTime = Time.time; // 현재 시간 저장
-                animator.SetTrigger("Attack"); // 공격!
+                lastAttackTime = Time.time;
+                animator.SetTrigger("Attack");
+                Debug.Log($"[AI] {name}: 공격 트리거 실행! (타겟: {target.name})");
             }
         }
         animator.SetFloat("moveX", direction.x);
         animator.SetFloat("moveY", direction.y);
     }
 
-    /// <summary>
-    /// (순찰) 웨이포인트를 따라 이동합니다. (로직 동일)
-    /// </summary>
     void HandlePatrol()
     {
         if (hasReachedFinalDestination || waypoints.Count == 0)
@@ -192,29 +164,21 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
         animator.SetFloat("Speed", moveSpeed);
         animator.SetFloat("moveX", direction.x);
         animator.SetFloat("moveY", direction.y);
-        
-        // [✨ 수정] 좌우 반전 활성화
-       
     }
 
-    /// <summary>
-    /// 이동 방향(x)에 따라 스프라이트를 좌우로 뒤집습니다. (로직 동일)
-    /// </summary>
     void HandleSpriteFlip(float directionX)
     {
         if (spriteRenderer == null) return;
 
-        if (directionX > 0.01f) // 오른쪽
+        if (directionX > 0.01f)
         {
             spriteRenderer.flipX = false;
         }
-        else if (directionX < -0.01f) // 왼쪽
+        else if (directionX < -0.01f)
         {
             spriteRenderer.flipX = true;
         }
     }
-
-    // --- 체력 및 피격 로직 (로직 동일) ---
 
     public void TakeDamage(int damage)
     {
@@ -274,29 +238,26 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
         }
 
         PlayerMeleeHitbox melee = collision.GetComponent<PlayerMeleeHitbox>();
-      
         if (melee != null)
         {
             TakeDamage(melee.damage);
         }
     }
-    // --- 웨이포인트 관련 헬퍼 함수 (로직 동일) ---
 
     void OnReachedWaypoint(int waypointIndex)
     {
-        // Debug.Log($"[AI] {name}: 웨이포인트 {waypoints[waypointIndex].name}에 도착!");
+        // Debug.Log($"[AI] {name}: 웨이포인트 도착!");
     }
 
     void OnReachedFinalDestination()
     {
         hasReachedFinalDestination = true;
         animator.SetFloat("Speed", 0);
-        Debug.Log($"[AI] {name}: 🎯 최종 목적지 도착! 순찰을 중단합니다.");
+        Debug.Log($"[AI] {name}: 🎯 최종 목적지 도착!");
     }
 
     void FindAndSortCircles()
     {
-        // (Greedy 경로 구성 로직 전체 동일)
         List<Transform> circleList = FindObjectsOfType<Transform>()
             .Where(t => t != null && t.gameObject != null && t.gameObject.name.StartsWith(NodeName))
             .ToList();
@@ -332,12 +293,11 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
             currentPos = next.position;
         }
         waypoints = ordered;
-        Debug.Log($"[AI] {name}: Greedy 방식으로 {waypoints.Count}개의 'Circle' 웨이포인트 경로 구성 완료.");
+        Debug.Log($"[AI] {name}: {waypoints.Count}개의 웨이포인트 경로 구성 완료.");
     }
 
     void OnDrawGizmos()
     {
-        // (Gizmos 로직 전체 동일)
         if (waypoints == null || waypoints.Count == 0) return;
         Gizmos.color = Color.yellow;
         for (int i = 0; i < waypoints.Count - 1; i++)
@@ -349,59 +309,90 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour
         }
         if (!hasReachedFinalDestination && currentWaypointIndex < waypoints.Count)
         {
-            Transform currentTarget = waypoints[currentWaypointIndex];
-            if (currentTarget != null)
+            Transform currentWaypoint = waypoints[currentWaypointIndex];
+            if (currentWaypoint != null)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawLine(transform.position, currentTarget.position);
+                Gizmos.DrawLine(transform.position, currentWaypoint.position);
             }
         }
+        
+        // 🔧 공격 범위 시각화 추가
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, rangedAttackRange);
     }
 
-    // --- [✨✨✨ 핵심 수정 ✨✨✨] ---
     /// <summary>
-    /// (애니메이션 이벤트에서 호출됨)
-    /// 'GrowingOrb' 프리펩을 발사하고 타겟을 설정합니다.
+    /// [🔧 핵심 수정!] 애니메이션 이벤트에서 호출
+    /// GrowingOrb 또는 HY_Orb를 자동으로 감지하여 발사
     /// </summary>
     public void Event_PerformAttack()
     {
-        Debug.Log($"[AI] {name}이(가) Event_PerformAttack()를 호출 (원거리 공격)!");
+        Debug.Log($"[AI 🎯] {name}: Event_PerformAttack() 호출됨!");
         
-        // 1. 소환할 [구체] 프리펩이 설정되어 있는지 확인
+        // 1. 프리팹 확인
         if (orbPrefab == null)
         {
-            Debug.LogError(name + ": orbPrefab이 설정되지 않았습니다!");
+            Debug.LogError($"[AI ❌] {name}: orbPrefab이 Inspector에 할당되지 않았습니다!");
             return;
         }
 
-        // 2. 공격 애니메이션이 시작된 후 타겟이 사라졌는지 확인
+        // 2. 타겟 확인
         if (currentTarget == null) 
         {
-            Debug.LogWarning(name + ": 구체를 발사하려 했으나 타겟이 사라졌습니다.");
+            Debug.LogWarning($"[AI ⚠️] {name}: 타겟이 사라졌습니다.");
             return;
         }
 
-        // 3. 구체 발사 위치 결정 (FirePoint가 있으면 거기, 없으면 내 위치)
+        // 3. 발사 위치 결정
         Vector3 spawnPosition = (firePoint != null) ? firePoint.position : transform.position;
         Quaternion spawnRotation = (firePoint != null) ? firePoint.rotation : transform.rotation;
 
-        // 4. 구체를 '소환(Instantiate)'
+        Debug.Log($"[AI 📍] {name}: 구체 생성 위치: {spawnPosition}");
+
+        // 4. 구체 생성
         GameObject orbGO = Instantiate(orbPrefab, spawnPosition, spawnRotation);
-
-        // 5. 구체에서 'GrowingOrb' 스크립트를 가져옵니다.
-        //    (스크립트 이름이 GrowingOrb.cs라고 가정)
-        HY_Orb orbScript = orbGO.GetComponent<HY_Orb>();
-
-        // 6. [가장 중요!] 구체 스크립트가 존재한다면
-        if (orbScript != null)
+        
+        if (orbGO == null)
         {
-            // 7. "구체야! 너의 타겟은 'currentTarget'이야!" 라고 알려줍니다.
-            orbScript.SetTarget(currentTarget);
-            Debug.Log($"[AI] {name}이(가) {currentTarget.name}을(를) 향해 구체를 발사합니다!");
+            Debug.LogError($"[AI ❌] {name}: 구체 생성 실패!");
+            return;
         }
-        else
+
+        Debug.Log($"[AI ✅] {name}: 구체 생성 성공! (오브젝트: {orbGO.name})");
+
+        // 5. [🔧 핵심 수정!] 구체 타입을 자동으로 감지
+        bool targetSet = false;
+
+        // 5-1. GrowingOrb 시도
+        GrowingOrb growingOrb = orbGO.GetComponent<GrowingOrb>();
+        if (growingOrb != null)
         {
-            Debug.LogError($"[AI] {name}: 발사한 구체 프리펩에 GrowingOrb.cs 스크립트가 없습니다!");
+            growingOrb.SetTarget(currentTarget);
+            targetSet = true;
+            Debug.Log($"[AI ✅] {name}: GrowingOrb 타입 구체 발사! (타겟: {currentTarget.name})");
         }
+
+        // 5-2. HY_Orb 시도
+        if (!targetSet)
+        {
+            HY_Orb hyOrb = orbGO.GetComponent<HY_Orb>();
+            if (hyOrb != null)
+            {
+                hyOrb.SetTarget(currentTarget);
+                targetSet = true;
+                Debug.Log($"[AI ✅] {name}: HY_Orb 타입 구체 발사! (타겟: {currentTarget.name})");
+            }
+        }
+
+        // 5-3. 둘 다 없으면 에러
+        if (!targetSet)
+        {
+            Debug.LogError($"[AI ❌] {name}: 구체 프리팹에 'GrowingOrb' 또는 'HY_Orb' 스크립트가 없습니다!");
+            Destroy(orbGO);
+            return;
+        }
+
+        Debug.Log($"[AI 🚀] {name}: 구체가 {currentTarget.name}을 향해 발사되었습니다!");
     }
 }
