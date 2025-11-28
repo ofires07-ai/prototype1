@@ -58,14 +58,14 @@ public class Stage1TutorialController : MonoBehaviour
 
         Debug.Log($"[Stage1TutorialController] enableTutorial: {enableTutorial}, spaceShipScript: {(spaceShipScript != null ? spaceShipScript.name : "null")}");
 
-        if (!enableTutorial)
+        if (GameFlowManager.tutorialIsPlayed)
         {
             Debug.Log("[Stage1TutorialController] 튜토리얼이 비활성화되어 있습니다.");
-            Destroy(tutorialPanel);
+            tutorialPanel.SetActive(false);
             return;
         }
 
-        enableTutorial = false;
+        GameFlowManager.tutorialIsPlayed = true;
 
         // 튜토리얼이 꺼져있거나, 이미 클리어했다면 실행 안 함 (PlayerPrefs 활용 예시)
         // if (!enableTutorial || PlayerPrefs.GetInt("TutorialCleared_Stage1", 0) == 1) return;
