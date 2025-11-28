@@ -65,7 +65,7 @@ public class Stage1TutorialController : MonoBehaviour
             tutorialPanel.SetActive(false);
             return;
         }
-
+        
         GameFlowManager.isPlayedTutorial = true;
 
         // 튜토리얼이 꺼져있거나, 이미 클리어했다면 실행 안 함 (PlayerPrefs 활용 예시)
