@@ -154,7 +154,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 100}
+  m_SizeDelta: {x: 800, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &253884234
 MonoBehaviour:
@@ -203,8 +203,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 96
+  m_fontSizeBase: 96
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -485,10 +485,10 @@ MonoBehaviour:
   deathText: {fileID: 1396999226}
   centerGameOverTitle: {fileID: 253884234}
   backToTitleButton: {fileID: 1284730446}
-  deathNarration: "\uB2F9\uC2E0\uC758 \uC6B0\uC8FC\uC120\uC740 \uD30C\uAD34\uB418\uACE0
-    \uC810\uB839\uC740 \uC2E4\uD328\uD558\uC600\uC2B5\uB2C8\uB2E4.\n\uB2F9\uC2E0\uC740
-    \uC544\uBB34\uB3C4 \uAE30\uC5B5\uD558\uC9C0 \uBABB\uD558\uB294 \uACF3\uC5D0\uC11C\n\uCD5C\uD6C4\uB97C
-    \uB9DE\uC774\uD558\uC600\uC2B5\uB2C8\uB2E4."
+  deathNarration: "\uBCF8 \uB2F9\uAD6D\uC740 \uADC0\uD558\uC758 \uC6B0\uC8FC\uC120\uC774
+    \uD30C\uAD34\uB418\uC5C8\uC74C\uC744 \uD655\uC778\uD569\uB2C8\uB2E4.\n\uADC0\uD558\uB294
+    \uBBF8\uD655\uC778 \uAD6C\uC5ED\uC5D0\uC11C \uCD5C\uD6C4\uB97C \uB9DE\uC774\uD558\uC600\uC73C\uBA70,\n\uAD00\uB828
+    \uAE30\uB85D\uC740 \uBCF4\uC548 \uADDC\uC815\uC5D0 \uB530\uB77C \uC815\uB9AC\uB429\uB2C8\uB2E4."
   charInterval: 0.07
   deathTextStayDuration: 5
   bgmSource: {fileID: 1897577512}
@@ -544,8 +544,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: 0, y: 300}
+  m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1284730446
 MonoBehaviour:
@@ -727,8 +727,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
