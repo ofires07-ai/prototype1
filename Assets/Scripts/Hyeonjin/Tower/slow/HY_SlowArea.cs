@@ -7,6 +7,7 @@ public class HY_SlowArea : MonoBehaviour
     [Tooltip("감속 비율 (0.5 = 50% 속도로 느려짐)")]
     [SerializeField] private float slowFactor = 0.5f;
 
+    [SerializeField] private int damage = 1;
     // 현재 슬로우를 걸고 있는 적들을 기억하는 리스트 (타워가 팔리거나 꺼질 때를 대비)
     private List<ISlowable> affectedEnemies = new List<ISlowable>();
 
@@ -37,7 +38,7 @@ public class HY_SlowArea : MonoBehaviour
         {
             // 적의 슬로우 해제
             enemy.RemoveSlow();
-            
+            enemy.TakeDamage(damage);
             // 관리 명단에서 제외
             affectedEnemies.Remove(enemy);
             Debug.Log($"{collision.name} 감속 해제!");
