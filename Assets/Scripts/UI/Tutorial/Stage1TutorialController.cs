@@ -8,6 +8,7 @@ public class Stage1TutorialController : MonoBehaviour
 {
     [Header("--- [설정] 튜토리얼 활성화 여부 ---")]
     public bool enableTutorial = true;
+    public GameObject tutorialPanel;
 
     [Header("--- [타겟 연결] 실제 게임 UI 버튼들을 연결하세요 ---")]
     [Header("[시퀀스 1: 죄수 선택]")]
@@ -60,8 +61,11 @@ public class Stage1TutorialController : MonoBehaviour
         if (!enableTutorial)
         {
             Debug.Log("[Stage1TutorialController] 튜토리얼이 비활성화되어 있습니다.");
+            Destroy(tutorialPanel);
             return;
         }
+
+        enableTutorial = false;
 
         // 튜토리얼이 꺼져있거나, 이미 클리어했다면 실행 안 함 (PlayerPrefs 활용 예시)
         // if (!enableTutorial || PlayerPrefs.GetInt("TutorialCleared_Stage1", 0) == 1) return;
@@ -206,7 +210,7 @@ public class Stage1TutorialController : MonoBehaviour
     void OnSourceSequenceFinished()
     {
         Debug.Log("감독: '타워 설치' 안내 끝. 다음 상황 대기.");
-        enableTutorial = false;
+        
     }
     
     void OnDestroy()
