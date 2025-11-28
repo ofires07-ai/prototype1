@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class StageSceneController : MonoBehaviour
 {
@@ -14,6 +15,15 @@ public class StageSceneController : MonoBehaviour
     [Header("설정")]
     [Tooltip("이 스테이지 클리어 후 업그레이드 카드를 먼저 보여줄지 여부")]
     public bool showUpgradeBeforeNextStage = false;
+
+    [Header("Game Over 설정")]
+    [Tooltip("우주선 파괴 시 GameOver 씬으로 보낼지 여부")]
+    public bool enableGameOverOnShipDestroyed = true;
+
+    [Tooltip("우주선 파괴 후 GameOver 씬으로 넘어가기 전 대기 시간(초, 실제 시간 기준)")]
+    public float delayBeforeGameOver = 0.5f;
+
+    private bool gameOverRequested = false;
 
     void Awake()
     {
@@ -46,6 +56,35 @@ public class StageSceneController : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (!enableGameOverOnShipDestroyed) return;
+        if (gameOverRequested) return;
+
+        bool destroyed = false;
+
+        // 1) 우주선 오브젝트가 이미 Destroy된 경우
+        if (spaceShip == null)
+        {
+            destroyed = true;
+        }
+        else
+        {
+            // 2) SpaceShip 플래그 또는 HP로 확인
+            if (spaceShip.isDestroyed || spaceShip.currentHp <= 0)
+            {
+                destroyed = true;
+            }
+        }
+
+        if (destroyed)
+        {
+            gameOverRequested = true;
+            StartCoroutine(HandleGameOverSequence());
+        }
+    }
+
+
     void OnDestroy()
     {
         if (spawnManager != null)
@@ -77,12 +116,13 @@ public class StageSceneController : MonoBehaviour
     void HandleAllWavesCompleted()
     {
         // 1) 남은 자원 총합을 스테이지 점수로 계산
-        int stageScore = CalculateStageScoreFromResources();
+        int specialLeft = 0;
+        int stageScore = CalculateStageScoreFromResources(out specialLeft);
 
         // 2) GameFlowManager에 등록 (Stage1, Stage2 각각 들어감)
         if (GameFlowManager.Instance != null)
         {
-            GameFlowManager.Instance.AddStageScore(stageScore);
+            GameFlowManager.Instance.AddStageScore(stageScore,specialLeft);
         }
 
         // 3) 이후 흐름: 업그레이드 → 다음 스테이지/결과
@@ -110,8 +150,10 @@ public class StageSceneController : MonoBehaviour
     /// <summary>
     /// InventoryManager.resourceTotals에 남아 있는 자원 총합을 점수로 사용.
     /// </summary>
-    int CalculateStageScoreFromResources()
+    int CalculateStageScoreFromResources(out int specialLeft)
     {
+        specialLeft = 0;
+
         var inv = FindObjectOfType<InventoryManager>();
         if (inv == null || inv.resourceTotals == null)
             return 0;
@@ -119,9 +161,44 @@ public class StageSceneController : MonoBehaviour
         int sum = 0;
         foreach (var kvp in inv.resourceTotals)
         {
-            sum += kvp.Value;
+            if (kvp.Key == ResourceType.Special)
+            {
+                // 특수 자원은 기본 점수에는 넣지 않고, 따로 저장
+                specialLeft = kvp.Value;
+            }
+            else
+            {
+                sum += kvp.Value;   // 일반 자원만 점수에 반영
+            }
         }
 
         return sum;
     }
+
+    IEnumerator HandleGameOverSequence()
+    {
+        // 1) 게임 로직 정지
+        if (gameManager != null) gameManager.enabled = false;
+        if (spawnManager != null) spawnManager.enabled = false;
+
+        // 전체 시간 정지 (프레임 멈추기)
+        Time.timeScale = 0f;
+
+        // 2) 약간의 딜레이 (실제 시간 기준)
+        if (delayBeforeGameOver > 0f)
+        {
+            yield return new WaitForSecondsRealtime(delayBeforeGameOver);
+        }
+
+        // 3) GameOver 씬으로 전환
+        if (GameFlowManager.Instance != null)
+        {
+            GameFlowManager.Instance.GoToGameOver();
+        }
+        else
+        {
+            Debug.LogError("[StageSceneController] GameFlowManager.Instance가 없습니다! GameOver로 이동할 수 없습니다.");
+        }
+    }
+
 }
