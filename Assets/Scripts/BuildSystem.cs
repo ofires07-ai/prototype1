@@ -254,7 +254,7 @@ public class BuildSystem : MonoBehaviour
                     
                     // 3. [연동]
                     //    [수정됨] FlagManager를 호출하는 방식이 변경되었습니다.
-                    if ((unitIndex == 0 || unitIndex == 1) && FlagManager.Instance != null ) 
+                    if ((unitIndex == 0 || unitIndex == 1 || unitIndex == 2) && FlagManager.Instance != null ) 
                     {
                         // --- [수정된 로직 시작] ---
                         // (Vector3 buildPosition만 아는 상태에서, 방금 생성된 타워를 다시 찾아야 함)

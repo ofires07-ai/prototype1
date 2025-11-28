@@ -44,6 +44,8 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour, ISlowable
 
     [Header("컴포넌트 (자동 찾기)")]
     [SerializeField] private Animator animator;
+
+    [SerializeField] private HY_SmoothHealthBar healthBar;
     public HY_Scanner scanner;
     private SpriteRenderer spriteRenderer;
 
@@ -66,6 +68,12 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour, ISlowable
         spriteRenderer = GetComponent<SpriteRenderer>();
         
         currentHp = maxHp;
+        
+       if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHp, maxHp);
+        }
+
         isLive = true;
         _originalSpeedMultiplier = speedMultiplier; // 원래 속도 배율 저장
 
@@ -191,6 +199,10 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour, ISlowable
     {
         if (!isLive) return;
         currentHp -= damage;
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHp, maxHp);
+        }
         if (currentHp <= 0)
         {
             Die();
