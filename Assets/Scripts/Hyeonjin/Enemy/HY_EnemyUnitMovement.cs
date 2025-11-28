@@ -35,6 +35,8 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
 
     [Tooltip("적이 소환할 근접 공격 히트박스 프리팹 (MeleeHitbox.cs 사용)")]
     [SerializeField] private GameObject enemyMeleeHitboxPrefab;
+
+    [SerializeField] private HY_SmoothHealthBar healthBar;
     
     [Header("체력 설정")]
     [SerializeField] private int maxHp = 10;
@@ -78,6 +80,12 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
         spriteRenderer = GetComponent<SpriteRenderer>(); 
         
         currentHp = maxHp; // 체력 초기화
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHp, maxHp);
+        }
+
         isLive = true;
         _originalSpeedMultiplier = speedMultiplier; // 원래 속도 배율 저장
 
@@ -85,6 +93,8 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
         {
             Debug.LogError($"[AI] {name}: SpriteRenderer가 없습니다! 좌우 반전(flipX)을 할 수 없습니다.");
         }
+
+        
 
         // 2. 웨이포인트(순찰 경로) 설정
         if (autoFindCircles)
@@ -284,6 +294,11 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
         currentHp -= damage;
         // (선택) 여기서 피격 애니메이션 트리거
         // animator.SetTrigger("Hit"); 
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHp, maxHp);
+        }
 
         if (currentHp <= 0)
         {
