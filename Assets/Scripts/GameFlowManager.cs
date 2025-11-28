@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class GameFlowManager : MonoBehaviour
 {
     public static GameFlowManager Instance { get; private set; }
-
+    public static bool isPlayedTutorial = false;
     [Header("씬 이름 설정")]
     public string titleSceneName = "Title";      // 타이틀 씬 이름
     public string[] stageSceneNames =           // 스테이지 씬 목록

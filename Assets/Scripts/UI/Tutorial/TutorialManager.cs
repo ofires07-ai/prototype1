@@ -36,7 +36,7 @@ public class TutorialManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 살아남도록 설정 (선택 사항, 필요 없으면 주석 처리)
+            //DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 살아남도록 설정 (선택 사항, 필요 없으면 주석 처리)
         }
         else
         {
