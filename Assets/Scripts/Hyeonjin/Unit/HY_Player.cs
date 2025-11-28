@@ -30,7 +30,43 @@ public class HY_Player : MonoBehaviour
         currentHp = maxHp;
         isLive = true;
     }
+    // [✨ 추가] Start 함수에서 쿨타임 자동 설정
+    void Start()
+    {
+        // 1. 애니메이터에서 "Attack" 또는 "Fire"가 포함된 클립 길이 찾기
+        float animDuration = GetAttackClipDuration();
 
+        // 2. 찾았으면 fireCooldown 자동 설정
+        if (animDuration > 0f)
+        {
+            // 애니메이션 길이 + 0.1초 여유를 둬서 끊김 방지
+            fireCooldown = animDuration + 0.1f;
+        }
+        else
+        {
+           
+        }
+    }
+    // [✨ 추가] 유틸리티 함수: 애니메이션 길이 검색
+    private float GetAttackClipDuration()
+    {
+        if (anim == null || anim.runtimeAnimatorController == null) return 0f;
+
+        // 모든 애니메이션 클립 가져오기
+        AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
+
+        foreach (AnimationClip clip in clips)
+        {
+            // 클립 이름에 "Attack" 또는 "Fire"가 포함되어 있으면 그 길이를 반환
+            // (대소문자 무시를 위해 ToLower() 사용 가능하지만, 보통은 그냥 포함 여부로 충분)
+            if (clip.name.Contains("Attack") || clip.name.Contains("attack") || 
+                clip.name.Contains("Fire") || clip.name.Contains("fire"))
+            {
+                return clip.length;
+            }
+        }
+        return 0f; // 못 찾음
+    }
     void Update() // FixedUpdate에서 Update로 변경하여 매 프레임 상태를 확인
     {
         if (!isLive) 
