@@ -2325,6 +2325,17 @@ MonoBehaviour:
     targetWorldObject: {fileID: 0}
     boxPosition: 2
     boxWidth: 600
+    boxHeight: 400
+    shape: 0
+  - instructionText: "----------\uBBF8\uB2C8\uB9F5UI----------\n\uBBF8\uB2C8\uB9F5\uC744
+      \uD1B5\uD574 \uB9F5\uC758 \uC804\uCCB4\uC801\uC778 \uAD6C\uC870\uC640 \n\uC0C1\uD669\uC744
+      \uBCFC \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n\uC801 \uC720\uB2DB\uC740 \uBE68\uAC04\uC0C9
+      \uC810\uC73C\uB85C \uBCF4\uC774\uAC8C \uB429\uB2C8\uB2E4.\n\uD074\uB9AD\uC744
+      \uD1B5\uD55C \uCE74\uBA54\uB77C \uC774\uB3D9\uB3C4 \uAC00\uB2A5\uD569\uB2C8\uB2E4."
+    targetUI: {fileID: 1471782965}
+    targetWorldObject: {fileID: 0}
+    boxPosition: 1
+    boxWidth: 600
     boxHeight: 350
     shape: 0
   - instructionText: "----------\uBE4C\uB4DCUI----------\n\uC774\uCABD\uC5D0\uC11C\uB294
