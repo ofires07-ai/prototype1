@@ -31,6 +31,10 @@ public class SpawnManager : MonoBehaviour
     // 🔹 각 EnemySpawn(타입) 별 남은 스폰 수 & 개별 타이머
     private List<int> _remainingToSpawnPerType = new List<int>(); 
     private List<float> _spawnTimersPerType = new List<float>();
+    
+    [Header("Enemy HP 스케일링")]
+    [Tooltip("웨이브가 1 증가할 때마다 추가되는 HP")]
+    public int hpIncreasePerWave = 5;
 
     private int _spawnedCountInCurrentWave = 0;
     private bool _isSpawning = false;
@@ -200,7 +204,17 @@ public class SpawnManager : MonoBehaviour
 
         HY_EnemyUnitMovement hyEnemy = enemyObject.GetComponent<HY_EnemyUnitMovement>();
         if (hyEnemy != null)
+        {
             hyEnemy.enemyID = enemyID;
+
+            // 🔹 웨이브마다 +5 HP
+            //   0번째 웨이브: +0, 1번째 웨이브: +5, 2번째 웨이브: +10 ...
+            int bonusHp = hpIncreasePerWave * _currentWaveIndex;
+            if (bonusHp != 0)
+            {
+                hyEnemy.ApplyHpBonus(bonusHp);
+            }
+        }
     }
 
     // --- 몬스터 사망 콜백 ---

@@ -146,7 +146,18 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
             HandlePatrol();
         }
     }
+    
+    public void ApplyHpBonus(int bonus)
+    {
+        maxHp += bonus;
+        currentHp = maxHp;   // 시작 체력도 같이 올리기
 
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHp, maxHp);
+        }
+    }
+    
     /// <summary>
     /// (전투) 타겟을 추격하거나 공격합니다.
     /// </summary>
