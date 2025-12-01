@@ -206,7 +206,12 @@ public class TowerBuildManager : MonoBehaviour
 
         // 4. '고스트' 타워(미리보기)를 생성합니다.
         towerGhost = Instantiate(towerPrefab);
-
+        // 고스트 모드일때 콜라이더 끄기(밀치기 방지)
+        Collider2D[] cols = towerGhost.GetComponentsInChildren<Collider2D>();
+        foreach (var col in cols)
+        {
+            col.enabled = false;
+        }
         // 5. 고스트 타워의 초기 색상을 반투명하게 설정합니다.
         var sr = towerGhost.GetComponent<SpriteRenderer>();
         if (sr != null) sr.color = new Color(1f, 1f, 1f, 0.5f);

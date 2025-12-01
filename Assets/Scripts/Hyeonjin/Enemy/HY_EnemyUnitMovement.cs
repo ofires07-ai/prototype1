@@ -64,6 +64,11 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
     private int currentWaypointIndex = 0;
     private bool hasReachedFinalDestination = false;
 
+    // [✨ 쿨타임 관련 변수]
+    private float attackCooldown = 1.5f; // Start에서 자동 설정됨
+    private float lastAttackTime;        // HandleCombat용 (공격 빈도 제어)
+    private float lastHitboxTime;        // Event_PerformAttack용 (이벤트 중복 방지)
+
     // (SpawnManager에 사망 보고가 필요하다면 HY_Enemy처럼 enemyID 변수 추가)
     bool deathReported = false; // 사망 보고 중복 방지
     public string enemyID; 
@@ -94,7 +99,16 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
             Debug.LogError($"[AI] {name}: SpriteRenderer가 없습니다! 좌우 반전(flipX)을 할 수 없습니다.");
         }
 
-        
+        //공격 쿨타임(히트박스)
+        float duration = GetAttackClipDuration();
+        if (duration > 0f)
+        {
+            attackCooldown = duration + 0.1f; // 애니메이션 길이 + 0.1초 여유
+        }
+        else
+        {
+            attackCooldown = 1.5f; // 못 찾으면 기본값
+        }
 
         // 2. 웨이포인트(순찰 경로) 설정
         if (autoFindCircles)
@@ -113,6 +127,15 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
         }
     }
 
+    private float GetAttackClipDuration() // 쿨타임 추가
+    {
+        if (animator == null || animator.runtimeAnimatorController == null) return 0f;
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name.Contains("Attack") || clip.name.Contains("attack")) return clip.length;
+        }
+        return 0f;
+    }
     /// <summary>
     /// AI의 메인 두뇌 (매 프레임 실행)
     /// </summary>
@@ -186,9 +209,11 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
             // (1) 멈춤 (Animator FSM이 'Idle' 상태로 가게 함)
             animator.SetFloat("Speed", 0); 
             
-            // (2) 공격 트리거 발동 (FSM이 'Idle' -> 'Attack'으로 즉시 전환)
-            animator.SetTrigger("Attack"); 
-            
+            if (Time.time > lastAttackTime + attackCooldown)
+            {
+                animator.SetTrigger("Attack"); 
+                lastAttackTime = Time.time; // 공격 시간 기록
+            }
             // (3) 방향: 적을 바라보도록 좌우 반전
            // HandleSpriteFlip(direction.x);
         }
@@ -508,6 +533,11 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
     }
     public void Event_PerformAttack()
     {
+        if (Time.time < lastHitboxTime + (attackCooldown * 0.5f))
+        {
+            // Debug.LogWarning("히트박스 중복 생성 방지됨!");
+            return;
+        }
         Debug.Log($"[AI] {name}이(가) Event_PerformAttack()를 호출했습니다!");
         // 1. 소환할 프리팹이 설정되어 있는지 확인
         if (enemyMeleeHitboxPrefab == null)
@@ -518,6 +548,8 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
 
         // 2. 히트박스를 내 위치에 '소환(Instantiate)'
         Instantiate(enemyMeleeHitboxPrefab, transform.position, Quaternion.identity);
+        
+        lastHitboxTime = Time.time;
 
         Debug.Log($"[AI] {name}이(가) 히트박스를 소환하여 공격합니다!");
     }
