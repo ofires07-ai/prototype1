@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2181729852630681096}
   - component: {fileID: 700197800853538182}
   - component: {fileID: -6714137681357974456}
-  - component: {fileID: 7552598686019090103}
   - component: {fileID: 2014836501657199448}
+  - component: {fileID: -7378025735976244007}
   m_Layer: 10
   m_Name: st4_boss
   m_TagString: Enemy
@@ -179,32 +179,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.53, y: 0.64}
   m_Direction: 0
---- !u!114 &7552598686019090103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1067853335105580191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b179873842ac8d4a8f125549b0dfd25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  stoppingDistance: 0.5
-  chaseSpeed: 4
-  attackRange: 1
-  attackDamage: 1
-  enemyMeleeHitboxPrefab: {fileID: 36502750192200874, guid: 88f23ac6008f05c4abdd976b55843bce, type: 3}
-  maxHp: 100
-  autoFindCircles: 1
-  manualWaypoints: []
-  animator: {fileID: 0}
-  scanner: {fileID: 0}
-  speedMultiplier: 1
-  enemyID: 
-  NodeName: Square
 --- !u!114 &2014836501657199448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +196,33 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   nearestTarget: {fileID: 0}
+--- !u!114 &-7378025735976244007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067853335105580191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a798acfa3c5eb4154966423f4d74a8bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  stoppingDistance: 0.5
+  chaseSpeed: 4
+  attackRange: 1
+  attackDamage: 1
+  enemyMeleeHitboxPrefab: {fileID: 36502750192200874, guid: 88f23ac6008f05c4abdd976b55843bce, type: 3}
+  healthBar: {fileID: 0}
+  maxHp: 10
+  autoFindCircles: 1
+  manualWaypoints: []
+  animator: {fileID: 0}
+  scanner: {fileID: 0}
+  speedMultiplier: 1
+  enemyID: 
+  NodeName: Circle
 --- !u!1001 &8139506577434360121
 PrefabInstance:
   m_ObjectHideFlags: 0

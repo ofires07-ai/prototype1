@@ -255,6 +255,8 @@ public class HY_Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        /*
+        //이 아래 부분 원래 주석
         /*EnemyMeleeHitbox hitbox = collision.GetComponent<EnemyMeleeHitbox>();
         if (hitbox != null)
         {
@@ -264,6 +266,7 @@ public class HY_Player : MonoBehaviour
             TakeDamage(hitbox.damage);
             }
         }*/
+        /*
         EnemyMeleeHitbox enemyHitbox = collision.GetComponent<EnemyMeleeHitbox>();
     
         if (enemyHitbox != null)
@@ -275,5 +278,6 @@ public class HY_Player : MonoBehaviour
         TakeDamage(enemyHitbox.damage);
         return; 
         }
+        */
     }
 }
