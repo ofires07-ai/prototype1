@@ -33,6 +33,7 @@ public class PickUnit : MonoBehaviour
     private Rigidbody2D rb;         // [추가] 리지드바디 참조
     private Collider2D unitCollider; // [추가] 콜라이더 참조
     private CrimerAbility myAbility;
+    private SpriteRenderer spriteRenderer;
     
     // [추가] 막힘 감지를 위한 변수
     private float stuckTimer = 0f;
@@ -50,7 +51,14 @@ public class PickUnit : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         unitCollider = GetComponent<Collider2D>();
         myAbility = GetComponent<CrimerAbility>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         nameTagText = GetComponentInChildren<TextMeshProUGUI>(true);
+
+        // Set sprite renderer sorting layer for proper rendering order
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sortingLayerName = "Crimer";
+        }
         
         if (sourceManager == null)
         {

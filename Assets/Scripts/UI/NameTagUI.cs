@@ -5,11 +5,24 @@ public class NameTagUI : MonoBehaviour
     // 원래의 크기 저장
     private Vector3 originalScale;
     private Transform parentTransform;
+    private Canvas canvas;
 
     void Start()
     {
         originalScale = transform.localScale;
         parentTransform = transform.parent;
+        canvas = GetComponent<Canvas>();
+
+        // Set Canvas sorting properties for proper rendering order
+        if (canvas != null)
+        {
+            canvas.sortingLayerName = "NameTag";
+            canvas.sortingOrder = 20;
+        }
+
+        // Set Z position to avoid Z-culling
+        Vector3 currentPos = transform.localPosition;
+        transform.localPosition = new Vector3(currentPos.x, currentPos.y, -1f);
     }
 
     void LateUpdate()

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7612160046258520610}
   - component: {fileID: 1184987029270533357}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: decor_3_0 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -8053002167776101150, guid: acaa82e42958efd42bb1cff167818047, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -169,7 +169,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 3236101441782676418, guid: bf89b723325bbb64faec3d8d8e047ecf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -194,11 +194,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 0
+  amountPerTick: 1
   parentSource: {fileID: 0}
   attachedSpecialSource: {fileID: 0}
   miningSpots:
   - {fileID: 7517623416250774584}
-  amountPerTick: 1
 --- !u!60 &4221375864571796806
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -275,7 +275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3503982906469141031}
   - component: {fileID: 2994400713039607252}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: decor_3_0 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +340,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -8053002167776101150, guid: acaa82e42958efd42bb1cff167818047, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -362,7 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4784256249645688042}
   - component: {fileID: 4973738225385625016}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: decor_3_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +427,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -8053002167776101150, guid: acaa82e42958efd42bb1cff167818047, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -449,7 +449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3873013984535176468}
   - component: {fileID: 3159972926126738684}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: decor_3_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -8053002167776101150, guid: acaa82e42958efd42bb1cff167818047, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -577,6 +577,10 @@ PrefabInstance:
     - target: {fileID: 2467643900891370153, guid: c34b2183590424661a95304ac6c1c3a5, type: 3}
       propertyPath: m_Name
       value: mining_spot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2467643900891370153, guid: c34b2183590424661a95304ac6c1c3a5, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
