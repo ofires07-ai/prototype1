@@ -9,6 +9,8 @@ public class FasterMiningAbility : CrimerAbility
     }
     public override void ApplyAbility()
     {
+        PickUnit owner = GetComponent<PickUnit>();
+        owner.miningSpeed = 1.5f;
     }
 
     public override MiningTickResult ProcessMiningTick(MineableResource node)

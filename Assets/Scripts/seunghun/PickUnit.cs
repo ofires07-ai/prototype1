@@ -39,6 +39,7 @@ public class PickUnit : MonoBehaviour
     private float stuckTimer = 0f;
     // 1.5초 이상 속도가 0이면 '막혔다'고 판단
     private const float STUCK_TIME_THRESHOLD = 1.0f;
+    public float miningSpeed = 1;
     
     [Header("UI")]
     private TextMeshProUGUI nameTagText;
@@ -255,7 +256,8 @@ public class PickUnit : MonoBehaviour
         // - isMining (Bool)
         animator.SetBool("isWalking", isMoving);
         animator.SetBool("isMining", isMining);
-        
+        animator.SetFloat("MineSpeedMult", miningSpeed);
+        animator.SetFloat("MoveSpeedMult", aiPath.maxSpeed / 3.0f);
     }
     
     // [새 헬퍼 함수]
