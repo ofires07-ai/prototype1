@@ -126,7 +126,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 907322087788538620}
   - {fileID: 3447704468839223805}
   - {fileID: 1953237050597105271}
   m_Father: {fileID: 0}
@@ -154,7 +153,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -172,9 +171,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -2026592681
+  m_SortingLayer: 1
+  m_SortingOrder: 10
   m_Sprite: {fileID: -720481392536207288, guid: ebf22d2e39b7746c8aad737bc3a210a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -223,6 +222,7 @@ MonoBehaviour:
   currentState: 0
   sourceManager: {fileID: 0}
   selectionVisual: {fileID: 1603058781655634808}
+  miningSpeed: 1
 --- !u!50 &1122169644483937137
 Rigidbody2D:
   serializedVersion: 5
@@ -479,6 +479,7 @@ RectTransform:
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 907322087788538620}
   - {fileID: 6947285877987467863}
   m_Father: {fileID: 6289686514518953654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -507,8 +508,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 791839125
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!114 &807790111383310321
 MonoBehaviour:
@@ -704,19 +705,27 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6289686514518953654}
+    m_TransformParent: {fileID: 3447704468839223805}
     m_Modifications:
     - target: {fileID: 637199338042131066, guid: 2b19f30a2f5ea494ea399ca42e4f5d0e, type: 3}
       propertyPath: m_Name
       value: nameTagBackground
       objectReference: {fileID: 0}
     - target: {fileID: 2542365892551316047, guid: 2b19f30a2f5ea494ea399ca42e4f5d0e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2542365892551316047, guid: 2b19f30a2f5ea494ea399ca42e4f5d0e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2542365892551316047, guid: 2b19f30a2f5ea494ea399ca42e4f5d0e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.19
+      value: -19
       objectReference: {fileID: 0}
     - target: {fileID: 2542365892551316047, guid: 2b19f30a2f5ea494ea399ca42e4f5d0e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.45
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 2542365892551316047, guid: 2b19f30a2f5ea494ea399ca42e4f5d0e, type: 3}
       propertyPath: m_LocalPosition.z

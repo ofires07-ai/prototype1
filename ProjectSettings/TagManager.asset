@@ -49,8 +49,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: 
+  - name: Crimer
     uniqueID: 2268374615
+    locked: 0
+  - name: NameTag
+    uniqueID: 791839125
     locked: 0
   m_RenderingLayers:
   - Default

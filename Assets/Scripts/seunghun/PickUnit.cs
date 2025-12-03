@@ -33,11 +33,13 @@ public class PickUnit : MonoBehaviour
     private Rigidbody2D rb;         // [추가] 리지드바디 참조
     private Collider2D unitCollider; // [추가] 콜라이더 참조
     private CrimerAbility myAbility;
+    private SpriteRenderer spriteRenderer;
     
     // [추가] 막힘 감지를 위한 변수
     private float stuckTimer = 0f;
     // 1.5초 이상 속도가 0이면 '막혔다'고 판단
     private const float STUCK_TIME_THRESHOLD = 1.0f;
+    public float miningSpeed = 1;
     
     [Header("UI")]
     private TextMeshProUGUI nameTagText;
@@ -50,7 +52,14 @@ public class PickUnit : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         unitCollider = GetComponent<Collider2D>();
         myAbility = GetComponent<CrimerAbility>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         nameTagText = GetComponentInChildren<TextMeshProUGUI>(true);
+
+        // Set sprite renderer sorting layer for proper rendering order
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sortingLayerName = "Crimer";
+        }
         
         if (sourceManager == null)
         {
@@ -247,7 +256,8 @@ public class PickUnit : MonoBehaviour
         // - isMining (Bool)
         animator.SetBool("isWalking", isMoving);
         animator.SetBool("isMining", isMining);
-        
+        animator.SetFloat("MineSpeedMult", miningSpeed);
+        animator.SetFloat("MoveSpeedMult", aiPath.maxSpeed / 3.0f);
     }
     
     // [새 헬퍼 함수]
