@@ -212,6 +212,16 @@ public class TowerBuildManager : MonoBehaviour
         {
             col.enabled = false;
         }
+
+        // (2) 공격 스크립트 끄기 (새로 추가!)
+        // HY_TankController가 붙어있다면 끕니다.
+        var tankScript = towerGhost.GetComponent<HY_TankController>();
+        if (tankScript != null) tankScript.enabled = false;
+
+        // TurretController가 붙어있다면 끕니다.
+        var turretScript = towerGhost.GetComponent<TurretController>();
+        if (turretScript != null) turretScript.enabled = false;
+        
         // 5. 고스트 타워의 초기 색상을 반투명하게 설정합니다.
         var sr = towerGhost.GetComponent<SpriteRenderer>();
         if (sr != null) sr.color = new Color(1f, 1f, 1f, 0.5f);

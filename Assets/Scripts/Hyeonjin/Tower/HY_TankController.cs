@@ -100,16 +100,6 @@ public class HY_TankController : MonoBehaviour
     /// </summary>
     void TryFire()
     {
-        // --- [✨✨✨ 핵심 추가!] ---
-        // 1. 빌드 매니저가 존재하고(null이 아니고) && 빌드 매니저가 건설 모드(isBuilding) 중이라면
-        if (TowerBuildManager.Instance != null && TowerBuildManager.Instance.GetIsBuilding())
-        {
-            // 2. 지금은 공격할 수 없음. 즉시 종료.
-            return;
-        }
-        // --- [핵심 추가 끝] ---
-
-
         // [기존 로직]
         if (Time.time - lastFireTime > fireCooldown)
         {
