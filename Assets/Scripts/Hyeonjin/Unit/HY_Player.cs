@@ -20,6 +20,8 @@ public class HY_Player : MonoBehaviour
     public float fireCooldown = 0.5f;
     public float meleeAttackRange = 1.5f; // 근접 공격 범위
     float lastFireTime;
+    // [✨ 추가] 총구 위치
+    [SerializeField] public Transform MuzzlePoint;
     Vector2 lastDirection = Vector2.down; // 마지막으로 바라본 방향(기본값:아래)
     void Awake()
     {
@@ -160,8 +162,38 @@ public class HY_Player : MonoBehaviour
         anim.SetFloat("moveX", lastDirection.x);
         anim.SetFloat("moveY", lastDirection.y);
     }
+void Fire(Transform target)
+    {
+        if (!isLive) return;
+        if (bulletObj == null || target == null) return;
 
-    void Fire(Transform target)
+        // 1. 발사 위치 확인 (연결된 MuzzlePoint 사용)
+        // 혹시 연결 안 했을 때를 대비해 transform(내 몸통)을 예비로 둡니다.
+        Transform spawnPoint = (MuzzlePoint != null) ? MuzzlePoint : transform;
+
+        // 2. 방향 계산 (총구 -> 타겟)
+        // 총구 위치를 기준으로 방향을 구해야 정확합니다.
+        Vector2 dir = (target.position - spawnPoint.position).normalized;
+
+        // 3. [회전 계산] 적을 바라보는 각도 구하기 (수학 공식)
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        
+        // 구한 각도를 유니티 회전값(Quaternion)으로 변환
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        // 4. 총알 생성 (위치는 총구, 회전은 계산된 각도)
+        GameObject bullet = Instantiate(bulletObj, spawnPoint.position, rotation);
+
+        // 5. 날리기
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.AddForce(dir * 10f, ForceMode2D.Impulse);
+        }
+        
+        anim.SetTrigger("Attack");
+    }
+    /*void Fire(Transform target)
     {
         if(!isLive) return;
         if (bulletObj == null || target == null) return;
@@ -173,7 +205,7 @@ public class HY_Player : MonoBehaviour
             rb.AddForce(dir * 10f, ForceMode2D.Impulse);
         }
         anim.SetTrigger("Attack");
-    }
+    }*/
 
     void MeleeAttack(Transform target)
     {

@@ -237,6 +237,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -3312183925693472724, guid: f77d55c9ab290864c97a073df92414b7, type: 3}
+    - target: {fileID: 6506741912867784093, guid: c6ddb73496b217b448a63eb9dd93a2f9, type: 3}
+      propertyPath: m_Name
+      value: Gun1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7359487685216582533, guid: c6ddb73496b217b448a63eb9dd93a2f9, type: 3}
     m_RemovedGameObjects: []
@@ -247,7 +251,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1347582105480782416, guid: c6ddb73496b217b448a63eb9dd93a2f9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6648868592760391221}
+      addedObject: {fileID: -8618170754264999355}
   m_SourcePrefab: {fileID: 100100000, guid: c6ddb73496b217b448a63eb9dd93a2f9, type: 3}
 --- !u!4 &6091602501476346168 stripped
 Transform:
@@ -259,7 +263,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1347582105480782416, guid: c6ddb73496b217b448a63eb9dd93a2f9, type: 3}
   m_PrefabInstance: {fileID: 7464419187594018347}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-6648868592760391221
+--- !u!114 &-8618170754264999355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -268,15 +272,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8441262456742632571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d7ab6fc311061045ac496a95f73fec6, type: 3}
+  m_Script: {fileID: 11500000, guid: 914729acd2f99794eb2bed92ca9010ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {fileID: 0}
-  maxHp: 10
+  maxHp: 30
   isLive: 1
-  attackClipName: Attack
   bulletObj: {fileID: 0}
-  meleeAttackObj: {fileID: 0}
+  meleeAttackObj: {fileID: 1507818039604473018, guid: 0b3a61ee15482af40af4489c4e50de5d, type: 3}
   isMeleeAttacker: 1
   fireCooldown: 0.5
   meleeAttackRange: 7
+  MuzzlePoint: {fileID: 0}
