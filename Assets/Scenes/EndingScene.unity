@@ -755,7 +755,10 @@ MonoBehaviour:
   normalEndingScoreThreshold: 100
   slideDuration: 3
   endingTitleDuration: 3
-  badEndingImages: []
+  badEndingImages:
+  - {fileID: -1713105306465954045, guid: 7dd54a783b58f8f4a8bb2d11a5401a61, type: 3}
+  - {fileID: 6404989803186573698, guid: 3f862f578d4bbaa409834fbc008e739c, type: 3}
+  - {fileID: 6404989803186573698, guid: 3f862f578d4bbaa409834fbc008e739c, type: 3}
   badEndingLines:
   - "\uC784\uBB34 \uACB0\uACFC: \uD655\uBCF4\uB41C \uC790\uC6D0\uB7C9\uC740 \uAE30\uC900\uCE58\uC5D0
     \uD55C\uCC38 \uBBF8\uB2EC\uD588\uC2B5\uB2C8\uB2E4."
