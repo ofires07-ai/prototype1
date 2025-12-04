@@ -32,6 +32,16 @@ public class SourceManager : MonoBehaviour
     [Header("채굴 설정")]
     public float collectionInterval = 1.0f; // 1초마다 수집
     private float tickTimer = 0f;
+    
+    [System.Serializable]
+    public struct ResourceVisualData
+    {
+        public ResourceType type;
+        public Sprite icon;
+    }
+    
+    [Header("Resource Visualization")]
+    public List<ResourceVisualData> resourceIcons;
 
     void Update()
     {
@@ -155,6 +165,74 @@ public class SourceManager : MonoBehaviour
             // 4. 활성 작업 리스트에서 이 "작업"을 제거
             activeJobs.Remove(jobToStop);
             Debug.Log(unit.name + "의 " + jobToStop.Resource.name + " 작업을 중지합니다.");
+        }
+    }
+    
+    public Sprite GetResourceIcon(ResourceType type)
+    {
+        Debug.Log($"[SourceManager] GetResourceIcon 호출됨 - 요청 타입: {type}");
+
+        // resourceIcons 배열이 설정되지 않았거나 비어있는 경우 경고
+        if (resourceIcons == null || resourceIcons.Count == 0)
+        {
+            Debug.LogWarning("[SourceManager] resourceIcons가 설정되지 않았습니다! Unity Inspector에서 각 ResourceType별 아이콘을 설정해주세요.");
+            return null;
+        }
+
+        Debug.Log($"[SourceManager] resourceIcons 배열 크기: {resourceIcons.Count}");
+
+        foreach (var data in resourceIcons)
+        {
+            Debug.Log($"[SourceManager] 배열 요소 확인 - 타입: {data.type}, 아이콘: {(data.icon != null ? data.icon.name : "NULL")}");
+            if (data.type == type)
+            {
+                if (data.icon == null)
+                {
+                    Debug.LogWarning($"[SourceManager] {type} 타입의 아이콘이 null입니다. Unity Inspector에서 해당 스프라이트를 설정해주세요.");
+                    return null;
+                }
+                Debug.Log($"[SourceManager] ✅ {type} 타입의 아이콘을 찾았습니다: {data.icon.name}");
+                return data.icon;
+            }
+        }
+
+        Debug.LogWarning($"[SourceManager] {type} 타입의 아이콘을 찾을 수 없습니다. Unity Inspector의 resourceIcons 배열에서 해당 타입을 추가해주세요.");
+        return null; // 못 찾으면 null 반환
+    }
+
+    void Start()
+    {
+        // 시작 시 resourceIcons 설정 상태 확인
+        ValidateResourceIconsSetup();
+    }
+
+    private void ValidateResourceIconsSetup()
+    {
+        if (resourceIcons == null || resourceIcons.Count == 0)
+        {
+            Debug.LogError("[SourceManager] 아이콘이 설정되지 않았습니다!\n" +
+                          "Unity Inspector에서 다음과 같이 설정해주세요:\n" +
+                          "1. SourceManager 컴포넌트 선택\n" +
+                          "2. Resource Visualization > Resource Icons 배열 크기를 4로 설정\n" +
+                          "3. 각 원소에 대해:\n" +
+                          "   - Type: Tier1, Tier2, Tier3, Tier4\n" +
+                          "   - Icon: 해당하는 스프라이트 드래그");
+            return;
+        }
+
+        Debug.Log($"[SourceManager] {resourceIcons.Count}개의 아이콘이 설정되어 있습니다.");
+
+        // 각 아이콘 검증
+        foreach (var data in resourceIcons)
+        {
+            if (data.icon == null)
+            {
+                Debug.LogWarning($"[SourceManager] {data.type} 타입의 아이콘이 설정되지 않았습니다.");
+            }
+            else
+            {
+                Debug.Log($"[SourceManager] {data.type}: {data.icon.name} ✓");
+            }
         }
     }
 }

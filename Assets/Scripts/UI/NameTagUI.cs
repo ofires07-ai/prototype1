@@ -4,12 +4,14 @@ public class NameTagUI : MonoBehaviour
 {
     // 원래의 크기 저장
     private Vector3 originalScale;
+    private Vector3 originalPos;
     private Transform parentTransform;
     private Canvas canvas;
 
     void Start()
     {
         originalScale = transform.localScale;
+        originalPos = transform.localPosition;
         parentTransform = transform.parent;
         canvas = GetComponent<Canvas>();
 
@@ -23,6 +25,9 @@ public class NameTagUI : MonoBehaviour
         // Set Z position to avoid Z-culling
         Vector3 currentPos = transform.localPosition;
         transform.localPosition = new Vector3(currentPos.x, currentPos.y, -1f);
+        
+        // Z축을 바꿨으니 originalPos도 업데이트
+        originalPos = transform.localPosition;
     }
 
     void LateUpdate()
@@ -35,10 +40,14 @@ public class NameTagUI : MonoBehaviour
         {
             // 부모가 뒤집혔으면 나도 로컬에서 뒤집어서 -> 월드에서 정방향으로 만듦
             transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
+            
+            // 부모가 뒤집혔으니, 내 로컬 위치 X도 반대로 뒤집어야 월드에서 제자리를 유지함
+            transform.localPosition = new Vector3(-originalPos.x, originalPos.y, originalPos.z);
         }
         else
         {
             transform.localScale = originalScale;
+            transform.localPosition = originalPos;
         }
     }
 }

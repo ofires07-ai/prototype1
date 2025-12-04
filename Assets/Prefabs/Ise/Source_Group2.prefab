@@ -456,6 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceType: 1
   amountPerTick: 1
+  resourceIcon: {fileID: 8585081495337123410, guid: cff41342e3ac441f3ad4fed39a3221a6, type: 3}
   parentSource: {fileID: 0}
   attachedSpecialSource: {fileID: 0}
   miningSpots:

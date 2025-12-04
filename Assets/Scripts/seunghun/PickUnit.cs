@@ -42,7 +42,15 @@ public class PickUnit : MonoBehaviour
     public float miningSpeed = 1;
     
     [Header("UI")]
-    private TextMeshProUGUI nameTagText;
+    [SerializeField] private TextMeshProUGUI nameTagText;
+    [SerializeField] private TextMeshProUGUI speedTagText; // 인스펙터에서 직접 연결!
+    // 인스펙터에서 아까 만든 자식 오브젝트(MiningIcon)를 연결하세요.
+    public SpriteRenderer miningIconRenderer;
+    // 인스펙터에서 연결: 배경 오브젝트
+    public SpriteRenderer miningIconBgRenderer;
+    public SpriteRenderer miningSpeedRenderer;
+    
+    public MiningTickResult miningTickResult;
     
     void Awake()
     {
@@ -53,8 +61,7 @@ public class PickUnit : MonoBehaviour
         unitCollider = GetComponent<Collider2D>();
         myAbility = GetComponent<CrimerAbility>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        nameTagText = GetComponentInChildren<TextMeshProUGUI>(true);
-
+        
         // Set sprite renderer sorting layer for proper rendering order
         if (spriteRenderer != null)
         {
@@ -69,6 +76,10 @@ public class PickUnit : MonoBehaviour
         {
             myAbility.ApplyAbility();
             Debug.Log(myAbility.AbilityName + "적용!");
+            if (myAbility.AbilityName == "FasterMining")
+                speedTagText.text = "X1.5";
+            else
+                speedTagText.text = "X1";
             nameTagText.text = myAbility.AbilityName;
         }
         else
@@ -191,7 +202,8 @@ public class PickUnit : MonoBehaviour
             else Debug.Log("부모 노드 중지로 채굴 중지.");
             
             StopMining();
-            currentState = UnitState.Idle; 
+            currentState = UnitState.Idle;
+            return;
         }
     }
     
@@ -262,23 +274,51 @@ public class PickUnit : MonoBehaviour
     
     // [새 헬퍼 함수]
     // "SourceManager야, 내 '최종 작업 원장'을 받아!"
+    // [수정된 함수] SourceManager가 채굴 틱마다 호출
     public MiningTickResult GetMiningTickResult()
     {
+        // 1. 예외 처리 (대상 없음)
         if (targetSource == null) 
-            return new MiningTickResult { Type = ResourceType.Tier1, Amount = 0 }; // 비상 탈출
+            return new MiningTickResult { Type = ResourceType.Tier1, Amount = 0 };
 
+        MiningTickResult result;
+
+        // 2. 채굴 결과 계산 (일반 vs 능력 적용)
         if (myAbility == null)
         {
-            // 능력 없음 (기본 행동)
-            return new MiningTickResult 
+            result = new MiningTickResult 
             {
                 Type = targetSource.resourceType, 
                 Amount = targetSource.amountPerTick 
             };
         }
-        
-        // 내 능력이 계산한 '최종 원장'을 반환
-        return myAbility.ProcessMiningTick(targetSource);
+        else
+        {
+            // 여기서 RandomMining 등이 적용되어 result.Type이 바뀔 수 있음!
+            result = myAbility.ProcessMiningTick(targetSource);
+        }
+
+        // 3. 멤버 변수 업데이트
+        miningTickResult = result;
+
+        // ✅ [핵심 해결] 결정된 자원 타입(result.Type)에 맞는 이미지를 SourceManager에서 가져옴
+        if (sourceManager != null && miningIconRenderer != null)
+        {
+            Sprite icon = sourceManager.GetResourceIcon(result.Type);
+            if (icon != null)
+            {
+                miningIconRenderer.sprite = icon;
+                if (!miningIconBgRenderer.gameObject.activeSelf)
+                    miningIconBgRenderer.gameObject.SetActive(true);
+                // 혹시 꺼져있다면 켜주기
+                if (!miningIconRenderer.gameObject.activeSelf)
+                    miningIconRenderer.gameObject.SetActive(true);
+                if (!miningSpeedRenderer.gameObject.activeSelf)
+                    miningSpeedRenderer.gameObject.SetActive(true);
+            }
+        }
+
+        return result;
     }
     
     // (행동 1) 특정 광물을 목표로 설정하고 이동 (방탄 버전)
@@ -443,6 +483,14 @@ public class PickUnit : MonoBehaviour
                     Debug.LogError($"[PickUnit] DeactivateSource 중 에러 발생: {e.Message}");
                 }
             }
+
+            if (miningIconBgRenderer.gameObject.activeSelf)
+                miningIconBgRenderer.gameObject.SetActive(false);
+            // 혹시 꺼져있다면 켜주기
+            if (miningIconRenderer.gameObject.activeSelf)
+                miningIconRenderer.gameObject.SetActive(false);
+            if (miningSpeedRenderer.gameObject.activeSelf)
+                miningSpeedRenderer.gameObject.SetActive(false);
             // 에러가 나도 이미 isStopped = false가 되었으므로
             // 다음 목적지가 설정되면 이동합니다.
         }
