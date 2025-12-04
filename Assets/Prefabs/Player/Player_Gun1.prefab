@@ -104,7 +104,6 @@ GameObject:
   - component: {fileID: 7396346351614260155}
   - component: {fileID: -7359487685216582533}
   - component: {fileID: 6363195990343783219}
-  - component: {fileID: -7303698327012430766}
   m_Layer: 9
   m_Name: Player_Gun1
   m_TagString: Player
@@ -350,30 +349,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-7303698327012430766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1347582105480782416}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04443b22d17e7c44bbae59644014a871, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: {fileID: 0}
-  turnSpeed: 5
-  gunTurnSpeed: 200
-  gunPivot: {fileID: 4680466501189773499, guid: 85ff06fe4813061469cebcdc43f96c60, type: 3}
-  maxHp: 10
-  isLive: 1
-  bulletObj: {fileID: 8247499230207821644, guid: 77b3d06d6bb1cc4499ffce889647b359, type: 3}
-  meleeAttackObj: {fileID: 0}
-  isMeleeAttacker: 0
-  fireCooldown: 0.5
-  meleeAttackRange: 1.5
-  MuzzlePoint: {fileID: 6838649373615024533, guid: ee9bf1258823548428a485ccc8f9e0d9, type: 3}
 --- !u!1 &3656224234183721010
 GameObject:
   m_ObjectHideFlags: 0
