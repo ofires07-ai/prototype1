@@ -36,6 +36,7 @@ public class UpgradeCardUI : MonoBehaviour
         public StatType statType;
 
         [Header("표시용")]
+        [Multiline]
         public string title;           // 카드 제목
         [TextArea]
         public string description;     // 카드 설명
