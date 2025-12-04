@@ -275,7 +275,32 @@ public class UpgradeCardUI : MonoBehaviour
                 return; // RPG 타워에 적용했으면 여기서 끝
             }
 
-            // 둘 다 아니라면 경고
+            // 3) 슬로우 존 타워 (HY_SlowArea)
+            var slowArea = targetPrefab.GetComponentInChildren<HY_SlowArea>();
+            if (slowArea != null)
+            {
+                switch (card.statType)
+                {
+                    case StatType.AttackPower:
+                        slowArea.damage = Mathf.RoundToInt(slowArea.damage * card.valueMultiplier);
+                        Debug.Log($"[UpgradeCardUI] SLOW_TOWER damage x{card.valueMultiplier} → {slowArea.damage}");
+                        break;
+
+                    case StatType.AttackSpeed:
+                        slowArea.slowFactor *= card.valueMultiplier;
+                        Debug.Log($"[UpgradeCardUI] SLOW_TOWER slowFactor x{card.valueMultiplier} → {slowArea.slowFactor}");
+                        break;
+
+                    default:
+                        Debug.LogWarning($"[UpgradeCardUI] HY_SlowArea에 적용할 수 없는 StatType: {card.statType}");
+                        break;
+                }
+
+                return;
+            }
+
+
+            // 셋 다 아니라면 경고
             Debug.LogWarning($"[UpgradeCardUI] 지원하지 않는 방어 타워 타입입니다. prefab={targetPrefab.name}");
         }
         // ---------------- 생산 타워 업그레이드 (기존 그대로) ----------------

@@ -5,9 +5,9 @@ public class HY_SlowArea : MonoBehaviour
 {
     [Header("설정")]
     [Tooltip("감속 비율 (0.5 = 50% 속도로 느려짐)")]
-    [SerializeField] private float slowFactor = 0.5f;
+    [SerializeField] public float slowFactor = 0.5f;
 
-    [SerializeField] private int damage = 1;
+    [SerializeField] public int damage = 1;
     // 현재 슬로우를 걸고 있는 적들을 기억하는 리스트 (타워가 팔리거나 꺼질 때를 대비)
     private List<ISlowable> affectedEnemies = new List<ISlowable>();
 
