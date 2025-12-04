@@ -63,6 +63,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
     private List<Transform> waypoints = new List<Transform>();
     private int currentWaypointIndex = 0;
     private bool hasReachedFinalDestination = false;
+    private int slowDebuffCount = 0; // [추가] 내가 밟고 있는 장판 개수
 
     // [✨ 쿨타임 관련 변수]
     private float attackCooldown = 1.5f; // Start에서 자동 설정됨
@@ -277,26 +278,40 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
         //HandleSpriteFlip(direction.x);
     }
 
-
-
     /// <summary>
-    /// 외부(타워)에서 호출하여 속도 배율을 변경합니다.
+    /// 외부(타워)에서 호출하여 속도 배율을 변경합니다. (중첩 버그 수정됨)
     /// </summary>
-    /// <param name="ratio">적용할 비율 (예: 0.75f)</param>
     public void ApplySlow(float ratio)
     {
-        speedMultiplier = ratio;
-        // 디버깅용 로그 (필요 없으면 삭제)
-        // Debug.Log($"[AI] {name}: 이동 속도 {ratio * 100}%로 감소");
+        slowDebuffCount++; // 장판 개수 증가
+
+        // 1. 처음 밟았거나 (count 1)
+        // 2. 더 강력한 슬로우(수치가 더 낮음)가 들어왔을 때만 속도 갱신
+        if (slowDebuffCount == 1 || speedMultiplier > ratio)
+        {
+            speedMultiplier = ratio;
+        }
     }
 
     /// <summary>
-    /// 속도를 다시 원래대로(1.0) 복구합니다.
+    /// 영역에서 벗어날 때 호출됩니다.
     /// </summary>
     public void RemoveSlow()
     {
-        speedMultiplier = _originalSpeedMultiplier;
-        // Debug.Log($"[AI] {name}: 이동 속도 정상화");
+        slowDebuffCount--; // 장판 개수 감소
+
+        // [핵심 로직] 모든 장판에서 벗어났을 때만 속도를 원상복구
+        if (slowDebuffCount <= 0)
+        {
+            slowDebuffCount = 0; // 음수 방지 안전장치
+            speedMultiplier = _originalSpeedMultiplier;
+            // Debug.Log($"[AI] {name}: 모든 슬로우 해제! 속도 정상화");
+        }
+        else
+        {
+            // 아직 다른 장판이 남아있으므로 속도를 유지함!
+            // Debug.Log($"[AI] {name}: 장판 하나 벗어남. 남은 장판: {slowDebuffCount}");
+        }
     }
 
     /// <summary>

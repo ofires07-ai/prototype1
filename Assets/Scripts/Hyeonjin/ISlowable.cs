@@ -6,4 +6,5 @@ public interface ISlowable
     void ApplySlow(float ratio);
     void RemoveSlow();
     void TakeDamage(int damage);
+    
 }

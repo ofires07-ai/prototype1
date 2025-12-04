@@ -59,6 +59,7 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour, ISlowable
 
     private float attackCooldown = 2.0f;
     private float lastAttackTime = 0f;
+    private int slowDebuffCount = 0; // [추가] 중첩 카운트
     private Transform currentTarget;
 
     void Start()
@@ -414,23 +415,24 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour, ISlowable
 
         Debug.Log($"[AI 🚀] {name}: 구체가 {currentTarget.name}을 향해 발사되었습니다!");
     }
-    /// <summary>
-    /// 외부(타워)에서 호출하여 속도 배율을 변경합니다.
-    /// </summary>
-    /// <param name="ratio">적용할 비율 (예: 0.75f)</param>
     public void ApplySlow(float ratio)
     {
-        speedMultiplier = ratio;
-        // 디버깅용 로그 (필요 없으면 삭제)
-        // Debug.Log($"[AI] {name}: 이동 속도 {ratio * 100}%로 감소");
+        slowDebuffCount++; 
+
+        if (slowDebuffCount == 1 || speedMultiplier > ratio)
+        {
+            speedMultiplier = ratio;
+        }
     }
 
-    /// <summary>
-    /// 속도를 다시 원래대로(1.0) 복구합니다.
-    /// </summary>
     public void RemoveSlow()
     {
-        speedMultiplier = _originalSpeedMultiplier;
-        // Debug.Log($"[AI] {name}: 이동 속도 정상화");
+        slowDebuffCount--;
+
+        if (slowDebuffCount <= 0)
+        {
+            slowDebuffCount = 0;
+            speedMultiplier = _originalSpeedMultiplier;
+        }
     }
 }
