@@ -222,6 +222,27 @@ public class TowerBuildManager : MonoBehaviour
         var turretScript = towerGhost.GetComponent<TurretController>();
         if (turretScript != null) turretScript.enabled = false;
         
+        Animator ghostAnim = towerGhost.GetComponent<Animator>();
+        if (ghostAnim != null)
+        {
+            // 방법 1: (추천) 애니메이션이 없는 상태(T-pose)나 정지 상태가 괜찮다면 끕니다.
+            // ghostAnim.enabled = false; 
+
+            // 방법 2: (강력 추천) 스폰 애니메이션이 '땅에서 솟아오르는' 것이라면,
+            // 고스트는 이미 솟아오른(완료된) 상태여야 배치하기 편합니다.
+            // 따라서 시간을 강제로 흐르게 하여 애니메이션을 끝부분으로 보냅니다.
+        
+            // (1) 애니메이터를 활성화한 상태에서
+            ghostAnim.enabled = true;
+        
+            // (2) 강제로 10초(충분한 시간)가 지난 것처럼 업데이트를 1회 실행합니다.
+            // 이렇게 하면 스폰 애니메이션이 끝나고 Idle 상태가 된 모습이 렌더링 됩니다.
+            ghostAnim.Update(10.0f);
+        
+            // (3) 그 후 애니메이터를 멈춥니다 (CPU 절약 및 모션 고정)
+            ghostAnim.enabled = false; 
+        }
+        
         // 5. 고스트 타워의 초기 색상을 반투명하게 설정합니다.
         var sr = towerGhost.GetComponent<SpriteRenderer>();
         if (sr != null) sr.color = new Color(1f, 1f, 1f, 0.5f);
