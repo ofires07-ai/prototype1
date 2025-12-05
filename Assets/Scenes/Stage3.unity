@@ -8863,6 +8863,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 1589675490}
   collectionInterval: 1
+  resourceIcons:
+  - type: 0
+    icon: {fileID: -8053002167776101150, guid: acaa82e42958efd42bb1cff167818047, type: 3}
+  - type: 1
+    icon: {fileID: 8585081495337123410, guid: 2037fb14167bca341ac62260be503e30, type: 3}
+  - type: 2
+    icon: {fileID: 5230572312951809089, guid: cc4501548834cd147b4391cd84008775, type: 3}
+  - type: 3
+    icon: {fileID: 8785618894833809297, guid: 564ad2b48c924374f8b5a8d2e60003da, type: 3}
+  - type: 4
+    icon: {fileID: -8712778243190278716, guid: 48b38839d3948744b951fb8d2c7c356b, type: 3}
 --- !u!4 &652020874
 Transform:
   m_ObjectHideFlags: 0
