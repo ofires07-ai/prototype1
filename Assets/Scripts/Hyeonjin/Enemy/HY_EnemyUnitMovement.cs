@@ -197,6 +197,16 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
     }
     
     /// <summary>
+    /// 웨이브 인덱스에 따라 추가 이동속도를 더해주는 함수
+    /// (SpawnManager에서 웨이브 시작 시 1번 호출)
+    /// </summary>
+    public void ApplyWaveSpeedBonus(float bonusSpeed)
+    {
+        moveSpeed += bonusSpeed;
+        chaseSpeed += bonusSpeed;
+    }
+
+    /// <summary>
     /// (전투) 타겟을 추격하거나 공격합니다.
     /// </summary>
     void HandleCombat(Transform target)

@@ -36,6 +36,10 @@ public class SpawnManager : MonoBehaviour
     [Tooltip("웨이브가 1 증가할 때마다 추가되는 HP")]
     public int hpIncreasePerWave = 5;
 
+    [Header("Enemy Speed 스케일링")]
+    [Tooltip("웨이브 인덱스가 1 증가할 때마다 추가되는 이동 속도 (예: 0.25)")]
+    public float moveSpeedIncreasePerWave = 0.25f;
+
     private int _spawnedCountInCurrentWave = 0;
     private bool _isSpawning = false;
 
@@ -179,7 +183,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    // --- 스폰 ---
+    //스폰
     private void SpawnEnemy(GameObject enemyPrefab, string enemyID, int enemySpawnIndex)
     {
         if (spawnPoints == null || spawnPoints.Length == 0)
@@ -188,34 +192,45 @@ public class SpawnManager : MonoBehaviour
             return;
         }
 
-        // 🔹 N번째 EnemySpawn은 (N % 스폰포인트 개수) 번째 스폰 포인트에서 출발
-        //    예) 0번 EnemySpawn → spawnPoints[0]
-        //        1번 EnemySpawn → spawnPoints[1]
-        //        2번 EnemySpawn → spawnPoints[0] (스폰 포인트가 2개인 경우)
         int spawnIndex = enemySpawnIndex % spawnPoints.Length;
         Transform point = spawnPoints[spawnIndex];
 
         GameObject enemyObject = Instantiate(enemyPrefab, point.position, point.rotation);
 
-        // // 타입 ID 전달
-        // Enemy_Y enemyScript = enemyObject.GetComponent<Enemy_Y>();
-        // if (enemyScript != null)
-        //     enemyScript.enemyID = enemyID;
+        // 🔹 웨이브 인덱스 기반 HP/속도 보정값 계산
+        int bonusHp = hpIncreasePerWave * _currentWaveIndex;      // HP는 그대로 쓰고 싶으면 유지, 아니면 Inspector에서 0으로
+        float speedBonus = moveSpeedIncreasePerWave * _currentWaveIndex;
 
+        // 1) 근접 유닛
         HY_EnemyUnitMovement hyEnemy = enemyObject.GetComponent<HY_EnemyUnitMovement>();
         if (hyEnemy != null)
         {
             hyEnemy.enemyID = enemyID;
 
-            // 🔹 웨이브마다 +5 HP
-            //   0번째 웨이브: +0, 1번째 웨이브: +5, 2번째 웨이브: +10 ...
-            int bonusHp = hpIncreasePerWave * _currentWaveIndex;
             if (bonusHp != 0)
-            {
                 hyEnemy.ApplyHpBonus(bonusHp);
-            }
+
+            if (Mathf.Abs(speedBonus) > 0.0001f)
+                hyEnemy.ApplyWaveSpeedBonus(speedBonus);
+
+            return;
+        }
+
+        // 2) 원거리 유닛
+        HY_Ranged_EnemyUnitMovement rangedEnemy = enemyObject.GetComponent<HY_Ranged_EnemyUnitMovement>();
+        if (rangedEnemy != null)
+        {
+            rangedEnemy.enemyID = enemyID;
+
+            if (bonusHp != 0)
+                rangedEnemy.ApplyHpBonus(bonusHp);      // ▶ HP도 같이 쓰고 싶으면, ranged 쪽에도 ApplyHpBonus 만들어주면 됨
+                                                        // 안 쓸 거면 이 줄은 빼도 됨
+
+            if (Mathf.Abs(speedBonus) > 0.0001f)
+                rangedEnemy.ApplyWaveSpeedBonus(speedBonus);
         }
     }
+
 
     // --- 몬스터 사망 콜백 ---
     public void OnMonsterDied(string enemyID)
