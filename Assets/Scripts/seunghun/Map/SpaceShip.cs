@@ -136,6 +136,7 @@ public class SpaceShip : MonoBehaviour
         // UI 업데이트 (현재 체력이 maxHp를 넘지 않도록 방어 코드 추가)
         currentHp = Mathf.Min(currentHp, maxHp);
         GameManager.Instance.UpdateHPUI(currentHp, maxHp);
+        GameManager.Instance.hpText.color = Color.green;
 
         Debug.Log($"[Base] 최대 체력 {amount} 증가! (Max: {maxHp}, Current: {currentHp})");
     }
