@@ -48,7 +48,10 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour, ISlowable
     [SerializeField] private HY_SmoothHealthBar healthBar;
     public HY_Scanner scanner;
     private SpriteRenderer spriteRenderer;
-
+    
+     // [✨ 추가] 피격 빨간색 타이머 변수
+    private float hitFlashTimer = 0f;
+    private const float hitFlashDuration = 0.05f; // 빨간색 유지 시간 (0.1초)
     private float _originalSpeedMultiplier;
     private List<Transform> waypoints = new List<Transform>();
     private int currentWaypointIndex = 0;
@@ -101,6 +104,17 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour, ISlowable
 
     void Update()
     {
+         // [✨ 추가] 피격 색상 복구 로직 (Update에서 매 프레임 체크)
+        if (hitFlashTimer > 0f)
+        {
+            hitFlashTimer -= Time.deltaTime; // 시간 감소
+            if (hitFlashTimer <= 0f)
+            {
+                // 시간이 다 되면 원래 색(흰색)으로 복구
+                if (spriteRenderer != null) spriteRenderer.color = Color.white;
+            }
+        }
+
         if (!isLive || isStunned)
         {
             animator.SetBool("isLive", isLive);
@@ -200,6 +214,12 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour, ISlowable
     {
         if (!isLive) return;
         currentHp -= damage;
+
+         if (spriteRenderer != null) spriteRenderer.color = Color.red;
+        
+        // 2. 타이머 설정 (0.1초 뒤에 Update에서 흰색으로 돌아옴)
+        hitFlashTimer = hitFlashDuration;
+
         if (healthBar != null)
         {
             healthBar.SetHealth(currentHp, maxHp);

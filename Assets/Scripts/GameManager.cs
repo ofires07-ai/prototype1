@@ -379,6 +379,11 @@ public class GameManager : MonoBehaviour
     {
         unitCostModifier = modifier;
         buildSystem.RefreshAllButtonUI();
+        for(int i = 0; i < 3; i++)
+        {
+            buildSystem.buildButtons[i].cost1Text.color = Color.green;
+            buildSystem.buildButtons[i].cost2Text.color = Color.green;
+        }
     }
     
     /// 타워 할인 어빌리티가 이 함수를 호출하여 할인율을 등록합니다.
@@ -386,5 +391,10 @@ public class GameManager : MonoBehaviour
     {
         towerCostModifier = modifier;
         buildSystem.RefreshAllButtonUI();
+        for(int i = 3; i < 6; i++)
+        {
+            buildSystem.buildButtons[i].cost1Text.color = Color.green;
+            buildSystem.buildButtons[i].cost2Text.color = Color.green;
+        }
     }
 }
