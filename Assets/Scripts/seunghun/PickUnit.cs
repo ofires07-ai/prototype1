@@ -49,6 +49,7 @@ public class PickUnit : MonoBehaviour
     // 인스펙터에서 연결: 배경 오브젝트
     public SpriteRenderer miningIconBgRenderer;
     public SpriteRenderer miningSpeedRenderer;
+    public TextMeshProUGUI miningSpeedText;
     
     public MiningTickResult miningTickResult;
     
@@ -76,10 +77,6 @@ public class PickUnit : MonoBehaviour
         {
             myAbility.ApplyAbility();
             Debug.Log(myAbility.AbilityName + "적용!");
-            if (myAbility.AbilityName == "FasterMining")
-                speedTagText.text = "X1.5";
-            else
-                speedTagText.text = "X1";
             nameTagText.text = myAbility.AbilityName;
         }
         else
@@ -314,7 +311,10 @@ public class PickUnit : MonoBehaviour
                 if (!miningIconRenderer.gameObject.activeSelf)
                     miningIconRenderer.gameObject.SetActive(true);
                 if (!miningSpeedRenderer.gameObject.activeSelf)
+                {
+                    miningSpeedText.text = "X" + (miningSpeed * targetSource.amountPerTick).ToString();
                     miningSpeedRenderer.gameObject.SetActive(true);
+                }
             }
         }
 

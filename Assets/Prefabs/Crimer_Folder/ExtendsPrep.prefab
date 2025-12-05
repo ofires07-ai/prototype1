@@ -230,6 +230,7 @@ MonoBehaviour:
   miningIconRenderer: {fileID: 4183572108026671391}
   miningIconBgRenderer: {fileID: 7085805322117534778}
   miningSpeedRenderer: {fileID: 1977663851531762704}
+  miningSpeedText: {fileID: 3901065820815334237}
 --- !u!50 &1122169644483937137
 Rigidbody2D:
   serializedVersion: 5

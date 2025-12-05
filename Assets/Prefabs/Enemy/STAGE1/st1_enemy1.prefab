@@ -198,7 +198,7 @@ MonoBehaviour:
   attackDamage: 1
   enemyMeleeHitboxPrefab: {fileID: 2739837314160803032, guid: 389bb2ee4cfb28c4ebdf4a8b95eaaf6e, type: 3}
   healthBar: {fileID: 1073670504378531509}
-  maxHp: 100
+  maxHp: 15
   autoFindCircles: 1
   manualWaypoints: []
   animator: {fileID: 0}

@@ -319,12 +319,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {fileID: 0}
-  maxHp: 10
+  maxHp: 20
   isLive: 1
   bulletObj: {fileID: 8247499230207821644, guid: 77b3d06d6bb1cc4499ffce889647b359, type: 3}
   meleeAttackObj: {fileID: 0}
   isMeleeAttacker: 0
-  fireCooldown: 0.5
+  fireCooldown: 0.2
   meleeAttackRange: 1.5
   MuzzlePoint: {fileID: 1335304069329466568}
 --- !u!95 &6363195990343783219
