@@ -166,6 +166,9 @@ public class SpawnManager : MonoBehaviour
         _remainingMonsterCounts.Clear();
         foreach (var s in _currentWave.enemySpawns)
         {
+            if (s.count <= 0 || string.IsNullOrEmpty(s.enemyID))
+                continue;
+
             if (!_remainingMonsterCounts.ContainsKey(s.enemyID))
                 _remainingMonsterCounts[s.enemyID] = 0;
 

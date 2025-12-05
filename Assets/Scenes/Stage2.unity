@@ -13563,57 +13563,64 @@ MonoBehaviour:
   - waveName: Wave1
     enemySpawns:
     - enemyID: Enemy
-      enemyPrefab: {fileID: 883179094620236413, guid: a79bee2dc39b119468f2746b60f8a934, type: 3}
-      spawnInterval: 0.5
-      count: 30
-      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
-    - enemyID: Enemy
       enemyPrefab: {fileID: 883179094620236413, guid: d3c4998b6f3a4b34ba11be2c0e2db647, type: 3}
       spawnInterval: 0.5
-      count: 30
+      count: 15
+      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
+    - enemyID: Enemy
+      enemyPrefab: {fileID: 883179094620236413, guid: a79bee2dc39b119468f2746b60f8a934, type: 3}
+      spawnInterval: 0.5
+      count: 15
       uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
     totalMonsterCount: 0
   - waveName: Wave2
     enemySpawns:
     - enemyID: Enemy
-      enemyPrefab: {fileID: 883179094620236413, guid: a79bee2dc39b119468f2746b60f8a934, type: 3}
-      spawnInterval: 0.5
-      count: 50
-      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
-    - enemyID: Enemy
       enemyPrefab: {fileID: 883179094620236413, guid: d3c4998b6f3a4b34ba11be2c0e2db647, type: 3}
       spawnInterval: 0.5
-      count: 50
+      count: 20
       uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
-    totalMonsterCount: 0
-  - waveName: Wave3
-    enemySpawns:
     - enemyID: Enemy
       enemyPrefab: {fileID: 883179094620236413, guid: a79bee2dc39b119468f2746b60f8a934, type: 3}
       spawnInterval: 0.5
-      count: 80
+      count: 20
       uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
-    - enemyID: Enemy
-      enemyPrefab: {fileID: 883179094620236413, guid: d3c4998b6f3a4b34ba11be2c0e2db647, type: 3}
+    - enemyID: Enemy1
+      enemyPrefab: {fileID: 6347296946635166604, guid: 84d05f06687f34bdfa8908a5821ce134, type: 3}
       spawnInterval: 0.5
-      count: 80
-      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
+      count: 10
+      uiIcon: {fileID: 3187566276056355383, guid: 760e95986b7daeb42ae1754ea470cc8e, type: 3}
+    - enemyID: Enemy1
+      enemyPrefab: {fileID: 6347296946635166604, guid: 80eca551401579f40a79128ff12cd4e1, type: 3}
+      spawnInterval: 0.5
+      count: 10
+      uiIcon: {fileID: 3187566276056355383, guid: 760e95986b7daeb42ae1754ea470cc8e, type: 3}
     totalMonsterCount: 0
   - waveName: BossWave
     enemySpawns:
     - enemyID: Enemy
-      enemyPrefab: {fileID: 883179094620236413, guid: a79bee2dc39b119468f2746b60f8a934, type: 3}
-      spawnInterval: 0.5
-      count: 100
-      uiIcon: {fileID: 2492063137762351953, guid: 49bd7700988ed42419a0033b0705be1a, type: 3}
-    - enemyID: Enemy
       enemyPrefab: {fileID: 883179094620236413, guid: d3c4998b6f3a4b34ba11be2c0e2db647, type: 3}
       spawnInterval: 0.5
-      count: 100
+      count: 25
+      uiIcon: {fileID: 2492063137762351953, guid: 49bd7700988ed42419a0033b0705be1a, type: 3}
+    - enemyID: Enemy
+      enemyPrefab: {fileID: 883179094620236413, guid: a79bee2dc39b119468f2746b60f8a934, type: 3}
+      spawnInterval: 0.5
+      count: 25
       uiIcon: {fileID: 8838371519414987260, guid: ce8257eec008a4d0f83a8b51bc8990e0, type: 3}
+    - enemyID: Enemy1
+      enemyPrefab: {fileID: 6347296946635166604, guid: 84d05f06687f34bdfa8908a5821ce134, type: 3}
+      spawnInterval: 0.5
+      count: 15
+      uiIcon: {fileID: 3187566276056355383, guid: 760e95986b7daeb42ae1754ea470cc8e, type: 3}
+    - enemyID: Enemy1
+      enemyPrefab: {fileID: 6347296946635166604, guid: 80eca551401579f40a79128ff12cd4e1, type: 3}
+      spawnInterval: 50
+      count: 15
+      uiIcon: {fileID: 3187566276056355383, guid: 760e95986b7daeb42ae1754ea470cc8e, type: 3}
     - enemyID: Boss
       enemyPrefab: {fileID: 6937973467607618868, guid: c34c9f455560ccd4ab9e3ce12a40f4c5, type: 3}
-      spawnInterval: 50
+      spawnInterval: 0.5
       count: 1
       uiIcon: {fileID: 8838371519414987260, guid: ce8257eec008a4d0f83a8b51bc8990e0, type: 3}
     totalMonsterCount: 0
@@ -13622,7 +13629,8 @@ MonoBehaviour:
   - {fileID: 1199327459}
   useProductionTowersAsSpawnPoints: 0
   takeoverProductionTowers: 1
-  hpIncreasePerWave: 5
+  hpIncreasePerWave: 10
+  moveSpeedIncreasePerWave: 0.25
 --- !u!4 &1060494772
 Transform:
   m_ObjectHideFlags: 0
