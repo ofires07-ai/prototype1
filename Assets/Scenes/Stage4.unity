@@ -13482,7 +13482,7 @@ MonoBehaviour:
   resource3Text: {fileID: 9010587506167430775}
   resource4Text: {fileID: 1973072435933311191}
   specialText: {fileID: 9054092665992613793}
-  initialTimeBetweenWaves: 121
+  initialTimeBetweenWaves: 120
   waveInfoPanel: {fileID: 4751138953343951978}
   timerText: {fileID: 5684455202279713932}
   waveStatusText: {fileID: 3040241666586045157}
