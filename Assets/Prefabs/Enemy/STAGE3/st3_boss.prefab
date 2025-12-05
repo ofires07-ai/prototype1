@@ -213,7 +213,7 @@ MonoBehaviour:
   chaseSpeed: 4
   attackRange: 1
   attackDamage: 15
-  enemyMeleeHitboxPrefab: {fileID: 0}
+  enemyMeleeHitboxPrefab: {fileID: 36502750192200874, guid: 88f23ac6008f05c4abdd976b55843bce, type: 3}
   healthBar: {fileID: 2223038639140191553}
   maxHp: 600
   autoFindCircles: 1

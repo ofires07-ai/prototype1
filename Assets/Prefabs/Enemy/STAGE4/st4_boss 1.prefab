@@ -214,7 +214,7 @@ MonoBehaviour:
   attackRange: 1
   attackDamage: 20
   enemyMeleeHitboxPrefab: {fileID: 36502750192200874, guid: 88f23ac6008f05c4abdd976b55843bce, type: 3}
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 9049441388807526500}
   maxHp: 750
   autoFindCircles: 1
   manualWaypoints: []
@@ -333,3 +333,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2999319940018434872, guid: d5ff8b0d57b19e14ab1021cada251ab7, type: 3}
   m_PrefabInstance: {fileID: 8139506577434360121}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9049441388807526500 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 964690492060672349, guid: d5ff8b0d57b19e14ab1021cada251ab7, type: 3}
+  m_PrefabInstance: {fileID: 8139506577434360121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce024af6b0d6d9144afa3f82721db8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
