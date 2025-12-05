@@ -355,7 +355,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
     public void TakeDamage(int damage)
     {
         if (!isLive) return; // 이미 죽었으면 무시
-
+        
         currentHp -= damage;
         // (선택) 여기서 피격 애니메이션 트리거
         // animator.SetTrigger("Hit"); 
