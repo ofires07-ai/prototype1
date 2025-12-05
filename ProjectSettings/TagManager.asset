@@ -12,6 +12,7 @@ TagManager:
   - SpecialSource
   - MeleeHitbox
   - Base
+  - Flag
   layers:
   - Default
   - TransparentFX

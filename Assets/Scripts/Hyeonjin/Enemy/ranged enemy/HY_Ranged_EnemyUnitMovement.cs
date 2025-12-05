@@ -455,4 +455,25 @@ public class HY_Ranged_EnemyUnitMovement : MonoBehaviour, ISlowable
             speedMultiplier = _originalSpeedMultiplier;
         }
     }
+
+    public void ApplyHpBonus(int bonus)
+    {
+        maxHp += bonus;
+        currentHp = maxHp;
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHp, maxHp);
+        }
+    }
+
+    /// <summary>
+    /// 웨이브 인덱스에 따라 추가 이동속도를 더해주는 함수
+    /// (SpawnManager에서 웨이브 시작 시 1번 호출)
+    /// </summary>
+    public void ApplyWaveSpeedBonus(float bonusSpeed)
+    {
+        moveSpeed += bonusSpeed;
+        chaseSpeed += bonusSpeed;
+    }
 }

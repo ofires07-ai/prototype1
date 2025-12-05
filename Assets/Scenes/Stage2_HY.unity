@@ -7105,6 +7105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 1589675490}
   collectionInterval: 1
+  resourceIcons: []
 --- !u!4 &652020874
 Transform:
   m_ObjectHideFlags: 0
@@ -8891,8 +8892,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 1589675490}
   buildSystem: {fileID: 0}
-  maxBaseHealth: 10
-  _currentBaseHealth: 0
   unitCostModifier: 1
   towerCostModifier: 1
   hpText: {fileID: 6211275230148413564}
@@ -10667,7 +10666,7 @@ MonoBehaviour:
     resource4Icon: {fileID: 5230572312951809089, guid: e302d8134e02140059bdeba9f8c745e8, type: 3}
     resource5Icon: {fileID: 21300000, guid: 99f921b1c41aa3c449cfc1041c453fcf, type: 3}
   - prefab: {fileID: 2525127362950024206, guid: d620983d27bb1ab498754dc1f2b58537, type: 3}
-    costs: 00000000640000004600000000000000
+    costs: 00000000000000000000000000000000
     unitType: SOLDIER
     unitIcon: {fileID: 5738468995420484106, guid: 71f784bbea04124438f423e48873d6c9, type: 3}
     resource1Icon: {fileID: -8053002167776101150, guid: 5fa4267f2251a4864ba9a0e18115f65a, type: 3}
@@ -10694,7 +10693,7 @@ MonoBehaviour:
     resource4Icon: {fileID: 5230572312951809089, guid: e302d8134e02140059bdeba9f8c745e8, type: 3}
     resource5Icon: {fileID: 21300000, guid: 99f921b1c41aa3c449cfc1041c453fcf, type: 3}
   - prefab: {fileID: 2589101403216525693, guid: 77414ee2f3aab254ebe6fb7f73f5d190, type: 3}
-    costs: 00000000640000004600000000000000
+    costs: 00000000000000000000000000000000
     unitType: TOWER
     unitIcon: {fileID: 7230141825694988423, guid: 00f1dc70902f60443b78ccd3411ed0a4, type: 3}
     resource1Icon: {fileID: -8053002167776101150, guid: 5fa4267f2251a4864ba9a0e18115f65a, type: 3}
@@ -10703,7 +10702,7 @@ MonoBehaviour:
     resource4Icon: {fileID: 8785618894833809297, guid: e5b38096d310b4712bd33e191cbd8aca, type: 3}
     resource5Icon: {fileID: 21300000, guid: 99f921b1c41aa3c449cfc1041c453fcf, type: 3}
   - prefab: {fileID: 1992874121629347282, guid: daa67df8888343a4aa005c82e7d337a0, type: 3}
-    costs: 00000000000000006400000046000000
+    costs: 00000000000000000000000000000000
     unitType: TOWER
     unitIcon: {fileID: 6660783624410144326, guid: d2d9236b83344a14eb42ae23d666b134, type: 3}
     resource1Icon: {fileID: -8053002167776101150, guid: 5fa4267f2251a4864ba9a0e18115f65a, type: 3}
@@ -11812,6 +11811,8 @@ MonoBehaviour:
   - {fileID: 1199327459}
   useProductionTowersAsSpawnPoints: 0
   takeoverProductionTowers: 1
+  hpIncreasePerWave: 5
+  moveSpeedIncreasePerWave: 0.25
 --- !u!4 &1060494772
 Transform:
   m_ObjectHideFlags: 0
@@ -16020,6 +16021,8 @@ MonoBehaviour:
   prisonerSelectionUI: {fileID: 321504273}
   upgradeCardUI: {fileID: 5319521310184259387}
   showUpgradeBeforeNextStage: 0
+  enableGameOverOnShipDestroyed: 1
+  delayBeforeGameOver: 0.5
 --- !u!4 &1461496614
 Transform:
   m_ObjectHideFlags: 0
@@ -17573,7 +17576,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36214004fab843d79c56b34d99c0b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 10
+  currentHp: 0
+  isDestroyed: 0
   crimerManager: {fileID: 1970001422}
+  selectedPrisonerPrefabs: []
   rallyPoints:
   - {fileID: 1336887437}
   - {fileID: 2112444680}

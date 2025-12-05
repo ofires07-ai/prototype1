@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {fileID: 0}
-  maxHp: 30
+  maxHp: 20
   isLive: 1
   bulletObj: {fileID: 0}
   meleeAttackObj: {fileID: 1507818039604473018, guid: 0b3a61ee15482af40af4489c4e50de5d, type: 3}

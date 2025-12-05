@@ -4183,7 +4183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 252007035}
   m_Layer: 0
-  m_Name: EnemySpawnPoint_up
+  m_Name: EnemySpawnPoint_Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4198,7 +4198,7 @@ Transform:
   m_GameObject: {fileID: 252007034}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 54, y: -12, z: 0.0030908585}
+  m_LocalPosition: {x: 74, y: 21, z: 0.0030908585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4501,6 +4501,7 @@ Transform:
   m_Children:
   - {fileID: 252007035}
   - {fileID: 1199327459}
+  - {fileID: 981132588}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &314037145
@@ -14546,6 +14547,37 @@ Transform:
   - {fileID: 1660342245}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &981132587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 981132588}
+  m_Layer: 0
+  m_Name: EnemySpawnPoint_Circle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &981132588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981132587}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 27, y: -12, z: 0.0030908585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 293724525}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &982180684
 GameObject:
   m_ObjectHideFlags: 0
@@ -15905,26 +15937,26 @@ MonoBehaviour:
     - enemyID: Enemy
       enemyPrefab: {fileID: 7431682375143339677, guid: a85b2518a3910f54293f3d7ee086c206, type: 3}
       spawnInterval: 0.5
-      count: 30
-      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
-    - enemyID: Enemy
-      enemyPrefab: {fileID: 7655971084757379747, guid: 64ca5d775f2196b449cf4d2dd830a1d0, type: 3}
-      spawnInterval: 0.5
-      count: 30
-      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
+      count: 40
+      uiIcon: {fileID: -8161338336648986499, guid: 9701455841fdd9f47b13236caf575881, type: 3}
     totalMonsterCount: 0
   - waveName: Wave2
     enemySpawns:
-    - enemyID: Enemy
-      enemyPrefab: {fileID: 883179094620236413, guid: a79bee2dc39b119468f2746b60f8a934, type: 3}
+    - enemyID: 
+      enemyPrefab: {fileID: 0}
       spawnInterval: 0.5
-      count: 50
-      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
-    - enemyID: Enemy
-      enemyPrefab: {fileID: 883179094620236413, guid: d3c4998b6f3a4b34ba11be2c0e2db647, type: 3}
+      count: 0
+      uiIcon: {fileID: 0}
+    - enemyID: Enemy1
+      enemyPrefab: {fileID: 7431682375143339677, guid: a85b2518a3910f54293f3d7ee086c206, type: 3}
       spawnInterval: 0.5
-      count: 50
-      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
+      count: 25
+      uiIcon: {fileID: -5894057112041449710, guid: dcf2015b56d5b68408af8158ee41832b, type: 3}
+    - enemyID: Enemy
+      enemyPrefab: {fileID: 5035245269060432484, guid: 476c38491f65c784caeb4d2e7c29b659, type: 3}
+      spawnInterval: 0.5
+      count: 25
+      uiIcon: {fileID: 2166182548788320357, guid: cb538b3bfcd34a342898307120bd05f3, type: 3}
     totalMonsterCount: 0
   - waveName: Wave3
     enemySpawns:
@@ -15933,36 +15965,53 @@ MonoBehaviour:
       spawnInterval: 0.5
       count: 80
       uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
-    - enemyID: Enemy
-      enemyPrefab: {fileID: 883179094620236413, guid: d3c4998b6f3a4b34ba11be2c0e2db647, type: 3}
+    - enemyID: Enemy1
+      enemyPrefab: {fileID: 7431682375143339677, guid: a85b2518a3910f54293f3d7ee086c206, type: 3}
       spawnInterval: 0.5
-      count: 80
-      uiIcon: {fileID: 3087738552712123693, guid: b1d3026e30044794bb66adb2bcfe2dc9, type: 3}
+      count: 25
+      uiIcon: {fileID: -5894057112041449710, guid: dcf2015b56d5b68408af8158ee41832b, type: 3}
+    - enemyID: Enemy2
+      enemyPrefab: {fileID: 5035245269060432484, guid: 476c38491f65c784caeb4d2e7c29b659, type: 3}
+      spawnInterval: 0.5
+      count: 25
+      uiIcon: {fileID: 2166182548788320357, guid: cb538b3bfcd34a342898307120bd05f3, type: 3}
     totalMonsterCount: 0
   - waveName: BossWave
     enemySpawns:
     - enemyID: Enemy
-      enemyPrefab: {fileID: 883179094620236413, guid: a79bee2dc39b119468f2746b60f8a934, type: 3}
+      enemyPrefab: {fileID: 7655971084757379747, guid: 64ca5d775f2196b449cf4d2dd830a1d0, type: 3}
       spawnInterval: 0.5
-      count: 100
-      uiIcon: {fileID: 2492063137762351953, guid: 49bd7700988ed42419a0033b0705be1a, type: 3}
-    - enemyID: Enemy
-      enemyPrefab: {fileID: 883179094620236413, guid: d3c4998b6f3a4b34ba11be2c0e2db647, type: 3}
+      count: 30
+      uiIcon: {fileID: -8161338336648986499, guid: 9701455841fdd9f47b13236caf575881, type: 3}
+    - enemyID: Enemy1
+      enemyPrefab: {fileID: 7431682375143339677, guid: a85b2518a3910f54293f3d7ee086c206, type: 3}
       spawnInterval: 0.5
-      count: 100
-      uiIcon: {fileID: 8838371519414987260, guid: ce8257eec008a4d0f83a8b51bc8990e0, type: 3}
-    - enemyID: Boss
-      enemyPrefab: {fileID: 6937973467607618868, guid: c34c9f455560ccd4ab9e3ce12a40f4c5, type: 3}
-      spawnInterval: 50
+      count: 30
+      uiIcon: {fileID: -5894057112041449710, guid: dcf2015b56d5b68408af8158ee41832b, type: 3}
+    - enemyID: Enemy1
+      enemyPrefab: {fileID: 5035245269060432484, guid: 476c38491f65c784caeb4d2e7c29b659, type: 3}
+      spawnInterval: 0.5
+      count: 30
+      uiIcon: {fileID: -5894057112041449710, guid: dcf2015b56d5b68408af8158ee41832b, type: 3}
+    - enemyID: 
+      enemyPrefab: {fileID: 0}
+      spawnInterval: 0
       count: 1
-      uiIcon: {fileID: 8838371519414987260, guid: ce8257eec008a4d0f83a8b51bc8990e0, type: 3}
+      uiIcon: {fileID: 0}
+    - enemyID: Boss
+      enemyPrefab: {fileID: 492350326740679817, guid: c3cc1d5380e2657448fe2982c58b9f67, type: 3}
+      spawnInterval: 0.5
+      count: 1
+      uiIcon: {fileID: -6315418877210265434, guid: 8d4ffda430ef61b4b94eff87a0f59c70, type: 3}
     totalMonsterCount: 0
   spawnPoints:
+  - {fileID: 981132588}
   - {fileID: 252007035}
   - {fileID: 1199327459}
   useProductionTowersAsSpawnPoints: 0
   takeoverProductionTowers: 1
   hpIncreasePerWave: 5
+  moveSpeedIncreasePerWave: 0.25
 --- !u!4 &1060494772
 Transform:
   m_ObjectHideFlags: 0
@@ -18674,7 +18723,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1199327459}
   m_Layer: 0
-  m_Name: EnemySpawnPoint_down
+  m_Name: EnemySpawnPoint_Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18689,7 +18738,7 @@ Transform:
   m_GameObject: {fileID: 1199327458}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 51, y: -12, z: 0.0030908585}
+  m_LocalPosition: {x: 79, y: 21, z: 0.0030908585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31790,7 +31839,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -135}
-  m_SizeDelta: {x: 288, y: 70}
+  m_SizeDelta: {x: 420, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1079559287082310785
 CanvasRenderer:
@@ -37065,10 +37114,10 @@ RectTransform:
   - {fileID: 1703878335302606322}
   m_Father: {fileID: 6327726964279402058}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.25}
-  m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6568594247389130228
 GameObject:

@@ -36,6 +36,10 @@ public class SpawnManager : MonoBehaviour
     [Tooltip("웨이브가 1 증가할 때마다 추가되는 HP")]
     public int hpIncreasePerWave = 5;
 
+    [Header("Enemy Speed 스케일링")]
+    [Tooltip("웨이브 인덱스가 1 증가할 때마다 추가되는 이동 속도 (예: 0.25)")]
+    public float moveSpeedIncreasePerWave = 0.25f;
+
     private int _spawnedCountInCurrentWave = 0;
     private bool _isSpawning = false;
 
@@ -92,14 +96,43 @@ public class SpawnManager : MonoBehaviour
         {
             bool anyLeftToSpawn = false;
 
-            // 🔹 각 EnemySpawn(타입) 별로 "동시에" 스폰 진행
             for (int i = 0; i < _currentWave.enemySpawns.Count; i++)
             {
+                // 이 타입은 더 이상 스폰할 게 없음
                 if (_remainingToSpawnPerType[i] <= 0)
                     continue;
 
                 anyLeftToSpawn = true;
 
+                // 🔹 같은 스폰포인트를 사용하는 "앞 인덱스"가 남아 있으면, 이 타입은 대기
+                bool blockedByPrevious = false;
+
+                if (spawnPoints != null && spawnPoints.Length > 0)
+                {
+                    int mySpawnIndex = i % spawnPoints.Length;
+
+                    for (int j = 0; j < i; j++)
+                    {
+                        if (_remainingToSpawnPerType[j] <= 0)
+                            continue;
+
+                        int prevSpawnIndex = j % spawnPoints.Length;
+                        if (prevSpawnIndex == mySpawnIndex)
+                        {
+                            // 같은 스폰포인트를 쓰는 앞 타입(j)이 아직 다 안 나갔으면, i는 스폰 불가
+                            blockedByPrevious = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (blockedByPrevious)
+                {
+                    // 이 타입은 아직 자기 차례가 아니므로, 타이머도 건드리지 않고 다음 타입으로 넘어감
+                    continue;
+                }
+
+                // 🔹 여기까지 왔다는 건, 이 스폰포인트에서 "현재 담당 타입"이라는 뜻
                 _spawnTimersPerType[i] -= Time.deltaTime;
                 if (_spawnTimersPerType[i] <= 0f)
                 {
@@ -110,29 +143,28 @@ public class SpawnManager : MonoBehaviour
                     _remainingToSpawnPerType[i]--;
                     _spawnedCountInCurrentWave++;
 
-                    // 다음 스폰까지의 간격 재설정
                     _spawnTimersPerType[i] = cfg.spawnInterval;
                 }
             }
 
-            // 더 이상 스폰할 몬스터가 없으면 스폰 종료
             if (!anyLeftToSpawn)
             {
                 _isSpawning = false;
             }
         }
 
-        // 웨이브 종료: 모두 스폰되었고, 남은 처치 수가 0
+        // --- 아래 웨이브 종료 체크는 기존 그대로 유지 ---
         if (_currentWave != null 
             && !_isSpawning
             && _spawnedCountInCurrentWave >= _currentWave.totalMonsterCount
             && _remainingMonsterCounts.Values.All(v => v <= 0)
-            && !_waveClearNotified)   // ✅ 한 번만
+            && !_waveClearNotified)
         {
             _waveClearNotified = true;
             GameManager.Instance.OnWaveCleared();
         }
     }
+
 
     // --- GameManager가 호출 ---
     public void StartWave(int waveIndex)
@@ -162,6 +194,9 @@ public class SpawnManager : MonoBehaviour
         _remainingMonsterCounts.Clear();
         foreach (var s in _currentWave.enemySpawns)
         {
+            if (s.count <= 0 || string.IsNullOrEmpty(s.enemyID))
+                continue;
+
             if (!_remainingMonsterCounts.ContainsKey(s.enemyID))
                 _remainingMonsterCounts[s.enemyID] = 0;
 
@@ -179,7 +214,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    // --- 스폰 ---
+    //스폰
     private void SpawnEnemy(GameObject enemyPrefab, string enemyID, int enemySpawnIndex)
     {
         if (spawnPoints == null || spawnPoints.Length == 0)
@@ -188,34 +223,45 @@ public class SpawnManager : MonoBehaviour
             return;
         }
 
-        // 🔹 N번째 EnemySpawn은 (N % 스폰포인트 개수) 번째 스폰 포인트에서 출발
-        //    예) 0번 EnemySpawn → spawnPoints[0]
-        //        1번 EnemySpawn → spawnPoints[1]
-        //        2번 EnemySpawn → spawnPoints[0] (스폰 포인트가 2개인 경우)
         int spawnIndex = enemySpawnIndex % spawnPoints.Length;
         Transform point = spawnPoints[spawnIndex];
 
         GameObject enemyObject = Instantiate(enemyPrefab, point.position, point.rotation);
 
-        // // 타입 ID 전달
-        // Enemy_Y enemyScript = enemyObject.GetComponent<Enemy_Y>();
-        // if (enemyScript != null)
-        //     enemyScript.enemyID = enemyID;
+        // 🔹 웨이브 인덱스 기반 HP/속도 보정값 계산
+        int bonusHp = hpIncreasePerWave * _currentWaveIndex;      // HP는 그대로 쓰고 싶으면 유지, 아니면 Inspector에서 0으로
+        float speedBonus = moveSpeedIncreasePerWave * _currentWaveIndex;
 
+        // 1) 근접 유닛
         HY_EnemyUnitMovement hyEnemy = enemyObject.GetComponent<HY_EnemyUnitMovement>();
         if (hyEnemy != null)
         {
             hyEnemy.enemyID = enemyID;
 
-            // 🔹 웨이브마다 +5 HP
-            //   0번째 웨이브: +0, 1번째 웨이브: +5, 2번째 웨이브: +10 ...
-            int bonusHp = hpIncreasePerWave * _currentWaveIndex;
             if (bonusHp != 0)
-            {
                 hyEnemy.ApplyHpBonus(bonusHp);
-            }
+
+            if (Mathf.Abs(speedBonus) > 0.0001f)
+                hyEnemy.ApplyWaveSpeedBonus(speedBonus);
+
+            return;
+        }
+
+        // 2) 원거리 유닛
+        HY_Ranged_EnemyUnitMovement rangedEnemy = enemyObject.GetComponent<HY_Ranged_EnemyUnitMovement>();
+        if (rangedEnemy != null)
+        {
+            rangedEnemy.enemyID = enemyID;
+
+            if (bonusHp != 0)
+                rangedEnemy.ApplyHpBonus(bonusHp);      // ▶ HP도 같이 쓰고 싶으면, ranged 쪽에도 ApplyHpBonus 만들어주면 됨
+                                                        // 안 쓸 거면 이 줄은 빼도 됨
+
+            if (Mathf.Abs(speedBonus) > 0.0001f)
+                rangedEnemy.ApplyWaveSpeedBonus(speedBonus);
         }
     }
+
 
     // --- 몬스터 사망 콜백 ---
     public void OnMonsterDied(string enemyID)

@@ -1,83 +1,107 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+/// <summary>
+/// 적 유닛이 발사하는 기본적인 유도/추적 발사체 스크립트입니다.
+/// HY_Ranged_EnemyUnitMovement.cs에서 Instantiation 후 Target을 설정합니다.
+/// </summary>
 public class HY_Orb : MonoBehaviour
 {
-    [Header("기본 설정")]
-    public float moveSpeed = 8f;      // 날아가는 속도
-    public float rotateSpeed = 200f;  // 유도 회전 속도 (클수록 급커브 가능)
-    public int damage = 10;           // 공격력
-    public float lifeTime = 5f;       // 최대 생존 시간 (못 맞추면 사라짐)
+    [Header("발사체 설정")]
+    [Tooltip("구체의 이동 속도")]
+    [SerializeField] private float moveSpeed = 10f;
+    
+    [Tooltip("구체의 공격력")]
+    [SerializeField] public int damage = 1;
+    
+    [Tooltip("구체의 수명 (이 시간 후 자동으로 파괴)")]
+    [SerializeField] private float lifeTime = 3f;
 
-    private Transform target;
-    private Rigidbody2D rb;
+    private Transform target; // 추적할 대상 (플레이어)
+    private Vector3 initialDirection; // 타겟이 없을 경우 초기 방향
+    private bool hasTarget = false;
 
-    void Awake()
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        
-        // 지정된 시간이 지나면 자동으로 사라짐 (메모리 관리)
-        Destroy(gameObject, lifeTime); 
+        // 일정 시간 후 스스로 파괴되도록 설정하여 씬이 지저분해지는 것을 방지합니다.
+        Destroy(gameObject, lifeTime);
     }
 
-    // 적 유닛이 호출해주는 함수: "이 녀석을 쫓아가라!"
+    /// <summary>
+    /// HY_Ranged_EnemyUnitMovement.cs에서 타겟을 설정할 때 호출됩니다. (필수!)
+    /// </summary>
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
-    }
-
-    void FixedUpdate()
-    {
-        // 1. 타겟이 존재하면 유도(Homing) 비행
+        hasTarget = true;
+        // 타겟이 설정되면, 타겟을 향한 초기 방향을 계산합니다.
+        // 타겟이 이동하더라도 이 발사체는 직선 경로로만 날아가게 할 수 있습니다. (아래 Update 로직 참고)
         if (target != null)
         {
-            // 타겟 방향 계산
-            Vector2 direction = (Vector2)target.position - rb.position;
-            direction.Normalize();
-
-            // 회전 (Cross Product를 이용해 타겟을 바라보도록 회전)
-            float rotateAmount = Vector3.Cross(direction, transform.up).z;
-            rb.angularVelocity = -rotateAmount * rotateSpeed;
-
-            // 앞으로 전진
-            rb.linearVelocity = transform.up * moveSpeed;
+            initialDirection = (target.position - transform.position).normalized;
         }
         else
         {
-            // 2. 타겟이 사라졌으면(죽었거나 놓침) 그냥 직진
-            rb.linearVelocity = transform.up * moveSpeed;
+            // 타겟이 null이면 직선으로 날아갈 방향을 자체적으로 설정합니다 (예: 현재 정면)
+            initialDirection = transform.right; // 2D 횡스크롤/탑다운 시 적절하게 변경
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void Update()
     {
-        // 태그로 아군인지 확인 (플레이어 유닛 or 기지)
-        // 만약 아군 유닛의 태그가 "Player"가 아니라면 여기를 수정하세요.
-        if (collision.CompareTag("Player") || collision.CompareTag("Base"))
+        // 구체 이동 로직
+        Vector3 movementVector;
+        
+        if (hasTarget && target != null)
         {
-            // 1. 플레이어 유닛 데미지 처리
-            // (플레이어 스크립트 이름이 HY_Player라고 가정)
-            HY_Player player = collision.GetComponent<HY_Player>();
-            if (player != null) 
-            {
-                player.TakeDamage(damage);
-            }
-
-            // 2. 기지(우주선) 데미지 처리
-            // (기지 스크립트 이름이 HY_Spaceship이라고 가정)
-            SpaceShip spaceship = collision.GetComponent<SpaceShip>();
-            if (spaceship != null) 
-            {
-                //spaceship.TakeDamage(damage);
-            }
-
-            // 3. (선택) 충돌 이펙트 생성
-            // Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-
-            // 4. 구체 삭제 (임무 완수)
-            Destroy(gameObject);
+            // 🎯 옵션 1: 추적 (Homing) - 매 프레임 타겟 위치를 향해 방향을 업데이트합니다.
+            // movementVector = (target.position - transform.position).normalized;
+            
+            // 🎯 옵션 2: 직선 발사 (Straight Shot) - 초기 설정된 방향으로만 이동합니다.
+            movementVector = initialDirection;
         }
-        Debug.Log($"💥 구체 충돌! 부딪힌 대상: {collision.name} (태그: {collision.tag}) / IsTrigger: {collision.isTrigger}");
+        else
+        {
+            // 타겟이 없거나 사라진 경우, 초기 방향으로 계속 이동합니다.
+            movementVector = initialDirection;
+        }
+
+        transform.position += movementVector * moveSpeed * Time.deltaTime;
     }
     
+    // 충돌 처리 (2D 게임 기준)
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // 1. 플레이어 충돌 처리
+        // 'Player' 태그를 사용하거나, 플레이어 스크립트를 직접 찾습니다.
+
+        if (collision.CompareTag("Flag") || collision.CompareTag("Tower"))
+        {
+            return;
+        }
+        
+        if (collision.CompareTag("Player"))
+        {
+            // 플레이어의 체력 관리 스크립트를 찾아 데미지를 줍니다.
+            // 예시: PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+            // if (playerHealth != null)
+            // {
+            //     playerHealth.TakeDamage(damage);
+            // }
+            
+            HY_Player player = collision.GetComponent<HY_Player>();
+            
+            player.TakeDamage(damage);
+
+            Debug.Log($"[Orb Hit] {collision.gameObject.name}에 충돌! 데미지: {damage}");
+            
+            // 충돌 후 발사체는 파괴됩니다.
+            Destroy(gameObject);
+        }
+        
+        // 2. 환경 충돌 처리 (선택 사항: 벽이나 장애물에 닿으면 파괴되게 할 경우)
+        // if (collision.CompareTag("Wall"))
+        // {
+        //     Destroy(gameObject);
+        // }
+    }
 }

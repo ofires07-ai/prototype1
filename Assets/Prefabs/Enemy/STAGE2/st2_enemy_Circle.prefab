@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ce1f45c3c9dcc4c9f76bc7dd4be941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scanRage: 1.5
+  scanRage: 3
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -171,14 +171,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a798acfa3c5eb4154966423f4d74a8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  moveSpeed: 4
   stoppingDistance: 0.5
   chaseSpeed: 4
   attackRange: 1
   attackDamage: 1
   enemyMeleeHitboxPrefab: {fileID: 2739837314160803032, guid: 389bb2ee4cfb28c4ebdf4a8b95eaaf6e, type: 3}
   healthBar: {fileID: 1237084206405835257}
-  maxHp: 45
+  maxHp: 30
   autoFindCircles: 1
   manualWaypoints: []
   animator: {fileID: 0}

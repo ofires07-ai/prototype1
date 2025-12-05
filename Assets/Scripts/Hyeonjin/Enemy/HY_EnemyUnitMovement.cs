@@ -197,6 +197,16 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
     }
     
     /// <summary>
+    /// 웨이브 인덱스에 따라 추가 이동속도를 더해주는 함수
+    /// (SpawnManager에서 웨이브 시작 시 1번 호출)
+    /// </summary>
+    public void ApplyWaveSpeedBonus(float bonusSpeed)
+    {
+        moveSpeed += bonusSpeed;
+        chaseSpeed += bonusSpeed;
+    }
+
+    /// <summary>
     /// (전투) 타겟을 추격하거나 공격합니다.
     /// </summary>
     void HandleCombat(Transform target)
@@ -355,7 +365,7 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
     public void TakeDamage(int damage)
     {
         if (!isLive) return; // 이미 죽었으면 무시
-
+        
         currentHp -= damage;
         // (선택) 여기서 피격 애니메이션 트리거
         // animator.SetTrigger("Hit"); 
