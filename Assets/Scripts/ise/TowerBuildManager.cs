@@ -242,7 +242,16 @@ public class TowerBuildManager : MonoBehaviour
             // (3) 그 후 애니메이터를 멈춥니다 (CPU 절약 및 모션 고정)
             ghostAnim.enabled = false; 
         }
-        
+        HY_SlowArea[] slowAreas = towerGhost.GetComponentsInChildren<HY_SlowArea>();
+        foreach (var area in slowAreas)
+        {
+            // (1) 스크립트를 끕니다 -> Start()가 실행되지 않아 코루틴(장판 펼쳐짐)이 안 돕니다.
+            area.enabled = false;
+
+            // (2) 시각적으로도 안 보이게 크기를 0으로 만듭니다. (확실하게 숨김)
+            //     만약 고스트 때 '정지된 장판 범위'를 보여주고 싶다면 이 줄을 지우세요.
+            area.transform.localScale = Vector3.zero;
+        }
         // 5. 고스트 타워의 초기 색상을 반투명하게 설정합니다.
         var sr = towerGhost.GetComponent<SpriteRenderer>();
         if (sr != null) sr.color = new Color(1f, 1f, 1f, 0.5f);
