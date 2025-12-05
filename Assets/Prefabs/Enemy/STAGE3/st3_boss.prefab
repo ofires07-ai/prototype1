@@ -222,7 +222,7 @@ MonoBehaviour:
   scanner: {fileID: 0}
   speedMultiplier: 1
   enemyID: 
-  NodeName: Circle
+  NodeName: Square
 --- !u!1001 &1421612704544726044
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15868,7 +15868,7 @@ MonoBehaviour:
     - enemyID: 
       enemyPrefab: {fileID: 0}
       spawnInterval: 0
-      count: 1
+      count: 0
       uiIcon: {fileID: 0}
     - enemyID: Boss
       enemyPrefab: {fileID: 492350326740679817, guid: c3cc1d5380e2657448fe2982c58b9f67, type: 3}
