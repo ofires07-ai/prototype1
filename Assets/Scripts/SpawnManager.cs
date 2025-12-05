@@ -96,14 +96,43 @@ public class SpawnManager : MonoBehaviour
         {
             bool anyLeftToSpawn = false;
 
-            // 🔹 각 EnemySpawn(타입) 별로 "동시에" 스폰 진행
             for (int i = 0; i < _currentWave.enemySpawns.Count; i++)
             {
+                // 이 타입은 더 이상 스폰할 게 없음
                 if (_remainingToSpawnPerType[i] <= 0)
                     continue;
 
                 anyLeftToSpawn = true;
 
+                // 🔹 같은 스폰포인트를 사용하는 "앞 인덱스"가 남아 있으면, 이 타입은 대기
+                bool blockedByPrevious = false;
+
+                if (spawnPoints != null && spawnPoints.Length > 0)
+                {
+                    int mySpawnIndex = i % spawnPoints.Length;
+
+                    for (int j = 0; j < i; j++)
+                    {
+                        if (_remainingToSpawnPerType[j] <= 0)
+                            continue;
+
+                        int prevSpawnIndex = j % spawnPoints.Length;
+                        if (prevSpawnIndex == mySpawnIndex)
+                        {
+                            // 같은 스폰포인트를 쓰는 앞 타입(j)이 아직 다 안 나갔으면, i는 스폰 불가
+                            blockedByPrevious = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (blockedByPrevious)
+                {
+                    // 이 타입은 아직 자기 차례가 아니므로, 타이머도 건드리지 않고 다음 타입으로 넘어감
+                    continue;
+                }
+
+                // 🔹 여기까지 왔다는 건, 이 스폰포인트에서 "현재 담당 타입"이라는 뜻
                 _spawnTimersPerType[i] -= Time.deltaTime;
                 if (_spawnTimersPerType[i] <= 0f)
                 {
@@ -114,29 +143,28 @@ public class SpawnManager : MonoBehaviour
                     _remainingToSpawnPerType[i]--;
                     _spawnedCountInCurrentWave++;
 
-                    // 다음 스폰까지의 간격 재설정
                     _spawnTimersPerType[i] = cfg.spawnInterval;
                 }
             }
 
-            // 더 이상 스폰할 몬스터가 없으면 스폰 종료
             if (!anyLeftToSpawn)
             {
                 _isSpawning = false;
             }
         }
 
-        // 웨이브 종료: 모두 스폰되었고, 남은 처치 수가 0
+        // --- 아래 웨이브 종료 체크는 기존 그대로 유지 ---
         if (_currentWave != null 
             && !_isSpawning
             && _spawnedCountInCurrentWave >= _currentWave.totalMonsterCount
             && _remainingMonsterCounts.Values.All(v => v <= 0)
-            && !_waveClearNotified)   // ✅ 한 번만
+            && !_waveClearNotified)
         {
             _waveClearNotified = true;
             GameManager.Instance.OnWaveCleared();
         }
     }
+
 
     // --- GameManager가 호출 ---
     public void StartWave(int waveIndex)
