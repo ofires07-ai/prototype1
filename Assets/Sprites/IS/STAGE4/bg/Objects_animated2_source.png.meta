@@ -265,7 +265,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 91
-        y: 646
+        y: 645
         width: 60
         height: 100
       alignment: 0
@@ -287,7 +287,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 171
-        y: 646
+        y: 645
         width: 60
         height: 100
       alignment: 0
@@ -309,7 +309,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 251
-        y: 646
+        y: 645
         width: 60
         height: 100
       alignment: 0
@@ -331,7 +331,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 331
-        y: 646
+        y: 645
         width: 60
         height: 100
       alignment: 0
@@ -353,7 +353,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 411
-        y: 646
+        y: 645
         width: 60
         height: 100
       alignment: 0
@@ -374,8 +374,8 @@ TextureImporter:
       name: Objects_animated2_source_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 646
+        x: 11
+        y: 645
         width: 60
         height: 100
       alignment: 0
