@@ -48,20 +48,42 @@ public class FlagManager : MonoBehaviour
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f; 
 
-        if (flagGhost != null)
-            flagGhost.transform.position = mouseWorldPos; 
-
+        // 3. 거리 계산
         float dist = Vector3.Distance(mouseWorldPos, towerPosition);
-        bool canPlace = dist <= placementRadius;
+
+        /*// [✨ 핵심 수정: 위치 제한 로직] -----------------------------------
+        // 타워 중심에서 마우스까지의 벡터를 구하고 길이를 제한합니다.
+        Vector3 offset = mouseWorldPos - towerPosition;
+        Vector3 clampedOffset = Vector3.ClampMagnitude(offset, placementRadius);
+
+        // 최종 위치 결정 (중심점 + 제한된 벡터)
+        Vector3 finalPosition = towerPosition + clampedOffset;*/
+
+        // [✨ 핵심 수정] 마우스가 반경 안에 있을 때만 깃발 위치를 갱신합니다.
+        // 반경 밖이라면? -> 아무것도 안 함 (마지막 위치에 깃발이 가만히 멈춰있음)
+        if (dist <= placementRadius)
+        {
+            if (flagGhost != null)
+                flagGhost.transform.position = mouseWorldPos; 
+        }
+        // [✨ 수정] 설치 가능 여부
+        // 위치를 강제로 제한했으므로, 마우스가 어디에 있든 항상 설치 가능합니다.
+        //bool canPlace = true;
+
+        /*float dist = Vector3.Distance(mouseWorldPos, towerPosition);
+        bool canPlace = dist <= placementRadius;*/
+
+       
 
         var sr = flagGhost.GetComponent<SpriteRenderer>();
         if (sr != null)
         {
-            sr.color = canPlace ? new Color(1f, 1f, 1f, 1f) : new Color(1f, 1f, 1f, 0.3f);
+            sr.color = Color.white; 
+            //canPlace ? new Color(1f, 1f, 1f, 1f) : new Color(1f, 1f, 1f, 0.3f);
         }
 
-        if (Input.GetMouseButtonDown(0) && canPlace && clickCooldown <= 0f)
-            PlaceFlag(mouseWorldPos); 
+        if (Input.GetMouseButtonDown(0)  && clickCooldown <= 0f)
+            PlaceFlag(flagGhost.transform.position); 
     }
 
     /// <summary>
