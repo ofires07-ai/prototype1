@@ -13,6 +13,7 @@ public class CheckSpecialSourceAbility : CrimerAbility
     {
         inventoryManager = FindObjectOfType<InventoryManager>();
         Debug.Log(AbilityName + "능력을 적용합니다!");
+        
     }
     
     public override MiningTickResult ProcessMiningTick(MineableResource node)
