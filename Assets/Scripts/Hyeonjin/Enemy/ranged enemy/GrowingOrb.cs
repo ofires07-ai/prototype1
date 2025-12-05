@@ -111,6 +111,7 @@ public class GrowingOrb : MonoBehaviour
             {
                 // (!!주의!!) 아군/플레이어의 체력 스크립트로 변경해야 합니다.
                 HY_Player player = hitTarget.GetComponent<HY_Player>(); // (임시)
+                player.TakeDamage(damage);
                 if (player != null)
                 {
                     Debug.Log(player.name + "에게 데미지 " + damage + "!");
