@@ -203,6 +203,9 @@ public class GameManager : MonoBehaviour
 
         foreach (var spawn in enemySpawns)
         {
+            if (spawn.count <= 0 || string.IsNullOrEmpty(spawn.enemyID))
+                continue;
+
             if (!totalCounts.ContainsKey(spawn.enemyID))
             {
                 totalCounts[spawn.enemyID] = 0;

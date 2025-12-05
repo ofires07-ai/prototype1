@@ -208,14 +208,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a798acfa3c5eb4154966423f4d74a8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 4.5
   stoppingDistance: 0.5
   chaseSpeed: 4
   attackRange: 1
-  attackDamage: 1
+  attackDamage: 15
   enemyMeleeHitboxPrefab: {fileID: 0}
   healthBar: {fileID: 2223038639140191553}
-  maxHp: 1350
+  maxHp: 600
   autoFindCircles: 1
   manualWaypoints: []
   animator: {fileID: 0}

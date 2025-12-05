@@ -208,21 +208,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a798acfa3c5eb4154966423f4d74a8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 4.5
   stoppingDistance: 0.5
   chaseSpeed: 4
   attackRange: 1
-  attackDamage: 1
+  attackDamage: 20
   enemyMeleeHitboxPrefab: {fileID: 36502750192200874, guid: 88f23ac6008f05c4abdd976b55843bce, type: 3}
   healthBar: {fileID: 0}
-  maxHp: 1350
+  maxHp: 750
   autoFindCircles: 1
   manualWaypoints: []
   animator: {fileID: 0}
   scanner: {fileID: 0}
   speedMultiplier: 1
   enemyID: 
-  NodeName: Circle
+  NodeName: Square
 --- !u!1001 &8139506577434360121
 PrefabInstance:
   m_ObjectHideFlags: 0

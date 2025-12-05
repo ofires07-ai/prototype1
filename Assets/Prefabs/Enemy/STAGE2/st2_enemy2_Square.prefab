@@ -208,11 +208,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2159ec071bf1f45961d73b1839570a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 4
   stoppingDistance: 0.5
   speedMultiplier: 1
   chaseSpeed: 4
-  rangedAttackRange: 7
+  rangedAttackRange: 8
   orbPrefab: {fileID: 5579384281233417934, guid: e424fbe0c27139d4ba72ed34188dea5f, type: 3}
   firePoint: {fileID: 0}
   maxHp: 30

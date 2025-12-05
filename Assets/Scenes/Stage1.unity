@@ -9469,7 +9469,7 @@ MonoBehaviour:
   resource3Text: {fileID: 405553769}
   resource4Text: {fileID: 1791959739}
   specialText: {fileID: 1186500500}
-  initialTimeBetweenWaves: 3
+  initialTimeBetweenWaves: 60
   waveInfoPanel: {fileID: 197045641}
   timerText: {fileID: 1802184322}
   waveStatusText: {fileID: 353026503}
@@ -12671,23 +12671,7 @@ MonoBehaviour:
     - enemyID: enemy
       enemyPrefab: {fileID: 5454673107547477755, guid: 6492138300a569f4d9ed2d0092308863, type: 3}
       spawnInterval: 0.2
-      count: 30
-      uiIcon: {fileID: 7426035759720091552, guid: 0f2c78ffdedead2459d989d8427601bb, type: 3}
-    totalMonsterCount: 0
-  - waveName: Wave2
-    enemySpawns:
-    - enemyID: enemy
-      enemyPrefab: {fileID: 5454673107547477755, guid: 6492138300a569f4d9ed2d0092308863, type: 3}
-      spawnInterval: 0.2
-      count: 60
-      uiIcon: {fileID: 7426035759720091552, guid: 0f2c78ffdedead2459d989d8427601bb, type: 3}
-    totalMonsterCount: 0
-  - waveName: Wave3
-    enemySpawns:
-    - enemyID: Enemy
-      enemyPrefab: {fileID: 5454673107547477755, guid: 6492138300a569f4d9ed2d0092308863, type: 3}
-      spawnInterval: 0.2
-      count: 90
+      count: 20
       uiIcon: {fileID: 7426035759720091552, guid: 0f2c78ffdedead2459d989d8427601bb, type: 3}
     totalMonsterCount: 0
   - waveName: BossWave
@@ -12695,11 +12679,11 @@ MonoBehaviour:
     - enemyID: Enemy
       enemyPrefab: {fileID: 5454673107547477755, guid: 6492138300a569f4d9ed2d0092308863, type: 3}
       spawnInterval: 0.2
-      count: 100
+      count: 30
       uiIcon: {fileID: 7426035759720091552, guid: 0f2c78ffdedead2459d989d8427601bb, type: 3}
     - enemyID: Boss
       enemyPrefab: {fileID: 4109663659720697053, guid: b3f5393255e90ec4db448c4679d24201, type: 3}
-      spawnInterval: 21
+      spawnInterval: 3
       count: 1
       uiIcon: {fileID: 7426035759720091552, guid: 6cd2141dd3d26cd4ba0705210c2b0874, type: 3}
     totalMonsterCount: 0
@@ -12709,6 +12693,7 @@ MonoBehaviour:
   useProductionTowersAsSpawnPoints: 0
   takeoverProductionTowers: 1
   hpIncreasePerWave: 5
+  moveSpeedIncreasePerWave: 0.25
 --- !u!4 &1060494772
 Transform:
   m_ObjectHideFlags: 0
