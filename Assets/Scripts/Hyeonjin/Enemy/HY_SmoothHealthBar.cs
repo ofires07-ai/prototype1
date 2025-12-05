@@ -47,7 +47,35 @@ public class HY_SmoothHealthBar : MonoBehaviour
         // 3. 빌보드 처리 (체력바가 항상 카메라 정면을 보게 함)
         if (lookAtCamera && mainCamera != null)
         {
-            transform.rotation = mainCamera.transform.rotation;
+            // (1) 월드 공간에서 카메라의 회전을 직접 따라가는 방식 (기존 코드)
+            // transform.rotation = mainCamera.transform.rotation;
+
+            // 🌟 (2) 개선된 방식: 카메라를 향해 자신의 Z축을 돌리는 방식 (LookAt)
+            // LookAt은 해당 오브젝트의 Z축(파란색 축)이 대상(카메라)을 바라보게 합니다.
+            // 하지만 3D 게임에서 HP바는 X-Z 평면에 수평인 경우가 많으므로,
+            // X-Z 평면 회전은 막고 Y축 회전만 사용하는 'Y축 고정 빌보드'를 더 많이 사용합니다.
+
+            // 🌟 (3) 가장 안정적인 방식: Y축 회전만 복사하기
+            // HP바는 보통 X-Z 평면에 수평하게 놓여 있어 위아래로 기울어질 필요 없이,
+            // 좌우 회전(Y축 회전)만 카메라와 동일하게 맞추면 됩니다.
+            // 이렇게 하면 HP바가 위아래로 기울어져서 이상하게 보이는 현상을 막을 수 있습니다.
+            
+            // 💡 팁: 3D 오브젝트인 HP바가 카메라와 '평행'하게 보이게 하려면 카메라 회전 자체를 사용합니다.
+            // 기존 코드는 이미 이 방식이므로, 해당 코드가 다른 문제(예: 부모 오브젝트 회전)를 일으키지 않는다면, 
+            // 현재 코드의 'transform.rotation = mainCamera.transform.rotation;' 방식도 올바릅니다.
+
+            // 만약 캐릭터가 회전할 때 HP바가 캐릭터와 함께 회전하면서 문제가 발생한다면,
+            // HP바의 부모는 캐릭터의 회전을 따르지 않는 '빈 오브젝트'로 두고,
+            // HP바 오브젝트만 그 '빈 오브젝트'의 자식으로 두는 계층 구조를 사용해야 합니다.
+
+            // ➡️ 최종적으로, 현재 코드는 올바른 빌보드 로직을 가지고 있으므로,
+            // '왼쪽으로 이동 시 보이지 않음'은 **시야각 이탈**이나 **부모 오브젝트 회전**으로 인한 경우가 큽니다.
+            // 하지만 만약의 경우를 대비하여 가장 강력한 Y축 고정 빌보드를 사용해 봅시다.
+            
+            Quaternion camRotation = mainCamera.transform.rotation;
+            
+            // X축과 Z축 회전은 무시하고, Y축 회전(좌우 회전)만 카메라와 맞춥니다.
+            transform.rotation = Quaternion.Euler(0f, camRotation.eulerAngles.y, 0f);
         }
     }
 
