@@ -12487,7 +12487,7 @@ MonoBehaviour:
   resource3Text: {fileID: 9010587506167430775}
   resource4Text: {fileID: 1973072435933311191}
   specialText: {fileID: 9054092665992613793}
-  initialTimeBetweenWaves: 120
+  initialTimeBetweenWaves: 1
   waveInfoPanel: {fileID: 4751138953343951978}
   timerText: {fileID: 5684455202279713932}
   waveStatusText: {fileID: 3040241666586045157}
@@ -39514,10 +39514,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1075303102939469510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 144, y: -35}
-  m_SizeDelta: {x: 288, y: 70}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 400, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8796844837467327664
 GameObject:
