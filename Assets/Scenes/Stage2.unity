@@ -13615,7 +13615,7 @@ MonoBehaviour:
       uiIcon: {fileID: 3187566276056355383, guid: 760e95986b7daeb42ae1754ea470cc8e, type: 3}
     - enemyID: Enemy1
       enemyPrefab: {fileID: 6347296946635166604, guid: 80eca551401579f40a79128ff12cd4e1, type: 3}
-      spawnInterval: 50
+      spawnInterval: 0.5
       count: 15
       uiIcon: {fileID: 3187566276056355383, guid: 760e95986b7daeb42ae1754ea470cc8e, type: 3}
     - enemyID: Boss
