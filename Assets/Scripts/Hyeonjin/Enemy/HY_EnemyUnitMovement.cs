@@ -70,6 +70,10 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
     private float lastAttackTime;        // HandleCombat용 (공격 빈도 제어)
     private float lastHitboxTime;        // Event_PerformAttack용 (이벤트 중복 방지)
 
+    // [✨ 추가] 피격 빨간색 타이머 변수
+    private float hitFlashTimer = 0f;
+    private const float hitFlashDuration = 0.05f; // 빨간색 유지 시간 (0.1초)
+
     // (SpawnManager에 사망 보고가 필요하다면 HY_Enemy처럼 enemyID 변수 추가)
     bool deathReported = false; // 사망 보고 중복 방지
     public string enemyID; 
@@ -142,6 +146,16 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
     /// </summary>
     void Update()
     {
+        // [✨ 추가] 피격 색상 복구 로직 (Update에서 매 프레임 체크)
+        if (hitFlashTimer > 0f)
+        {
+            hitFlashTimer -= Time.deltaTime; // 시간 감소
+            if (hitFlashTimer <= 0f)
+            {
+                // 시간이 다 되면 원래 색(흰색)으로 복구
+                if (spriteRenderer != null) spriteRenderer.color = Color.white;
+            }
+        }
 
         if (!isLive || isStunned)
         {
@@ -345,6 +359,10 @@ public class HY_EnemyUnitMovement : MonoBehaviour, ISlowable
         currentHp -= damage;
         // (선택) 여기서 피격 애니메이션 트리거
         // animator.SetTrigger("Hit"); 
+        if (spriteRenderer != null) spriteRenderer.color = Color.red;
+        
+        // 2. 타이머 설정 (0.1초 뒤에 Update에서 흰색으로 돌아옴)
+        hitFlashTimer = hitFlashDuration;
 
         if (healthBar != null)
         {
