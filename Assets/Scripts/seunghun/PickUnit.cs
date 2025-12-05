@@ -312,7 +312,7 @@ public class PickUnit : MonoBehaviour
                     miningIconRenderer.gameObject.SetActive(true);
                 if (!miningSpeedRenderer.gameObject.activeSelf)
                 {
-                    miningSpeedText.text = "X" + (miningSpeed * targetSource.amountPerTick).ToString();
+                    miningSpeedText.text = "X" + result.Amount;
                     miningSpeedRenderer.gameObject.SetActive(true);
                 }
             }
