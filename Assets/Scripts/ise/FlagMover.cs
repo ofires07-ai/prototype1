@@ -135,8 +135,24 @@ public class FlagMover : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
 
+        // [✨ 핵심 수정: 위치 제한 로직] -----------------------------------
+        // 타워 중심에서 마우스까지의 벡터(방향과 거리)를 구합니다.
+        Vector3 offset = mousePos - towerCenter;
+
+        // 벡터의 길이가 placementRadius(반경)를 넘지 못하게 자릅니다(Clamp).
+        // 즉, 마우스가 원 안에 있으면 그대로 두고, 원 밖으로 나가면 원의 가장자리에 위치시킵니다.
+        Vector3 clampedOffset = Vector3.ClampMagnitude(offset, placementRadius);
+
+        // 최종 위치 결정 (중심점 + 제한된 벡터)
+        Vector3 finalPosition = towerCenter + clampedOffset;
+
         if (movingFlag != null)
             movingFlag.transform.position = mousePos;
+
+        // [✨ 수정] 설치 가능 여부
+        // 이제 깃발이 무조건 원 안(또는 경계)에 있으므로, 거리상의 설치 불가 조건은 사라집니다.
+        // 다만, 혹시 다른 장애물 체크 등이 필요할 수 있으니 변수는 남겨둡니다.
+        //bool canPlace = true;
 
         // --- 설치 가능 여부 검사 (반경 체크) ---
         float distance = Vector3.Distance(mousePos, towerCenter);
