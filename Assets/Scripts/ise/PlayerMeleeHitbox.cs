@@ -14,7 +14,8 @@ public class PlayerMeleeHitbox : MonoBehaviour // ⬅️ 클래스 이름 변경
     {
         if (hasHitTarget || collision.CompareTag("MeleeHitbox")) return; 
         
-        // [ ✨ 핵심: 오직 Enemy 태그만 공격합니다. ]
+        // [ ✨ 핵심: 오직 Enemy 태그만 공격합니다. 
+        if (collision.CompareTag("Tower") || collision.CompareTag("Flag")) return;
         if (collision.CompareTag("Enemy")) 
         {
             hasHitTarget = true; 

@@ -108,10 +108,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceType: 3
   amountPerTick: 1
-  resourceIcon: {fileID: 4673609438301465265, guid: 7be4976ff975b486aa80087cfd5b46b6, type: 3}
   parentSource: {fileID: 0}
   attachedSpecialSource: {fileID: 0}
-  miningSpots: []
+  miningSpots:
+  - {fileID: 5680797291759510443}
 --- !u!60 &-9171908173441089708
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -588,3 +588,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 181946568150224191, guid: c34b2183590424661a95304ac6c1c3a5, type: 3}
   m_PrefabInstance: {fileID: 587169790446836319}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5680797291759510443 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5111643687272528372, guid: c34b2183590424661a95304ac6c1c3a5, type: 3}
+  m_PrefabInstance: {fileID: 587169790446836319}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf15466ab10774f498f034efd8ed6384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -199,6 +199,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  rotateSpeed: 0
-  damage: 10
+  damage: 5
   lifeTime: 5

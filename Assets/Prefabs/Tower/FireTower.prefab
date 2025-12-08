@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6232859289329759134}
   m_Layer: 0
   m_Name: FireTower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 8441262456742632571, guid: 2da8dabf76f8b3040bd6a83e6630d69f, type: 3}
-  productionTime: 10
-  maxUnits: 2
+  productionTime: 5
+  maxUnits: 3
   spawnPoint: {fileID: 0}
   spawnRadiusOffset: 0.5
 --- !u!61 &6232859289329759134
@@ -150,5 +150,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.66, y: 1.81}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
