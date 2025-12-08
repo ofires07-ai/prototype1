@@ -77,16 +77,18 @@ public class SourceManager : MonoBehaviour
             ResourceType typeToMine = result.Type;
             
             // 3. 특수 자원 '노드'의 용량 체크 (이 로직은 그대로 유지)
-            bool depletedThisTick = false;
             if (job.Resource is SpecialSource specialSource)
             {
-                // [수정] 'amountThisTick' (15.5f)과 'remaining' 중 더 작은 값을 선택
-                float finalAmountToMine = Mathf.Min(amountThisTick, specialSource.remaining);
-                specialSource.remaining -= finalAmountToMine;
-                
-                if (specialSource.remaining <= 0) depletedThisTick = true;
-                
-                amountThisTick = finalAmountToMine; // 캘 양을 (줄어들었다면) 갱신
+                specialSource.remaining -= amountThisTick;
+
+                if (specialSource.remaining <= 0.01f)
+                {
+                    inventoryManager.AddResource(typeToMine, 1);
+                    job.Resource.StopMining();
+                    activeJobs.RemoveAt(i);
+                    Destroy(job.Resource.gameObject);
+                }
+                continue;
             }
 
             // 4. [잔액 합산 로직] (소수점 저축)
@@ -96,18 +98,10 @@ public class SourceManager : MonoBehaviour
             activeJobs[i] = job; // 잔액 덮어쓰기
 
             // 5. 인벤토리에 '정산액'과 '정산 타입' 추가
-            if (amountToAdd > 0)
+            if (amountToAdd > 0 && result.Type != ResourceType.Special)
             {
                 Debug.Log(typeToMine + ": " + amountToAdd);
                 inventoryManager.AddResource(typeToMine, amountToAdd);
-            }
-
-            // 6. 자원 노드 고갈 시 작업 리스트에서 제거
-            if (depletedThisTick)
-            {
-                job.Resource.StopMining();
-                activeJobs.RemoveAt(i);
-                Destroy(job.Resource.gameObject);
             }
         }
     }
