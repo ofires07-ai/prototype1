@@ -7,7 +7,7 @@ public class SpecialSource : MineableResource
     [Header("특수 자원 종속성")]
     public Source attachedNormalSource; // 내가 붙어있는 일반 자원
     [Header("해당 특수자원 총량")]
-    public float capacity = 1.1f;
+    public float capacity = 1.0f;
     public float remaining;
     
     // [핵심] 부모의 'abstract' 메서드를 'override'로 구현
