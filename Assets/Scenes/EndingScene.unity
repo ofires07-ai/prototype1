@@ -880,8 +880,9 @@ MonoBehaviour:
   endingImage: {fileID: 1188669892}
   narrationText: {fileID: 2035963938}
   centerEndingTitle: {fileID: 2138163494}
-  goodEndingScoreThreshold: 100
-  normalEndingScoreThreshold: 50
+  HiddenEndingSpecialThreshold: 8
+  goodEndingScoreThreshold: 2000
+  normalEndingScoreThreshold: 1000
   slideDuration: 3
   endingTitleDuration: 3
   badEndingImages:
