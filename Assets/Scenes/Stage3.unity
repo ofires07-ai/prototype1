@@ -6341,7 +6341,7 @@ MonoBehaviour:
   fogRenderer: {fileID: 0}
   fogImage: {fileID: 0}
   textureSize: 512
-  fogColor: {r: 0, g: 0, b: 0, a: 0.9019608}
+  fogColor: {r: 0, g: 0, b: 0, a: 0.50980395}
   softEdge: 0.6
   mapSize: {x: 130, y: 130}
   mapCenter: {x: -343, y: -5}
