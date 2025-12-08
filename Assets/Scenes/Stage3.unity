@@ -12310,7 +12310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1271437828425640447, guid: 115b29e79abad4a99b922a06e38019d9, type: 3}
       propertyPath: m_Offset.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1529028566530636835, guid: 115b29e79abad4a99b922a06e38019d9, type: 3}
       propertyPath: maxHp
