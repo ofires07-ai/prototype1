@@ -11,6 +11,7 @@ public class EndingUIController : MonoBehaviour
     public TMP_Text centerEndingTitle;    
 
     [Header("점수 기준")]
+    public int HiddenEndingSpecialThreshold = 9;
     public int goodEndingScoreThreshold = 200;
     public int normalEndingScoreThreshold = 100;
 
@@ -85,7 +86,7 @@ public class EndingUIController : MonoBehaviour
 
         int finalScore = baseScore + totalSpecial * 100;
 
-        bool isHidden = (totalSpecial >= 9) && (finalScore >= normalEndingScoreThreshold);
+        bool isHidden = (totalSpecial >= HiddenEndingSpecialThreshold) && (finalScore >= normalEndingScoreThreshold);
 
         if (isHidden)
         {
