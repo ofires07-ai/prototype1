@@ -254,7 +254,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -751,8 +751,8 @@ MonoBehaviour:
   endingImage: {fileID: 1188669892}
   narrationText: {fileID: 2035963938}
   centerEndingTitle: {fileID: 2138163494}
-  goodEndingScoreThreshold: 200
-  normalEndingScoreThreshold: 100
+  goodEndingScoreThreshold: 100
+  normalEndingScoreThreshold: 50
   slideDuration: 3
   endingTitleDuration: 3
   badEndingImages:
