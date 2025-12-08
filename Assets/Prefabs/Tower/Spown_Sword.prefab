@@ -149,6 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 6769721097576429559, guid: 26ef5b595208c2245914ae768d9f14f2, type: 3}
   productionTime: 5
-  maxUnits: 4
+  maxUnits: 5
   spawnPoint: {fileID: 0}
   spawnRadiusOffset: 0.5

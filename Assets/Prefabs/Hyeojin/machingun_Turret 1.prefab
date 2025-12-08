@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretHead: {fileID: 6333496750644488727}
-  detectionRadius: 22.83
+  detectionRadius: 20
   rotationSpeed: 5
   enemyLayer:
     serializedVersion: 2
