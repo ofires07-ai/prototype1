@@ -153,8 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  rotateSpeed: 200
-  damage: 10
+  damage: 5
   lifeTime: 5
 --- !u!61 &622721825589685375
 BoxCollider2D:
