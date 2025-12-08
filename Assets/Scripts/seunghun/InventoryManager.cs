@@ -68,7 +68,7 @@ public class InventoryManager : MonoBehaviour
 
         // 2. 자원량 추가
         resourceTotals[type] += amount;
-
+        
         // 3. UI 업데이트 (이벤트 방식 추천)
         Debug.Log(type + " 자원 " + amount + " 획득! (총: " + resourceTotals[type] + ")");
         // UIManager.Instance.UpdateResourceUI(type, resourceTotals[type]);
