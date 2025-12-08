@@ -492,7 +492,7 @@ MonoBehaviour:
   charInterval: 0.07
   deathTextStayDuration: 5
   bgmSource: {fileID: 1897577512}
-  gameOverBgm: {fileID: 0}
+  gameOverBgm: {fileID: 8300000, guid: 19d28fbb620ba154baf96b48d1b1b4b3, type: 3}
 --- !u!4 &1044942741
 Transform:
   m_ObjectHideFlags: 0
