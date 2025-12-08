@@ -91,7 +91,7 @@ public class EndingUIController : MonoBehaviour
         if (isHidden)
         {
             currentEnding = EndingType.Hidden;
-            currentEndingTitleText = "혁명";
+            currentEndingTitleText = "HIDDEN ENDING";
             currentImages = hiddenEndingImages;
             currentLines  = hiddenEndingLines;
 
