@@ -22,9 +22,9 @@ public class Stage1TutorialController : MonoBehaviour
     
     [Header("--- [시퀀스 3: 광물 채집 목표 설정] ---")]
     [Tooltip("목표로 하는 Tier1 광물 개수")]
-    public int targetTier1Amount = 5; // 예시: 5개
+    public int targetTier1Amount = 130; // 예시: 5개
     [Tooltip("목표로 하는 Tier2 광물 개수")]
-    public int targetTier2Amount = 2; // 예시: 2개
+    public int targetTier2Amount = 40; // 예시: 2개
 
     // 목표 달성 상태를 추적할 내부 변수
     private bool isTier1GoalMet = false;
@@ -131,10 +131,23 @@ public class Stage1TutorialController : MonoBehaviour
     void OnCrimerControllSequenceFinished()
     {
          Debug.Log("감독: '인게임 초반' 안내 끝. 다음 상황(예: 포탑 설치) 대기.");
+         bool hasDiscountUnit = spaceShipScript.selectedPrisonerPrefabs.Exists(crimer => 
+         {
+             // 1. 프리팹에 붙어있는 능력 컴포넌트를 직접 가져옴
+             var ability = crimer.GetComponent<CrimerAbility>();
+        
+             // 2. 능력이 있고, 이름이 맞는지 확인
+             return ability != null && 
+                    (ability.AbilityName == "DiscountDTower" || ability.AbilityName == "DiscountUTower");
+         });
+         if (hasDiscountUnit)
+         {
+             targetTier1Amount = (int) (targetTier1Amount * 0.8);
+             targetTier2Amount = (int) (targetTier2Amount * 0.8);
+         }
          // 다음 튜토리얼 조건을 체크하거나 이벤트 대기...
          // ⭐ 바로 다음 튜토리얼을 시작하는 게 아니라, '감시'를 시작합니다.
          InventoryManager.Instance.OnResourceCountChanged += CheckResourceCondition;
-         
          // (혹시 이미 자원이 다 모여있을 수도 있으니 즉시 한번 체크)
          CheckConditionsAndRun();
     }
