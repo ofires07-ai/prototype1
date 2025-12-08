@@ -17762,12 +17762,12 @@ MonoBehaviour:
       count: 25
       uiIcon: {fileID: -722599793751962752, guid: 79f24f8186fea4145a49d19f1071273f, type: 3}
     - enemyID: Enemy
-      enemyPrefab: {fileID: 1078020333366215834, guid: 9d40c9a2d6f116342a0d87d9f562b8ba, type: 3}
+      enemyPrefab: {fileID: 1078020333366215834, guid: e5d5a04a3a1e746a1a4bfa1cc3bf6716, type: 3}
       spawnInterval: 0.5
       count: 25
       uiIcon: {fileID: -722599793751962752, guid: 79f24f8186fea4145a49d19f1071273f, type: 3}
     - enemyID: Enemy
-      enemyPrefab: {fileID: 1078020333366215834, guid: 9d40c9a2d6f116342a0d87d9f562b8ba, type: 3}
+      enemyPrefab: {fileID: 1078020333366215834, guid: e27d13f76400c41749199cde6529044d, type: 3}
       spawnInterval: 0.5
       count: 25
       uiIcon: {fileID: -722599793751962752, guid: 79f24f8186fea4145a49d19f1071273f, type: 3}
