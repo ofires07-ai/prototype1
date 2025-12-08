@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1182b8198b94995802a016fc699853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  increaseAmount: 5
+  increaseAmount: 50
 --- !u!114 &372402026203550063
 MonoBehaviour:
   m_ObjectHideFlags: 0
