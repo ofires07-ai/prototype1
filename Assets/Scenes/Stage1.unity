@@ -6406,6 +6406,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 599472166}
+  - component: {fileID: 599472167}
   m_Layer: 0
   m_Name: Sourcetree
   m_TagString: Untagged
@@ -6435,6 +6436,20 @@ Transform:
   - {fileID: 1635214274}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &599472167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599472165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b73523710c9964c3a854cd7ad8bf6682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialResourcePrefab: {fileID: 3317929321389470218, guid: cc7b6861052ed4d0b8ee432974c6c3d1, type: 3}
+  childResources: []
 --- !u!1 &602203378
 GameObject:
   m_ObjectHideFlags: 0
