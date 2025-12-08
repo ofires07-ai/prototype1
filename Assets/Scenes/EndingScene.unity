@@ -803,9 +803,9 @@ MonoBehaviour:
     \uC808\uCC28\u2019\uB294 \uB2E4\uC2DC \uAC1C\uC2DC\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\n\uC21C\uD658\uC740\u2026
     \uACC4\uC18D\uB429\uB2C8\uB2E4"
   bgmSource: {fileID: 408446929}
-  badBgm: {fileID: 0}
-  normalBgm: {fileID: 0}
-  goodBgm: {fileID: 0}
+  badBgm: {fileID: 8300000, guid: 61ccdd9d64a8eec47806c4c9f3b6301a, type: 3}
+  normalBgm: {fileID: 8300000, guid: b56b8d5a8ab196e40a7d721a5e48def1, type: 3}
+  goodBgm: {fileID: 8300000, guid: 260a901d392a1ea4fb8cd6e010be4aaf, type: 3}
   hiddenBgm: {fileID: 0}
   charInterval: 0.05
 --- !u!4 &2012192685
