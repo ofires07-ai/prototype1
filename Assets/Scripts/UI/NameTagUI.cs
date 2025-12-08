@@ -1,53 +1,81 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Canvas))]
 public class NameTagUI : MonoBehaviour
 {
-    // 원래의 크기 저장
+    private Canvas canvas;
+    private SpriteRenderer[] childRenderers; // 내 자식에 있는 스프라이트들(아이콘 등)
+    
     private Vector3 originalScale;
     private Vector3 originalPos;
     private Transform parentTransform;
-    private Canvas canvas;
 
-    void Start()
+    // 기준 오더 (몸통보다 무조건 위에 뜨게 높게 설정)
+    private const int BASE_SORTING_ORDER = 50; 
+
+    void Awake()
     {
+        canvas = GetComponent<Canvas>();
+        
+        // 1. 내 자식들 중에 숨어있는 SpriteRenderer들을 모두 찾습니다. (SourceIcon 등)
+        childRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+
+        parentTransform = transform.parent;
         originalScale = transform.localScale;
         originalPos = transform.localPosition;
-        parentTransform = transform.parent;
-        canvas = GetComponent<Canvas>();
 
-        // Set Canvas sorting properties for proper rendering order
         if (canvas != null)
         {
+            // 2. 캔버스 정렬 권한 가져오기
+            canvas.overrideSorting = true;
             canvas.sortingLayerName = "NameTag";
-            canvas.sortingOrder = 20;
         }
-
-        // Set Z position to avoid Z-culling
-        Vector3 currentPos = transform.localPosition;
-        transform.localPosition = new Vector3(currentPos.x, currentPos.y, -1f);
         
-        // Z축을 바꿨으니 originalPos도 업데이트
+        // Z축 살짝 당기기 (깜빡임 방지)
+        transform.localPosition = new Vector3(originalPos.x, originalPos.y, -0.01f);
         originalPos = transform.localPosition;
     }
 
     void LateUpdate()
     {
-        // 부모가 어떻게 뒤집히든, 나는 항상 원래 크기(양수) 방향을 유지한다.
-        // 부모의 localScale.x가 음수면, 나의 localScale.x를 음수로 해서 상쇄시킴
-        // (음수 * 음수 = 양수)
-        
-        if (parentTransform.localScale.x < 0)
+        if (parentTransform == null) return;
+
+        // --- A. 좌우 반전 고정 ---
+        if (parentTransform.lossyScale.x < 0)
         {
-            // 부모가 뒤집혔으면 나도 로컬에서 뒤집어서 -> 월드에서 정방향으로 만듦
             transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
-            
-            // 부모가 뒤집혔으니, 내 로컬 위치 X도 반대로 뒤집어야 월드에서 제자리를 유지함
             transform.localPosition = new Vector3(-originalPos.x, originalPos.y, originalPos.z);
         }
         else
         {
             transform.localScale = originalScale;
             transform.localPosition = originalPos;
+        }
+
+        // --- B. Y축 정렬 (여기가 핵심!) ---
+        
+        // 🚨 중요: "Y가 높은 게 앞"이라고 하셨으므로 (+)를 씁니다.
+        // 만약 반대로 작동하면 이 더하기(+)를 빼기(-)로 바꾸세요!
+        // 예: BASE - (int)(transform.position.y * 100);
+        int finalOrder = BASE_SORTING_ORDER - (int)(transform.position.y * 100);
+
+        // 1. 캔버스(텍스트) 순서 적용
+        if (canvas != null)
+        {
+            canvas.sortingOrder = finalOrder;
+        }
+
+        // 2. 자식 스프라이트(아이콘) 순서 적용
+        if (childRenderers != null)
+        {
+            foreach (var sr in childRenderers)
+            {
+                // 얘네도 똑같이 NameTag 레이어로 맞춤
+                sr.sortingLayerName = "NameTag";
+                
+                // 텍스트랑 겹치면 아이콘이 뒤로 가도록 -1 해줌 (취향껏 +1 해도 됨)
+                sr.sortingOrder = finalOrder - 1; 
+            }
         }
     }
 }
