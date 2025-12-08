@@ -6,17 +6,17 @@ using System.Collections;
 public class EndingUIController : MonoBehaviour
 {
     [Header("UI 참조")]
-    public Image endingImage;             // 슬라이드 이미지
-    public TMP_Text narrationText;        // 하단 나레이션 텍스트
-    public TMP_Text centerEndingTitle;    // 마지막에 한가운데 크게 띄울 엔딩 이름
+    public Image endingImage;             
+    public TMP_Text narrationText;        
+    public TMP_Text centerEndingTitle;    
 
     [Header("점수 기준")]
     public int goodEndingScoreThreshold = 200;
     public int normalEndingScoreThreshold = 100;
 
     [Header("슬라이드 자동 진행 설정")]
-    public float slideDuration = 5f;          // 각 슬라이드 유지 시간
-    public float endingTitleDuration = 3f;    // 마지막 엔딩 타이틀 유지 시간
+    public float slideDuration = 5f;          
+    public float endingTitleDuration = 3f;    
 
     [Header("엔딩별 슬라이드 데이터")]
     public Sprite[] badEndingImages;
@@ -28,7 +28,7 @@ public class EndingUIController : MonoBehaviour
     public Sprite[] goodEndingImages;
     [TextArea(2, 4)] public string[] goodEndingLines;
 
-    public Sprite[] hiddenEndingImages;       // 혁명 엔딩
+    public Sprite[] hiddenEndingImages;       
     [TextArea(2, 4)] public string[] hiddenEndingLines;
 
     [Header("엔딩별 BGM")]
@@ -36,7 +36,12 @@ public class EndingUIController : MonoBehaviour
     public AudioClip badBgm;
     public AudioClip normalBgm;
     public AudioClip goodBgm;
-    public AudioClip hiddenBgm;
+    public AudioClip hiddenBgm; // <- 히든은 안 쓸 거지만 데이터는 유지해도 됨
+
+    [Header("타이핑 SFX (히든 엔딩 전용)")]
+    public AudioSource typingSource;   // 타이핑 소리 전용 AudioSource
+    public AudioClip typingClip;       // 타이핑 소리 클립
+    [Range(0f, 1f)] public float typingVolume = 0.8f;
 
     private Sprite[] currentImages;
     private string[] currentLines;
@@ -49,28 +54,24 @@ public class EndingUIController : MonoBehaviour
     private Coroutine sequenceRoutine;
 
     [Header("타이핑 설정")]
-    public float charInterval = 0.03f;   // 글자 하나 찍히는 간격 (초)
+    public float charInterval = 0.03f;   
 
     private bool isTyping = false;
     private Coroutine typingRoutine;
 
     void Start()
     {
-        // 중앙 엔딩 타이틀은 처음에는 숨김
         if (centerEndingTitle != null)
         {
             centerEndingTitle.gameObject.SetActive(false);
         }
 
-        SetupEnding();      // 점수 기반으로 어떤 엔딩인지 결정 + BGM 설정
-        ShowSlide(0);       // 첫 나레이션 슬라이드 표시
+        SetupEnding();      
+        ShowSlide(0);       
 
         sequenceRoutine = StartCoroutine(PlayEndingSequence());
     }
 
-    /// <summary>
-    /// GameFlowManager에서 점수/특수 자원 정보를 가져와 엔딩 종류를 결정
-    /// </summary>
     void SetupEnding()
     {
         int baseScore = 0;
@@ -82,10 +83,8 @@ public class EndingUIController : MonoBehaviour
             totalSpecial = GameFlowManager.Instance.TotalSpecialLeft;
         }
 
-        // 최종 점수 = 기본 자원 점수 + (남은 특수 자원 수 * 100)
         int finalScore = baseScore + totalSpecial * 100;
 
-        // 히든(혁명) 엔딩 조건
         bool isHidden = (totalSpecial >= 9) && (finalScore >= normalEndingScoreThreshold);
 
         if (isHidden)
@@ -94,7 +93,13 @@ public class EndingUIController : MonoBehaviour
             currentEndingTitleText = "혁명";
             currentImages = hiddenEndingImages;
             currentLines  = hiddenEndingLines;
-            PlayBgm(hiddenBgm);
+
+            // ✅ 히든 엔딩은 BGM을 사용하지 않음
+            if (bgmSource != null && bgmSource.isPlaying)
+            {
+                bgmSource.Stop();
+                bgmSource.clip = null;
+            }
         }
         else if (finalScore >= goodEndingScoreThreshold)
         {
@@ -152,6 +157,9 @@ public class EndingUIController : MonoBehaviour
 
     void StartTyping(string line)
     {
+        // ✅ 이전 타이핑 중이면 중지 + 타이핑 사운드도 정리
+        StopTypingSfx();
+
         if (typingRoutine != null)
         {
             StopCoroutine(typingRoutine);
@@ -165,20 +173,20 @@ public class EndingUIController : MonoBehaviour
     {
         isTyping = true;
 
+        // ✅ 히든 엔딩일 때만 타이핑 사운드 재생 시작
+        if (currentEnding == EndingType.Hidden)
+        {
+            PlayTypingSfx();
+        }
+
         if (narrationText != null)
         {
-            // 1) 완성본 텍스트를 한 번에 넣고
             narrationText.text = line;
-
-            // 2) 메쉬 업데이트(문자 개수 계산 위해)
             narrationText.ForceMeshUpdate();
 
             int totalChars = narrationText.textInfo.characterCount;
-
-            // 3) 처음에는 아무 글자도 안 보이게
             narrationText.maxVisibleCharacters = 0;
 
-            // 4) 한 글자씩 maxVisibleCharacters만 증가
             for (int i = 0; i < totalChars; i++)
             {
                 narrationText.maxVisibleCharacters = i + 1;
@@ -187,69 +195,72 @@ public class EndingUIController : MonoBehaviour
         }
 
         isTyping = false;
+
+        // ✅ 타이핑 종료 시 사운드도 종료
+        StopTypingSfx();
     }
 
+    void PlayTypingSfx()
+    {
+        if (typingSource == null || typingClip == null) return;
+
+        typingSource.clip = typingClip;
+        typingSource.volume = typingVolume;
+        typingSource.loop = true;
+
+        if (!typingSource.isPlaying)
+            typingSource.Play();
+    }
+
+    void StopTypingSfx()
+    {
+        if (typingSource == null) return;
+
+        if (typingSource.isPlaying)
+            typingSource.Stop();
+
+        typingSource.clip = null;
+    }
 
     IEnumerator PlayEndingSequence()
     {
-        // 1) 나레이션 + 이미지 슬라이드 자동 진행
         while (true)
         {
             int imgLen = currentImages != null ? currentImages.Length : 0;
             int txtLen = currentLines   != null ? currentLines.Length  : 0;
             int maxLen = Mathf.Max(imgLen, txtLen);
 
-            if (maxLen == 0)
-                break;
+            if (maxLen == 0) break;
+            if (currentSlideIndex >= maxLen - 1) break;
 
-            // 마지막 슬라이드까지 도달했으면 루프 탈출
-            if (currentSlideIndex >= maxLen - 1)
-                break;
-
-            // 🔹 먼저 타이핑이 끝날 때까지 기다렸다가
             while (isTyping)
-            {
                 yield return null;
-            }
 
-            // 🔹 그 다음에 슬라이드 유지 시간만큼 보여줌
             if (slideDuration > 0f)
-            {
                 yield return new WaitForSeconds(slideDuration);
-            }
 
-            // 다음 슬라이드로 이동
             ShowSlide(currentSlideIndex + 1);
         }
 
-        // 마지막 슬라이드도 타이핑 끝까지 기다린 뒤,
         while (isTyping)
-        {
             yield return null;
-        }
 
-        // 마지막 슬라이드를 추가로 조금 더 보여주고 싶으면
         if (slideDuration > 0f)
-        {
             yield return new WaitForSeconds(slideDuration);
-        }
 
-        // 2) 중앙에 엔딩 타이틀 크게 보여주기
         ShowCenterEndingTitle();
 
-        // 3) 엔딩 타이틀을 일정 시간 보여준 뒤 Result로 이동
         if (endingTitleDuration > 0f)
-        {
             yield return new WaitForSeconds(endingTitleDuration);
-        }
 
         GoToResult();
     }
 
-
     void ShowCenterEndingTitle()
     {
-        // 🔹 타이핑 중이면 정리
+        // ✅ 타이핑 중 정리 + 타이핑 SFX도 정리
+        StopTypingSfx();
+
         if (typingRoutine != null)
         {
             StopCoroutine(typingRoutine);
@@ -257,27 +268,22 @@ public class EndingUIController : MonoBehaviour
         }
         isTyping = false;
 
-        // 1) 이미지 숨기기
         if (endingImage != null)
         {
             endingImage.enabled = false;
         }
 
-        // 2) 나레이션 텍스트 비우기
         if (narrationText != null)
         {
             narrationText.text = string.Empty;
-            // narrationText.gameObject.SetActive(false); // 완전 숨기고 싶으면
         }
 
-        // 3) 중앙 엔딩 타이틀 표시
         if (centerEndingTitle != null)
         {
             centerEndingTitle.text = currentEndingTitleText;
             centerEndingTitle.gameObject.SetActive(true);
         }
     }
-
 
     void GoToResult()
     {
@@ -287,7 +293,6 @@ public class EndingUIController : MonoBehaviour
         }
     }
 
-    // 스킵 버튼을 둘 경우를 대비한 함수 (선택사항)
     public void OnClickSkip()
     {
         if (sequenceRoutine != null)
@@ -295,6 +300,10 @@ public class EndingUIController : MonoBehaviour
             StopCoroutine(sequenceRoutine);
             sequenceRoutine = null;
         }
+
+        // ✅ 스킵 시에도 타이핑 SFX 정리
+        StopTypingSfx();
+
         ShowCenterEndingTitle();
         GoToResult();
     }
