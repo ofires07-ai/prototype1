@@ -8,66 +8,65 @@ public class LoadingTipUI : MonoBehaviour
     [Header("UI 참조")]
     public TMP_Text loadingText;  // "Loading..." 텍스트
     public TMP_Text tipText;      // Tip 내용을 표시할 텍스트
-    public Button tipButton;      // Tip 영역(패널)에 붙일 버튼
+    public Button tipButton;      // Tip 패널 클릭용 버튼
 
-    private GameFlowManager gameFlow;    
+    private GameFlowManager gameFlow;
+    private Canvas canvas;        // ← 추가
 
     void Awake()
     {
         gameFlow = GameFlowManager.Instance;
-        gameObject.SetActive(false);
+        canvas  = GetComponent<Canvas>();   // ← 자기 Canvas 캐시
 
         if (tipButton != null)
-        {
             tipButton.onClick.AddListener(OnClickTip);
-        }
 
         if (loadingText != null)
-        {
             loadingText.text = "Loading...";
-        }
+
+        gameObject.SetActive(false);
     }
 
-    /// <summary>
-    /// GameFlowManager에서 넘어오는 다음 Tip을 UI에 세팅
-    /// </summary>
     void ShowNextTip()
     {
         if (gameFlow == null)
+            gameFlow = GameFlowManager.Instance;
+
+        if (gameFlow == null)
         {
-            tipText.text = "";
+            if (tipText != null) tipText.text = "";
             return;
         }
 
         string tip = gameFlow.GetNextTipMessage();
-        tipText.text = tip;
+        if (tipText != null)
+            tipText.text = tip;
     }
 
-    /// <summary>
-    /// 지정된 시간 동안 Tip UI를 보여주는 코루틴
-    /// </summary>
     public IEnumerator ShowForSeconds(float duration)
     {
-        // UI 켜기 + 첫 Tip 표시
+        // 🔝 항상 최상단으로 정렬
+        if (canvas != null)
+        {
+            canvas.overrideSorting = true;
+            canvas.sortingOrder   = 1000;   // 다른 캔버스보다 확실히 큰 값
+        }
+
         gameObject.SetActive(true);
         ShowNextTip();
 
         float t = 0f;
         while (t < duration)
         {
-            t += Time.unscaledDeltaTime;   // 타임스케일과 무관하게
+            t += Time.unscaledDeltaTime;
             yield return null;
         }
 
         gameObject.SetActive(false);
     }
 
-    /// <summary>
-    /// Tip 패널을 클릭했을 때 호출 (Inspector에서 Button OnClick으로 연결해도 됨)
-    /// </summary>
     public void OnClickTip()
     {
         ShowNextTip();
     }
 }
-
