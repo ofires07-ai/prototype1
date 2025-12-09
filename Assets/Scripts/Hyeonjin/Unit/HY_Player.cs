@@ -128,7 +128,11 @@ public class HY_Player : MonoBehaviour
                 aiPath.destination = destination.position;
             }
         }
-       
+       // 🔒 --- [안전 체크: Animator 또는 AnimatorController 없으면 전체 애니메이션 로직 스킵] ---
+        if (anim == null || anim.runtimeAnimatorController == null)
+        {
+            return; 
+        }
         
        // --- [ ✨ 1. 실제 속도/방향 계산 ] ---
         Vector2 currentVelocity = aiPath.velocity; 
