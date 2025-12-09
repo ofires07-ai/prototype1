@@ -17814,7 +17814,7 @@ MonoBehaviour:
   - {fileID: 1399785488}
   useProductionTowersAsSpawnPoints: 0
   takeoverProductionTowers: 0
-  hpIncreasePerWave: 30
+  hpIncreasePerWave: 20
   moveSpeedIncreasePerWave: 0.25
 --- !u!4 &1060494772
 Transform:
