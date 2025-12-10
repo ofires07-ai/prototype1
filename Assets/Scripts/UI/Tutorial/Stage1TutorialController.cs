@@ -138,7 +138,7 @@ public class Stage1TutorialController : MonoBehaviour
         
              // 2. 능력이 있고, 이름이 맞는지 확인
              return ability != null && 
-                    (ability.AbilityName == "DiscountDTower" || ability.AbilityName == "DiscountUTower");
+                    (ability.AbilityName == "수비타워 할인" || ability.AbilityName == "유닛타워 할인");
          });
          if (hasDiscountUnit)
          {
