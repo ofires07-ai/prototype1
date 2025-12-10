@@ -7,7 +7,7 @@ public class Ability_RandomMiner : CrimerAbility
 {
     public override string AbilityName 
     {
-        get { return "RandomMining"; } 
+        get { return "랜덤 채굴"; } 
     }
     [Header("가중치 랜덤 채굴 설정")]
     [Tooltip("Tier1, Tier2, Tier3, Tier4가 나올 상대적 확률 (Special은 제외)")]

@@ -6,7 +6,7 @@ public class RevealSpecialSourceAbility : CrimerAbility
 {
     public override string AbilityName 
     {
-        get { return "FindSS"; } 
+        get { return "특수자원 탐색"; } 
     }
     private bool hasActivated = false; // 이 어빌리티는 씬에서 '딱 한 번'만 실행되어야 함
 

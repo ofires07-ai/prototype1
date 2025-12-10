@@ -7,7 +7,7 @@ public class IncreaseBaseHPAbility : CrimerAbility
     [SerializeField] private int increaseAmount = 5;
     public override string AbilityName 
     {
-        get { return "IncBaseHP"; } 
+        get { return "HP 증가"; } 
     }
     public override void ApplyAbility()
     {

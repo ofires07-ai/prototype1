@@ -2233,22 +2233,26 @@ MonoBehaviour:
       \uC120\uD0DD\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \n10\uBA85\uC758 \uC8C4\uC218\uB294
       \uAC01\uAE30 \uB2E4\uB978 \uB2A5\uB825\uC744 \n\uBCF4\uC720\uD558\uACE0 \uC788\uC2B5\uB2C8\uB2E4.
       \n\uC8C4\uC218\uBCC4 \uB2A5\uB825\uC740 \uB2E4\uC74C\uACFC \uAC19\uC2B5\uB2C8\uB2E4.
-      \n1. MultiplySS: \uC790\uC2E0\uC774 \uCC44\uAD74\uD55C \uC790\uC6D0 \uC218\uB7C9\uC5D0
-      \n\uBCF4\uC720\uD55C \uD2B9\uC218\uC790\uC6D0 \uC218 + 1\uC744 \uACF1\uD569\uB2C8\uB2E4.
-      \n(\uD2B9\uC218\uC790\uC6D0\uC5D0\uB294 \uC801\uC6A9X)\n2. ExtendsPrep: \uCCAB\uC6E8\uC774\uBE0C
+      \n1. \uD2B9\uC218\uC790\uC6D0 \uD65C\uC6A9: \uC790\uC2E0\uC774 \uCC44\uAD74\uD55C
+      \uC790\uC6D0 \uC218\uB7C9\uC5D0 \n\uBCF4\uC720\uD55C \uD2B9\uC218\uC790\uC6D0
+      \uC218 + 1\uC744 \uACF1\uD569\uB2C8\uB2E4. \n(\uD2B9\uC218\uC790\uC6D0\uC5D0\uB294
+      \uC801\uC6A9X)\n2. \uC900\uBE44\uC2DC\uAC04 \uC99D\uAC00: \uCCAB\uC6E8\uC774\uBE0C
       \uC804 \uC900\uBE44\uC2DC\uAC04\uC744 \n\uB298\uB824\uC90D\uB2C8\uB2E4. \n3.
-      FasterMining: \uB2E4\uB978 \uC8C4\uC218\uBCF4\uB2E4 \uCC44\uAD74\uB7C9\uC774
+      \uBE60\uB978 \uCC44\uAD74: \uB2E4\uB978 \uC8C4\uC218\uBCF4\uB2E4 \uCC44\uAD74\uB7C9\uC774
       \n1.5\uBC30 \uB9CE\uC2B5\uB2C8\uB2E4. \n(\uD2B9\uC218\uC790\uC6D0\uC5D0\uB294
-      \uC801\uC6A9 X)\n4. FasterMovement: \uB2E4\uB978 \uC8C4\uC218\uBCF4\uB2E4 \uC774\uB3D9\uC18D\uB3C4\uAC00\n1.5\uBC30
-      \uBE60\uB985\uB2C8\uB2E4. \n5. IncBaseHP: \uC6B0\uC8FC\uC120 HP\uB97C 5 \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4.
-      \n6. IgnorePSource: \uC790\uC6D0 \uCC44\uAD74 \uC870\uAC74\uC744 \uBB34\uC2DC\uD569\uB2C8\uB2E4.
-      \n7. RandomMining: \uC9C0\uAE08 \uCC44\uAD74\uC911\uC778 \uC790\uC6D0\uACFC
-      \uBB34\uAD00\uD55C \n\uB79C\uB364\uD55C \uC790\uC6D0\uC744 \uCC44\uAD74\uD569\uB2C8\uB2E4.
-      \n(\uD2B9\uC218\uC790\uC6D0\uB3C4 \uC801\uC6A9\uB418\uB2C8 \uC8FC\uC758\uD558\uC138\uC694)\n8.
-      FindSS: \uD2B9\uC218\uC790\uC6D0\uC758 \uC704\uCE58\uB97C \uC989\uC2DC \uBC1D\uD600\uC90D\uB2C8\uB2E4.
-      \n9. DiscountUTower: \uC720\uB2DB\uC18C\uD658\uD0C0\uC6CC \uC124\uCE58\uBE44\uC6A9\uC744\n20%
-      \uD560\uC778\uD574\uC90D\uB2C8\uB2E4. \n10. DiscountDTower: \uBC29\uC5B4\uD0C0\uC6CC
-      \uC124\uCE58\uBE44\uC6A9\uC744 \n20% \uD560\uC778\uD574\uC90D\uB2C8\uB2E4. "
+      \uC801\uC6A9 X)\n4. \uBE60\uB978 \uC774\uB3D9: \uB2E4\uB978 \uC8C4\uC218\uBCF4\uB2E4
+      \uC774\uB3D9\uC18D\uB3C4\uAC00\n1.5\uBC30 \uBE60\uB985\uB2C8\uB2E4. \n5. HP
+      \uC99D\uAC00: \uC6B0\uC8FC\uC120 HP\uB97C 50 \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4.
+      \n6. \uC790\uC720 \uCC44\uAD74: \uC790\uC6D0 \uCC44\uAD74 \uC870\uAC74\uC744
+      \uBB34\uC2DC\uD569\uB2C8\uB2E4. \n7. \uB79C\uB364 \uCC44\uAD74: \uC9C0\uAE08
+      \uCC44\uAD74\uC911\uC778 \uC790\uC6D0\uACFC \uBB34\uAD00\uD55C \n\uB79C\uB364\uD55C
+      \uC790\uC6D0\uC744 \uCC44\uAD74\uD569\uB2C8\uB2E4. \n(\uD2B9\uC218\uC790\uC6D0\uB3C4
+      \uC801\uC6A9\uB418\uB2C8 \uC8FC\uC758\uD558\uC138\uC694)\n8. \uD2B9\uC218\uC790\uC6D0
+      \uD0D0\uC0C9: \uD2B9\uC218\uC790\uC6D0\uC758 \uC704\uCE58\uB97C \uC989\uC2DC
+      \uBC1D\uD600\uC90D\uB2C8\uB2E4. \n9. \uC720\uB2DB\uD0C0\uC6CC \uD560\uC778:
+      \uC720\uB2DB\uC18C\uD658\uD0C0\uC6CC \uC124\uCE58\uBE44\uC6A9\uC744\n20% \uD560\uC778\uD574\uC90D\uB2C8\uB2E4.
+      \n10. \uC218\uBE44\uD0C0\uC6CC \uD560\uC778: \uC218\uBE44\uD0C0\uC6CC \uC124\uCE58\uBE44\uC6A9\uC744
+      \n20% \uD560\uC778\uD574\uC90D\uB2C8\uB2E4. "
     targetUI: {fileID: 149611409}
     targetWorldObject: {fileID: 0}
     boxPosition: 4
@@ -2542,8 +2546,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Prisoner
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7dde3b02d02fc42b180ebc918161aa3f, type: 2}
+  m_sharedMaterial: {fileID: 3928345457613168474, guid: 7dde3b02d02fc42b180ebc918161aa3f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5212,8 +5216,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Prisoner
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7dde3b02d02fc42b180ebc918161aa3f, type: 2}
+  m_sharedMaterial: {fileID: 3928345457613168474, guid: 7dde3b02d02fc42b180ebc918161aa3f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6321,8 +6325,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Prisoner
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7dde3b02d02fc42b180ebc918161aa3f, type: 2}
+  m_sharedMaterial: {fileID: 3928345457613168474, guid: 7dde3b02d02fc42b180ebc918161aa3f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11355,8 +11359,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Prisoner
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7dde3b02d02fc42b180ebc918161aa3f, type: 2}
+  m_sharedMaterial: {fileID: 3928345457613168474, guid: 7dde3b02d02fc42b180ebc918161aa3f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14146,8 +14150,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Prisoner
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7dde3b02d02fc42b180ebc918161aa3f, type: 2}
+  m_sharedMaterial: {fileID: 3928345457613168474, guid: 7dde3b02d02fc42b180ebc918161aa3f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

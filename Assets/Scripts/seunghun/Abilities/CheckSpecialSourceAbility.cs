@@ -5,7 +5,7 @@ public class CheckSpecialSourceAbility : CrimerAbility
 {
     public override string AbilityName 
     {
-        get { return "MultiplySS"; } 
+        get { return "특수자원 활용"; } 
     }
     // [추가] 인벤토리 매니저의 참조를 저장할 변수
     private InventoryManager inventoryManager;

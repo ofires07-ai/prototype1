@@ -5,7 +5,7 @@ public class JustMiningAbility : CrimerAbility
 {
     public override string AbilityName 
     {
-        get { return "IgnorePSource"; } 
+        get { return "자유로운 채굴"; } 
     }
     public override void ApplyAbility()
     {

@@ -5,7 +5,7 @@ public class TowerDiscountAbility : CrimerAbility
 {
     public override string AbilityName 
     {
-        get { return "DiscountDTower"; } 
+        get { return "수비타워 할인"; } 
     }
     public float costMultiplier = 0.8f; // 20% 할인
 

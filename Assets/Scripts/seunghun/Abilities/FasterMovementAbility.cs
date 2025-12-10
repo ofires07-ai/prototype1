@@ -7,7 +7,7 @@ public class FasterMovementAbility : CrimerAbility
 {
     public override string AbilityName 
     {
-        get { return "FasterMovement"; } 
+        get { return "빠른 이동"; } 
     }
     public float speedMultiplier = 1.5f; // 50% 더 빠르게
     

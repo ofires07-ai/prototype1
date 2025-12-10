@@ -5,7 +5,7 @@ public class ExtendsPreparingTimeAbility : CrimerAbility
 {
     public override string AbilityName 
     {
-        get { return "ExtendsPrep"; } 
+        get { return "준비시간 증가"; } 
     }
     public override void ApplyAbility()
     {

@@ -5,7 +5,7 @@ public class FasterMiningAbility : CrimerAbility
 {
     public override string AbilityName 
     {
-        get { return "FasterMining"; } 
+        get { return "빠른 채굴"; } 
     }
     public override void ApplyAbility()
     {
