@@ -192,7 +192,7 @@ void Fire(Transform target)
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.AddForce(dir * 10f, ForceMode2D.Impulse);
+            rb.AddForce(dir * 100f, ForceMode2D.Impulse);
         }
         
         anim.SetTrigger("Attack");
