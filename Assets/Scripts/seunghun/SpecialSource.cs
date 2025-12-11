@@ -1,4 +1,3 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 // [수정] MonoBehaviour -> MineableResource 상속
